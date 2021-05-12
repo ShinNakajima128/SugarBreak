@@ -13,6 +13,7 @@ public class InputTest : MonoBehaviour
     PlayerInput m_playerInput;
     InputAction m_moveAction;
     InputAction m_jumpAction;
+    InputAction m_attackAction;
     Animator m_anim;
 
     bool isOperation = true;
@@ -28,7 +29,7 @@ public class InputTest : MonoBehaviour
 
     void Update()
     {
-        //if (!isOperation) return;
+        if (!isOperation) return;
 
         if (m_characterController.isGrounded)
         {
