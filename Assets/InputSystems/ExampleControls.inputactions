@@ -120,13 +120,35 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "",
+                    "id": "44c7b349-19ab-4cb7-9cb2-bad1cc440919",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "058200a6-9a8c-4c76-83d0-17067985b149",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "Cursor",
                     "id": "59ee0a5b-4dcb-45d9-9b47-103b55dcdecc",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Jump",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -137,7 +159,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -148,7 +170,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -159,7 +181,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -170,18 +192,45 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
+                }
+            ]
+        },
+        {
+            "name": "Camera",
+            "id": "e98fa3a8-f8d7-4f22-82b9-f78f5b0a0707",
+            "actions": [
+                {
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "8f95ed65-8a80-412e-873f-3d7ce9ab78c0",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
                 {
                     "name": "",
-                    "id": "44c7b349-19ab-4cb7-9cb2-bad1cc440919",
-                    "path": "<Keyboard>/space",
+                    "id": "c30f87f6-2356-42e5-99dd-fd41417a616f",
+                    "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "67df9f2a-7b6e-4662-80f8-f883e899e5af",
+                    "path": "<Pointer>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
