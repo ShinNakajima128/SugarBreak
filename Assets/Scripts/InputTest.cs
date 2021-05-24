@@ -24,7 +24,7 @@ public class InputTest : MonoBehaviour
         m_playerInput = GetComponent<PlayerInput>();
         m_moveAction = m_playerInput.currentActionMap.FindAction("Move");
         m_jumpAction = m_playerInput.currentActionMap.FindAction("Jump");
-        m_anim = GetComponent<Animator>();
+        //m_anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -41,21 +41,21 @@ public class InputTest : MonoBehaviour
             {
                 transform.LookAt(transform.position + input);
                 m_velocity = transform.forward * m_moveSpeed;
-                m_anim.SetFloat("Move", input.magnitude);
+                //m_anim.SetFloat("Move", input.magnitude);
             }
             else
             {
-                m_anim.SetFloat("Move", 0f);
+                //m_anim.SetFloat("Move", 0f);
             }
 
             if (m_jumpAction.triggered)
             {
                 m_velocity.y += m_jumpPower;
-                m_anim.SetBool("Jump", true);
+                //m_anim.SetBool("Jump", true);
             }
             else
             {
-                m_anim.SetBool("Jump", false);
+                //m_anim.SetBool("Jump", false);
             }
         }
         m_velocity.y += Physics.gravity.y * Time.deltaTime;
