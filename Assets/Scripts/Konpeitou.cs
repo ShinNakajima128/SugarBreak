@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Konpeitou : MonoBehaviour
 {
+    [SerializeField] LayerMask PlayerLayer;
+
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        Debug.Log(collision.gameObject.name);
+
+        if (collision.gameObject.layer == PlayerLayer)
         {
-            Debug.Log("Hit");
             Destroy(this.gameObject);
         }
     }

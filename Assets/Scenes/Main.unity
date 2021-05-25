@@ -462,7 +462,7 @@ GameObject:
   - component: {fileID: 293153494}
   - component: {fileID: 293153495}
   - component: {fileID: 293153493}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -622,7 +622,7 @@ GameObject:
   - component: {fileID: 307699588}
   - component: {fileID: 307699587}
   - component: {fileID: 307699586}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LeftArm
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1134,7 +1134,7 @@ GameObject:
   - component: {fileID: 750951910}
   - component: {fileID: 750951909}
   - component: {fileID: 750951908}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1394,7 +1394,7 @@ GameObject:
   - component: {fileID: 985066951}
   - component: {fileID: 985066950}
   - component: {fileID: 985066949}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RightArm
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1541,7 +1541,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1538865337}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RolipopCandy
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1576,7 +1576,7 @@ GameObject:
   - component: {fileID: 1545872784}
   - component: {fileID: 1545872783}
   - component: {fileID: 1545872782}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1763,7 +1763,7 @@ GameObject:
   - component: {fileID: 1934241608}
   - component: {fileID: 1934241607}
   - component: {fileID: 1934241606}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}

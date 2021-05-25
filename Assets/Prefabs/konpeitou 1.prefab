@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 8160895549666343619}
   m_Layer: 0
   m_Name: konpeitou 1
-  m_TagString: Untagged
+  m_TagString: Konpeitou
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,7 +137,7 @@ Transform:
   m_GameObject: {fileID: 8617418073291646148}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children:
   - {fileID: 4981889444419508821}
   - {fileID: 3012337315119263544}
@@ -185,3 +185,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afd2bfdf9e87ddf449a62cb6213d0869, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 256

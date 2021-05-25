@@ -71,7 +71,7 @@ public class CameraController : MonoBehaviour, ExampleControls.ICameraActions
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        Debug.Log("ButtonLeftStick");
+        //Debug.Log("ButtonLeftStick");
         //throw new System.NotImplementedException();
     }
 }
