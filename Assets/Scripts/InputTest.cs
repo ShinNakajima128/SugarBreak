@@ -61,14 +61,4 @@ public class InputTest : MonoBehaviour
         m_velocity.y += Physics.gravity.y * Time.deltaTime;
         m_characterController.Move(m_velocity * Time.deltaTime);
     }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log(collision.gameObject.name);
-
-        if (collision.gameObject.tag == "Konpeitou")
-        {
-            Destroy(collision.gameObject);
-        }
-    }
 }
