@@ -3,12 +3,17 @@ guid: 31b48ef615ba044408aba10a9c6d1ede
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: tex_ki
+    second: {fileID: 2800000, guid: 4a1ff9f9c1837e547baa49f543575b55, type: 3}
   materials:
     materialImportMode: 1
     materialName: 0
     materialSearch: 1
-    materialLocation: 0
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0

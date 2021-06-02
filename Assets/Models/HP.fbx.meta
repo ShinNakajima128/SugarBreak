@@ -14,6 +14,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: ki_final_mat_HP_soto
     second: {fileID: 2100000, guid: 4703350dd718f2645b3da199ae0b3665, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: tex_HP
+    second: {fileID: 2800000, guid: 970f95d80c4224b4d97b968147e13e06, type: 3}
   materials:
     materialImportMode: 1
     materialName: 0
