@@ -3,12 +3,7 @@ guid: 0407be40a9c296a4da1c86f09bca2d3a
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: tex_Biscuit_a
-    second: {fileID: 2800000, guid: 777eaabd48d20134c934ed7592437519, type: 3}
+  externalObjects: {}
   materials:
     materialImportMode: 1
     materialName: 0
