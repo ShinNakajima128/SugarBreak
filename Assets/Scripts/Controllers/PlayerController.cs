@@ -12,25 +12,54 @@ public class PlayerController : MonoBehaviour
     /// <summary>ジャンプ力</summary>
     [SerializeField] float m_jumpPower = 5f;
     /// <summary> プレイヤーが操作可能か否か </summary>
+    float m_isGroundedLength = 0.1f;
     public bool m_playerOperation = true;
     /// <summary> プレイヤーのRigidbody </summary>
     Rigidbody m_rb;
+    Animator m_anim;
 
     void Start()
     {
         m_rb = GetComponent<Rigidbody>();
+        m_anim = GetComponent<Animator>();
     }
 
 
     void Update()
     {
         PlayerMove();
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (IsGrounded())
+            {
+                JumpMove();
+                m_anim.SetBool("Jump", true);
+            }
+            else
+            {
+                m_anim.SetBool("Jump", false);
+            }
+        }
+
+        if (m_anim)
+        {
+            if (IsGrounded())
+            {
+                Vector3 velo = m_rb.velocity;
+                velo.y = 0;
+                m_anim.SetFloat("Move", velo.magnitude);
+            }
+        }
     }
 
     bool IsGrounded()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, 1f);
-        bool isGrounded = hitColliders.Length > 0;
+        // Physics.Linecast() を使って足元から線を張り、そこに何かが衝突していたら true とする
+        Vector3 start = this.transform.position;   // start: オブジェクトの中心
+        Vector3 end = start + Vector3.down * m_isGroundedLength;  // end: start から真下の地点
+        Debug.DrawLine(start, end); // 動作確認用に Scene ウィンドウ上で線を表示する
+        bool isGrounded = Physics.Linecast(start, end); // 引いたラインに何かがぶつかっていたら true とする
         return isGrounded;
     }
 
@@ -62,5 +91,10 @@ public class PlayerController : MonoBehaviour
             velo.y = m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
             m_rb.velocity = velo;   // 計算した速度ベクトルをセットする
         }
+    }
+
+    void JumpMove()
+    {
+        m_rb.AddForce(Vector3.up * m_jumpPower, ForceMode.Impulse);
     }
 }

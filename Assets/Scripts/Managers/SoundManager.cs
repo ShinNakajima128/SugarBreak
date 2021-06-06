@@ -81,6 +81,7 @@ public class SoundManager : MonoBehaviour
                 break;
             case "Tutorial":
                 PlayBgm(gameBGM[0]);
+                Debug.Log("Tutorial再生");
                 break;
         }
     }
