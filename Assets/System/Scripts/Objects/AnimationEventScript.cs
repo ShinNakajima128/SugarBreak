@@ -19,7 +19,17 @@ public class AnimationEventScript : MonoBehaviour
         soundManager.PlaySE(m_weaponSfxs[0]);
     }
 
-     public void FinishCandyAttack()
+    public void FinishCandyAttack()
+    {
+        m_candyBeat.GetComponent<BoxCollider>().enabled = false;
+    }
+
+    public void LightCandyAttack()
+    {
+        m_candyBeat.GetComponent<BoxCollider>().enabled = true;
+        soundManager.PlaySE(m_weaponSfxs[1]);
+    }
+    public void FinishLightCandyAttack()
     {
         m_candyBeat.GetComponent<BoxCollider>().enabled = false;
     }

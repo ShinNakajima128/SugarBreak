@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float m_turnSpeed = 3f;
     /// <summary>ジャンプ力</summary>
     [SerializeField] float m_jumpPower = 5f;
+    [SerializeField] float m_waitTime = 1.0f;
     /// <summary> プレイヤーが操作可能か否か </summary>
     float m_isGroundedLength = 0.1f;
     public bool m_playerOperation = true;
@@ -27,30 +28,22 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        PlayerMove();
-
-        if (Input.GetButtonDown("Jump"))
+        if (m_playerOperation)
         {
-            if (IsGrounded())
-            {
-                JumpMove();
-                m_anim.SetBool("Jump", true);
-            }
-            else
-            {
-                m_anim.SetBool("Jump", false);
-            }
-        }
+            PlayerMove();
 
-        if (m_anim)
-        {
-            if (IsGrounded())
+            AttackMove();
+
+            if (m_anim)
             {
-                Vector3 velo = m_rb.velocity;
-                velo.y = 0;
-                m_anim.SetFloat("Move", velo.magnitude);
+                if (IsGrounded())
+                {
+                    Vector3 velo = m_rb.velocity;
+                    velo.y = 0;
+                    m_anim.SetFloat("Move", velo.magnitude);
+                }
             }
-        }
+        }  
     }
 
     bool IsGrounded()
@@ -96,5 +89,35 @@ public class PlayerController : MonoBehaviour
     void JumpMove()
     {
         m_rb.AddForce(Vector3.up * m_jumpPower, ForceMode.Impulse);
+    }
+
+    void AttackMove()
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (IsGrounded())
+            {
+                //m_rb.velocity = new Vector3(0f, m_rb.velocity.y, 0f);
+                m_playerOperation = false;
+                JumpMove();
+                m_anim.SetBool("Jump", true);
+                StartCoroutine(AttackMotionTimer());
+            }
+        }
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            m_playerOperation = false;
+            m_anim.SetBool("Light", true);
+            StartCoroutine(AttackMotionTimer());
+        }
+    }
+
+    IEnumerator AttackMotionTimer()
+    {
+        m_anim.SetFloat("Move", 0);
+        yield return new WaitForSeconds(m_waitTime);
+
+        m_playerOperation = true;
     }
 }
