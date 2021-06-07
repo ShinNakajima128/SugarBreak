@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponBase : MonoBehaviour
+public class Decolly : EnemyBase
 {
-    [SerializeField] int AttackDamage = 5;
 }

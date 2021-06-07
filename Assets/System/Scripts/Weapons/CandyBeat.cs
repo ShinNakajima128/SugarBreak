@@ -8,7 +8,7 @@ public class CandyBeat : WeaponBase
     {
         if (other.gameObject.tag == "Enemy")
         {
-            Destroy(other.gameObject);
+            other.gameObject.GetComponent<Decolly>().Damage(attackDamage);
         }
     }
 }

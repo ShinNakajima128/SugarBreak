@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Konpeitou
+  - Enemy
   layers:
   - Default
   - TransparentFX
