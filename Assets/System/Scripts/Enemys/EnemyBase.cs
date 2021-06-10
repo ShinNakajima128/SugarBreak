@@ -7,8 +7,8 @@ using DG.Tweening;
 public class EnemyBase : MonoBehaviour
 {
     [SerializeField] int m_maxHp = 10;
-    [SerializeField] Slider m_HpSlider = null;
-    int currentHp;
+    [SerializeField]protected Slider m_HpSlider = null;
+    protected int currentHp;
 
     void Start()
     {
@@ -17,14 +17,9 @@ public class EnemyBase : MonoBehaviour
         m_HpSlider.value = currentHp;
     }
 
-    public void Damage(int attackPower)
+    public virtual void Damage(int attackPower)
     {
         currentHp -= attackPower;
         m_HpSlider.value = currentHp;
-
-        if (currentHp <= 0)
-        {
-            Destroy(this.gameObject);
-        }
     }
 }
