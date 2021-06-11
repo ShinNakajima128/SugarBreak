@@ -1,24 +1,9 @@
 fileFormatVersion: 2
-guid: dc40176cf8d29c44ab525681ee3cd27e
+guid: 107d4da78c11d734aac7dd874ab17099
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Strawberry_Height
-    second: {fileID: 2800000, guid: 8808442794c7923499c3524aef92e2ef, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Strawberry_specular
-    second: {fileID: 2800000, guid: f1c4d608307d89f4d884c1e8baa447d5, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Strawberry_tex_02_01
-    second: {fileID: 2800000, guid: 30f10d97eb7c4034b83f8fa32adfc107, type: 3}
+  externalObjects: {}
   materials:
     materialImportMode: 1
     materialName: 0

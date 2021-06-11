@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 0f7f787d5b953d940a95513d0632011a
+guid: 68043cbe9191a864fbcf0cf07b8c7480
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Strawberry_tex_02_01
-    second: {fileID: 2800000, guid: e7ee3e82dc11bd1448302a448ae273ea, type: 3}
+  externalObjects: {}
   materials:
     materialImportMode: 1
     materialName: 0

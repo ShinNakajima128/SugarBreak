@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class WeaponBase : MonoBehaviour
 {
-    protected int attackDamage = 5;
+    [SerializeField]protected int attackDamage = 5;
 }
