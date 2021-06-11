@@ -122,13 +122,13 @@ Material:
     m_Floats:
     - _1st2nd_Shades_Feather: 0.0001
     - _1st_ShadeColor_Feather: 0.249
-    - _1st_ShadeColor_Step: 0.245
+    - _1st_ShadeColor_Step: 0.265
     - _2nd_ShadeColor_Feather: 0.0001
     - _2nd_ShadeColor_Step: 0
     - _Add_Antipodean_RimLight: 0
     - _Ap_RimLight_FeatherOff: 0
     - _Ap_RimLight_Power: 0.1
-    - _BaseColor_Step: 0.245
+    - _BaseColor_Step: 0.265
     - _BaseShade_Feather: 0.249
     - _Base_Speed: 0
     - _BlurLevelMatcap: 0

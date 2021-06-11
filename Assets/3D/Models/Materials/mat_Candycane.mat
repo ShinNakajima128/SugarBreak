@@ -121,15 +121,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _1st2nd_Shades_Feather: 0.0001
-    - _1st_ShadeColor_Feather: 0.517
-    - _1st_ShadeColor_Step: 0.553
+    - _1st_ShadeColor_Feather: 0.419
+    - _1st_ShadeColor_Step: 0.666
     - _2nd_ShadeColor_Feather: 0.0001
     - _2nd_ShadeColor_Step: 0
     - _Add_Antipodean_RimLight: 0
     - _Ap_RimLight_FeatherOff: 0
     - _Ap_RimLight_Power: 0.1
-    - _BaseColor_Step: 0.553
-    - _BaseShade_Feather: 0.517
+    - _BaseColor_Step: 0.666
+    - _BaseShade_Feather: 0.419
     - _Base_Speed: 0
     - _BlurLevelMatcap: 0
     - _BumpScale: 1
@@ -221,11 +221,11 @@ Material:
     - _utsTechnique: 0
     - _utsVersion: 2.075
     m_Colors:
-    - _1st_ShadeColor: {r: 0.7924528, g: 0.42986828, b: 0.54919994, a: 1}
+    - _1st_ShadeColor: {r: 0.7921569, g: 0.43137255, b: 0.47703966, a: 1}
     - _2nd_ShadeColor: {r: 1, g: 1, b: 1, a: 1}
     - _Ap_RimLightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 1, g: 0.9350579, b: 0.9009434, a: 1}
+    - _Color: {r: 1, g: 0.9350579, b: 0.9009434, a: 1}
     - _ColorShift: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Emissive_Color: {r: 0, g: 0, b: 0, a: 1}
