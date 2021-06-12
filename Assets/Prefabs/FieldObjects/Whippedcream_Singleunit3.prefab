@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8024441319109622266}
   - component: {fileID: 6409556064566638175}
   - component: {fileID: 9157970894371488405}
+  - component: {fileID: -6644107399721480721}
   m_Layer: 0
   m_Name: Whippedcream_Singleunit3
   m_TagString: Untagged
@@ -79,3 +80,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &-6644107399721480721
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7212332773138146112}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.2732699, y: 1.015739, z: 1.2519426}
+  m_Center: {x: 0.0006964803, y: 0.44769922, z: -0.00058817863}
