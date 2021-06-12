@@ -56,6 +56,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 167d0e7bec8f08445a34f87f8c46be82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackDamage: 8
 --- !u!1 &6113862057215563816
 GameObject:
   m_ObjectHideFlags: 0
@@ -5218,6 +5219,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RolipopCandy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338573273174881249, guid: f31eea384ffe477429f78e836b7cf62c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8338573273588868127, guid: f31eea384ffe477429f78e836b7cf62c,
         type: 3}

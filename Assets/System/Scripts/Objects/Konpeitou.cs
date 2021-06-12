@@ -4,41 +4,40 @@ using UnityEngine;
 
 public class Konpeitou : MonoBehaviour
 {
-    [SerializeField] LayerMask PlayerLayer;
-    [SerializeField] float m_moveSpeed = 0.5f;
-    Vector3 m_playerPosition;
-    bool isTriggered = false;
+    [SerializeField] float m_arrivalTime = 2.0f;
+    public static int totalKonpeitou = 0;
+    public Transform m_target;
+    public Vector3 m_position;
+    Rigidbody m_rb;
+    float period;
+    Vector3 velocity;
 
+    private void Start()
+    {
+        m_rb = GetComponent<Rigidbody>();
+        period = m_arrivalTime;
+    }
     private void Update()
     {
-        if (isTriggered)
+        var acceleration = m_rb.velocity;
+        var diff = m_target.position - m_position;
+        acceleration += (diff - velocity * period) * 2.0f / (period * period);
+        period -= Time.deltaTime;
+        if (period <= 0f)
         {
-            this.transform.position = Vector3.MoveTowards(transform.position, m_playerPosition, m_moveSpeed);
-
-            if (transform.position == m_playerPosition)
-            {
-                GameManager.totalKonpeitou++;
-                Destroy(this.gameObject);
-            }
+            return;
         }
-        
+        velocity += acceleration * Time.deltaTime;
+        m_position += velocity * Time.deltaTime;
+        transform.position = m_position;
     }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            m_playerPosition = other.transform.position;
-            isTriggered = true;
+            totalKonpeitou++;
+            Destroy(this.gameObject);
         }
     }
-
-    //void OnCollisionEnter(Collision collision)
-    //{
-    //    //Debug.Log(collision.gameObject.name);
-
-    //    if (collision.gameObject.tag == "Player")
-    //    {
-    //        Destroy(this.gameObject);
-    //    }
-    //}
 }

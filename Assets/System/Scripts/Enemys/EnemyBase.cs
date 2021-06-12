@@ -7,7 +7,9 @@ using DG.Tweening;
 public class EnemyBase : MonoBehaviour
 {
     [SerializeField] int m_maxHp = 10;
-    [SerializeField]protected Slider m_HpSlider = null;
+    [SerializeField] protected Slider m_HpSlider = null;
+    [SerializeField] KonpeitouGenerator generator = null;
+    [SerializeField] int m_dropNum = 10;
     Animator m_anim;
     protected int currentHp;
 
@@ -27,6 +29,7 @@ public class EnemyBase : MonoBehaviour
         if (currentHp <= 0)
         {
             m_anim.Play("Die");
+            generator.GenerateKonpeitou(this.transform, m_dropNum);
             Destroy(this.gameObject, 2.0f);
         }
     }
