@@ -1,118 +1,186 @@
-﻿using System.Collections;
+﻿using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-public class SoundManager : MonoBehaviour
+
+public class SoundManager : SingletonMonoBehaviour<SoundManager>
 {
-    /// <summary>タイトル画面のBGM</summary>
-    [SerializeField] AudioClip titleBGM;
-    /// <summary>決定ボタンのSE</summary>
-    [SerializeField] AudioClip enterSE;
-    /// <summary>戻るボタンのSE</summary>
-    [SerializeField] AudioClip returnSE;
-    /// <summary>各ステージのBGM</summary>
-    [SerializeField] AudioClip[] gameBGM;
-    /// <summary>足音のSE</summary>
-    [SerializeField] AudioClip footSE;
-    /// <summary>ダメージのSE
-    [SerializeField] AudioClip damageSE;
-    /// <summary>ゲームオーバーのSE</summary>
-    [SerializeField] AudioClip gameOver;
-    /// <summary>trueでmute</summary>
-    public bool m_mute = false;
-    /// <summary>BGMのフェードアウトスピード</summary>
-    [SerializeField] float fadeSpeed;
-    [SerializeField] AudioSource audioSourceBGM;
-    [SerializeField] AudioSource audioSourceSE;
+    public static float m_masterVolume = 1.0f;
+    public static float m_bgmVolume = 1.0f;
+    public static float m_seVolume = 1.0f;
+    [SerializeField] AudioClip[] m_bgms = null;
+    [SerializeField] AudioClip[] m_ses = null;
+    [SerializeField] AudioSource m_bgmAudioSource = null;
+    [SerializeField] AudioSource m_seAudioSource = null;
+    Dictionary<string, int> bgmIndex = new Dictionary<string, int>();
+    Dictionary<string, int> seIndex = new Dictionary<string, int>();
+    public static bool isLosted = false;
 
-    static SoundManager instance;
-
-    public static SoundManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = (SoundManager)FindObjectOfType(typeof(SoundManager));
-
-                if (instance == null)
-                {
-                    Debug.LogError(typeof(SoundManager) + "Object noy faund");
-                }
-            }
-            return instance;
-        }
-    }
 
     void Awake()
     {
         if (this != Instance)
         {
-            Destroy(this);
+            Destroy(gameObject);
             return;
         }
-        DontDestroyOnLoad(this.gameObject);
+
+        DontDestroyOnLoad(gameObject);
+
+        for (int i = 0; i < m_bgms.Length; i++)
+        {
+            bgmIndex.Add(m_bgms[i].name, i);
+        }
+
+        for (int i = 0; i < m_ses.Length; i++)
+        {
+            seIndex.Add(m_ses[i].name, i);
+        }
     }
 
-    void Start()
+    private void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         if (SceneManager.GetActiveScene().name == "Title")
         {
-            PlayBgm(titleBGM);
+            PlayBgmByName("Title");
+        }
+        else if (SceneManager.GetActiveScene().name == "BakedPlain")
+        {
+            PlayBgmByName("BakedPlain");
+        }
+        else if (SceneManager.GetActiveScene().name == "LifeGame")
+        {
+            PlayBgmByName("LifeGame");
+        }
+        else if (SceneManager.GetActiveScene().name == "Bingo")
+        {
+            PlayBgmByName("Bingo");
+        }
+        else if (SceneManager.GetActiveScene().name == "Reversi")
+        {
+            PlayBgmByName("Reversi");
         }
     }
-    // シーンが切り替わったときにシーン名ごとにBGMを切り替える
+
+    /// <summary>
+    /// Sceneが遷移した時にBGMを変更する
+    /// </summary>
+    /// <param name="nextScene">遷移後のScene</param>
+    /// <param name="mode"></param>
     void OnSceneLoaded(Scene nextScene, LoadSceneMode mode)
     {
         switch (SceneManager.GetActiveScene().name)
         {
             case "Title":
-                PlayBgm(titleBGM);
+                PlayBgmByName("Title");
                 break;
-            case "Stage1":
-                PlayBgm(gameBGM[0]);
+            case "BakedPlain":
+                PlayBgmByName("BakedPlain");
                 break;
-            case "Stage2":
-                PlayBgm(gameBGM[1]);
+            case "LifeGame":
+                PlayBgmByName("LifeGame");
                 break;
-            case "Stage3":
-                PlayBgm(gameBGM[2]);
+            case "Bingo":
+                PlayBgmByName("Bingo");
                 break;
-            case "Tutorial":
-                PlayBgm(gameBGM[0]);
-                Debug.Log("Tutorial再生");
+            case "Reversi":
+                PlayBgmByName("Reversi");
                 break;
         }
     }
 
-    void PlayBgm(AudioClip bgm)
+    void Update()
     {
-        audioSourceBGM.clip = bgm;
-        audioSourceBGM.loop = true;
-        audioSourceBGM.Play();
-    }
+        m_bgmAudioSource.volume = m_bgmVolume * m_masterVolume;
+        m_seAudioSource.volume = m_seVolume * m_masterVolume;
 
-    //ミュートを切り替える
-    public void Mute()
-    {
-        audioSourceSE.mute = m_mute;
-        audioSourceBGM.mute = m_mute;
-    }
 
-    //現在再生中のBGMをフェードアウト
-    public IEnumerator FadeOutBGM()
-    {
-        while (audioSourceBGM.volume > 0)
+        if (Input.GetKeyDown(KeyCode.P))
         {
-            audioSourceBGM.volume -= fadeSpeed;
-            yield return new WaitForSeconds(0.017f);
+            PlayBgmByName("TestBGM");
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            StopBgm();
         }
     }
-    //SEを再生
-    public void PlaySE(AudioClip SE)
+
+    public int GetBgmIndex(string name)
     {
-        audioSourceSE.pitch = 1;
-        audioSourceSE.PlayOneShot(SE);
+        if (bgmIndex.ContainsKey(name))
+        {
+            return bgmIndex[name];
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    public int GetSeIndex(string name)
+    {
+        if (seIndex.ContainsKey(name))
+        {
+            return seIndex[name];
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    public void PlayBgm(int index)
+    {
+        index = Mathf.Clamp(index, 0, m_bgms.Length);
+
+        m_bgmAudioSource.clip = m_bgms[index];
+        m_bgmAudioSource.loop = true;
+        m_bgmAudioSource.volume = m_bgmVolume * m_masterVolume;
+        m_bgmAudioSource.Play();
+    }
+
+    public void PlayBgmByName(string name)
+    {
+        PlayBgm(GetBgmIndex(name));
+    }
+
+    public void StopBgm()
+    {
+        m_bgmAudioSource.Stop();
+        m_bgmAudioSource.clip = null;
+    }
+
+    public void PlaySe(int index)
+    {
+        index = Mathf.Clamp(index, 0, m_ses.Length);
+
+        m_seAudioSource.PlayOneShot(m_ses[index], m_seVolume * m_masterVolume);
+    }
+
+    public void PlaySeByName(string name)
+    {
+        PlaySe(GetSeIndex(name));
+    }
+
+    public void StopSe()
+    {
+        m_seAudioSource.Stop();
+        m_seAudioSource.clip = null;
+    }
+
+    public void MasterVolChange()
+    {
+        m_masterVolume = GameObject.Find("MasterSlider").GetComponent<Slider>().value;
+        Debug.Log(m_masterVolume);
+    }
+    public void BGMVolChange()
+    {
+        m_bgmVolume = GameObject.Find("BGMSlider").GetComponent<Slider>().value;
+        Debug.Log(m_bgmVolume);
+    }
+    public void SEVolChange()
+    {
+        m_seVolume = GameObject.Find("SESlider").GetComponent<Slider>().value;
+        Debug.Log(m_seVolume);
     }
 }

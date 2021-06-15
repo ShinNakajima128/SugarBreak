@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Konpeitou
   - Enemy
+  - SoundManager
   layers:
   - Default
   - TransparentFX

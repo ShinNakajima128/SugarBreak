@@ -10,13 +10,13 @@ public class AnimationEventScript : MonoBehaviour
 
     void Start()
     {
-        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
     }
 
     public void CandyAttack()
     {
         m_candyBeat.GetComponent<BoxCollider>().enabled = true;
-        soundManager.PlaySE(m_weaponSfxs[0]);
+        soundManager.PlaySeByName("JumpAttack");
     }
 
     public void FinishCandyAttack()
@@ -27,7 +27,7 @@ public class AnimationEventScript : MonoBehaviour
     public void LightCandyAttack()
     {
         m_candyBeat.GetComponent<BoxCollider>().enabled = true;
-        soundManager.PlaySE(m_weaponSfxs[1]);
+        soundManager.PlaySeByName("LightAttack");
     }
     public void FinishLightCandyAttack()
     {
