@@ -8,20 +8,21 @@ public class EnemyBase : MonoBehaviour
 {
     [SerializeField] int m_maxHp = 10;
     [SerializeField] protected Slider m_HpSlider = null;
-    [SerializeField] KonpeitouGenerator generator = null;
-    [SerializeField] int m_dropNum = 10;
-    Animator m_anim;
+    [SerializeField]protected KonpeitouGenerator generator = null;
+    protected int m_dropNum = 10;
+    protected Animator m_anim;
     protected int currentHp;
 
-    void Start()
+    void Awake()
     {
+        generator = GameObject.FindGameObjectWithTag("KonpeitoGenerator").GetComponent<KonpeitouGenerator>();
         m_HpSlider.maxValue = m_maxHp;
         currentHp = m_maxHp;
         m_HpSlider.value = currentHp;
         m_anim = GetComponent<Animator>();
     }
 
-    public void Damage(int attackPower)
+    public virtual void Damage(int attackPower)
     {
         currentHp -= attackPower;
         m_HpSlider.value = currentHp;

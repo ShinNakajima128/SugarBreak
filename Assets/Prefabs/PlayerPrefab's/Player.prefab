@@ -28,6 +28,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2839321049097089284}
+  - {fileID: 5297733754556784458}
   m_Father: {fileID: 6111703949623297240}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -320,7 +321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db5177a850fa70b4cae0f785fbc8f05c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_movingSpeed: 5
+  m_movingSpeed: 15
   m_turnSpeed: 15
   m_jumpPower: 5
   m_waitTime: 1
@@ -337,10 +338,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 169e37c77c06c2a4995185fde12df681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_candyBeat: {fileID: 2839321049097089285}
-  m_weaponSfxs:
-  - {fileID: 8300000, guid: 935f871baaa0b6645992218b6084c796, type: 3}
-  - {fileID: 8300000, guid: 0f365514565681c4795c92217f0764c3, type: 3}
+  m_weaponList:
+  - {fileID: 2839321049097089285}
 --- !u!1 &6113929493320336198
 GameObject:
   m_ObjectHideFlags: 0
@@ -5133,6 +5132,81 @@ Transform:
   m_Father: {fileID: 6111506268427613010}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1272841792138504652
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2004477306}
+    m_Modifications:
+    - target: {fileID: 6354401066101765766, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354401066101765766, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354401066101765766, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354401066101765766, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354401066101765766, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354401066101765766, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354401066101765766, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354401066101765766, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354401066101765766, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354401066101765766, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354401066101765766, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354401066101765767, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
+        type: 3}
+      propertyPath: m_Name
+      value: PopLauncher
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b9462a12cd0dc5546a8788ff41fa9bb5, type: 3}
+--- !u!4 &5297733754556784458 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6354401066101765766, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1272841792138504652}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6115847909459034852
 PrefabInstance:
   m_ObjectHideFlags: 0

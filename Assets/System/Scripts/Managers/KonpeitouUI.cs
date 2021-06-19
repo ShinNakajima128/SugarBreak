@@ -9,6 +9,6 @@ public class KonpeitouUI : MonoBehaviour
 
     void Update()
     {
-        m_totalKonpeitou.text = "×" + Konpeitou.totalKonpeitou.ToString();
+        m_totalKonpeitou.text = "× " + Konpeitou.totalKonpeitou.ToString();
     }
 }
