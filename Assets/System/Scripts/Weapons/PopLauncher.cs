@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class PopLauncher : WeaponBase
 {
-    // Start is called before the first frame update
+    [SerializeField] GameObject m_muzzle = null;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         
