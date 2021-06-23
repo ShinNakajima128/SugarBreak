@@ -5,6 +5,7 @@ using UnityEngine;
 public class PopLauncher : WeaponBase
 {
     [SerializeField] GameObject m_muzzle = null;
+    [SerializeField] GameObject m_bullet = null;
 
     void Start()
     {
@@ -14,6 +15,10 @@ public class PopLauncher : WeaponBase
 
     void Update()
     {
-        
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Instantiate(m_bullet, m_muzzle.transform);
+            var bullet = 
+        }
     }
 }
