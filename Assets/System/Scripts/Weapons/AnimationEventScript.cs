@@ -7,8 +7,10 @@ public class AnimationEventScript : MonoBehaviour
     [SerializeField] GameObject[] m_weaponList = null;
     Dictionary<string, int> weaponIndex = new Dictionary<string, int>();
     SoundManager soundManager;
+    public WeaponState weaponStates = WeaponState.PopLauncher;
+    public bool isChanged = false;
 
-    enum WeaponState
+    public enum WeaponState
     {
         CandyBeat,
         PopLauncher
@@ -25,6 +27,33 @@ public class AnimationEventScript : MonoBehaviour
     void Start()
     {
         soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
+    }
+
+    void Update()
+    {
+        switch (weaponStates)
+        {
+            case WeaponState.CandyBeat:
+                //if (!isChanged)
+                //{
+                //    m_weaponList[GetWeaponIndex("RolipopCandy")].SetActive(true);
+                //    m_weaponList[GetWeaponIndex("PopLauncher")].SetActive(false);
+                //    isChanged = true;
+                //}
+                m_weaponList[GetWeaponIndex("RolipopCandy")].SetActive(true);
+                m_weaponList[GetWeaponIndex("PopLauncher")].SetActive(false);
+                break;
+            case WeaponState.PopLauncher:
+                //if (!isChanged)
+                //{
+                //    m_weaponList[GetWeaponIndex("RolipopCandy")].SetActive(false);
+                //    m_weaponList[GetWeaponIndex("PopLauncher")].SetActive(true);
+                //    isChanged = true;
+                //}
+                m_weaponList[GetWeaponIndex("RolipopCandy")].SetActive(false);
+                m_weaponList[GetWeaponIndex("PopLauncher")].SetActive(true);
+                break;
+        }
     }
 
     public int GetWeaponIndex(string name)

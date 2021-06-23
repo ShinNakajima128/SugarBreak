@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>ジャンプ力</summary>
     [SerializeField] float m_jumpPower = 5f;
     [SerializeField] float m_waitTime = 1.0f;
+    [SerializeField] AnimationEventScript animationEventScript = null; 
     /// <summary> プレイヤーが操作可能か否か </summary>
     float m_isGroundedLength = 0.1f;
     public bool m_playerOperation = true;
@@ -33,6 +34,8 @@ public class PlayerController : MonoBehaviour
             PlayerMove();
 
             AttackMove();
+
+            WeaponChange();
 
             if (m_anim)
             {
@@ -105,14 +108,34 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && animationEventScript.weaponStates == AnimationEventScript.WeaponState.CandyBeat)
         {
             m_playerOperation = false;
             m_anim.SetBool("Light", true);
             StartCoroutine(AttackMotionTimer());
         }
+
+        if (Input.GetButtonDown("Fire1") && animationEventScript.weaponStates == AnimationEventScript.WeaponState.PopLauncher)
+        {
+            m_playerOperation = false;
+            m_anim.SetBool("Shoot", true);
+            StartCoroutine(AttackMotionTimer());
+        }
     }
 
+    public void WeaponChange()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            animationEventScript.isChanged = false;
+            animationEventScript.weaponStates = AnimationEventScript.WeaponState.CandyBeat;
+        }
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            animationEventScript.isChanged = false;
+            animationEventScript.weaponStates = AnimationEventScript.WeaponState.PopLauncher;
+        }
+    }
     IEnumerator AttackMotionTimer()
     {
         m_anim.SetFloat("Move", 0);

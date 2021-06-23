@@ -1201,6 +1201,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 5
+  m_muzzle: {fileID: 2038900475797887323}
+  m_bullet: {fileID: 7156264143671369009, guid: 3d59d04ad3e1a3f46b03fcb25f94ff28,
+    type: 3}
 --- !u!1 &6354401066233700064
 GameObject:
   m_ObjectHideFlags: 0

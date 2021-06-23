@@ -17,8 +17,8 @@ public class PopLauncher : WeaponBase
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            Instantiate(m_bullet, m_muzzle.transform);
-            var bullet = 
+            var bullet = Instantiate(m_bullet, m_muzzle.transform);
+            var m_rb = bullet.GetComponent<Rigidbody>();
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SoundManager : SingletonMonoBehaviour<SoundManager>
 {
-    public static float m_masterVolume = 1.0f;
+    public static float m_masterVolume = 0.0f;
     public static float m_bgmVolume = 1.0f;
     public static float m_seVolume = 1.0f;
     [SerializeField] AudioClip[] m_bgms = null;
