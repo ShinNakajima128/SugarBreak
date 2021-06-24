@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class AnimationEventScript : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class AnimationEventScript : MonoBehaviour
     SoundManager soundManager;
     public WeaponState weaponStates = WeaponState.PopLauncher;
     public bool isChanged = false;
+    public event Action AttackAction;
 
     public enum WeaponState
     {
@@ -91,5 +93,10 @@ public class AnimationEventScript : MonoBehaviour
     {
         int candyBeat = GetWeaponIndex("CandyBeat");
         m_weaponList[candyBeat].GetComponent<BoxCollider>().enabled = false;
+    }
+
+    public void ShootBullet()
+    {
+        AttackAction();
     }
 }

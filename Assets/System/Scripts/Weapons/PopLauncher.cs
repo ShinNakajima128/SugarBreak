@@ -1,24 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PopLauncher : WeaponBase
 {
     [SerializeField] GameObject m_muzzle = null;
-    [SerializeField] GameObject m_bullet = null;
+    [SerializeField] GameObject m_bulletPrefab = null;
+    [SerializeField] float m_shootPower = 5.0f;
+    public event Action shootAction;
+    AnimationEventScript animationEvent;
 
-    void Start()
+    private void Awake()
     {
-        
+        animationEvent = GameObject.FindGameObjectWithTag("Player").GetComponent<AnimationEventScript>();   
     }
 
-
-    void Update()
+    private void OnEnable()
     {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            var bullet = Instantiate(m_bullet, m_muzzle.transform);
-            var m_rb = bullet.GetComponent<Rigidbody>();
-        }
+        animationEvent.AttackAction += ShootBullet;
+    }
+
+    public  void ShootBullet()
+    {
+        var bullet = Instantiate(m_bulletPrefab, m_muzzle.transform.position, m_muzzle.transform.rotation);
+        var m_rb = bullet.GetComponent<Rigidbody>();
+        m_rb.AddForce(bullet.transform.forward * m_shootPower, ForceMode.Impulse);
     }
 }

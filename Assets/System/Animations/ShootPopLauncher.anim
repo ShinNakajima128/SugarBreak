@@ -19,7 +19,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: -57.242004, y: 66.16801, z: 145.757}
+        value: {x: -54.416004, y: 4.775, z: 197.84999}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -36,7 +36,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 0.215, y: 0.203, z: 0.002}
+        value: {x: 0.138, y: 0.242, z: 0.125}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -26594,7 +26594,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.215
+        value: 0.138
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -26613,7 +26613,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.203
+        value: 0.242
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -26632,7 +26632,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.002
+        value: 0.125
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -26651,7 +26651,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -57.242004
+        value: -54.416004
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -26670,7 +26670,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 66.16801
+        value: 4.775
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -26689,7 +26689,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 145.757
+        value: 197.84999
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -26736,4 +26736,11 @@ AnimationClip:
     script: {fileID: 0}
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.33333334
+    functionName: ShootBullet
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
