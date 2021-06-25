@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using Assets.System.Scripts.Enemys;
 
-public class EnemyBase : MonoBehaviour
+public class EnemyBase : MonoBehaviour, IDamagable
 {
     [SerializeField] int m_maxHp = 10;
     [SerializeField] protected Slider m_HpSlider = null;

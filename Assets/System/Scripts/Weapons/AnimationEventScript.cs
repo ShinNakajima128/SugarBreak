@@ -98,5 +98,6 @@ public class AnimationEventScript : MonoBehaviour
     public void ShootBullet()
     {
         AttackAction();
+        soundManager.PlaySeByName("Shoot");
     }
 }

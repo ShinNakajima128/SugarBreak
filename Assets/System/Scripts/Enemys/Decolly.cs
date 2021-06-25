@@ -6,11 +6,6 @@ public class Decolly : EnemyBase
 {
     public EnemyData decollyData;
 
-    void Start()
-    {
-        //ShowData();
-    }
-
     public override void Damage(int attackPower)
     {
         currentHp -= attackPower;
