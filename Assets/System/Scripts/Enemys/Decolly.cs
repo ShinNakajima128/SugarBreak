@@ -5,14 +5,16 @@ using UnityEngine;
 public class Decolly : EnemyBase
 {
     public EnemyData decollyData;
+    bool isdead = false;
 
     public override void Damage(int attackPower)
     {
         currentHp -= attackPower;
         m_HpSlider.value = currentHp;
 
-        if (currentHp <= 0)
+        if (currentHp <= 0 && !isdead)
         {
+            isdead = true;
             m_anim.Play("Die");
             generator.GenerateKonpeitou(this.transform, decollyData.konpeitou);
             Destroy(this.gameObject, 2.0f);

@@ -3159,7 +3159,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 584629361}
-  m_LocalRotation: {x: 0.11239227, y: 0.42329362, z: -0.053012423, w: 0.89742976}
+  m_LocalRotation: {x: 0.11239227, y: 0.4232936, z: -0.053012416, w: 0.8974298}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -9152,7 +9152,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2078202922}
-  m_LocalRotation: {x: 0.11239227, y: 0.42329362, z: -0.05301243, w: 0.8974298}
+  m_LocalRotation: {x: 0.11239227, y: 0.42329362, z: -0.053012427, w: 0.8974298}
   m_LocalPosition: {x: 102.905464, y: 153.71, z: 139.62526}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -10315,11 +10315,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1650679515513940106, guid: 4b71c6a16f609cc49b8e131ea57d1e58,
-        type: 3}
-      propertyPath: attackDamage
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 6111506268427613010, guid: 4b71c6a16f609cc49b8e131ea57d1e58,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10779,11 +10774,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7875906673182120677, guid: cedef20e1a3fbf249b8b931f0dcafbe9,
-        type: 3}
-      propertyPath: m_Volume
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7875906673639587954, guid: cedef20e1a3fbf249b8b931f0dcafbe9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10843,11 +10833,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SoundManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 7875906674509727388, guid: cedef20e1a3fbf249b8b931f0dcafbe9,
-        type: 3}
-      propertyPath: m_Volume
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cedef20e1a3fbf249b8b931f0dcafbe9, type: 3}

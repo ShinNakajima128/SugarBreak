@@ -323,7 +323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_movingSpeed: 10
   m_turnSpeed: 15
-  m_jumpPower: 15
+  m_jumpPower: 7
   m_waitTime: 1
   animationEventScript: {fileID: 594698113}
   m_playerOperation: 1
@@ -5154,6 +5154,51 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7156264143671369009, guid: 3d59d04ad3e1a3f46b03fcb25f94ff28,
         type: 3}
+    - target: {fileID: 523102121606185286, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
+        type: 3}
+      propertyPath: attackDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241369345091246852, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00000016950061
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241369345091246852, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.009310538
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241369345091246852, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.000000007450576
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241369345091246852, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99995667
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241369345091246852, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.029996397
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241369345091246852, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.018005058
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241369345091246852, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.29999468
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241369345091246852, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 1.067
+      objectReference: {fileID: 0}
     - target: {fileID: 6354401066101765766, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
         type: 3}
       propertyPath: m_LocalPosition.x
