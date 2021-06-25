@@ -14,13 +14,17 @@ public class ExplosionController : WeaponBase
         set { m_damage = value; }
     }
 
+    private void Start()
+    {
+        Destroy(this.gameObject, 0.8f);
+    }
     private void OnTriggerEnter(Collider other)
     {
         var target = other.GetComponent<IDamagable>();
         if (target != null)
         {
-            Debug.Log(m_damage);
-           target.Damage(m_damage);
+            //Debug.Log(m_damage);
+            target.Damage(m_damage);
         }
     }
 }

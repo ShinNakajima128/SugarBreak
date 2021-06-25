@@ -120,6 +120,7 @@ public class PlayerController : MonoBehaviour
             m_playerOperation = false;
             m_anim.SetBool("Shoot", true);
             StartCoroutine(AttackMotionTimer());
+            m_rb.velocity = Vector3.zero;
         }
     }
 
