@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
 
             AttackMove();
 
+            JumpMove();
+
             WeaponChange();
 
             if (m_anim)
@@ -91,22 +93,27 @@ public class PlayerController : MonoBehaviour
 
     void JumpMove()
     {
-        m_rb.AddForce(Vector3.up * m_jumpPower, ForceMode.Impulse);
-    }
-
-    void AttackMove()
-    {
         if (Input.GetButtonDown("Jump"))
         {
             if (IsGrounded())
             {
-                //m_rb.velocity = new Vector3(0f, m_rb.velocity.y, 0f);
                 m_playerOperation = false;
-                JumpMove();
+                m_rb.AddForce(Vector3.up * m_jumpPower, ForceMode.Impulse);
                 m_anim.SetBool("Jump", true);
                 StartCoroutine(AttackMotionTimer());
             }
         }
+        
+    }
+
+    void Rolling()
+    { 
+        //m_rb.velocity = Vector3.zero;
+        m_rb.AddForce(transform.forward * 8, ForceMode.VelocityChange);
+    }
+    void AttackMove()
+    {
+        
 
         if (Input.GetButtonDown("Fire1") && animationEventScript.weaponStates == AnimationEventScript.WeaponState.CandyBeat)
         {
@@ -124,6 +131,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 武器を切り替える
+    /// </summary>
     public void WeaponChange()
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -142,6 +152,7 @@ public class PlayerController : MonoBehaviour
         m_anim.SetFloat("Move", 0);
         yield return new WaitForSeconds(m_waitTime);
 
+        //if (m_anim.applyRootMotion) { m_anim.applyRootMotion = false; }
         m_playerOperation = true;
     }
 }

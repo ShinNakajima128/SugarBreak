@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.System.Scripts.Enemys;
 
 public class CandyBeat : WeaponBase
 {
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
+        var target = other.GetComponent<IDamagable>();
+        if (target != null)
         {
-            other.gameObject.GetComponent<Decolly>().Damage(attackDamage);
+            target.Damage(attackDamage);
         }
     }
 }
