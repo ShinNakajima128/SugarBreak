@@ -321,9 +321,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db5177a850fa70b4cae0f785fbc8f05c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_movingSpeed: 10
+  m_movingSpeed: 7
   m_turnSpeed: 15
-  m_jumpPower: 7
+  m_jumpPower: 5
   m_waitTime: 1
   animationEventScript: {fileID: 594698113}
   m_playerOperation: 1

@@ -97,7 +97,8 @@ public class PlayerController : MonoBehaviour
         {
             if (IsGrounded())
             {
-                m_playerOperation = false;
+                //m_playerOperation = false;
+                m_rb.velocity = Vector3.zero;
                 m_rb.AddForce(Vector3.up * m_jumpPower, ForceMode.Impulse);
                 m_anim.SetBool("Jump", true);
                 StartCoroutine(AttackMotionTimer());
