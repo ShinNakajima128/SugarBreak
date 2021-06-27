@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Decolly : EnemyBase
 {
-    public EnemyData decollyData;
+    [SerializeField] EnemyData decollyData = null;
     bool isdead = false;
 
     public override void Damage(int attackPower)
@@ -17,7 +17,7 @@ public class Decolly : EnemyBase
             isdead = true;
             m_anim.Play("Die");
             generator.GenerateKonpeitou(this.transform, decollyData.konpeitou);
-            StartCoroutine(Vanish());
+            StartCoroutine(Vanish(m_vanishTime));
         }
     }
 

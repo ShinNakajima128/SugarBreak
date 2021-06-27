@@ -11,6 +11,7 @@ public class EnemyBase : MonoBehaviour, IDamagable
     [SerializeField] protected Slider m_HpSlider = null;
     [SerializeField] protected KonpeitouGenerator generator = null;
     [SerializeField] protected GameObject m_vanishEffect = null;
+    [SerializeField] protected float m_vanishTime = 2.0f;
     protected int m_dropNum = 10;
     protected Animator m_anim;
     protected int currentHp;
@@ -33,13 +34,13 @@ public class EnemyBase : MonoBehaviour, IDamagable
         {
             m_anim.Play("Die");
             generator.GenerateKonpeitou(this.transform, m_dropNum);
-            StartCoroutine(Vanish());
+            StartCoroutine(Vanish(m_vanishTime));
         }
     }
 
-    protected IEnumerator Vanish()
+    protected IEnumerator Vanish(float vanishTime)
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(vanishTime);
 
         Instantiate(m_vanishEffect, this.transform.position, Quaternion.identity);
         Destroy(this.gameObject);

@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float m_waitTime = 1.0f;
     [SerializeField] AnimationEventScript animationEventScript = null; 
     /// <summary> プレイヤーが操作可能か否か </summary>
-    float m_isGroundedLength = 0.1f;
+    [SerializeField] float m_isGroundedLength = 0.05f;
     public bool m_playerOperation = true;
     /// <summary> プレイヤーのRigidbody </summary>
     Rigidbody m_rb;
@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour
         Vector3 end = start + Vector3.down * m_isGroundedLength;  // end: start から真下の地点
         Debug.DrawLine(start, end); // 動作確認用に Scene ウィンドウ上で線を表示する
         bool isGrounded = Physics.Linecast(start, end); // 引いたラインに何かがぶつかっていたら true とする
+        m_anim.SetBool("isGround", true);
         return isGrounded;
     }
 
@@ -106,7 +107,7 @@ public class PlayerController : MonoBehaviour
                 m_rb.velocity = Vector3.zero;
                 m_rb.AddForce(Vector3.up * m_jumpPower, ForceMode.Impulse);
                 m_anim.SetBool("Jump", true);
-                StartCoroutine(AttackMotionTimer());
+                StartCoroutine(Jump());
             }
         }
         
@@ -160,5 +161,12 @@ public class PlayerController : MonoBehaviour
 
         //if (m_anim.applyRootMotion) { m_anim.applyRootMotion = false; }
         m_playerOperation = true;
+    }
+
+    IEnumerator Jump()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        m_anim.SetBool("isGround", false);
     }
 }
