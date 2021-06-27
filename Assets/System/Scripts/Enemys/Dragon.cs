@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class Dragon : EnemyBase
 {
-    [SerializeField] EnemyData dragonData = null;
-    [SerializeField] float m_dragonVanishTime = 5.0f;
-    bool isdead = false;
+    public enum Dragonstate
+    {
+        Idle,
+        Walk,
+        Run,
+        Dead,
+        Attack
+    }
+
     public override void Damage(int attackPower)
     {
         currentHp -= attackPower;
@@ -15,10 +21,9 @@ public class Dragon : EnemyBase
         if (currentHp <= 0 && !isdead)
         {
             isdead = true;
-            //m_anim.Play("Die");
             m_anim.SetBool("Dead", true);
-            generator.GenerateKonpeitou(this.transform, dragonData.konpeitou);
-            StartCoroutine(Vanish(m_dragonVanishTime));
+            generator.GenerateKonpeitou(this.transform, enemyData.konpeitou);
+            StartCoroutine(Vanish(m_vanishTime));
         }
     }
 }

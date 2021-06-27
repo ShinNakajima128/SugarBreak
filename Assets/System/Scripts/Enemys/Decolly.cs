@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class Decolly : EnemyBase
 {
-    [SerializeField] EnemyData decollyData = null;
-    bool isdead = false;
+    public enum DecollyState
+    {
+        Idle,
+        Move,
+        Dead,
+        Attack
+    }
 
     public override void Damage(int attackPower)
     {
@@ -16,15 +21,8 @@ public class Decolly : EnemyBase
         {
             isdead = true;
             m_anim.Play("Die");
-            generator.GenerateKonpeitou(this.transform, decollyData.konpeitou);
+            generator.GenerateKonpeitou(this.transform, enemyData.konpeitou);
             StartCoroutine(Vanish(m_vanishTime));
         }
-    }
-
-    void ShowData()
-    {
-        Debug.Log("最大HP：" + decollyData.maxHp + 
-                  "攻撃力：" + decollyData.atk + 
-                  "所持金平糖：" + decollyData.konpeitou);
     }
 }
