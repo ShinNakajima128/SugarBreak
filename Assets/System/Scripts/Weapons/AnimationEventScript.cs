@@ -100,4 +100,9 @@ public class AnimationEventScript : MonoBehaviour
         AttackAction();
         soundManager.PlaySeByName("Shoot");
     }
+
+    public void FootStep()
+    {
+        soundManager.PlaySeByName("FootStep");
+    }
 }

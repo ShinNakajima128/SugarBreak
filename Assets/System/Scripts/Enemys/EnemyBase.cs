@@ -9,7 +9,8 @@ public class EnemyBase : MonoBehaviour, IDamagable
 {
     [SerializeField] int m_maxHp = 10;
     [SerializeField] protected Slider m_HpSlider = null;
-    [SerializeField]protected KonpeitouGenerator generator = null;
+    [SerializeField] protected KonpeitouGenerator generator = null;
+    [SerializeField] protected GameObject m_vanishEffect = null;
     protected int m_dropNum = 10;
     protected Animator m_anim;
     protected int currentHp;
@@ -32,7 +33,15 @@ public class EnemyBase : MonoBehaviour, IDamagable
         {
             m_anim.Play("Die");
             generator.GenerateKonpeitou(this.transform, m_dropNum);
-            Destroy(this.gameObject, 2.0f);
+            StartCoroutine(Vanish());
         }
+    }
+
+    protected IEnumerator Vanish()
+    {
+        yield return new WaitForSeconds(2.0f);
+
+        Instantiate(m_vanishEffect, this.transform.position, Quaternion.identity);
+        Destroy(this.gameObject);
     }
 }

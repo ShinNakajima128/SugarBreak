@@ -302,7 +302,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6113929421551264274}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 6b38972aa3b093246abb2764adc8eb43, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.22906876
@@ -322,7 +322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_movingSpeed: 7
-  m_turnSpeed: 15
+  m_turnSpeed: 20
   m_jumpPower: 5
   m_waitTime: 1
   animationEventScript: {fileID: 594698113}
@@ -5146,7 +5146,7 @@ PrefabInstance:
     - target: {fileID: 523102121606185286, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
         type: 3}
       propertyPath: m_shootPower
-      value: 30
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 523102121606185286, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
         type: 3}
@@ -5158,6 +5158,11 @@ PrefabInstance:
         type: 3}
       propertyPath: attackDamage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 523102121606185286, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
+        type: 3}
+      propertyPath: m_recoilPower
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1241369345091246852, guid: b9462a12cd0dc5546a8788ff41fa9bb5,
         type: 3}

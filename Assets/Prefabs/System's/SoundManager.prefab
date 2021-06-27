@@ -49,7 +49,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -176,10 +176,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 685f2ede713ba2f45bf31a85cb9b8bf8, type: 3}
   m_ses:
   - {fileID: 8300000, guid: 935f871baaa0b6645992218b6084c796, type: 3}
-  - {fileID: 8300000, guid: 0f365514565681c4795c92217f0764c3, type: 3}
+  - {fileID: 8300000, guid: 6dce9ad66aa6bfd45889f10e0d7e0368, type: 3}
   - {fileID: 8300000, guid: 2f0d4b144191b914bb996b2c3837e4d7, type: 3}
   - {fileID: 8300000, guid: 5f03cf465e6cd514ca96c77829744409, type: 3}
   - {fileID: 8300000, guid: 33e15fa3cf15c544999e58b7eadcefc8, type: 3}
+  - {fileID: 8300000, guid: 36cc378f0ea3b9648b2d800498201423, type: 3}
   m_bgmAudioSource: {fileID: 7875906673182120677}
   m_seAudioSource: {fileID: 7875906674509727388}
 --- !u!1 &7875906674509727391
@@ -231,7 +232,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 200
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

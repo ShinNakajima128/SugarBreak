@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class SoundManager : SingletonMonoBehaviour<SoundManager>
 {
     public static float m_masterVolume = 1.0f;
-    public static float m_bgmVolume = 0.5f;
+    public static float m_bgmVolume = 0.3f;
     public static float m_seVolume = 1.0f;
     [SerializeField] AudioClip[] m_bgms = null;
     [SerializeField] AudioClip[] m_ses = null;
@@ -94,16 +94,6 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     {
         m_bgmAudioSource.volume = m_bgmVolume * m_masterVolume;
         m_seAudioSource.volume = m_seVolume * m_masterVolume;
-
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            PlayBgmByName("TestBGM");
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            StopBgm();
-        }
     }
 
     public int GetBgmIndex(string name)

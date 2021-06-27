@@ -17,7 +17,7 @@ public class Decolly : EnemyBase
             isdead = true;
             m_anim.Play("Die");
             generator.GenerateKonpeitou(this.transform, decollyData.konpeitou);
-            Destroy(this.gameObject, 2.0f);
+            StartCoroutine(Vanish());
         }
     }
 

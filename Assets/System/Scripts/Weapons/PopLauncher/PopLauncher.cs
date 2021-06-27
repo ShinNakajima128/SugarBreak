@@ -21,6 +21,11 @@ public class PopLauncher : WeaponBase
         animationEvent.AttackAction += ShootBullet;
     }
 
+    private void OnDisable()
+    {
+        animationEvent.AttackAction -= ShootBullet;
+    }
+
     public  void ShootBullet()
     {
         var bullet = Instantiate(m_bulletPrefab, m_muzzle.transform.position, m_muzzle.transform.rotation);

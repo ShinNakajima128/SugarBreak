@@ -209,7 +209,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_maxHp: 10
   m_HpSlider: {fileID: 2331062131480411573}
-  generator: {fileID: 0}
+  generator: {fileID: 1200807237471451455, guid: de3f4ad6ea347224eab66b465cf0e1c8,
+    type: 3}
+  m_vanishEffect: {fileID: 100018, guid: a40b64bf23366dc42a892af2c6ff6140, type: 3}
   decollyData: {fileID: 11400000, guid: fae5e188f69d7e344bf7cafb917bb4e9, type: 2}
 --- !u!54 &2413091900176269269
 Rigidbody:
