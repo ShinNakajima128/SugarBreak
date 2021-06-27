@@ -8,6 +8,7 @@ public class PopLauncher : WeaponBase
     [SerializeField] GameObject m_muzzle = null;
     [SerializeField] GameObject m_bulletPrefab = null;
     [SerializeField] float m_shootPower = 5.0f;
+    [SerializeField] float m_recoilPower = 5.0f;
     AnimationEventScript animationEvent;
 
     private void Awake()
@@ -25,6 +26,8 @@ public class PopLauncher : WeaponBase
         var bullet = Instantiate(m_bulletPrefab, m_muzzle.transform.position, m_muzzle.transform.rotation);
         bullet.GetComponent<PopBullet>().AttackDamage = attackDamage;
         var m_rb = bullet.GetComponent<Rigidbody>();
+        var player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
         m_rb.AddForce(bullet.transform.forward * m_shootPower, ForceMode.Impulse);
+        player.AddForce(-player.transform.forward * m_recoilPower, ForceMode.Impulse);
     }
 }
