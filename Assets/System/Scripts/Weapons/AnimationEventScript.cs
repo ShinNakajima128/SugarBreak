@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+public enum WeaponState
+{
+    CandyBeat,
+    PopLauncher
+}
+
 public class AnimationEventScript : MonoBehaviour
 {
     [SerializeField] GameObject[] m_weaponList = null;
@@ -11,12 +17,6 @@ public class AnimationEventScript : MonoBehaviour
     public WeaponState weaponStates = WeaponState.PopLauncher;
     public bool isChanged = false;
     public event Action AttackAction;
-
-    public enum WeaponState
-    {
-        CandyBeat,
-        PopLauncher
-    }
 
     private void Awake()
     {
@@ -36,22 +36,12 @@ public class AnimationEventScript : MonoBehaviour
         switch (weaponStates)
         {
             case WeaponState.CandyBeat:
-                //if (!isChanged)
-                //{
-                //    m_weaponList[GetWeaponIndex("RolipopCandy")].SetActive(true);
-                //    m_weaponList[GetWeaponIndex("PopLauncher")].SetActive(false);
-                //    isChanged = true;
-                //}
+                
                 m_weaponList[GetWeaponIndex("RolipopCandy")].SetActive(true);
                 m_weaponList[GetWeaponIndex("PopLauncher")].SetActive(false);
                 break;
             case WeaponState.PopLauncher:
-                //if (!isChanged)
-                //{
-                //    m_weaponList[GetWeaponIndex("RolipopCandy")].SetActive(false);
-                //    m_weaponList[GetWeaponIndex("PopLauncher")].SetActive(true);
-                //    isChanged = true;
-                //}
+                
                 m_weaponList[GetWeaponIndex("RolipopCandy")].SetActive(false);
                 m_weaponList[GetWeaponIndex("PopLauncher")].SetActive(true);
                 break;
@@ -74,6 +64,7 @@ public class AnimationEventScript : MonoBehaviour
     {
         int candyBeat = GetWeaponIndex("CandyBeat"); 
         m_weaponList[candyBeat].GetComponent<BoxCollider>().enabled = true;
+        EffectManager.PlayEffect(EffectType.Slam, this.transform.position);
         soundManager.PlaySeByName("JumpAttack");
     }
 

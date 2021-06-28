@@ -27,7 +27,11 @@ public enum EffectType
     /// <summary>
     /// 叩きつける
     /// </summary>
-    Slam
+    Slam,
+    /// <summary>
+    /// 武器切り替え
+    /// </summary>
+    ChangeWeapon
 }
 
 public class EffectManager : SingletonMonoBehaviour<EffectManager>

@@ -11,15 +11,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float m_turnSpeed = 3f;
     /// <summary>ジャンプ力</summary>
     [SerializeField] float m_jumpPower = 5f;
+    /// <summary> 硬直時間 </summary>
     [SerializeField] float m_waitTime = 1.0f;
     [SerializeField] AnimationEventScript animationEventScript = null; 
-    /// <summary> プレイヤーが操作可能か否か </summary>
+    /// <summary> プレイヤーが操作可能か </summary>
     [SerializeField] float m_isGroundedLength = 0.05f;
     public bool m_playerOperation = true;
-    /// <summary> プレイヤーのRigidbody </summary>
+    /// <summary> Effectを表示する場所 </summary>
+    [SerializeField] Transform m_effectPos = null;
     Rigidbody m_rb;
     Animator m_anim;
+    /// <summary> 落下速度の下限 </summary>
     float minVelocityY = -4.5f;
+    /// <summary> ジャンプ力の上限 </summary>
     float maxVelocityY = 3.5f;
 
 
@@ -32,6 +36,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        ///Playerが操作可能だったら
         if (m_playerOperation)
         {
             PlayerMove();
@@ -54,6 +59,10 @@ public class PlayerController : MonoBehaviour
         }  
     }
 
+    /// <summary>
+    /// 着地しているかどうか
+    /// </summary>
+    /// <returns> 着地判定 </returns>
     bool IsGrounded()
     {
         // Physics.Linecast() を使って足元から線を張り、そこに何かが衝突していたら true とする
@@ -65,6 +74,9 @@ public class PlayerController : MonoBehaviour
         return isGrounded;
     }
 
+    /// <summary>
+    /// プレイヤーの操作
+    /// </summary>
     void PlayerMove()
     {
         // 方向の入力を取得し、方向を求める
@@ -97,6 +109,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// ジャンプ
+    /// </summary>
     void JumpMove()
     {
         if (Input.GetButtonDown("Jump"))
@@ -104,7 +119,6 @@ public class PlayerController : MonoBehaviour
             if (IsGrounded())
             {
                 //m_playerOperation = false;
-                m_rb.velocity = Vector3.zero;
                 m_rb.AddForce(Vector3.up * m_jumpPower, ForceMode.Impulse);
                 m_anim.SetBool("Jump", true);
                 StartCoroutine(Jump());
@@ -113,23 +127,27 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    void Rolling()
-    { 
-        //m_rb.velocity = Vector3.zero;
-        m_rb.AddForce(transform.forward * 8, ForceMode.VelocityChange);
-    }
+    /// <summary>
+    /// 攻撃
+    /// </summary>
     void AttackMove()
     {
-        
-
-        if (Input.GetButtonDown("Fire1") && animationEventScript.weaponStates == AnimationEventScript.WeaponState.CandyBeat)
+        ///CandyBeatの弱攻撃
+        if (Input.GetButtonDown("Fire1") && animationEventScript.weaponStates == WeaponState.CandyBeat)
         {
             m_playerOperation = false;
             m_anim.SetBool("Light", true);
             StartCoroutine(AttackMotionTimer());
         }
-
-        if (Input.GetButtonDown("Fire1") && animationEventScript.weaponStates == AnimationEventScript.WeaponState.PopLauncher)
+        ///CandyBeatの強攻撃
+        if (Input.GetButtonDown("Fire2") && animationEventScript.weaponStates == WeaponState.CandyBeat)
+        {
+            m_playerOperation = false;
+            m_anim.SetBool("Light", true);
+            StartCoroutine(AttackMotionTimer());
+        }
+        ///PopLauncherの射撃
+        if (Input.GetButtonDown("Fire1") && animationEventScript.weaponStates == WeaponState.PopLauncher)
         {
             m_playerOperation = false;
             m_anim.SetBool("Shoot", true);
@@ -145,21 +163,30 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
+            if (animationEventScript.weaponStates == WeaponState.CandyBeat) return;
+
+            EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
             animationEventScript.isChanged = false;
-            animationEventScript.weaponStates = AnimationEventScript.WeaponState.CandyBeat;
+            animationEventScript.weaponStates = WeaponState.CandyBeat;
         }
         else if (Input.GetKeyDown(KeyCode.Q))
         {
+            if (animationEventScript.weaponStates == WeaponState.PopLauncher) return;
+            
+            EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
             animationEventScript.isChanged = false;
-            animationEventScript.weaponStates = AnimationEventScript.WeaponState.PopLauncher;
+            animationEventScript.weaponStates = WeaponState.PopLauncher;
         }
     }
+    /// <summary>
+    /// 硬直
+    /// </summary>
+    /// <returns> </returns>
     IEnumerator AttackMotionTimer()
     {
         m_anim.SetFloat("Move", 0);
         yield return new WaitForSeconds(m_waitTime);
 
-        //if (m_anim.applyRootMotion) { m_anim.applyRootMotion = false; }
         m_playerOperation = true;
     }
 
