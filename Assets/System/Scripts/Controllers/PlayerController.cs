@@ -143,7 +143,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Fire2") && animationEventScript.weaponStates == WeaponState.CandyBeat)
         {
             m_playerOperation = false;
-            m_anim.SetBool("Light", true);
+            m_anim.SetBool("Strong", true);
             StartCoroutine(AttackMotionTimer());
         }
         ///PopLauncherの射撃

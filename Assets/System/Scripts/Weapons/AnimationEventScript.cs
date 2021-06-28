@@ -12,6 +12,7 @@ public enum WeaponState
 public class AnimationEventScript : MonoBehaviour
 {
     [SerializeField] GameObject[] m_weaponList = null;
+    [SerializeField] Transform m_candyBeatEffectPos = null;
     Dictionary<string, int> weaponIndex = new Dictionary<string, int>();
     SoundManager soundManager;
     public WeaponState weaponStates = WeaponState.PopLauncher;
@@ -64,7 +65,7 @@ public class AnimationEventScript : MonoBehaviour
     {
         int candyBeat = GetWeaponIndex("CandyBeat"); 
         m_weaponList[candyBeat].GetComponent<BoxCollider>().enabled = true;
-        EffectManager.PlayEffect(EffectType.Slam, this.transform.position);
+        EffectManager.PlayEffect(EffectType.Slam, m_candyBeatEffectPos.position);
         soundManager.PlaySeByName("JumpAttack");
     }
 

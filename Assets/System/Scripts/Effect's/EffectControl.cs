@@ -6,8 +6,9 @@ public class EffectControl : MonoBehaviour
 {
     /// <summary> 自身のParticleの入れ物 </summary>
     ParticleSystem[] m_particles = default;
+    
     private void Awake()
-    {
+    {    
         m_particles = GetComponentsInChildren<ParticleSystem>();
         gameObject.SetActive(false);
     }
