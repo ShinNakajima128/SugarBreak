@@ -2,19 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Dragonstate
+{
+    Idle,
+    Walk,
+    Run,
+    Dead,
+    Attack
+}
+
 public class Dragon : EnemyBase
 {
-    public enum Dragonstate
-    {
-        Idle,
-        Walk,
-        Run,
-        Dead,
-        Attack
-    }
-
     public override void Damage(int attackPower)
     {
+        if (m_damageEffect != null) Instantiate(m_damageEffect, this.transform.position, Quaternion.identity);
+
         currentHp -= attackPower;
         m_HpSlider.value = currentHp;
 
@@ -23,7 +25,7 @@ public class Dragon : EnemyBase
             isdead = true;
             m_anim.SetBool("Dead", true);
             generator.GenerateKonpeitou(this.transform, enemyData.konpeitou);
-            StartCoroutine(Vanish(m_vanishTime));
+            StartCoroutine(Vanish(EffectType.BossDead, m_vanishTime));
         }
     }
 }

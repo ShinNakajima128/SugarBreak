@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Decolly : EnemyBase
+public enum DecollyState
 {
-    public enum DecollyState
-    {
-        Idle,
-        Move,
-        Dead,
-        Attack
-    }
+    Idle,
+    Move,
+    Dead,
+    Attack
+}
 
+public class Decolly : EnemyBase
+{   
     public override void Damage(int attackPower)
     {
+        //if (m_damageEffect != null) Instantiate(m_damageEffect, this.transform.position, Quaternion.identity);
+        EffectManager.PlayEffect(EffectType.Damage, m_effectPos.position);
+
         currentHp -= attackPower;
         m_HpSlider.value = currentHp;
 
@@ -22,7 +25,7 @@ public class Decolly : EnemyBase
             isdead = true;
             m_anim.Play("Die");
             generator.GenerateKonpeitou(this.transform, enemyData.konpeitou);
-            StartCoroutine(Vanish(m_vanishTime));
+            StartCoroutine(Vanish(EffectType.EnemyDead, m_vanishTime));
         }
     }
 }

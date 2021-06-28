@@ -21,9 +21,10 @@ public class PopBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name);
-        var ex = Instantiate(m_ExplosionSfx, this.transform.position, Quaternion.identity);
-        ex.GetComponent<ExplosionController>().Damage = m_attackDamage;
+        //Debug.Log(other.gameObject.name);
+        //var ex = Instantiate(m_ExplosionSfx, this.transform.position, Quaternion.identity);
+        //ex.GetComponent<ExplosionController>().Damage = m_attackDamage;
+        EffectManager.PlayEffect(EffectType.Explosion, this.transform.position);
         soundManager.PlaySeByName("Explosion");
         Destroy(this.gameObject);
     }
