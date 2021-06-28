@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(IsGrounded());
         ///Playerが操作可能だったら
         if (m_playerOperation)
         {
@@ -70,7 +71,7 @@ public class PlayerController : MonoBehaviour
         Vector3 end = start + Vector3.down * m_isGroundedLength;  // end: start から真下の地点
         Debug.DrawLine(start, end); // 動作確認用に Scene ウィンドウ上で線を表示する
         bool isGrounded = Physics.Linecast(start, end); // 引いたラインに何かがぶつかっていたら true とする
-        m_anim.SetBool("isGround", true);
+        if (isGrounded) m_anim.SetBool("isGround", true);
         return isGrounded;
     }
 
@@ -121,6 +122,7 @@ public class PlayerController : MonoBehaviour
                 //m_playerOperation = false;
                 m_rb.AddForce(Vector3.up * m_jumpPower, ForceMode.Impulse);
                 m_anim.SetBool("Jump", true);
+                m_anim.SetBool("isGround", false);
                 StartCoroutine(Jump());
             }
         }

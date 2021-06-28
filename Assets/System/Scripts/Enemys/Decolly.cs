@@ -154,6 +154,8 @@ public class Decolly : EnemyBase
         currentHp -= attackPower;
         m_HpSlider.value = currentHp;
 
+        if (currentHp > 0) m_anim.SetTrigger("Damage");
+
         if (currentHp <= 0 && !isdead)
         {
             isdead = true;
