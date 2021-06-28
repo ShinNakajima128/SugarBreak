@@ -3,6 +3,16 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+public enum BGMType
+{
+
+}
+
+public enum SEType
+{
+
+}
+
 public class SoundManager : SingletonMonoBehaviour<SoundManager>
 {
     public static float m_masterVolume = 1.0f;
