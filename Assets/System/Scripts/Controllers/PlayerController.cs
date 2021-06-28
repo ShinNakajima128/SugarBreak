@@ -143,6 +143,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Fire2") && animationEventScript.weaponStates == WeaponState.CandyBeat)
         {
             m_playerOperation = false;
+            m_rb.AddForce(Vector3.up * 4, ForceMode.Impulse);
             m_anim.SetBool("Strong", true);
             StartCoroutine(AttackMotionTimer());
         }
