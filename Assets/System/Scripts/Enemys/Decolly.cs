@@ -47,44 +47,46 @@ public class Decolly : EnemyBase
 
     private void Update()
     {
-        //if (decollyState == DecollyState.Move || decollyState == DecollyState.Chase)
-        //{
-        //    if (decollyState == DecollyState.Chase)
-        //    {
-        //        setPosition.SetDestination(playerTransform.position);
-        //    }
+        if (decollyState == DecollyState.Move || decollyState == DecollyState.Chase)
+        {
+            if (decollyState == DecollyState.Chase)
+            {
+                setPosition.SetDestination(playerTransform.position);
+            }
 
-        //    if (characterController.isGrounded)
-        //    {
-        //        velocity = Vector3.zero;
-        //        m_anim.SetFloat("Speed", 2.0f);
-        //        direction = (setPosition.GetDestination() - transform.position).normalized;
-        //        transform.LookAt(new Vector3(setPosition.GetDestination().x, transform.position.y, setPosition.GetDestination().z));
-        //        velocity = direction * m_moveSpeed;
-        //    }   
-        //}
-        ////　目的地に到着したかどうかの判定
-        //if (Vector3.Distance(transform.position, setPosition.GetDestination()) < 0.5f)
-        //{
-        //    SetState(DecollyState.Idle);
-        //    m_anim.SetFloat("Speed", 0.0f);
-        //}
-        //else if (decollyState == DecollyState.Idle)
-        //{
-        //    elapsedTime += Time.deltaTime;
+            if (characterController.isGrounded)
+            {
+                velocity = Vector3.zero;
+                m_anim.SetFloat("Speed", 2.0f);
+                direction = (setPosition.GetDestination() - transform.position).normalized;
+                transform.LookAt(new Vector3(setPosition.GetDestination().x, transform.position.y, setPosition.GetDestination().z));
+                velocity = direction * m_moveSpeed;
+            }
+        }
+        //　目的地に到着したかどうかの判定
+        if (Vector3.Distance(transform.position, setPosition.GetDestination()) < 0.5f)
+        {
+            SetState(DecollyState.Idle);
+            m_anim.SetFloat("Speed", 0.0f);
+        }
+        else if (decollyState == DecollyState.Idle)
+        {
+            elapsedTime += Time.deltaTime;
 
-        //    //　待ち時間を越えたら次の目的地を設定
-        //    if (elapsedTime > waitTime)
-        //    {
-        //        SetState(DecollyState.Move);
-        //    }
-        //}
-        //velocity.y += Physics.gravity.y * Time.deltaTime;
-        //characterController.Move(velocity * Time.deltaTime);
+            //　待ち時間を越えたら次の目的地を設定
+            if (elapsedTime > waitTime)
+            {
+                SetState(DecollyState.Move);
+            }
+        }
+        velocity.y += Physics.gravity.y * Time.deltaTime;
+        characterController.Move(velocity * Time.deltaTime);
     }
 
     public void SetState(DecollyState tempState, Transform target = null)
     {
+        decollyState = tempState;
+
         if (decollyState == DecollyState.Move)
         {
             arrived = false;
@@ -108,10 +110,15 @@ public class Decolly : EnemyBase
             velocity = Vector3.zero;
             m_anim.SetFloat("Speed", 0f);
         }
+        else if (tempState == DecollyState.Dead)
+        {
+            Dead();
+        }
     }
 
     void Dead()
     {
+        arrived = true;
         m_anim.Play("Die");
         generator.GenerateKonpeitou(this.transform, enemyData.konpeitou);
         StartCoroutine(Vanish(EffectType.EnemyDead, m_vanishTime));
@@ -119,7 +126,7 @@ public class Decolly : EnemyBase
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && !isdead)
         {
             //　主人公の方向
             var playerDirection = other.transform.position - transform.position;
@@ -139,7 +146,7 @@ public class Decolly : EnemyBase
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && !isdead)
         {
             Debug.Log("見失った");
             SetState(DecollyState.Idle);
@@ -159,8 +166,8 @@ public class Decolly : EnemyBase
         if (currentHp <= 0 && !isdead)
         {
             isdead = true;
-            //decollyState = DecollyState.Dead;
-            Dead();
+            SetState(DecollyState.Dead);
+            //Dead();
         }
     }
 
