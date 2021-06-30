@@ -7053,6 +7053,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: stage_test10
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4fb5e22faa6514a4ca94f2685ee1b6e4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4fb5e22faa6514a4ca94f2685ee1b6e4, type: 3}
 --- !u!4 &1450589242 stripped
