@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(IsGrounded());
+        //Debug.Log(IsGrounded());
         ///Playerが操作可能だったら
         if (m_playerOperation)
         {

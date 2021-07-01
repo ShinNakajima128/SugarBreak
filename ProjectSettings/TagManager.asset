@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - SoundManager
   - KonpeitoGenerator
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,8 @@ TagManager:
   - 
   - 
   - Player
-  - 
-  - 
+  - Enemy
+  - Field
   - 
   - 
   - 

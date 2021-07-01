@@ -324,6 +324,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7348511099762241589, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7348511099762241590, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_moveSpeed
@@ -511,10 +516,20 @@ PrefabInstance:
       propertyPath: m_vanishTime
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4413267154861639293, guid: 2194af62a1ffd654095bf21dd7988af6,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 4413267155715606640, guid: 2194af62a1ffd654095bf21dd7988af6,
         type: 3}
       propertyPath: m_Name
       value: dragon
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413267155715606640, guid: 2194af62a1ffd654095bf21dd7988af6,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 4413267155715642368, guid: 2194af62a1ffd654095bf21dd7988af6,
         type: 3}
@@ -3420,10 +3435,55 @@ PrefabInstance:
       propertyPath: m_vanishTime
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4413267154861639290, guid: 2194af62a1ffd654095bf21dd7988af6,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413267154861639290, guid: 2194af62a1ffd654095bf21dd7988af6,
+        type: 3}
+      propertyPath: m_Radius
+      value: 3.5583856
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413267154861639290, guid: 2194af62a1ffd654095bf21dd7988af6,
+        type: 3}
+      propertyPath: m_Height
+      value: 10.451815
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413267154861639290, guid: 2194af62a1ffd654095bf21dd7988af6,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.0000000015446382
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413267154861639290, guid: 2194af62a1ffd654095bf21dd7988af6,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 5.2741394
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413267154861639290, guid: 2194af62a1ffd654095bf21dd7988af6,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.55838585
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413267154861639293, guid: 2194af62a1ffd654095bf21dd7988af6,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413267154861639293, guid: 2194af62a1ffd654095bf21dd7988af6,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4413267155715606640, guid: 2194af62a1ffd654095bf21dd7988af6,
         type: 3}
       propertyPath: m_Name
       value: dragon (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413267155715606640, guid: 2194af62a1ffd654095bf21dd7988af6,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 4413267155715642368, guid: 2194af62a1ffd654095bf21dd7988af6,
         type: 3}
@@ -5875,6 +5935,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7348511099762241589, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7348511099762241590, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_moveSpeed
@@ -7306,6 +7371,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7348511099762241589, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7348511099762241590, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_moveSpeed
@@ -7622,6 +7692,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6115847908966685548, guid: 4b71c6a16f609cc49b8e131ea57d1e58,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b71c6a16f609cc49b8e131ea57d1e58, type: 3}
 --- !u!1 &1850613145
@@ -7907,6 +7982,11 @@ PrefabInstance:
       propertyPath: m_IsKinematic
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2653083127291651414, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2749924306551116223, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_Enabled
@@ -8077,6 +8157,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7348511099762241589, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7348511099762241590, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_moveSpeed
@@ -8181,6 +8266,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: stage_test09
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: da6c14279e913454cbbf582262add0fe,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da6c14279e913454cbbf582262add0fe, type: 3}

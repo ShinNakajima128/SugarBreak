@@ -17,9 +17,9 @@ public class ExplosionController : WeaponBase
     private void OnTriggerEnter(Collider other)
     {
         var target = other.GetComponent<IDamagable>();
-        if (target != null)
+        if (target != null && other.gameObject.CompareTag("Enemy"))
         {
-            //Debug.Log(m_damage);
+            Debug.Log(target);
             target.Damage(m_damage);
         }
     }
