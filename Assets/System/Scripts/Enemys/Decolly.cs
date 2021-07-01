@@ -160,6 +160,7 @@ public class Decolly : EnemyBase
 
         currentHp -= attackPower;
         m_HpSlider.value = currentHp;
+        soundManager.PlaySeByName("Damage");
 
         if (currentHp > 0) m_anim.SetTrigger("Damage");
 

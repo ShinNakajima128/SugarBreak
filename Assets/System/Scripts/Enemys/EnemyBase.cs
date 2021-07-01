@@ -14,6 +14,7 @@ public class EnemyBase : MonoBehaviour, IDamagable
     [SerializeField] protected GameObject m_vanishEffect = null;
     [SerializeField] protected float m_vanishTime = 2.0f;
     [SerializeField] protected Transform m_effectPos = null;
+    protected SoundManager soundManager = default;
     protected int m_dropNum = 10;
     protected Animator m_anim;
     protected int currentHp;
@@ -22,6 +23,7 @@ public class EnemyBase : MonoBehaviour, IDamagable
     void Awake()
     {
         generator = GameObject.FindGameObjectWithTag("KonpeitoGenerator").GetComponent<KonpeitouGenerator>();
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
         m_HpSlider.maxValue = enemyData.maxHp;
         currentHp = enemyData.maxHp;
         m_HpSlider.value = currentHp;

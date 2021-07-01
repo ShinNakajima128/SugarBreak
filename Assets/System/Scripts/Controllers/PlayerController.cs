@@ -21,8 +21,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform m_effectPos = null;
     Rigidbody m_rb;
     Animator m_anim;
+    SoundManager soundManager = default;
     /// <summary> 落下速度の下限 </summary>
-    float minVelocityY = -4.5f;
+    float minVelocityY = -9.5f;
     /// <summary> ジャンプ力の上限 </summary>
     float maxVelocityY = 3.5f;
 
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour
     {
         m_rb = GetComponent<Rigidbody>();
         m_anim = GetComponent<Animator>();
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
     }
 
 
@@ -171,6 +173,8 @@ public class PlayerController : MonoBehaviour
             EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
             animationEventScript.isChanged = false;
             animationEventScript.weaponStates = WeaponState.CandyBeat;
+            soundManager.PlaySeByName("Change");
+            //soundManager.PlaySeByName("Shabadubi");
         }
         else if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -179,6 +183,8 @@ public class PlayerController : MonoBehaviour
             EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
             animationEventScript.isChanged = false;
             animationEventScript.weaponStates = WeaponState.PopLauncher;
+            soundManager.PlaySeByName("Change");
+            //soundManager.PlaySeByName("Shabadubi");
         }
     }
     /// <summary>
