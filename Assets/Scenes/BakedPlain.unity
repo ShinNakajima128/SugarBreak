@@ -144,6 +144,18 @@ PrefabInstance:
       propertyPath: maskTexture
       value: 
       objectReference: {fileID: 2800000, guid: a4b2a6d012f0f8d4da5568514f332566, type: 3}
+    - target: {fileID: 11486218, guid: 53c22e1773be7f84aad8ed8b7b58fa6e, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11486218, guid: 53c22e1773be7f84aad8ed8b7b58fa6e, type: 3}
+      propertyPath: m_Color.g
+      value: 0.4575472
+      objectReference: {fileID: 0}
+    - target: {fileID: 11486218, guid: 53c22e1773be7f84aad8ed8b7b58fa6e, type: 3}
+      propertyPath: m_Color.b
+      value: 0.4575472
+      objectReference: {fileID: 0}
     - target: {fileID: 22424616, guid: 53c22e1773be7f84aad8ed8b7b58fa6e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3226,6 +3238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fade: {fileID: 74572823}
+  soundManager: {fileID: 1976557548}
 --- !u!4 &463148241
 Transform:
   m_ObjectHideFlags: 0
@@ -6749,6 +6762,11 @@ PrefabInstance:
       propertyPath: m_IsKinematic
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2413091900176269269, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7346898209518142754, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8331,6 +8349,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1837136332}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1976557548 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7875906673639587952, guid: cedef20e1a3fbf249b8b931f0dcafbe9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1246112095}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c008bb4a43afff54086460e8e9c5aba1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1980245626 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8104157600375732952, guid: 8890325188265de4f860a9d1be599b2f,

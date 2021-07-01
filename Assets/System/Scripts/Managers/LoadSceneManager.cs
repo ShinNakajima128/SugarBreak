@@ -4,13 +4,22 @@ using UnityEngine;
 
 public class LoadSceneManager : MonoBehaviour
 {
-    [SerializeField] Fade fade = null;
+    [SerializeField] Fade fade = default;
+    [SerializeField] SoundManager soundManager = default;
 
     void Start()
     {
-        fade.FadeOut(2.0f, () =>
+        StartCoroutine(PlaySound());
+        fade.FadeOut(1.0f, () =>
         {
-            Debug.Log("フェード開始");
+            //soundManager.PlaySeByName("Transition");
         });
+    }
+
+    IEnumerator PlaySound()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        soundManager.PlaySeByName("Transition");
     }
 }

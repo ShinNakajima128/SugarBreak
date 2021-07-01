@@ -275,7 +275,8 @@ MonoBehaviour:
   m_HpSlider: {fileID: 2331062131480411573}
   generator: {fileID: 1200807237471451455, guid: de3f4ad6ea347224eab66b465cf0e1c8,
     type: 3}
-  m_damageEffect: {fileID: 100004, guid: f95ff734540a0d749be6571b6cb5b37f, type: 3}
+  m_damageEffect: {fileID: 1845240806346120, guid: b395d5d6eb4b4b846acc021ee036b744,
+    type: 3}
   m_vanishEffect: {fileID: 100018, guid: a40b64bf23366dc42a892af2c6ff6140, type: 3}
   m_vanishTime: 2
   m_effectPos: {fileID: 1923877214196729359}
@@ -294,7 +295,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 112
@@ -323,7 +324,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 1
-  m_Radius: 0.5
+  m_Radius: 0.62
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
