@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public bool m_playerOperation = true;
     /// <summary> Effectを表示する場所 </summary>
     [SerializeField] Transform m_effectPos = null;
+    [SerializeField] bool m_shabadubiMode = false;
     Rigidbody m_rb;
     Animator m_anim;
     SoundManager soundManager = default;
@@ -173,8 +174,15 @@ public class PlayerController : MonoBehaviour
             EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
             animationEventScript.isChanged = false;
             animationEventScript.weaponStates = WeaponState.CandyBeat;
-            soundManager.PlaySeByName("Change");
-            //soundManager.PlaySeByName("Shabadubi");
+
+            if (m_shabadubiMode)
+            {
+                soundManager.PlaySeByName("Shabadubi");
+            }
+            else
+            {
+                soundManager.PlaySeByName("Change");
+            }
         }
         else if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -183,8 +191,15 @@ public class PlayerController : MonoBehaviour
             EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
             animationEventScript.isChanged = false;
             animationEventScript.weaponStates = WeaponState.PopLauncher;
-            soundManager.PlaySeByName("Change");
-            //soundManager.PlaySeByName("Shabadubi");
+
+            if (m_shabadubiMode)
+            {
+                soundManager.PlaySeByName("Shabadubi");
+            }
+            else
+            {
+                soundManager.PlaySeByName("Change");
+            }
         }
     }
     /// <summary>

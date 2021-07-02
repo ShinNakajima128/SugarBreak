@@ -8,6 +8,7 @@ public enum DecollyState
     Move,
     Chase,
     Attack,
+    Freeze,
     Dead
 }
 
@@ -62,7 +63,26 @@ public class Decolly : EnemyBase
                 transform.LookAt(new Vector3(setPosition.GetDestination().x, transform.position.y, setPosition.GetDestination().z));
                 velocity = direction * m_moveSpeed;
             }
+
+            if (decollyState == DecollyState.Move)
+            {
+                //　目的地に到着したかどうかの判定
+                if (Vector3.Distance(transform.position, setPosition.GetDestination()) < 0.7f)
+                {
+                    SetState(DecollyState.Idle);
+                    m_anim.SetFloat("Speed", 0.0f);
+                }
+            }
+            else if (decollyState == DecollyState.Chase)
+            {
+                //　攻撃する距離だったら攻撃
+                if (Vector3.Distance(transform.position, setPosition.GetDestination()) < 1f)
+                {
+                    SetState(DecollyState.Attack);
+                }
+            }
         }
+
         //　目的地に到着したかどうかの判定
         if (Vector3.Distance(transform.position, setPosition.GetDestination()) < 0.5f)
         {
@@ -110,6 +130,19 @@ public class Decolly : EnemyBase
             velocity = Vector3.zero;
             m_anim.SetFloat("Speed", 0f);
         }
+        else if (tempState == DecollyState.Attack)
+        {
+            velocity = Vector3.zero;
+            m_anim.SetFloat("Speed", 0f);
+            m_anim.SetBool("Attack", true);
+        }
+        else if (tempState == DecollyState.Freeze)
+        {
+            elapsedTime = 0f;
+            velocity = Vector3.zero;
+            m_anim.SetFloat("Speed", 0f);
+            m_anim.SetBool("Attack", false);
+        }
         else if (tempState == DecollyState.Dead)
         {
             Dead();
@@ -135,7 +168,7 @@ public class Decolly : EnemyBase
             //　サーチする角度内だったら発見
             if (angle <= searchAngle)
             {
-                Debug.Log("主人公発見: " + angle);
+                //Debug.Log("主人公発見: " + angle);
                 if (decollyState != DecollyState.Chase)
                 {
                     SetState(DecollyState.Chase, other.transform);
