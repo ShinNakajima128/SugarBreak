@@ -2,11 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerState
+{
+    None,
+    Idle,
+    Walk,
+    Run
+}
+
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
     /// <summary>動く速さ</summary>
-    [SerializeField] float m_movingSpeed = 5f;
+    [SerializeField] float m_walkSpeed = 5f;
+    /// <summary>動く速さ</summary>
+    [SerializeField] float m_runSpeed = 5f;
     /// <summary>ターンの速さ</summary>
     [SerializeField] float m_turnSpeed = 3f;
     /// <summary>ジャンプ力</summary>
@@ -20,6 +30,7 @@ public class PlayerController : MonoBehaviour
     /// <summary> Effectを表示する場所 </summary>
     [SerializeField] Transform m_effectPos = null;
     [SerializeField] bool m_shabadubiMode = false;
+    PlayerState state = PlayerState.None;
     Rigidbody m_rb;
     Animator m_anim;
     SoundManager soundManager = default;
@@ -57,7 +68,19 @@ public class PlayerController : MonoBehaviour
                 {
                     Vector3 velo = m_rb.velocity;
                     velo.y = 0;
-                    m_anim.SetFloat("Move", velo.magnitude);
+                    if (state == PlayerState.Walk)
+                    {
+                        m_anim.SetFloat("Move", velo.magnitude);
+                    }
+                    else if (state == PlayerState.Run)
+                    {
+                        m_anim.SetFloat("Move", velo.magnitude);
+                    }
+                    else if (state == PlayerState.Idle)
+                    {
+                        m_anim.SetFloat("Move", 0f);
+                    }
+                    
                 }
             }
         }  
@@ -94,6 +117,7 @@ public class PlayerController : MonoBehaviour
         {
             // 方向の入力がニュートラルの時は、y 軸方向の速度を保持するだけ
             m_rb.velocity = new Vector3(0f, m_rb.velocity.y, 0f);
+            state = PlayerState.Idle;
         }
         else
         {
@@ -105,11 +129,26 @@ public class PlayerController : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(dir);
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, targetRotation, Time.deltaTime * m_turnSpeed);  // Slerp を使うのがポイント
 
-            Vector3 velo = dir.normalized * m_movingSpeed; // 入力した方向に移動する
-            float velocityY = Mathf.Clamp(m_rb.velocity.y, minVelocityY, maxVelocityY);
-            //velo.y = m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
-            velo.y = velocityY;
-            m_rb.velocity = velo;   // 計算した速度ベクトルをセットする
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                Vector3 velo = dir.normalized * m_runSpeed; // 入力した方向に移動する
+                float velocityY = Mathf.Clamp(m_rb.velocity.y, minVelocityY, maxVelocityY);
+                //velo.y = m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
+                velo.y = velocityY;
+                m_rb.velocity = velo;   // 計算した速度ベクトルをセットする
+                state = PlayerState.Run;
+            }
+            else
+            {
+                Vector3 velo = dir.normalized * m_walkSpeed; // 入力した方向に移動する
+                float velocityY = Mathf.Clamp(m_rb.velocity.y, minVelocityY, maxVelocityY);
+                //velo.y = m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
+                velo.y = velocityY;
+                m_rb.velocity = velo;
+                state = PlayerState.Walk;
+            }
+            //Vector3 velo = dir.normalized * m_movingSpeed; // 入力した方向に移動する
+            
         }
     }
 
