@@ -11,6 +11,7 @@ public class Konpeitou : MonoBehaviour
     Rigidbody m_rb;
     float period;
     Vector3 velocity;
+    PlayerData player;
 
     private void Start()
     {
@@ -23,8 +24,10 @@ public class Konpeitou : MonoBehaviour
         var diff = m_target.position - m_position;
         acceleration += (diff - velocity * period) * 2.0f / (period * period);
         period -= Time.deltaTime;
+        
         if (period <= 0f)
         {
+            totalKonpeitou++;
             return;
         }
         velocity += acceleration * Time.deltaTime;
@@ -36,7 +39,6 @@ public class Konpeitou : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            totalKonpeitou++;
             Destroy(this.gameObject);
         }
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using Assets.System.Scripts.Enemys;
+using Assets.System.Scripts.Damage;
 
 public class EnemyBase : MonoBehaviour, IDamagable
 {

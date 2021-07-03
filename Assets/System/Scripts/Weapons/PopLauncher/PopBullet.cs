@@ -19,7 +19,7 @@ public class PopBullet : MonoBehaviour
         soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
         EffectManager.PlayEffect(EffectType.Explosion, this.transform.position);
         soundManager.PlaySeByName("Explosion");
