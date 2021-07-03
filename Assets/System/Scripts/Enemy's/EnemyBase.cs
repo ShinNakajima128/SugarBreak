@@ -32,7 +32,6 @@ public class EnemyBase : MonoBehaviour, IDamagable
 
     public virtual void Damage(int attackPower)
     {
-        //if (m_damageEffect != null) Instantiate(m_damageEffect, this.transform.position, Quaternion.identity);
         EffectManager.PlayEffect(EffectType.Damage, m_effectPos.position);
         currentHp -= attackPower;
         m_HpSlider.value = currentHp;

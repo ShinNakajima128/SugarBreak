@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody m_rb;
     Animator m_anim;
     SoundManager soundManager = default;
+     
     /// <summary> 落下速度の下限 </summary>
     float minVelocityY = -9.5f;
     /// <summary> ジャンプ力の上限 </summary>

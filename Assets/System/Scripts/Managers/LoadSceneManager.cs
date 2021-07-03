@@ -29,7 +29,7 @@ public class LoadSceneManager : SingletonMonoBehaviour<LoadSceneManager>
     void Start()
     {
         StartCoroutine(PlaySound());
-        fade.FadeOut(1.0f, () =>
+        fade.FadeOut(2.0f, () =>
         {
             //soundManager.PlaySeByName("Transition");
         });
