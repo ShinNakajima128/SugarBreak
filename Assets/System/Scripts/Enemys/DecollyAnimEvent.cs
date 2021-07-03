@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class DecollyAnimEvent : MonoBehaviour
 {
-    Decolly decolly;
+    [SerializeField] Decolly decolly = default;
     [SerializeField] BoxCollider m_boxCollider = default;
 
-    void Start()
+    private void Start()
     {
-        decolly = GetComponent<Decolly>();
+        m_boxCollider.enabled = false;
     }
 
+    private void OnEnable()
+    {
+        decolly.AttackStartAction += AttackStart;
+        decolly.AttackEndAction += AttackEnd;
+        decolly.StateEndAction += StateEnd;
+    }
+    
     public void AttackStart()
     {
         m_boxCollider.enabled = true;

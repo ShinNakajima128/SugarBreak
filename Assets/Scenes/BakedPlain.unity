@@ -385,27 +385,27 @@ PrefabInstance:
     - target: {fileID: 2331062130312484419, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2331062130312484419, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2331062130339348831, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2331062130339348831, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2331062130339348831, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2413091900176269269, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
@@ -581,6 +581,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Decolly (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7349301462782107804, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb8e9f4a4d9dba64dbaf7483d725bd55, type: 3}
@@ -3453,27 +3458,27 @@ PrefabInstance:
     - target: {fileID: 2331062130312484419, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2331062130312484419, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2331062130339348831, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2331062130339348831, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2331062130339348831, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2413091900176269269, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
@@ -3544,6 +3549,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Decolly (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7349301462782107804, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb8e9f4a4d9dba64dbaf7483d725bd55, type: 3}
@@ -6326,7 +6336,7 @@ PrefabInstance:
     - target: {fileID: 7348511099762241590, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_moveSpeed
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7349301462782107804, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
@@ -6839,27 +6849,27 @@ PrefabInstance:
     - target: {fileID: 2331062130312484419, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2331062130312484419, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2331062130339348831, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2331062130339348831, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2331062130339348831, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2413091900176269269, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
@@ -6935,6 +6945,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Decolly (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7349301462782107804, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb8e9f4a4d9dba64dbaf7483d725bd55, type: 3}
@@ -7097,27 +7112,27 @@ PrefabInstance:
     - target: {fileID: 2331062130312484419, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2331062130312484419, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2331062130339348831, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2331062130339348831, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2331062130339348831, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2413091900176269269, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
@@ -7188,6 +7203,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Decolly (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7349301462782107804, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb8e9f4a4d9dba64dbaf7483d725bd55, type: 3}
@@ -7792,27 +7812,27 @@ PrefabInstance:
     - target: {fileID: 2331062130312484419, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2331062130312484419, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2331062130339348831, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2331062130339348831, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2331062130339348831, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2413091900176269269, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
@@ -7898,6 +7918,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Decolly (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7349301462782107804, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb8e9f4a4d9dba64dbaf7483d725bd55, type: 3}
@@ -8481,27 +8506,27 @@ PrefabInstance:
     - target: {fileID: 2331062130312484419, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2331062130312484419, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2331062130339348831, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2331062130339348831, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2331062130339348831, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2413091900176269269, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
         type: 3}
@@ -8697,6 +8722,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Decolly
+      objectReference: {fileID: 0}
+    - target: {fileID: 7349301462782107804, guid: eb8e9f4a4d9dba64dbaf7483d725bd55,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb8e9f4a4d9dba64dbaf7483d725bd55, type: 3}

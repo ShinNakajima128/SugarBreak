@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System;
+
 public enum DecollyState
 {
     Idle,
@@ -37,6 +39,9 @@ public class Decolly : EnemyBase
     //　プレイヤーTransform
     private Transform playerTransform;
     CharacterController characterController;
+    public event Action AttackStartAction;
+    public event Action AttackEndAction;
+    public event Action StateEndAction;
 
     private void Start()
     {
@@ -48,6 +53,8 @@ public class Decolly : EnemyBase
 
     private void Update()
     {
+        //Debug.Log(decollyState);
+
         if (decollyState == DecollyState.Move || decollyState == DecollyState.Chase)
         {
             if (decollyState == DecollyState.Chase)
@@ -80,6 +87,17 @@ public class Decolly : EnemyBase
                 {
                     SetState(DecollyState.Attack);
                 }
+            }
+        }
+        else if (decollyState == DecollyState.Freeze)
+        {
+            elapsedTime += Time.deltaTime;
+            transform.LookAt(new Vector3(setPosition.GetDestination().x, transform.position.y, setPosition.GetDestination().z));
+
+            //　待ち時間を越えたら次の目的地を設定
+            if (elapsedTime > waitTime)
+            {
+                SetState(DecollyState.Idle);
             }
         }
 
@@ -138,6 +156,7 @@ public class Decolly : EnemyBase
         }
         else if (tempState == DecollyState.Freeze)
         {
+            Debug.Log("待機");
             elapsedTime = 0f;
             velocity = Vector3.zero;
             m_anim.SetFloat("Speed", 0f);
@@ -149,6 +168,20 @@ public class Decolly : EnemyBase
         }
     }
 
+    public void AttackStart()
+    {
+        AttackStartAction();
+    }
+
+    public void AttackEnd()
+    {
+        AttackEndAction();
+    }
+
+    public void StateEnd()
+    {
+        StateEndAction();
+    }
     void Dead()
     {
         arrived = true;
@@ -169,7 +202,7 @@ public class Decolly : EnemyBase
             if (angle <= searchAngle)
             {
                 //Debug.Log("主人公発見: " + angle);
-                if (decollyState != DecollyState.Chase)
+                if (decollyState != DecollyState.Chase && decollyState != DecollyState.Freeze)
                 {
                     SetState(DecollyState.Chase, other.transform);
                 }
