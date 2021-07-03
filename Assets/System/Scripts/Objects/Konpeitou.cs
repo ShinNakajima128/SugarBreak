@@ -28,18 +28,10 @@ public class Konpeitou : MonoBehaviour
         if (period <= 0f)
         {
             totalKonpeitou++;
-            return;
+            Destroy(this.gameObject);
         }
         velocity += acceleration * Time.deltaTime;
         m_position += velocity * Time.deltaTime;
         transform.position = m_position;
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            Destroy(this.gameObject);
-        }
     }
 }

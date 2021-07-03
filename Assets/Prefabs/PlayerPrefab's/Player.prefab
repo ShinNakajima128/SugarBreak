@@ -383,7 +383,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db5177a850fa70b4cae0f785fbc8f05c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_movingSpeed: 7
+  m_walkSpeed: 3
+  m_runSpeed: 10
   m_turnSpeed: 20
   m_jumpPower: 7
   m_waitTime: 1
@@ -391,6 +392,7 @@ MonoBehaviour:
   m_isGroundedLength: 0.1
   m_playerOperation: 1
   m_effectPos: {fileID: 3529515826681420720}
+  m_shabadubiMode: 0
 --- !u!114 &594698113
 MonoBehaviour:
   m_ObjectHideFlags: 0
