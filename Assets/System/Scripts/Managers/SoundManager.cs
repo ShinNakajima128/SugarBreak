@@ -16,7 +16,7 @@ public enum SEType
 public class SoundManager : SingletonMonoBehaviour<SoundManager>
 {
     public static float m_masterVolume = 0.1f;
-    public static float m_bgmVolume = 0.0f;
+    public static float m_bgmVolume = 0.1f;
     public static float m_seVolume = 0.1f;
     [SerializeField] AudioClip[] m_bgms = null;
     [SerializeField] AudioClip[] m_ses = null;
@@ -170,17 +170,17 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
 
     public void MasterVolChange()
     {
-        m_masterVolume = GameObject.Find("MasterSlider").GetComponent<Slider>().value;
+        m_masterVolume = GameObject.FindGameObjectWithTag("Master").GetComponent<Slider>().value;
         Debug.Log(m_masterVolume);
     }
     public void BGMVolChange()
     {
-        m_bgmVolume = GameObject.Find("BGMSlider").GetComponent<Slider>().value;
+        m_bgmVolume = GameObject.FindGameObjectWithTag("BGM").GetComponent<Slider>().value;
         Debug.Log(m_bgmVolume);
     }
     public void SEVolChange()
     {
-        m_seVolume = GameObject.Find("SESlider").GetComponent<Slider>().value;
+        m_seVolume = GameObject.FindGameObjectWithTag("SE").GetComponent<Slider>().value;
         Debug.Log(m_seVolume);
     }
 }
