@@ -16,6 +16,8 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] GameObject[] m_menuPanels = default;
     Dictionary<MenuState, int> menuIndex = new Dictionary<MenuState, int>();
+    MenuState state = MenuState.Close;
+    SoundManager soundManager;
 
 
     void Start()
@@ -25,13 +27,49 @@ public class MenuManager : MonoBehaviour
             MenuState menuState = (MenuState)(i + 1);
             menuIndex.Add(menuState, i);
         }
+
+        foreach (var menu in m_menuPanels)
+        {
+            menu.SetActive(false);
+        }
+
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            if (state == MenuState.Close) 
+            {
+                Time.timeScale = 0f;
+                ActiveMenu(MenuState.Open);
+                state = MenuState.Open;
+            }
+            else if (state != MenuState.Close) 
+            {
+                Time.timeScale = 1f;
+                ActiveMenu(MenuState.Close);
+                state = MenuState.Close;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.U))
+        {
             ActiveMenu(MenuState.Audio);
+            state = MenuState.Audio;
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            ActiveMenu(MenuState.Exit);
+            state = MenuState.Exit;
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            ActiveMenu(MenuState.Option);
+            state = MenuState.Option;
         }
     }
 
