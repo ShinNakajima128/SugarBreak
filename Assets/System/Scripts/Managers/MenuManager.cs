@@ -38,15 +38,15 @@ public class MenuManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))   
         {
-            if (state == MenuState.Close) 
+            if (state == MenuState.Close)   //メニューを開く
             {
                 Time.timeScale = 0f;
                 ActiveMenu(MenuState.Open);
                 state = MenuState.Open;
             }
-            else if (state != MenuState.Close) 
+            else if (state != MenuState.Close)  //メニューを閉じる
             {
                 Time.timeScale = 1f;
                 ActiveMenu(MenuState.Close);
@@ -73,6 +73,10 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 指定のメニューを開く
+    /// </summary>
+    /// <param name="menu"> 開くメニュー </param>
     public void ActiveMenu(MenuState menu)
     {
         if (menu == MenuState.Close)

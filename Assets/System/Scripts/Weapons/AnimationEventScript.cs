@@ -13,6 +13,7 @@ public class AnimationEventScript : MonoBehaviour
 {
     [SerializeField] GameObject[] m_weaponList = null;
     [SerializeField] Transform m_candyBeatEffectPos = null;
+    [SerializeField] float m_hitStopTime = 0.2f;
     Dictionary<string, int> weaponIndex = new Dictionary<string, int>();
     SoundManager soundManager;
     public WeaponState weaponStates = WeaponState.PopLauncher;
@@ -67,6 +68,8 @@ public class AnimationEventScript : MonoBehaviour
         m_weaponList[candyBeat].GetComponent<BoxCollider>().enabled = true;
         EffectManager.PlayEffect(EffectType.Slam, m_candyBeatEffectPos.position);
         soundManager.PlaySeByName("JumpAttack");
+        StartCoroutine(HitStop());
+        Time.timeScale = 0.05f;
     }
 
     public void FinishCandyAttack()
@@ -96,5 +99,12 @@ public class AnimationEventScript : MonoBehaviour
     public void FootStep()
     {
         soundManager.PlaySeByName("FootStep");
+    }
+
+    IEnumerator HitStop()
+    {
+        yield return new WaitForSeconds(m_hitStopTime);
+
+        Time.timeScale = 1.0f;
     }
 }
