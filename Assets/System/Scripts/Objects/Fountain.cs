@@ -9,11 +9,12 @@ public class Fountain : MonoBehaviour
 
     private void Start()
     {
-        //soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        AudioSource.PlayClipAtPoint(m_fountainSfx, this.transform.position);
+        Debug.Log("再生");
+        AudioSource.PlayClipAtPoint(m_fountainSfx, this.transform.position, 0.5f);
     }
 }

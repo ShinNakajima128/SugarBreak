@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public enum PlayerState
 {
@@ -34,7 +35,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody m_rb;
     Animator m_anim;
     SoundManager soundManager = default;
-     
+    [SerializeField] CinemachineFreeLook freeLook = default;
     /// <summary> 落下速度の下限 </summary>
     float minVelocityY = -9.5f;
     /// <summary> ジャンプ力の上限 </summary>
@@ -117,6 +118,7 @@ public class PlayerController : MonoBehaviour
         {
             // 方向の入力がニュートラルの時は、y 軸方向の速度を保持するだけ
             m_rb.velocity = new Vector3(0f, m_rb.velocity.y, 0f);
+            freeLook.m_Lens.FieldOfView = Mathf.Lerp(50, 40, Time.deltaTime * 0.1f);
             state = PlayerState.Idle;
         }
         else
@@ -129,19 +131,23 @@ public class PlayerController : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(dir);
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, targetRotation, Time.deltaTime * m_turnSpeed);  // Slerp を使うのがポイント
 
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetKey(KeyCode.LeftShift) && dir != Vector3.zero)
             {
                 Vector3 velo = dir.normalized * m_runSpeed; // 入力した方向に移動する
                 float velocityY = Mathf.Clamp(m_rb.velocity.y, minVelocityY, maxVelocityY);
+                //freeLook.Priority = 9;
+                freeLook.m_Lens.FieldOfView = Mathf.Lerp(40, 50, Time.deltaTime * 0.1f);
                 //velo.y = m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
                 velo.y = velocityY;
                 m_rb.velocity = velo;   // 計算した速度ベクトルをセットする
                 state = PlayerState.Run;
             }
-            else
+            else if (dir != Vector3.zero)
             {
                 Vector3 velo = dir.normalized * m_walkSpeed; // 入力した方向に移動する
                 float velocityY = Mathf.Clamp(m_rb.velocity.y, minVelocityY, maxVelocityY);
+                //freeLook.Priority = 11;
+                freeLook.m_Lens.FieldOfView = Mathf.Lerp(50, 40, Time.deltaTime * 0.1f);
                 //velo.y = m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
                 velo.y = velocityY;
                 m_rb.velocity = velo;
