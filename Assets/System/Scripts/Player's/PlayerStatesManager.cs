@@ -46,4 +46,14 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
         soundManager.PlaySeByName("Enda");
         m_anim.SetTrigger("isDamaged");
     }
+
+    public void OffOperation()
+    {
+        isOperation = false;
+    }
+
+    public void OnOperation()
+    {
+        isOperation = true;
+    }
 }
