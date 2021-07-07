@@ -4974,6 +4974,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 545890556}
   m_CullTransparentMesh: 0
+--- !u!95 &557687765 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6164503981118031494, guid: 4b71c6a16f609cc49b8e131ea57d1e58,
+    type: 3}
+  m_PrefabInstance: {fileID: 1837136332}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &560076611
 GameObject:
   m_ObjectHideFlags: 0
@@ -9525,7 +9531,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 977525056}
-  m_LocalRotation: {x: 0.0322176, y: -0.6766801, z: 0.029662305, w: 0.7349736}
+  m_LocalRotation: {x: 0.0322176, y: -0.6766801, z: 0.029662304, w: 0.7349736}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -14002,7 +14008,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1807749748
 GameObject:
@@ -14416,7 +14422,7 @@ GameObject:
   - component: {fileID: 1863856731}
   m_Layer: 0
   m_Name: StatesManager
-  m_TagString: Untagged
+  m_TagString: PlayerState
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14437,6 +14443,8 @@ MonoBehaviour:
   m_totalKonpeitou: {fileID: 642177079}
   m_hpText: {fileID: 885122772}
   hpGauge: {fileID: 1352397360}
+  soundManager: {fileID: 1976557548}
+  m_anim: {fileID: 557687765}
 --- !u!114 &1863856732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14461,7 +14469,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1876363366
 GameObject:
@@ -15599,7 +15607,7 @@ GameObject:
   - component: {fileID: 2013171353}
   - component: {fileID: 2013171352}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: TestEffect
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -15629,7 +15637,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2015694642
 GameObject:
@@ -16324,7 +16332,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2103161057}
   m_Layer: 0
-  m_Name: BakedPlainTalkSystem
+  m_Name: BakedPlainTalk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16345,7 +16353,7 @@ Transform:
   - {fileID: 1911725683}
   - {fileID: 1623666076}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2113308816 stripped
 GameObject:

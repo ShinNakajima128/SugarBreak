@@ -619,6 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98bba85a1151e3941baec254eac3dfea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  decollyData: {fileID: 11400000, guid: fae5e188f69d7e344bf7cafb917bb4e9, type: 2}
   decolly: {fileID: 7348511099762241590}
   m_boxCollider: {fileID: 8505569564295418210}
 --- !u!65 &8505569564295418210

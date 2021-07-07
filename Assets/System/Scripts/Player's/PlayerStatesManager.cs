@@ -10,6 +10,8 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     [SerializeField] Text m_totalKonpeitou = default;
     [SerializeField] Text m_hpText = default;
     [SerializeField] HpGauge hpGauge = default;
+    [SerializeField] SoundManager soundManager = default;
+    [SerializeField] Animator m_anim = default;
     public static bool isOperation = true;
 
     
@@ -39,6 +41,8 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     public void Damage(int attackPower)
     {
         playerData.HP -= attackPower;
-
+        hpGauge.SetHpGauge(playerData.HP);
+        Debug.Log("被弾");
+        m_anim.SetTrigger("isDamaged");
     }
 }

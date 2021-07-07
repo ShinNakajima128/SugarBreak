@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using Assets.System.Scripts.Damage;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DecollyAnimEvent : MonoBehaviour
 {
+    [SerializeField] EnemyData decollyData = default;
     [SerializeField] Decolly decolly = default;
     [SerializeField] BoxCollider m_boxCollider = default;
 
@@ -37,5 +39,17 @@ public class DecollyAnimEvent : MonoBehaviour
     public void EndDamage()
     {
         decolly.SetState(DecollyState.Move);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            var target = GameObject.FindGameObjectWithTag("PlayerState").GetComponent<IDamagable>();
+            if (target != null)
+            {
+                target.Damage(decollyData.atk);
+            }
+        }
     }
 }
