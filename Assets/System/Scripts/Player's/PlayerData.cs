@@ -5,6 +5,31 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "MyScriptable/Create PlayerData")]
 public class PlayerData : ScriptableObject
 {
-    public int HP;
-    public int TotalKonpeitou;
+    [SerializeField] int m_hp = 8;
+    [SerializeField] int m_totalKonpeitou = 0;
+
+    public int HP
+    {
+        get 
+        { 
+            return m_hp; 
+        }
+        set 
+        { 
+            if (m_hp <= 8) 
+            {
+                m_hp = value;
+            }
+            if (m_hp > 8)
+            {
+                m_hp = 8;
+            }
+        }
+    }
+
+    public int TotalKonpeitou
+    {
+        get { return m_totalKonpeitou; }
+        set { m_totalKonpeitou = value; }
+    }
 }

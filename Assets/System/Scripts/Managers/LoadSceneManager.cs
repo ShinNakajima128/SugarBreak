@@ -29,11 +29,25 @@ public class LoadSceneManager : SingletonMonoBehaviour<LoadSceneManager>
     void Start()
     {
         StartCoroutine(PlaySound());
-        fade.FadeOut(2.0f, () =>
-        {
-            //soundManager.PlaySeByName("Transition");
-        });
+        fade.FadeOut(1.0f);
         LoadTime = m_loadTime;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            soundManager.PlaySeByName("Exprosion");
+            fade.FadeIn(0.5f, () =>
+            StartCoroutine(DelayFade())
+            );
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            StartCoroutine(PlaySound());
+            fade.FadeOut(1.0f);
+        }
     }
 
     IEnumerator Load(string name, float loadTime)
@@ -42,7 +56,13 @@ public class LoadSceneManager : SingletonMonoBehaviour<LoadSceneManager>
 
         SceneManager.LoadScene(name);
     }
+    IEnumerator DelayFade()
+    {
+        yield return new WaitForSeconds(0.5f);
 
+        StartCoroutine(PlaySound());
+        fade.FadeOut(1.0f);
+    }
     IEnumerator PlaySound()
     {
         yield return new WaitForSeconds(0.1f);

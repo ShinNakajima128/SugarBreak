@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8943c24ddbf1c85489f7510cc2c1bb24, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  HP: 10
-  TotalKonpeitou: 0
+  m_hp: 3
+  m_totalKonpeitou: 10

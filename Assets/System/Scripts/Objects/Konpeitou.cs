@@ -5,13 +5,12 @@ using UnityEngine;
 public class Konpeitou : MonoBehaviour
 {
     [SerializeField] float m_arrivalTime = 2.0f;
-    public static int totalKonpeitou = 0;
+    [SerializeField] PlayerData playerData = default;
     public Transform m_target;
     public Vector3 m_position;
     Rigidbody m_rb;
     float period;
     Vector3 velocity;
-    PlayerData player;
 
     private void Start()
     {
@@ -27,7 +26,7 @@ public class Konpeitou : MonoBehaviour
         
         if (period <= 0f)
         {
-            totalKonpeitou++;
+            playerData.TotalKonpeitou++;
             Destroy(this.gameObject);
         }
         velocity += acceleration * Time.deltaTime;

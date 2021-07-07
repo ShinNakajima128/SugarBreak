@@ -60,11 +60,11 @@ public class MenuManager : MonoBehaviour
             state = MenuState.Audio;
         }
 
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            ActiveMenu(MenuState.Exit);
-            state = MenuState.Exit;
-        }
+        //if (Input.GetKeyDown(KeyCode.I))
+        //{
+        //    ActiveMenu(MenuState.Exit);
+        //    state = MenuState.Exit;
+        //}
 
         if (Input.GetKeyDown(KeyCode.O))
         {
