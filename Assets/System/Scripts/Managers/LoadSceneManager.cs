@@ -38,7 +38,7 @@ public class LoadSceneManager : SingletonMonoBehaviour<LoadSceneManager>
         if (Input.GetKeyDown(KeyCode.I))
         {
             soundManager.PlaySeByName("Exprosion");
-            fade.FadeIn(0.5f, () =>
+            fade.FadeIn(1.0f, () =>
             StartCoroutine(DelayFade())
             );
         }
@@ -58,7 +58,7 @@ public class LoadSceneManager : SingletonMonoBehaviour<LoadSceneManager>
     }
     IEnumerator DelayFade()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
 
         StartCoroutine(PlaySound());
         fade.FadeOut(1.0f);
