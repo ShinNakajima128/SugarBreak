@@ -135,7 +135,7 @@ public class PlayerController : MonoBehaviour
                 Vector3 velo = dir.normalized * m_runSpeed; // 入力した方向に移動する
                 float velocityY = Mathf.Clamp(m_rb.velocity.y, minVelocityY, maxVelocityY);
                 //freeLook.Priority = 9;
-                freeLook.m_Lens.FieldOfView = Mathf.Lerp(40, 50, Time.deltaTime * 0.1f);
+                //freeLook.m_Lens.FieldOfView = Mathf.Lerp(40, 50, Time.deltaTime * 0.1f);
                 //velo.y = m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
                 velo.y = velocityY;
                 m_rb.velocity = velo;   // 計算した速度ベクトルをセットする
@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviour
                 Vector3 velo = dir.normalized * m_walkSpeed; // 入力した方向に移動する
                 float velocityY = Mathf.Clamp(m_rb.velocity.y, minVelocityY, maxVelocityY);
                 //freeLook.Priority = 11;
-                freeLook.m_Lens.FieldOfView = Mathf.Lerp(50, 40, Time.deltaTime * 0.1f);
+                //freeLook.m_Lens.FieldOfView = Mathf.Lerp(50, 40, Time.deltaTime * 0.1f);
                 //velo.y = m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
                 velo.y = velocityY;
                 m_rb.velocity = velo;

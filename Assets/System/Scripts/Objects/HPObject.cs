@@ -7,6 +7,7 @@ public class HPObject : MonoBehaviour
     [SerializeField] float m_rotate_Y = -0.5f;
     [SerializeField] PlayerData playerData = default;
     [SerializeField] HpGauge hpGauge = default;
+    [SerializeField] SoundManager soundManager = default;
 
     void Update()
     {
@@ -19,6 +20,7 @@ public class HPObject : MonoBehaviour
         {
             playerData.HP += 2;
             hpGauge.SetHpGauge(playerData.HP);
+            soundManager.PlaySeByName("Heal");
             Destroy(this.gameObject);
         }
     }
