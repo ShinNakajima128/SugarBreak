@@ -20,9 +20,15 @@ public class PlayerData : ScriptableObject
             {
                 m_hp = value;
             }
+
             if (m_hp > 8)
             {
                 m_hp = 8;
+            }
+
+            if (m_hp <= 0)
+            {
+                m_hp = 0;
             }
         }
     }
