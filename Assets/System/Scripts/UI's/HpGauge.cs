@@ -4,18 +4,25 @@ using UnityEngine;
 
 public class HpGauge : MonoBehaviour
 {
+    /// <summary> 体力が偶数時の体力オブジェクト </summary>
     [SerializeField] GameObject m_evenHpObj = default;
+    /// <summary> 体力が奇数時の体力オブジェクト </summary>
     [SerializeField] GameObject m_addHpObj = default;
+    /// <summary> プレイヤーのデータ </summary>
     [SerializeField] PlayerData playerData = default;
 
+    /// <summary>
+    /// HPの数値に応じて体力オブジェクトをセットする
+    /// </summary>
+    /// <param name="hp"> HPの値 </param>
     public void SetHpGauge(int hp)
     {
-        //　体力を一旦全削除
+        ///　体力を一旦全削除
         for (int i = 0; i < transform.childCount; i++)
         {
             Destroy(transform.GetChild(i).gameObject);
         }
-        //　現在の体力数分のライフゲージを作成
+        ///　現在の体力数分のライフゲージを作成
         for (int i = 1; i <= hp; i++)
         {
             if (i == hp && i % 2 == 1)
@@ -28,17 +35,6 @@ public class HpGauge : MonoBehaviour
                 Instantiate<GameObject>(m_evenHpObj, transform);
 
             }
-        }
-    }
-
-    //　ダメージ分だけ削除
-    public void SetDamageHpGauge(int damage)
-    {
-        for (int i = 0; i < damage; i++)
-        {
-            //　最後のライフゲージを削除
-            Destroy(transform.GetChild(i).gameObject);
-            //Destroy(transform.GetChild(transform.childCount - 1 - i).gameObject);
         }
     }
 }
