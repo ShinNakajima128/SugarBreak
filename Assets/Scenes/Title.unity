@@ -213,6 +213,18 @@ Transform:
   m_Father: {fileID: 1989097836}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: -30.000002, z: 0}
+--- !u!114 &345320540 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2003259596525900640, guid: 22452ef30ae001b4382d787c1bd16c67,
+    type: 3}
+  m_PrefabInstance: {fileID: 521474954}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d416d1715bbc06d4789612d1211da8d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &345320541 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2003259596525899390, guid: 22452ef30ae001b4382d787c1bd16c67,
@@ -600,6 +612,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 760444865}
   m_CullTransparentMesh: 0
+--- !u!1 &929319042
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 929319044}
+  - component: {fileID: 929319043}
+  m_Layer: 0
+  m_Name: TitleMenuManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &929319043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929319042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca541dc07c43cf940ac59bcee782d3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_titleMenuPanel: {fileID: 0}
+  fade: {fileID: 345320540}
+  fadeImage: {fileID: 345320541}
+  soundManager: {fileID: 1723370809}
+  m_loadTime: 2
+  m_masks: {fileID: 2800000, guid: db9c14a57b367fa409217fcce666a9a1, type: 3}
+--- !u!4 &929319044
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929319042}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1004716997 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6111506268427613010, guid: 4b71c6a16f609cc49b8e131ea57d1e58,
