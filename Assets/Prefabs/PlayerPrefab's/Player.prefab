@@ -390,9 +390,9 @@ MonoBehaviour:
   m_waitTime: 1
   animationEventScript: {fileID: 594698113}
   m_isGroundedLength: 0.1
-  m_playerOperation: 1
   m_effectPos: {fileID: 3529515826681420720}
   m_shabadubiMode: 0
+  freeLook: {fileID: 0}
 --- !u!114 &594698113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,6 +409,7 @@ MonoBehaviour:
   - {fileID: 2839321049097089285}
   - {fileID: 5297733754556784459}
   m_candyBeatEffectPos: {fileID: 1434262577022571430}
+  m_hitStopTime: 0.01
   weaponStates: 1
   isChanged: 0
 --- !u!1 &6113929493320336198
