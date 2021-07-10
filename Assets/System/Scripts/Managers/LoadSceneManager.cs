@@ -8,6 +8,8 @@ public class LoadSceneManager : SingletonMonoBehaviour<LoadSceneManager>
     [SerializeField] Fade fade = default;
     [SerializeField] SoundManager soundManager = default;
     [SerializeField] float m_loadTime = 1.0f;
+    [SerializeField] FadeImage fadeImage = default;
+    [SerializeField] Texture m_masks = default;
     static float LoadTime;
     
     void Awake()
@@ -47,6 +49,12 @@ public class LoadSceneManager : SingletonMonoBehaviour<LoadSceneManager>
         {
             StartCoroutine(PlaySound());
             fade.FadeOut(1.0f);
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            fadeImage.UpdateMaskTexture(m_masks);
+            fade.FadeIn(1.0f);
         }
     }
 

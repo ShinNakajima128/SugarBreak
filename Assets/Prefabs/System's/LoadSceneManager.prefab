@@ -47,6 +47,8 @@ MonoBehaviour:
   fade: {fileID: 2003259596525900640}
   soundManager: {fileID: 0}
   m_loadTime: 1
+  fadeImage: {fileID: 0}
+  m_masks: {fileID: 0}
 --- !u!1001 &2003259596520475252
 PrefabInstance:
   m_ObjectHideFlags: 0

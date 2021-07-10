@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -8177,7 +8177,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 709014621}
-  m_LocalRotation: {x: 0.10910615, y: -0.013861238, z: 0.0015215789, w: 0.9939323}
+  m_LocalRotation: {x: 0.10910615, y: -0.01386123, z: 0.001521578, w: 0.9939323}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -14664,7 +14664,6 @@ GameObject:
   - component: {fileID: 1906965730}
   - component: {fileID: 1906965733}
   - component: {fileID: 1906965732}
-  - component: {fileID: 1906965731}
   - component: {fileID: 1906965734}
   - component: {fileID: 1906965737}
   - component: {fileID: 1906965738}
@@ -14676,6 +14675,7 @@ GameObject:
   - component: {fileID: 1906965739}
   - component: {fileID: 1906965744}
   - component: {fileID: 1906965735}
+  - component: {fileID: 1906965731}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -14699,19 +14699,19 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1906965731
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1906965729}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d7d417659cd54a6787f70f763950c34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 1906965732}
   suppressBlockAutoSelect: 0
-  waitForFrames: 1
+  message: 
 --- !u!114 &1906965732
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -14728,7 +14728,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 68
     y: 70
-    width: 75.6
+    width: 74.74226
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -14754,11 +14754,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 152.7, y: 35}
+  scrollPos: {x: 164.91649, y: 34.474228}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
-  zoom: 1
+  zoom: 0.97
   scrollViewRect:
     serializedVersion: 2
     x: -343
@@ -14768,7 +14768,7 @@ MonoBehaviour:
   selectedBlocks:
   - {fileID: 1906965737}
   selectedCommands:
-  - {fileID: 1906965735}
+  - {fileID: 1906965736}
   variables: []
   description: 
   stepPause: 0
@@ -14838,7 +14838,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 4
   indentLevel: 0
-  storyText: "\u3042\u308C\u306F\u30B8\u30E3\u30F3\u30D7\u30DE\u30C3\u30C8\u306D\uFF01"
+  storyText: "\u3042\u308C\u306F\u2026\u30B8\u30E3\u30F3\u30D7\u30DE\u30C3\u30C8\u306D\uFF01"
   description: 
   character: {fileID: 1911725684}
   portrait: {fileID: 21300000, guid: 6b4d280d1a0cb0a4c8516b457f777903, type: 3}
@@ -14867,7 +14867,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -80.7
     y: 65
-    width: 103.6
+    width: 100.30927
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -14912,7 +14912,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 10
   indentLevel: 0
-  storyText: "\u4E57\u3063\u305F\u3089\u9AD8\u304F\u98DB\u3079\u305D\u3046\uFF01"
+  storyText: "\u3042\u308C\u306B\u4E57\u3063\u305F\u3089\u9AD8\u304F\u98DB\u3079\u3066\u697D\u3057\u305D\u3046\u306D\uFF01"
   description: 
   character: {fileID: 1911725684}
   portrait: {fileID: 21300000, guid: 6b4d280d1a0cb0a4c8516b457f777903, type: 3}
