@@ -12,6 +12,8 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     [SerializeField] HpGauge hpGauge = default;
     [SerializeField] SoundManager soundManager = default;
     [SerializeField] Animator m_anim = default;
+    [SerializeField] PlayerController m_player = default;
+    [SerializeField] Rigidbody m_rb = default;
     public static bool isOperation = true;
 
     
@@ -50,6 +52,8 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     public void OffOperation()
     {
         isOperation = false;
+        m_anim.SetFloat("Move", 0f);
+        m_rb.velocity = Vector3.zero;
     }
 
     public void OnOperation()

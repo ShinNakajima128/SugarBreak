@@ -40,6 +40,12 @@ public class PlayerController : MonoBehaviour
     /// <summary> ジャンプ力の上限 </summary>
     float maxVelocityY = 3.5f;
 
+    public PlayerState State
+    {
+        get { return state; }
+        set { state = value; }
+    }
+
 
     void Start()
     {
