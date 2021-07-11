@@ -29,11 +29,14 @@ public class TitleMenu : MonoBehaviour
 
     void Update()
     {
-        if (isStarted)
+        if (!isStarted)
         {
             if (Input.anyKeyDown)
             {
-                
+                fadeImage.UpdateMaskTexture(m_masks);
+                fade.FadeIn(1.0f,() =>
+                StartCoroutine(StartWait()));
+                isStarted = false;
             }
         }
 
@@ -42,7 +45,8 @@ public class TitleMenu : MonoBehaviour
             case TitleMenuState.Begin:
                 if (!isChanged)
                 {
-                    m_titleMenuPanel.SetActive(true);
+                    //m_titleMenuPanel.SetActive(true);
+                    isChanged = true;
                 }
                 break;
         }
@@ -50,8 +54,9 @@ public class TitleMenu : MonoBehaviour
 
     IEnumerator StartWait()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
 
-
+        m_titleMenuPanel.SetActive(true);
+        fade.FadeOut(1.0f);
     }
 }
