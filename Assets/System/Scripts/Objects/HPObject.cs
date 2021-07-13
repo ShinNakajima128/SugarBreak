@@ -18,7 +18,8 @@ public class HPObject : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            playerData.HP += 2;
+            playerData.MaxHp += 2;
+            playerData.HP = playerData.MaxHp;
             hpGauge.SetHpGauge(playerData.HP);
             soundManager.PlaySeByName("Heal");
             Destroy(this.gameObject);

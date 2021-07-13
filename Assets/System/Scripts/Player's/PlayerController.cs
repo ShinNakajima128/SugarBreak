@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     /// <summary> Effectを表示する場所 </summary>
     [SerializeField] Transform m_effectPos = null;
     [SerializeField] bool m_shabadubiMode = false;
+    [SerializeField] CinemachineFreeLook m_freeLook = default;
     PlayerState state = PlayerState.None;
     Rigidbody m_rb;
     Animator m_anim;

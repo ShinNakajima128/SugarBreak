@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.System.Scripts.Damage;
+using Cinemachine;
 
 public class PlayerStatesManager : MonoBehaviour, IDamagable
 {
@@ -13,12 +14,15 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     [SerializeField] SoundManager soundManager = default;
     [SerializeField] Animator m_anim = default;
     [SerializeField] PlayerController m_player = default;
+    [SerializeField] CinemachineFreeLook m_freeLook = default;
     [SerializeField] Rigidbody m_rb = default;
     public static bool isOperation = true;
+    int defaultHp = 8;
 
     
     void Start()
     {
+        playerData.SetStartHp(defaultHp);
         hpGauge.SetHpGauge(playerData.HP);
     }
 
@@ -54,10 +58,14 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
         isOperation = false;
         m_anim.SetFloat("Move", 0f);
         m_rb.velocity = Vector3.zero;
+        m_freeLook.m_XAxis.m_InputAxisName = "";
+        m_freeLook.m_YAxis.m_InputAxisName = "";
     }
 
     public void OnOperation()
     {
         isOperation = true;
+        m_freeLook.m_XAxis.m_InputAxisName = "Camera X";
+        m_freeLook.m_YAxis.m_InputAxisName = "Camera Y";
     }
 }

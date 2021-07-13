@@ -5,8 +5,15 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "MyScriptable/Create PlayerData")]
 public class PlayerData : ScriptableObject
 {
+    [SerializeField] int m_maxHp = 8;
     [SerializeField] int m_hp = 8;
     [SerializeField] int m_totalKonpeitou = 0;
+
+    public int MaxHp
+    {
+        get { return m_maxHp; }
+        set { m_maxHp = value; }
+    }
 
     public int HP
     {
@@ -16,14 +23,14 @@ public class PlayerData : ScriptableObject
         }
         set 
         { 
-            if (m_hp <= 8) 
+            if (m_hp <= m_maxHp) 
             {
                 m_hp = value;
             }
 
-            if (m_hp > 8)
+            if (m_hp > m_maxHp)
             {
-                m_hp = 8;
+                m_hp = m_maxHp;
             }
 
             if (m_hp <= 0)
@@ -37,5 +44,11 @@ public class PlayerData : ScriptableObject
     {
         get { return m_totalKonpeitou; }
         set { m_totalKonpeitou = value; }
+    }
+
+    public void SetStartHp(int hp)
+    {
+        m_maxHp = hp;
+        m_hp = hp;
     }
 }
