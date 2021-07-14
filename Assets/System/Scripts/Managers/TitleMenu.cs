@@ -17,7 +17,7 @@ public class TitleMenu : MonoBehaviour
     [SerializeField] FadeImage fadeImage = default;
     [SerializeField] SoundManager soundManager = default;
     [SerializeField] float m_loadTime = 1.0f;
-    [SerializeField] Texture m_masks = default;
+    [SerializeField] Texture[] m_masks = default;
     [SerializeField] TitleMenuState titleState = TitleMenuState.Begin;
     static bool isStarted = false;
     bool isChanged = false;
@@ -33,7 +33,7 @@ public class TitleMenu : MonoBehaviour
         {
             if (Input.anyKeyDown)
             {
-                fadeImage.UpdateMaskTexture(m_masks);
+                fadeImage.UpdateMaskTexture(m_masks[0]);
                 fade.FadeIn(1.0f,() =>
                 StartCoroutine(StartWait()));
                 isStarted = false;
@@ -57,6 +57,7 @@ public class TitleMenu : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         m_titleMenuPanel.SetActive(true);
+        fadeImage.UpdateMaskTexture(m_masks[1]);
         fade.FadeOut(1.0f);
     }
 }

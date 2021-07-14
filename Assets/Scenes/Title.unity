@@ -269,6 +269,16 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 2100000, guid: c08cd46eaf9a0d34eb221ba2978cc476, type: 2}
+    - target: {fileID: 2003259596525899390, guid: 22452ef30ae001b4382d787c1bd16c67,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2003259596525899390, guid: 22452ef30ae001b4382d787c1bd16c67,
+        type: 3}
+      propertyPath: cutoutRange
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2003259596941310638, guid: 22452ef30ae001b4382d787c1bd16c67,
         type: 3}
       propertyPath: m_Name
@@ -646,7 +656,9 @@ MonoBehaviour:
   fadeImage: {fileID: 345320541}
   soundManager: {fileID: 1723370809}
   m_loadTime: 2
-  m_masks: {fileID: 2800000, guid: db9c14a57b367fa409217fcce666a9a1, type: 3}
+  m_masks:
+  - {fileID: 2800000, guid: db9c14a57b367fa409217fcce666a9a1, type: 3}
+  - {fileID: 2800000, guid: cc1446e1c64cf0c48bd5ed713fc5ed7b, type: 3}
   titleState: 0
 --- !u!4 &929319044
 Transform:
@@ -874,7 +886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
