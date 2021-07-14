@@ -12,7 +12,15 @@ public class PlayerData : ScriptableObject
     public int MaxHp
     {
         get { return m_maxHp; }
-        set { m_maxHp = value; }
+        set 
+        { 
+            if (m_maxHp <= 10) m_maxHp = value;
+            
+            if (m_maxHp > 10)
+            {
+                m_maxHp = 10;
+            }
+        }
     }
 
     public int HP
