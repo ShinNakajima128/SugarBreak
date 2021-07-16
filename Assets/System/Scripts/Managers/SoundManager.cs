@@ -51,9 +51,9 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     private void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        if (SceneManager.GetActiveScene().name == "Main")
+        if (SceneManager.GetActiveScene().name == "Title")
         {
-            PlayBgmByName("BakedPlain");
+            PlayBgmByName("Title");
         }
         else if (SceneManager.GetActiveScene().name == "BakedPlain")
         {

@@ -173,7 +173,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_bgms:
+  - {fileID: 8300000, guid: 7086c8f5cabfca443ae8ab37f679ef46, type: 3}
+  - {fileID: 8300000, guid: 29ede5208cc6ea944bfda77ec90facb0, type: 3}
   - {fileID: 8300000, guid: 685f2ede713ba2f45bf31a85cb9b8bf8, type: 3}
+  - {fileID: 8300000, guid: c44aa9005c774e948b4a699561a4d801, type: 3}
+  - {fileID: 8300000, guid: ccdcb730bafe4424a9d3b3b6f7145d43, type: 3}
+  - {fileID: 8300000, guid: 505565ff808348f4a9adec3a3ee71867, type: 3}
   m_ses:
   - {fileID: 8300000, guid: 935f871baaa0b6645992218b6084c796, type: 3}
   - {fileID: 8300000, guid: 6dce9ad66aa6bfd45889f10e0d7e0368, type: 3}

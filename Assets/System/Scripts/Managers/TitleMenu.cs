@@ -15,16 +15,19 @@ public class TitleMenu : MonoBehaviour
     [SerializeField] GameObject m_titleMenuPanel = default;
     [SerializeField] Fade fade = default;
     [SerializeField] FadeImage fadeImage = default;
-    [SerializeField] SoundManager soundManager = default;
     [SerializeField] float m_loadTime = 1.0f;
     [SerializeField] Texture[] m_masks = default;
     [SerializeField] TitleMenuState titleState = TitleMenuState.Begin;
+    [SerializeField] GameObject m_loadingAnim = default;
+
     static bool isStarted = false;
     bool isChanged = false;
+    SoundManager soundManager;
 
     void Start()
     {
-
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
+        m_loadingAnim.SetActive(false);
     }
 
     void Update()
@@ -33,6 +36,7 @@ public class TitleMenu : MonoBehaviour
         {
             if (Input.anyKeyDown)
             {
+                soundManager.PlaySeByName("Transition");
                 fadeImage.UpdateMaskTexture(m_masks[0]);
                 fade.FadeIn(1.0f,() =>
                 StartCoroutine(StartWait()));
@@ -45,7 +49,6 @@ public class TitleMenu : MonoBehaviour
             case TitleMenuState.Begin:
                 if (!isChanged)
                 {
-                    //m_titleMenuPanel.SetActive(true);
                     isChanged = true;
                 }
                 break;
@@ -56,6 +59,11 @@ public class TitleMenu : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
+        m_loadingAnim.SetActive(true);
+
+        yield return new WaitForSeconds(3.0f);
+
+        m_loadingAnim.SetActive(false);
         m_titleMenuPanel.SetActive(true);
         fadeImage.UpdateMaskTexture(m_masks[1]);
         fade.FadeOut(1.0f);
