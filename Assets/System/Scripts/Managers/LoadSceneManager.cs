@@ -23,11 +23,6 @@ public class LoadSceneManager : SingletonMonoBehaviour<LoadSceneManager>
         DontDestroyOnLoad(gameObject);
     }
 
-    public void AnyLoadScene(string name)
-    {
-        StartCoroutine(Load(name, LoadTime));
-    }
-
     void Start()
     {
         fade.FadeOut(1.0f);
@@ -58,6 +53,18 @@ public class LoadSceneManager : SingletonMonoBehaviour<LoadSceneManager>
         //}
     }
 
+    public void AnyLoadScene(string name)
+    {
+        StartCoroutine(Load(name, LoadTime));
+    }
+
+    public void QuitGame()
+    {
+        fadeImage.UpdateMaskTexture(m_masks);
+        fade.FadeIn(1.0f);
+        StartCoroutine(DelayQuit());
+    }
+
     IEnumerator Load(string name, float loadTime)
     {
         yield return new WaitForSeconds(loadTime);
@@ -66,7 +73,7 @@ public class LoadSceneManager : SingletonMonoBehaviour<LoadSceneManager>
     }
     IEnumerator DelayFade()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(m_loadTime);
 
         StartCoroutine(PlaySound());
         fade.FadeOut(1.0f);
@@ -76,5 +83,12 @@ public class LoadSceneManager : SingletonMonoBehaviour<LoadSceneManager>
         yield return new WaitForSeconds(0.1f);
 
         soundManager.PlaySeByName("Transition");
+    }
+
+    IEnumerator DelayQuit()
+    {
+        yield return new WaitForSeconds(m_loadTime);
+
+        Application.Quit();
     }
 }
