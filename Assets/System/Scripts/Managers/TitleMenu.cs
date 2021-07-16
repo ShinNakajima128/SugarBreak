@@ -19,6 +19,8 @@ public class TitleMenu : MonoBehaviour
     [SerializeField] Texture[] m_masks = default;
     [SerializeField] TitleMenuState titleState = TitleMenuState.Begin;
     [SerializeField] GameObject m_loadingAnim = default;
+    [SerializeField] GameObject m_mainMenuBG = default;
+    [SerializeField] GameObject m_confirmPanel = default;
     [SerializeField] GameObject[] m_menuPanels = default;
 
     static bool isStarted = false;
@@ -30,6 +32,8 @@ public class TitleMenu : MonoBehaviour
         soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
         SwitchingMenu(0);
         m_loadingAnim.SetActive(false);
+        m_mainMenuBG.SetActive(false);
+        m_confirmPanel.SetActive(false);
     }
 
     void Update()
@@ -38,12 +42,13 @@ public class TitleMenu : MonoBehaviour
         {
             if (Input.anyKeyDown)
             {
-                soundManager.PlaySeByName("Transition");
+                soundManager.PlaySeByName("Transition2");
                 fadeImage.UpdateMaskTexture(m_masks[0]);
                 fade.FadeIn(1.0f, () =>
                  {
                      titleState = TitleMenuState.MainMenu;
                      isChanged = false;
+                     m_mainMenuBG.SetActive(true);
                      StartCoroutine(StartWait(m_masks[1]));
                  });
                 isStarted = true;
@@ -53,12 +58,13 @@ public class TitleMenu : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                soundManager.PlaySeByName("Transition");
+                soundManager.PlaySeByName("Transition2");
                 fadeImage.UpdateMaskTexture(m_masks[1]);
                 fade.FadeIn(1.0f, () =>
                 {
                     titleState = TitleMenuState.Begin;
                     isChanged = false;
+                    m_mainMenuBG.SetActive(false);
                     StartCoroutine(StartWait(m_masks[0]));
                 });
                 isStarted = false;
@@ -100,6 +106,17 @@ public class TitleMenu : MonoBehaviour
             }
         }
     }
+
+    public void OnConfirmPanel()
+    {
+        m_confirmPanel.SetActive(true);
+    }
+
+    public void OffConfirmPanel()
+    {
+        m_confirmPanel.SetActive(false);
+    }
+
     IEnumerator StartWait(Texture mask)
     {
         yield return new WaitForSeconds(0.5f);
