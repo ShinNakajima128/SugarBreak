@@ -444,19 +444,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1989097836}
     m_Modifications:
-    - target: {fileID: 1462793453, guid: 22452ef30ae001b4382d787c1bd16c67, type: 3}
-      propertyPath: m_Name
-      value: LoadAnimation
-      objectReference: {fileID: 0}
-    - target: {fileID: 1462793457, guid: 22452ef30ae001b4382d787c1bd16c67, type: 3}
-      propertyPath: m_SortingOrder
-      value: 999
-      objectReference: {fileID: 0}
-    - target: {fileID: 2003259596498142094, guid: 22452ef30ae001b4382d787c1bd16c67,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 998
-      objectReference: {fileID: 0}
     - target: {fileID: 2003259596941310638, guid: 22452ef30ae001b4382d787c1bd16c67,
         type: 3}
       propertyPath: m_Name
@@ -2035,7 +2022,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1286870203}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1417923464}
+        m_MethodName: AnyLoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: BakedPlain
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1286870203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2073,6 +2071,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1286870200}
   m_CullTransparentMesh: 0
+--- !u!114 &1417923464 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2003259596941310641, guid: 22452ef30ae001b4382d787c1bd16c67,
+    type: 3}
+  m_PrefabInstance: {fileID: 521474954}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0016961ab20f8b449e6ae6b8611b89a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1423517194
 GameObject:
   m_ObjectHideFlags: 0
@@ -2475,17 +2485,17 @@ PrefabInstance:
     - target: {fileID: 7875906673639587954, guid: cedef20e1a3fbf249b8b931f0dcafbe9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 108.749
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7875906673639587954, guid: cedef20e1a3fbf249b8b931f0dcafbe9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 151.374
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7875906673639587954, guid: cedef20e1a3fbf249b8b931f0dcafbe9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 144.617
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7875906673639587954, guid: cedef20e1a3fbf249b8b931f0dcafbe9,
         type: 3}
@@ -3147,7 +3157,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2140531778}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1417923464}
+        m_MethodName: QuitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2140531778
 MonoBehaviour:
   m_ObjectHideFlags: 0

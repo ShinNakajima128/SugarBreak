@@ -8,8 +8,9 @@ public class LoadSceneManager : SingletonMonoBehaviour<LoadSceneManager>
     [SerializeField] Fade fade = default;
     [SerializeField] SoundManager soundManager = default;
     [SerializeField] float m_loadTime = 1.0f;
+    [SerializeField] GameObject m_loadAnim = default;
     [SerializeField] FadeImage fadeImage = default;
-    [SerializeField] Texture m_masks = default;
+    [SerializeField] Texture[] m_masks = default;
     static float LoadTime;
     
     void Awake()
@@ -25,48 +26,34 @@ public class LoadSceneManager : SingletonMonoBehaviour<LoadSceneManager>
 
     void Start()
     {
+        m_loadAnim.SetActive(false);
+
         fade.FadeOut(1.0f);
         LoadTime = m_loadTime;
     }
 
-    private void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.I))
-        //{
-        //    soundManager.PlaySeByName("Exprosion");
-        //    fade.FadeIn(1.0f, () =>
-        //    StartCoroutine(DelayFade())
-        //    );
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.L))
-        //{
-        //    StartCoroutine(PlaySound());
-        //    fade.FadeOut(1.0f);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.T))
-        //{
-        //    StartCoroutine(PlaySound());
-        //    fadeImage.UpdateMaskTexture(m_masks);
-        //    fade.FadeIn(1.0f);
-        //}
-    }
-
     public void AnyLoadScene(string name)
     {
-        StartCoroutine(Load(name, LoadTime));
+        fadeImage.UpdateMaskTexture(m_masks[2]);
+        fade.FadeIn(1.0f, () =>
+        {
+            StartCoroutine(Load(name, 3.0f));
+        });
     }
 
     public void QuitGame()
     {
-        fadeImage.UpdateMaskTexture(m_masks);
+        fadeImage.UpdateMaskTexture(m_masks[0]);
         fade.FadeIn(1.0f);
         StartCoroutine(DelayQuit());
     }
 
     IEnumerator Load(string name, float loadTime)
     {
+        yield return new WaitForSeconds(1.0f);
+
+        m_loadAnim.SetActive(true);
+
         yield return new WaitForSeconds(loadTime);
 
         SceneManager.LoadScene(name);

@@ -50,27 +50,30 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
 
     private void Start()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        if (SceneManager.GetActiveScene().name == "Title")
+        if (Instance != null)
         {
-            PlayBgmByName("Title");
-        }
-        else if (SceneManager.GetActiveScene().name == "BakedPlain")
-        {
-            PlayBgmByName("BakedPlain");
-        }
-        else if (SceneManager.GetActiveScene().name == "LifeGame")
-        {
-            PlayBgmByName("LifeGame");
-        }
-        else if (SceneManager.GetActiveScene().name == "Bingo")
-        {
-            PlayBgmByName("Bingo");
-        }
-        else if (SceneManager.GetActiveScene().name == "Reversi")
-        {
-            PlayBgmByName("Reversi");
-        }
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            if (SceneManager.GetActiveScene().name == "Title")
+            {
+                PlayBgmByName("Title");
+            }
+            else if (SceneManager.GetActiveScene().name == "BakedPlain")
+            {
+                PlayBgmByName("BakedPlain2");
+            }
+            else if (SceneManager.GetActiveScene().name == "LifeGame")
+            {
+                PlayBgmByName("LifeGame");
+            }
+            else if (SceneManager.GetActiveScene().name == "Bingo")
+            {
+                PlayBgmByName("Bingo");
+            }
+            else if (SceneManager.GetActiveScene().name == "Reversi")
+            {
+                PlayBgmByName("Reversi");
+            }
+        }  
     }
 
     /// <summary>
@@ -80,24 +83,27 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     /// <param name="mode"></param>
     void OnSceneLoaded(Scene nextScene, LoadSceneMode mode)
     {
-        switch (SceneManager.GetActiveScene().name)
+        if (Instance != null)
         {
-            case "Title":
-                PlayBgmByName("Title");
-                break;
-            case "BakedPlain":
-                PlayBgmByName("BakedPlain");
-                break;
-            case "LifeGame":
-                PlayBgmByName("LifeGame");
-                break;
-            case "Bingo":
-                PlayBgmByName("Bingo");
-                break;
-            case "Reversi":
-                PlayBgmByName("Reversi");
-                break;
-        }
+            switch (SceneManager.GetActiveScene().name)
+            {
+                case "Title":
+                    PlayBgmByName("Title");
+                    break;
+                case "BakedPlain":
+                    PlayBgmByName("BakedPlain2");
+                    break;
+                case "LifeGame":
+                    PlayBgmByName("LifeGame");
+                    break;
+                case "Bingo":
+                    PlayBgmByName("Bingo");
+                    break;
+                case "Reversi":
+                    PlayBgmByName("Reversi");
+                    break;
+            }
+        } 
     }
 
     void Update()
@@ -131,17 +137,21 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     }
     public void PlayBgm(int index)
     {
-        index = Mathf.Clamp(index, 0, m_bgms.Length);
+        if (Instance != null)
+        {
+            index = Mathf.Clamp(index, 0, m_bgms.Length);
 
-        m_bgmAudioSource.clip = m_bgms[index];
-        m_bgmAudioSource.loop = true;
-        m_bgmAudioSource.volume = m_bgmVolume * m_masterVolume;
-        m_bgmAudioSource.Play();
+            m_bgmAudioSource.clip = m_bgms[index];
+            m_bgmAudioSource.loop = true;
+            m_bgmAudioSource.volume = m_bgmVolume * m_masterVolume;
+            m_bgmAudioSource.Play();
+        }
     }
 
     public void PlayBgmByName(string name)
     {
         PlayBgm(GetBgmIndex(name));
+        Debug.Log("再生");
     }
 
     public void StopBgm()
