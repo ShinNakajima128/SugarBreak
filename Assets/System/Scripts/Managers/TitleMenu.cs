@@ -96,6 +96,14 @@ public class TitleMenu : MonoBehaviour
                     Debug.Log("メインメニュー");
                 }
                 break;
+            case TitleMenuState.Option:
+                if (!isChanged)
+                {
+                    SwitchingMenu(2);
+                    isChanged = true;
+                    Debug.Log("オプション");
+                }
+                break;
         }
     }
 
@@ -112,6 +120,17 @@ public class TitleMenu : MonoBehaviour
                 m_menuPanels[i].SetActive(false);
             }
         }
+    }
+    public void MainMenuSelect()
+    {
+        titleState = TitleMenuState.MainMenu;
+        isChanged = false;
+    }
+
+    public void OptionSelect()
+    {
+        titleState = TitleMenuState.Option;
+        isChanged = false;
     }
 
     public void OnConfirmPanel()
