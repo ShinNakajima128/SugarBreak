@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LoadSceneManager : SingletonMonoBehaviour<LoadSceneManager>
+public class LoadSceneManager : MonoBehaviour
 {
     [SerializeField] Fade fade = default;
     [SerializeField] SoundManager soundManager = default;
@@ -12,17 +12,6 @@ public class LoadSceneManager : SingletonMonoBehaviour<LoadSceneManager>
     [SerializeField] FadeImage fadeImage = default;
     [SerializeField] Texture[] m_masks = default;
     static float LoadTime;
-    
-    void Awake()
-    {
-        if (this != Instance)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        DontDestroyOnLoad(gameObject);
-    }
 
     void Start()
     {
