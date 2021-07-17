@@ -6,14 +6,15 @@ using System;
 public enum WeaponState
 {
     CandyBeat,
-    PopLauncher
+    PopLauncher,
+    DualSoda
 }
 
 public class AnimationEventScript : MonoBehaviour
 {
     [SerializeField] GameObject[] m_weaponList = null;
     [SerializeField] Transform m_candyBeatEffectPos = null;
-    [SerializeField] float m_hitStopTime = 0.2f;
+    [SerializeField] float m_hitStopTime = 0.01f;
     Dictionary<string, int> weaponIndex = new Dictionary<string, int>();
     SoundManager soundManager;
     public WeaponState weaponStates = WeaponState.PopLauncher;
@@ -38,14 +39,19 @@ public class AnimationEventScript : MonoBehaviour
         switch (weaponStates)
         {
             case WeaponState.CandyBeat:
-                
                 m_weaponList[GetWeaponIndex("RolipopCandy")].SetActive(true);
                 m_weaponList[GetWeaponIndex("PopLauncher")].SetActive(false);
+                m_weaponList[GetWeaponIndex("DualSoda")].SetActive(false);
                 break;
             case WeaponState.PopLauncher:
-                
                 m_weaponList[GetWeaponIndex("RolipopCandy")].SetActive(false);
                 m_weaponList[GetWeaponIndex("PopLauncher")].SetActive(true);
+                m_weaponList[GetWeaponIndex("DualSoda")].SetActive(false);
+                break;
+            case WeaponState.DualSoda:
+                m_weaponList[GetWeaponIndex("RolipopCandy")].SetActive(false);
+                m_weaponList[GetWeaponIndex("PopLauncher")].SetActive(false);
+                m_weaponList[GetWeaponIndex("DualSoda")].SetActive(true);
                 break;
         }
     }

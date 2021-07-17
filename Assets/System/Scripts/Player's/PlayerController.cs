@@ -246,6 +246,23 @@ public class PlayerController : MonoBehaviour
                 soundManager.PlaySeByName("Change");
             }
         }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (animationEventScript.weaponStates == WeaponState.DualSoda) return;
+
+            EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
+            animationEventScript.isChanged = false;
+            animationEventScript.weaponStates = WeaponState.DualSoda;
+
+            if (m_shabadubiMode)
+            {
+                soundManager.PlaySeByName("Shabadubi");
+            }
+            else
+            {
+                soundManager.PlaySeByName("Change");
+            }
+        }
     }
     /// <summary>
     /// 硬直
