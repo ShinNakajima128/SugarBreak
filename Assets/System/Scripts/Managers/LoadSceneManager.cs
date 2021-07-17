@@ -26,7 +26,7 @@ public class LoadSceneManager : MonoBehaviour
         fadeImage.UpdateMaskTexture(m_masks[2]);
         fade.FadeIn(1.0f, () =>
         {
-            StartCoroutine(Load(name, 3.0f));
+            StartCoroutine(Load(name, 3.5f));
         });
     }
 
@@ -39,7 +39,7 @@ public class LoadSceneManager : MonoBehaviour
 
     IEnumerator Load(string name, float loadTime)
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.2f);
 
         m_loadAnim.SetActive(true);
 

@@ -204,7 +204,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c20361d3944699b49952421bfc957f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_rotate_Y: -1.5
+  m_rotate_Y: -0.5
+  playerData: {fileID: 0}
+  hpGauge: {fileID: 0}
+  soundManager: {fileID: 0}
 --- !u!65 &3395387091803798391
 BoxCollider:
   m_ObjectHideFlags: 0
