@@ -392,7 +392,7 @@ MonoBehaviour:
   m_isGroundedLength: 0.1
   m_effectPos: {fileID: 3529515826681420720}
   m_shabadubiMode: 0
-  freeLook: {fileID: 0}
+  m_freeLook: {fileID: 0}
 --- !u!114 &594698113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,14 +402,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6113929421551264274}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 169e37c77c06c2a4995185fde12df681, type: 3}
+  m_Script: {fileID: 11500000, guid: 48c5357a616a8c44da7229fd0defa981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_weaponList:
   - {fileID: 2839321049097089285}
   - {fileID: 5297733754556784459}
-  m_candyBeatEffectPos: {fileID: 1434262577022571430}
-  m_hitStopTime: 0.01
+  m_candyBeatEffectPos: {fileID: 3529515826681420720}
+  m_hitStopTime: 0.2
   weaponStates: 1
   isChanged: 0
 --- !u!1 &6113929493320336198
