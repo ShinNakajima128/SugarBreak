@@ -5,22 +5,31 @@ using UnityEngine.SceneManagement;
 
 public class LoadSceneManager : MonoBehaviour
 {
+    /// <summary> フェードさせるパネル </summary>
     [SerializeField] Fade fade = default;
-    [SerializeField] SoundManager soundManager = default;
+    /// <summary> ロードにかける時間 </summary>
     [SerializeField] float m_loadTime = 1.0f;
+    /// <summary> ロード画面中のアニメーション </summary>
     [SerializeField] GameObject m_loadAnim = default;
+    /// <summary> フェードのマスクを管理するオブジェクト </summary>
     [SerializeField] FadeImage fadeImage = default;
+    /// <summary> フェードさせる歳のマスク </summary>
     [SerializeField] Texture[] m_masks = default;
-    static float LoadTime;
+    /// <summary> サウンドマネージャー </summary>
+    SoundManager soundManager;
 
     void Start()
     {
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
         m_loadAnim.SetActive(false);
 
         fade.FadeOut(1.0f, () => TitleMenu.isInputtable = true);
-        LoadTime = m_loadTime;
     }
 
+    /// <summary>
+    /// 指定したSceneに遷移する
+    /// </summary>
+    /// <param name="name"> 遷移先のSceneの名前 </param>
     public void AnyLoadScene(string name)
     {
         fadeImage.UpdateMaskTexture(m_masks[2]);
@@ -30,6 +39,9 @@ public class LoadSceneManager : MonoBehaviour
         });
     }
 
+    /// <summary>
+    /// ゲームを終了する
+    /// </summary>
     public void QuitGame()
     {
         fadeImage.UpdateMaskTexture(m_masks[0]);
@@ -37,6 +49,12 @@ public class LoadSceneManager : MonoBehaviour
         StartCoroutine(DelayQuit());
     }
 
+    /// <summary>
+    /// ロード時のコルーチン
+    /// </summary>
+    /// <param name="name"> Sceneの名前 </param>
+    /// <param name="loadTime"> ロードにかける時間 </param>
+    /// <returns></returns>
     IEnumerator Load(string name, float loadTime)
     {
         yield return new WaitForSeconds(0.2f);
@@ -47,20 +65,11 @@ public class LoadSceneManager : MonoBehaviour
 
         SceneManager.LoadScene(name);
     }
-    IEnumerator DelayFade()
-    {
-        yield return new WaitForSeconds(m_loadTime);
-
-        StartCoroutine(PlaySound());
-        fade.FadeOut(1.0f);
-    }
-    IEnumerator PlaySound()
-    {
-        yield return new WaitForSeconds(0.1f);
-
-        soundManager.PlaySeByName("Transition");
-    }
-
+    
+    /// <summary>
+    /// フェード後にゲームを終了するためのコルーチン
+    /// </summary>
+    /// <returns></returns>
     IEnumerator DelayQuit()
     {
         yield return new WaitForSeconds(m_loadTime);
