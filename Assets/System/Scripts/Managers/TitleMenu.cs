@@ -126,11 +126,11 @@ public class TitleMenu : MonoBehaviour
 
     IEnumerator StartWait(Texture mask)
     {
+        //yield return new WaitForSeconds(0.5f);
+
+        //m_loadingAnim.SetActive(true);
+
         yield return new WaitForSeconds(0.5f);
-
-        m_loadingAnim.SetActive(true);
-
-        yield return new WaitForSeconds(3.0f);
 
         m_loadingAnim.SetActive(false);
         m_titleMenuPanel.SetActive(true);
