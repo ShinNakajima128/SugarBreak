@@ -17,7 +17,7 @@ public class LoadSceneManager : MonoBehaviour
     {
         m_loadAnim.SetActive(false);
 
-        fade.FadeOut(1.0f);
+        fade.FadeOut(1.0f, () => TitleMenu.isInputtable = true);
         LoadTime = m_loadTime;
     }
 

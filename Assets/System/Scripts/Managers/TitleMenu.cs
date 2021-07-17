@@ -24,9 +24,14 @@ public class TitleMenu : MonoBehaviour
     [SerializeField] GameObject[] m_menuPanels = default;
 
     static bool isStarted = false;
+    public static bool isInputtable = true;
     bool isChanged = false;
     SoundManager soundManager;
 
+    private void Awake()
+    {
+        isInputtable = false;
+    }
     void Start()
     {
         soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
@@ -40,8 +45,9 @@ public class TitleMenu : MonoBehaviour
     {
         if (!isStarted)
         {
-            if (Input.anyKeyDown)
+            if (Input.anyKeyDown && isInputtable)
             {
+                isInputtable = false;
                 soundManager.PlaySeByName("Transition2");
                 fadeImage.UpdateMaskTexture(m_masks[0]);
                 fade.FadeIn(1.0f, () =>
@@ -56,8 +62,9 @@ public class TitleMenu : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) && isInputtable)
             {
+                isInputtable = false;
                 soundManager.PlaySeByName("Transition2");
                 fadeImage.UpdateMaskTexture(m_masks[1]);
                 fade.FadeIn(1.0f, () =>
@@ -129,5 +136,9 @@ public class TitleMenu : MonoBehaviour
         m_titleMenuPanel.SetActive(true);
         fadeImage.UpdateMaskTexture(mask);
         fade.FadeOut(1.0f);
+
+        yield return new WaitForSeconds(1.0f);
+
+        isInputtable = true;
     }
 }
