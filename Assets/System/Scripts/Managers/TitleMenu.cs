@@ -20,6 +20,7 @@ public class TitleMenu : MonoBehaviour
     [SerializeField] TitleMenuState titleState = TitleMenuState.Begin;
     [SerializeField] GameObject m_loadingAnim = default;
     [SerializeField] GameObject m_mainMenuBG = default;
+    [SerializeField] GameObject m_mainMenuList = default;
     [SerializeField] GameObject m_confirmPanel = default;
     [SerializeField] GameObject[] m_menuPanels = default;
 
@@ -136,11 +137,13 @@ public class TitleMenu : MonoBehaviour
     public void OnConfirmPanel()
     {
         m_confirmPanel.SetActive(true);
+        m_mainMenuList.SetActive(false);
     }
 
     public void OffConfirmPanel()
     {
         m_confirmPanel.SetActive(false);
+        m_mainMenuList.SetActive(true);
     }
 
     IEnumerator StartWait(Texture mask)
