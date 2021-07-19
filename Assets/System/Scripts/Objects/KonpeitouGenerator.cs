@@ -7,6 +7,7 @@ public class KonpeitouGenerator : MonoBehaviour
     [SerializeField] GameObject[] m_konpeito = null;
     [SerializeField] int m_generateNum = 10;
     [SerializeField] float m_generateTime = 0.1f;
+    [SerializeField] float m_generatePower = 10;
     [SerializeField] Transform m_targetObject = null;
 
     private void Update()
@@ -32,7 +33,7 @@ public class KonpeitouGenerator : MonoBehaviour
             kon.GetComponent<Konpeitou>().m_target = m_targetObject;
             kon.GetComponent<Konpeitou>().m_position = enemy.position;
             var m_rb = kon.gameObject.GetComponent<Rigidbody>();
-            Vector3 force = new Vector3(Random.Range(-3, 3), 30, Random.Range(-3, 3));
+            Vector3 force = new Vector3(Random.Range(-3, 3), m_generatePower, Random.Range(-3, 3));
 
             m_rb.AddForce(force, ForceMode.Impulse);
         }
