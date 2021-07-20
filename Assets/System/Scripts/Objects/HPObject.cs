@@ -7,8 +7,12 @@ public class HPObject : MonoBehaviour
     [SerializeField] float m_rotate_Y = -0.5f;
     [SerializeField] PlayerData playerData = default;
     [SerializeField] HpGauge hpGauge = default;
-    [SerializeField] SoundManager soundManager = default;
+    SoundManager soundManager;
 
+    private void Start()
+    {
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
+    }
     void Update()
     {
         transform.Rotate(new Vector3(0f, m_rotate_Y, 0f));

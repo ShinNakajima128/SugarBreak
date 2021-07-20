@@ -36,6 +36,7 @@ public enum EffectType
 
 public class EffectManager : SingletonMonoBehaviour<EffectManager>
 {
+    // オブジェクトのデータをファイルに保存する
     [System.Serializable]
     class EffectData
     {
