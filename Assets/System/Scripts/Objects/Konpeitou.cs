@@ -13,6 +13,8 @@ public class Konpeitou : MonoBehaviour
     float period;
     Vector3 velocity;
     bool isSearched = false;
+    bool isUpdated = false;
+    bool isGrounded = false;
 
     private void Start()
     {
@@ -29,6 +31,12 @@ public class Konpeitou : MonoBehaviour
 
     public void StartMoving()
     {
+        if (!isUpdated)
+        {
+            m_position = transform.position;
+            isUpdated = true;
+        }
+
         var acceleration = m_rb.velocity;
         var diff = m_target.position - m_position;
         acceleration += (diff - velocity * period) * 2.0f / (period * period);
@@ -46,6 +54,12 @@ public class Konpeitou : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Ground") && !isGrounded)
+        {
+            StartCoroutine(Stopping());
+            isGrounded = true;
+        }
+
         if (other.gameObject.CompareTag("Player"))
         {
             isSearched = true;
@@ -55,5 +69,13 @@ public class Konpeitou : MonoBehaviour
 
             m_rb.AddForce(force, ForceMode.Impulse);
         }
+    }
+
+    IEnumerator Stopping()
+    {
+        yield return new WaitForSeconds(3.0f);
+
+        m_rb.velocity = Vector3.zero;
+        m_rb.useGravity = false;
     }
 }
