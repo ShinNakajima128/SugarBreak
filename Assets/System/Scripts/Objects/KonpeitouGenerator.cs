@@ -33,7 +33,7 @@ public class KonpeitouGenerator : MonoBehaviour
             kon.GetComponent<Konpeitou>().m_target = m_targetObject;
             kon.GetComponent<Konpeitou>().m_position = enemy.position;
             var m_rb = kon.gameObject.GetComponent<Rigidbody>();
-            Vector3 force = new Vector3(Random.Range(-3, 3), m_generatePower, Random.Range(-3, 3));
+            Vector3 force = new Vector3(Random.Range(-2, 2), m_generatePower, Random.Range(-2, 2));
 
             m_rb.AddForce(force, ForceMode.Impulse);
         }

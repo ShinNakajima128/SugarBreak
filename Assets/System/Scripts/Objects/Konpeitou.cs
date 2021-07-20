@@ -31,6 +31,7 @@ public class Konpeitou : MonoBehaviour
     {
         if (isSearched)
         {
+            m_rb.isKinematic = false;
             StartMoving();
         }
     }
@@ -51,6 +52,7 @@ public class Konpeitou : MonoBehaviour
         if (period <= 0f)
         {
             playerData.TotalKonpeitou++;
+            SoundManager.Instance.PlaySeByName("Gain");
             Destroy(this.gameObject);
         }
         velocity += acceleration * Time.deltaTime;
@@ -79,10 +81,12 @@ public class Konpeitou : MonoBehaviour
 
     IEnumerator Stopping()
     {
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(3.0f);
 
         m_searchCollider.enabled = true;
+        m_rb.isKinematic = true;
         m_rb.velocity = Vector3.zero;
+        m_rb.freezeRotation = true;
         m_rb.useGravity = false;
     }
 }
