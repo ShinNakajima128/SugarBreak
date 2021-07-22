@@ -118,7 +118,7 @@ public class Decolly : EnemyBase
             }
         }
         velocity.y += Physics.gravity.y * Time.deltaTime;
-        characterController.Move(velocity * Time.deltaTime);
+        if (characterController.enabled) characterController.Move(velocity * Time.deltaTime);
     }
 
     public void SetState(DecollyState tempState, Transform target = null)
@@ -187,6 +187,7 @@ public class Decolly : EnemyBase
     void Dead()
     {
         arrived = true;
+        m_anim.SetBool("Dead", true);
         m_anim.Play("Die");
         characterController.enabled = false;
         generator.GenerateKonpeitou(this.transform, enemyData.konpeitou);
