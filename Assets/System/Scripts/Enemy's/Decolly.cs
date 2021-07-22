@@ -123,9 +123,15 @@ public class Decolly : EnemyBase
 
     public void SetState(DecollyState tempState, Transform target = null)
     {
+        if (decollyState == DecollyState.Dead) return;
+
         decollyState = tempState;
 
-        if (decollyState == DecollyState.Move)
+        if (tempState == DecollyState.Dead)
+        {
+            Dead();
+        }
+        else if (decollyState == DecollyState.Move)
         {
             arrived = false;
             elapsedTime = 0f;
@@ -161,11 +167,7 @@ public class Decolly : EnemyBase
             velocity = Vector3.zero;
             m_anim.SetFloat("Speed", 0f);
             m_anim.SetBool("Attack", false);
-        }
-        else if (tempState == DecollyState.Dead)
-        {
-            Dead();
-        }
+        }     
     }
 
     public void AttackStart()
@@ -186,6 +188,7 @@ public class Decolly : EnemyBase
     {
         arrived = true;
         m_anim.Play("Die");
+        characterController.enabled = false;
         generator.GenerateKonpeitou(this.transform, enemyData.konpeitou);
         StartCoroutine(Vanish(EffectType.EnemyDead, m_vanishTime));
     }

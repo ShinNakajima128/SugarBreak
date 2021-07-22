@@ -15,7 +15,6 @@ public class Konpeitou : MonoBehaviour
     Vector3 velocity;
     bool isSearched = false;
     bool isUpdated = false;
-    bool isGrounded = false;
 
     private void Awake()
     {
@@ -62,12 +61,6 @@ public class Konpeitou : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //if (other.CompareTag("Ground") && !isGrounded)
-        //{
-        //    StartCoroutine(Stopping());
-        //    isGrounded = true;
-        //}
-
         if (other.gameObject.CompareTag("Player"))
         {
             isSearched = true;

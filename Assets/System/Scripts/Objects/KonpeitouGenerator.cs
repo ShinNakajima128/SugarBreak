@@ -29,9 +29,10 @@ public class KonpeitouGenerator : MonoBehaviour
         {
             yield return new WaitForSeconds(m_generateTime);
 
-            var kon = Instantiate(m_konpeito[Random.Range(0, m_konpeito.Length)], transform);
+            var kon = Instantiate(m_konpeito[Random.Range(0, m_konpeito.Length)], enemy.position, Quaternion.identity, transform);
             kon.GetComponent<Konpeitou>().m_target = m_targetObject;
             kon.GetComponent<Konpeitou>().m_position = enemy.position;
+            Debug.Log(enemy.position);
             var m_rb = kon.gameObject.GetComponent<Rigidbody>();
             Vector3 force = new Vector3(Random.Range(-2, 2), m_generatePower, Random.Range(-2, 2));
 
