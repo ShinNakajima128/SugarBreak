@@ -59,7 +59,11 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
             }
             else if (SceneManager.GetActiveScene().name == "BakedPlain")
             {
-                PlayBgmByName("BakedPlain2");
+                PlayBgmByName("BakedValley");
+            }
+            else if (SceneManager.GetActiveScene().name == "BakedValley")
+            {
+                PlayBgmByName("BakedValley");
             }
             else if (SceneManager.GetActiveScene().name == "LifeGame")
             {
