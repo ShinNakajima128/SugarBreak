@@ -139,6 +139,7 @@ public class TitleMenu : MonoBehaviour
     /// </summary>
     public void MainMenuSelect()
     {
+        SoundManager.Instance.PlaySeByName("Select");
         titleState = TitleMenuState.MainMenu;
         isChanged = false;
     }
@@ -148,6 +149,7 @@ public class TitleMenu : MonoBehaviour
     /// </summary>
     public void OptionSelect()
     {
+        SoundManager.Instance.PlaySeByName("Select");
         titleState = TitleMenuState.Option;
         isChanged = false;
     }
