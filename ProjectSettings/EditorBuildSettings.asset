@@ -8,7 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BakedPlain.unity
     guid: a7433f5c02f2d5c40855863cf3382832
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/Main.unity
-    guid: d0773180c1cc0474085319c4a4c5a9e2
+    path: Assets/Scenes/BakedValley.unity
+    guid: 44350be8fad9eb448ae2d332a56bed74
   m_configObjects: {}
