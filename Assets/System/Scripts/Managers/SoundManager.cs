@@ -94,13 +94,12 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
                 case "Title":
                     PlayBgmByName("Title");
                     break;
-                case "BakedPlain":
-                    PlayBgmByName("BakedPlain2");
+                case "BakedValley":
+                    PlayBgmByName("BakedValley");
                     break;
                 case "LifeGame":
                     PlayBgmByName("LifeGame");
                     break;
-                case "Bingo":
                     PlayBgmByName("Bingo");
                     break;
                 case "Reversi":
