@@ -115,7 +115,7 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         m_seAudioSource.volume = m_seVolume * m_masterVolume;
     }
 
-    public int GetBgmIndex(string name)
+    int GetBgmIndex(string name)
     {
         if (bgmIndex.ContainsKey(name))
         {
@@ -127,7 +127,7 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         }
     }
 
-    public int GetSeIndex(string name)
+    int GetSeIndex(string name)
     {
         if (seIndex.ContainsKey(name))
         {
@@ -163,7 +163,7 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         m_bgmAudioSource.clip = null;
     }
 
-    public void PlaySe(int index)
+    void PlaySe(int index)
     {
         index = Mathf.Clamp(index, 0, m_ses.Length);
 
@@ -175,7 +175,7 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         PlaySe(GetSeIndex(name));
     }
 
-    public void StopSe()
+    void StopSe()
     {
         m_seAudioSource.Stop();
         m_seAudioSource.clip = null;
