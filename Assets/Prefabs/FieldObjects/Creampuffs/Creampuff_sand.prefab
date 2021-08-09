@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8710749526003653001}
   - component: {fileID: 5714248926779315756}
   - component: {fileID: 7541805712939573990}
+  - component: {fileID: 2455973156947095910}
   m_Layer: 0
   m_Name: Creampuff_sand
   m_TagString: Untagged
@@ -79,3 +80,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &2455973156947095910
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8334223536074375987}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.9194846, y: 4.779466, z: 7.0500383}
+  m_Center: {x: 0, y: 2.320327, z: -0.00000011920929}
