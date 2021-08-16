@@ -20,8 +20,8 @@ RenderSettings:
   m_FogDensity: 0.004
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
-  m_AmbientEquatorColor: {r: 1, g: 1, b: 1, a: 1}
+  m_AmbientSkyColor: {r: 0.6981132, g: 0.68823427, b: 0.68823427, a: 1}
+  m_AmbientEquatorColor: {r: 0.9, g: 0.9, b: 0.9, a: 1}
   m_AmbientGroundColor: {r: 1, g: 0.8879841, b: 0.7783019, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 1
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 1171111639}
   m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
@@ -16699,6 +16699,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 235644915}
     m_Modifications:
+    - target: {fileID: 4839566163986782978, guid: 9d8ba15431e1698408240a68965b2a3b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bb067777ff2bdc04cb902f05cd74fb03, type: 2}
     - target: {fileID: 6008570548973559917, guid: 9d8ba15431e1698408240a68965b2a3b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16995,6 +17000,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1171111640}
   - component: {fileID: 1171111639}
+  - component: {fileID: 1171111641}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -17023,10 +17029,10 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
+    m_Strength: 0.6
+    m_Bias: 0
+    m_NormalBias: 3
+    m_NearPlane: 1.06
     m_CullingMatrixOverride:
       e00: 1
       e01: 0
@@ -17077,6 +17083,19 @@ Transform:
   m_Father: {fileID: 404176300}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 70.457, y: 27.694002, z: 60.683002}
+--- !u!114 &1171111641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171111638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UsePipelineSettings: 1
 --- !u!1001 &1180324587
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20112,7 +20131,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1303830773}
-  m_LocalRotation: {x: 0.0042541684, y: 0.13651226, z: -0.00058623974, w: 0.9906291}
+  m_LocalRotation: {x: 0.0042541674, y: 0.13651226, z: -0.00058623956, w: 0.9906291}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -20319,7 +20338,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1790941466, guid: c085484c34cf4774fa3e41fa407b62fd, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0031165425
+      value: 0.0031165574
       objectReference: {fileID: 0}
     - target: {fileID: 1790941466, guid: c085484c34cf4774fa3e41fa407b62fd, type: 3}
       propertyPath: m_LocalRotation.z
@@ -21123,6 +21142,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 235644915}
     m_Modifications:
+    - target: {fileID: 4839566163986782978, guid: 9d8ba15431e1698408240a68965b2a3b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1ae2654ee31e60b4ebf24e42bc0657a3, type: 2}
     - target: {fileID: 6008570548973559917, guid: 9d8ba15431e1698408240a68965b2a3b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -25154,6 +25178,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 235644915}
     m_Modifications:
+    - target: {fileID: 4839566163986782978, guid: 9d8ba15431e1698408240a68965b2a3b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0f13da20147c3c840b3a4cca40f0233a, type: 2}
     - target: {fileID: 6008570548973559917, guid: 9d8ba15431e1698408240a68965b2a3b,
         type: 3}
       propertyPath: m_LocalPosition.x
