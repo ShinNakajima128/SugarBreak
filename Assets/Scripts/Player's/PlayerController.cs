@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
 
 public enum PlayerState
 {
@@ -30,7 +29,6 @@ public class PlayerController : MonoBehaviour
     /// <summary> Effectを表示する場所 </summary>
     [SerializeField] Transform m_effectPos = null;
     [SerializeField] bool m_shabadubiMode = false;
-    [SerializeField] CinemachineFreeLook m_freeLook = default;
     PlayerState state = PlayerState.None;
     Rigidbody m_rb;
     Animator m_anim;
@@ -138,18 +136,18 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift) && dir != Vector3.zero)
             {
                 Vector3 velo = dir.normalized * m_runSpeed; // 入力した方向に移動する
-                float velocityY = Mathf.Clamp(m_rb.velocity.y, minVelocityY, maxVelocityY);
-                //velo.y = m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
-                velo.y = velocityY;
+                //float velocityY = Mathf.Clamp(m_rb.velocity.y, minVelocityY, maxVelocityY);
+                velo.y = m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
+                //velo.y = velocityY;
                 m_rb.velocity = velo;   // 計算した速度ベクトルをセットする
                 state = PlayerState.Run;
             }
             else if (dir != Vector3.zero)
             {
                 Vector3 velo = dir.normalized * m_walkSpeed; // 入力した方向に移動する
-                float velocityY = Mathf.Clamp(m_rb.velocity.y, minVelocityY, maxVelocityY);
-                //velo.y = m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
-                velo.y = velocityY;
+                //float velocityY = Mathf.Clamp(m_rb.velocity.y, minVelocityY, maxVelocityY);
+                velo.y = m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
+                //velo.y = velocityY;
                 m_rb.velocity = velo;
                 state = PlayerState.Walk;
             }
