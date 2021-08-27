@@ -6,15 +6,25 @@ using UnityEngine.SceneManagement;
 
 public class SoundManager : SingletonMonoBehaviour<SoundManager>
 {
+    [Header("マスター音量")]
     [SerializeField, Range(0f, 1f)] float m_masterVolume = 1.0f;
-    [SerializeField, Range(0f, 1f)] float m_bgmVolume = 0.1f;
+    [Header("BGM音量")]
+    [SerializeField, Range(0f, 1f)] float m_bgmVolume = 0.3f;
+    [Header("SE音量")]
     [SerializeField, Range(0f, 1f)] float m_seVolume = 1.0f;
+    [Header("ボイス音量")]
     [SerializeField, Range(0f, 1f)] float m_voiceVolume = 1.0f;
+    [Header("BGM")]
     [SerializeField] AudioClip[] m_bgms = null;
+    [Header("SE")]
     [SerializeField] AudioClip[] m_ses = null;
+    [Header("ボイス")]
     [SerializeField] AudioClip[] m_voices = null;
+    [Header("BGMのオーディオソース")]
     [SerializeField] AudioSource m_bgmAudioSource = null;
+    [Header("SEのオーディオソース")]
     [SerializeField] AudioSource m_seAudioSource = null;
+    [Header("ボイスのオーディオソース")]
     [SerializeField] AudioSource m_voiceAudioSource = null;
     Dictionary<string, int> bgmIndex = new Dictionary<string, int>();
     Dictionary<string, int> seIndex = new Dictionary<string, int>();
@@ -56,34 +66,19 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
 
     private void Start()
     {
-        if (Instance != null)
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        if (SceneManager.GetActiveScene().name == "Title")
         {
-            SceneManager.sceneLoaded += OnSceneLoaded;
-            if (SceneManager.GetActiveScene().name == "Title")
-            {
-                PlayBgmByName("Title");
-            }
-            else if (SceneManager.GetActiveScene().name == "BakedPlain")
-            {
-                PlayBgmByName("BakedValley");
-            }
-            else if (SceneManager.GetActiveScene().name == "BakedValley")
-            {
-                PlayBgmByName("BakedValley");
-            }
-            else if (SceneManager.GetActiveScene().name == "LifeGame")
-            {
-                PlayBgmByName("LifeGame");
-            }
-            else if (SceneManager.GetActiveScene().name == "Bingo")
-            {
-                PlayBgmByName("Bingo");
-            }
-            else if (SceneManager.GetActiveScene().name == "Reversi")
-            {
-                PlayBgmByName("Reversi");
-            }
-        }  
+            PlayBgmByName("Title");
+        }
+        else if (SceneManager.GetActiveScene().name == "BakedPlain")
+        {
+            PlayBgmByName("BakedValley");
+        }
+        else if (SceneManager.GetActiveScene().name == "BakedValley")
+        {
+            PlayBgmByName("BakedValley");
+        }
     }
 
     /// <summary>
@@ -93,26 +88,15 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     /// <param name="mode"></param>
     void OnSceneLoaded(Scene nextScene, LoadSceneMode mode)
     {
-        if (Instance != null)
+        switch (SceneManager.GetActiveScene().name)
         {
-            switch (SceneManager.GetActiveScene().name)
-            {
-                case "Title":
-                    PlayBgmByName("Title");
-                    break;
-                case "BakedValley":
-                    PlayBgmByName("BakedValley");
-                    break;
-                case "LifeGame":
-                    PlayBgmByName("LifeGame");
-                    break;
-                    PlayBgmByName("Bingo");
-                    break;
-                case "Reversi":
-                    PlayBgmByName("Reversi");
-                    break;
-            }
-        } 
+            case "Title":
+                PlayBgmByName("Title");
+                break;
+            case "BakedValley":
+                PlayBgmByName("BakedValley");
+                break;
+        }
     }
 
     void Update()
@@ -186,6 +170,58 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         voiceVolumeChange = true;
     }
 
+    /// <summary>
+    /// BGMを再生する
+    /// </summary>
+    /// <param name="name"> BGMの名前 </param>
+    public void PlayBgmByName(string name)
+    {
+        PlayBgm(GetBgmIndex(name));
+    }
+
+    /// <summary>
+    /// SEを再生する
+    /// </summary>
+    /// <param name="name"> SEの名前 </param>
+    public void PlaySeByName(string name)
+    {
+        PlaySe(GetSeIndex(name));
+    }
+
+    /// <summary>
+    /// ボイスを再生する
+    /// </summary>
+    /// <param name="name"> ボイス音源名 </param>
+    public void PlayVoiceByName(string name)
+    {
+        PlayVoice(GetVoiceIndex(name));
+    }
+
+    /// <summary>
+    /// 再生中のBGMを停止する
+    /// </summary>
+    public void StopBgm()
+    {
+        m_bgmAudioSource.Stop();
+        m_bgmAudioSource.clip = null;
+    }
+    /// <summary>
+    /// 再生中のSEを停止する
+    /// </summary>
+    public void StopSe()
+    {
+        m_seAudioSource.Stop();
+        m_seAudioSource.clip = null;
+    }
+     /// <summary>
+     /// 再生中のボイスを停止する
+     /// </summary>
+    public void StopVoice()
+    {
+        m_voiceAudioSource.Stop();
+        m_voiceAudioSource.clip = null;
+    }
+
     int GetBgmIndex(string name)
     {
         if (bgmIndex.ContainsKey(name))
@@ -194,10 +230,10 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         }
         else
         {
+            Debug.Log("BGMが見つかりませんでした");
             return 0;
         }
     }
-
     int GetSeIndex(string name)
     {
         if (seIndex.ContainsKey(name))
@@ -206,6 +242,19 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         }
         else
         {
+            Debug.Log("SEが見つかりませんでした");
+            return 0;
+        }
+    }
+    int GetVoiceIndex(string name)
+    {
+        if (voiceIndex.ContainsKey(name))
+        {
+            return voiceIndex[name];
+        }
+        else
+        {
+            Debug.Log("ボイスが見つかりませんでした");
             return 0;
         }
     }
@@ -222,18 +271,6 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         }
     }
 
-    public void PlayBgmByName(string name)
-    {
-        PlayBgm(GetBgmIndex(name));
-        Debug.Log("再生");
-    }
-
-    public void StopBgm()
-    {
-        m_bgmAudioSource.Stop();
-        m_bgmAudioSource.clip = null;
-    }
-
     void PlaySe(int index)
     {
         index = Mathf.Clamp(index, 0, m_ses.Length);
@@ -241,14 +278,10 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         m_seAudioSource.PlayOneShot(m_ses[index], m_seVolume * m_masterVolume);
     }
 
-    public void PlaySeByName(string name)
+    void PlayVoice(int index)
     {
-        PlaySe(GetSeIndex(name));
-    }
+        index = Mathf.Clamp(index, 0, m_voices.Length);
 
-    void StopSe()
-    {
-        m_seAudioSource.Stop();
-        m_seAudioSource.clip = null;
+        m_voiceAudioSource.PlayOneShot(m_voices[index], m_voiceVolume * m_masterVolume);
     }
 }
