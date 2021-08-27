@@ -26,6 +26,6 @@ public class CameraScroll : MonoBehaviour
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         Vector3 offset = m_virtualCamera.transform.forward * scroll * m_forwardSpeed;
          if (m_orbitalTransposer) m_orbitalTransposer.m_FollowOffset -= offset;
-        Debug.Log(offset.ToString());
+        //Debug.Log(offset.ToString());
     }
 }

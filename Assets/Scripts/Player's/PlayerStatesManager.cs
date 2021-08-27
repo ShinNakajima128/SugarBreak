@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Assets.System.Scripts.Damage;
 using Cinemachine;
 
 public class PlayerStatesManager : MonoBehaviour, IDamagable

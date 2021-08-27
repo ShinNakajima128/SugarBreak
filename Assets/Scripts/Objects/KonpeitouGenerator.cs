@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class KonpeitouGenerator : MonoBehaviour
 {
+    public static KonpeitouGenerator Instance { get; private set; }
     [SerializeField] GameObject[] m_konpeito = null;
     [SerializeField] int m_generateNum = 10;
     [SerializeField] float m_generateTime = 0.1f;
     [SerializeField] float m_generatePower = 10;
     [SerializeField] Transform m_targetObject = null;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Update()
     {
@@ -18,9 +24,9 @@ public class KonpeitouGenerator : MonoBehaviour
         }
     }
 
-    public void GenerateKonpeitou(Transform enemyTfm, int generateNum)
+    public void GenerateKonpeitou(Transform Tfm, int generateNum)
     {
-        StartCoroutine(GenerateInterval(enemyTfm, generateNum));
+        StartCoroutine(GenerateInterval(Tfm, generateNum));
     }
 
     IEnumerator GenerateInterval(Transform enemy, int geneNum)
