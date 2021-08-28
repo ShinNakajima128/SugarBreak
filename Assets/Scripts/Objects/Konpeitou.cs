@@ -75,12 +75,13 @@ public class Konpeitou : MonoBehaviour
 
     IEnumerator Stopping()
     {
-        yield return new WaitForSeconds(m_startMovingTimer);
+        var a = Random.Range(0, 0.1f);
+        yield return new WaitForSeconds(m_startMovingTimer + a);
 
         m_searchCollider.enabled = true;
-        m_rb.isKinematic = true;
-        m_rb.velocity = Vector3.zero;
-        m_rb.freezeRotation = true;
-        m_rb.useGravity = false;
+        //m_rb.isKinematic = true;
+        //m_rb.velocity = Vector3.zero;
+        //m_rb.freezeRotation = true;
+        //m_rb.useGravity = false;
     }
 }

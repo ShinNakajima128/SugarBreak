@@ -190,6 +190,7 @@ MonoBehaviour:
   playerData: {fileID: 11400000, guid: 52bd08bdf19a4d34bb14dc824323524f, type: 2}
   m_sphereCollider: {fileID: 8916896719622210051}
   m_searchCollider: {fileID: 8865400433837447887}
+  m_startMovingTimer: 1.5
   m_target: {fileID: 0}
   m_position: {x: 0, y: 0, z: 0}
 --- !u!135 &8865400433837447887
@@ -203,5 +204,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.21
+  m_Radius: 0.3
   m_Center: {x: 0.00031363816, y: 0, z: 0}
