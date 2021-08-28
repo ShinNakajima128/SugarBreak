@@ -88,6 +88,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4527625430996017050}
+  - component: {fileID: 972295784720551114}
   m_Layer: 0
   m_Name: Waffle_half
   m_TagString: Untagged
@@ -111,6 +112,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &972295784720551114
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3863679443842794784}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.2518458, y: 1, z: 1}
+  m_Center: {x: 0.07036543, y: 0, z: 0}
 --- !u!1 &8213980114017393445
 GameObject:
   m_ObjectHideFlags: 0
