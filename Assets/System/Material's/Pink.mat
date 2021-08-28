@@ -23,7 +23,7 @@ Material:
   m_Name: Pink
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_ShaderKeywords: _EMISSION
-  m_LightmapFlags: 0
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2050
@@ -104,7 +104,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 0.36320752, b: 0.8180594, a: 1}
+    - _BaseColor: {r: 1, g: 0.397, b: 0.47835714, a: 1}
     - _Color: {r: 1, g: 0.36320752, b: 0.8180594, a: 1}
     - _EmissionColor: {r: 0.20588236, g: 0.20588236, b: 0.20588236, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
