@@ -190,7 +190,7 @@ public class Decolly : EnemyBase
         m_anim.SetBool("Dead", true);
         m_anim.Play("Die");
         characterController.enabled = false;
-        generator.GenerateKonpeitou(this.transform, enemyData.konpeitou);
+        KonpeitouGenerator.Instance.GenerateKonpeitou(this.transform, enemyData.konpeitou, 2);
         StartCoroutine(Vanish(EffectType.EnemyDead, m_vanishTime));
     }
 
@@ -225,12 +225,11 @@ public class Decolly : EnemyBase
 
     public override void Damage(int attackPower)
     {
-        //if (m_damageEffect != null) Instantiate(m_damageEffect, this.transform.position, Quaternion.identity);
         EffectManager.PlayEffect(EffectType.Damage, m_effectPos.position);
 
         currentHp -= attackPower;
         m_HpSlider.value = currentHp;
-        soundManager.PlaySeByName("Damage");
+        SoundManager.Instance.PlaySeByName("Damage");
 
         if (currentHp > 0) m_anim.SetTrigger("Damage");
 
@@ -238,7 +237,6 @@ public class Decolly : EnemyBase
         {
             isdead = true;
             SetState(DecollyState.Dead);
-            //Dead();
         }
     }
 

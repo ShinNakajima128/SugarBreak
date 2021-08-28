@@ -15,8 +15,6 @@ public class Dragon : EnemyBase
 {
     public override void Damage(int attackPower)
     {
-        if (m_damageEffect != null) Instantiate(m_damageEffect, this.transform.position, Quaternion.identity);
-
         currentHp -= attackPower;
         m_HpSlider.value = currentHp;
 
@@ -26,7 +24,7 @@ public class Dragon : EnemyBase
         {
             isdead = true;
             m_anim.SetBool("Dead", true);
-            generator.GenerateKonpeitou(this.transform, enemyData.konpeitou);
+            KonpeitouGenerator.Instance.GenerateKonpeitou(this.transform, enemyData.konpeitou, 2);
             StartCoroutine(Vanish(EffectType.BossDead, m_vanishTime));
         }
     }

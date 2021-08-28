@@ -20,16 +20,16 @@ public class KonpeitouGenerator : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            GenerateKonpeitou(this.transform, m_generateNum);
+            GenerateKonpeitou(this.transform, m_generateNum, m_generatePower);
         }
     }
 
-    public void GenerateKonpeitou(Transform Tfm, int generateNum)
+    public void GenerateKonpeitou(Transform Tfm, int generateNum, float power)
     {
-        StartCoroutine(GenerateInterval(Tfm, generateNum));
+        StartCoroutine(GenerateInterval(Tfm, generateNum, power));
     }
 
-    IEnumerator GenerateInterval(Transform enemy, int geneNum)
+    IEnumerator GenerateInterval(Transform enemy, int geneNum, float power)
     {
         for (int i = 0; i < geneNum; i++)
         {
@@ -38,9 +38,8 @@ public class KonpeitouGenerator : MonoBehaviour
             var kon = Instantiate(m_konpeito[Random.Range(0, m_konpeito.Length)], enemy.position, Quaternion.identity, transform);
             kon.GetComponent<Konpeitou>().m_target = m_targetObject;
             kon.GetComponent<Konpeitou>().m_position = enemy.position;
-            Debug.Log(enemy.position);
             var m_rb = kon.gameObject.GetComponent<Rigidbody>();
-            Vector3 force = new Vector3(Random.Range(-2, 2), m_generatePower, Random.Range(-2, 2));
+            Vector3 force = new Vector3(Random.Range(-2, 2), power, Random.Range(-2, 2));
 
             m_rb.AddForce(force, ForceMode.Impulse);
         }

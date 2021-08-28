@@ -8,6 +8,7 @@ public class Konpeitou : MonoBehaviour
     [SerializeField] PlayerData playerData = default;
     [SerializeField] SphereCollider m_sphereCollider = default;
     [SerializeField] SphereCollider m_searchCollider = default;
+    [SerializeField] float m_startMovingTimer = 2;
     public Transform m_target;
     public Vector3 m_position;
     Rigidbody m_rb;
@@ -66,7 +67,7 @@ public class Konpeitou : MonoBehaviour
             isSearched = true;
             m_sphereCollider.enabled = false;
             m_rb.useGravity = false;
-            Vector3 force = new Vector3(0, 20, 0);
+            Vector3 force = new Vector3(0, 15, 0);
             isUpdated = true;
             m_rb.AddForce(force, ForceMode.Impulse);
         }
@@ -74,7 +75,7 @@ public class Konpeitou : MonoBehaviour
 
     IEnumerator Stopping()
     {
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(m_startMovingTimer);
 
         m_searchCollider.enabled = true;
         m_rb.isKinematic = true;
