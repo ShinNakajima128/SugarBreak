@@ -25,19 +25,12 @@ public class ItemboxBase : MonoBehaviour, IDamagable
     public virtual void Damage(int attackDamage)
     {
         m_currentHp -= attackDamage;
-
-        if (m_currentHp <= 0)
-        {
-            KonpeitouGenerator.Instance.GenerateKonpeitou(transform, m_konpeitouNum);
-            StartCoroutine(Vanish(EffectType.EnemyDead, m_vanishTime));
-        }
     }
 
-    protected IEnumerator Vanish(EffectType effectType, float vanishTime)
+    protected IEnumerator Vanish(float vanishTime)
     {
         yield return new WaitForSeconds(vanishTime);
 
-        EffectManager.PlayEffect(effectType, transform.position);
         Destroy(this.gameObject);
     }
 }
