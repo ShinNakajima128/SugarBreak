@@ -14,11 +14,19 @@ public class ExplosionController : WeaponBase
 
     private void OnTriggerEnter(Collider other)
     {
-        var target = other.GetComponent<IDamagable>();
-        if (target != null && other.gameObject.CompareTag("Enemy"))
+        var targets = other.GetComponents<IDamagable>();
+        
+        if (targets != null)
         {
-            Debug.Log(target);
-            target.Damage(m_damage);
+            foreach (var t in targets)
+            {
+                Debug.Log(t.ToString());
+                t.Damage(m_damage);
+            }
+        }
+        else
+        {
+            Debug.Log("当たらなかった");
         }
     }
 }

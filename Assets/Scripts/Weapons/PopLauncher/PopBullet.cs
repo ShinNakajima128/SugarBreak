@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PopBullet : MonoBehaviour
 {
-    [SerializeField] GameObject m_ExplosionSfx = null;
-    SoundManager soundManager;
     int m_attackDamage = 0;
 
     public int AttackDamage
@@ -14,15 +12,10 @@ public class PopBullet : MonoBehaviour
         set { m_attackDamage = value; }
     }
 
-    private void Start()
-    {
-        soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
-    }
-
     private void OnCollisionEnter(Collision other)
     {
         EffectManager.PlayEffect(EffectType.Explosion, this.transform.position);
-        soundManager.PlaySeByName("Explosion");
+        SoundManager.Instance.PlaySeByName("Explosion");
         Destroy(this.gameObject);
     }
 }
