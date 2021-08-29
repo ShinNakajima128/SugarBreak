@@ -7,6 +7,7 @@ public class DecollyAnimEvent : MonoBehaviour
     [SerializeField] EnemyData decollyData = default;
     [SerializeField] Decolly decolly = default;
     [SerializeField] BoxCollider m_boxCollider = default;
+    [SerializeField] float m_knockbackPower = 2;
 
     private void Start()
     {
@@ -45,8 +46,10 @@ public class DecollyAnimEvent : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             var target = GameObject.FindGameObjectWithTag("PlayerState").GetComponent<IDamagable>();
+            var rb = other.gameObject.GetComponent<Rigidbody>();
             if (target != null)
             {
+                rb.AddForce(rb.transform.forward * m_knockbackPower * -1, ForceMode.Impulse);
                 target.Damage(decollyData.atk);
             }
         }
