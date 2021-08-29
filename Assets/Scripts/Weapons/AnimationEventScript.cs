@@ -16,7 +16,6 @@ public class AnimationEventScript : MonoBehaviour
     [SerializeField] Transform m_candyBeatEffectPos = null;
     [SerializeField] float m_hitStopTime = 0.01f;
     Dictionary<string, int> weaponIndex = new Dictionary<string, int>();
-    SoundManager soundManager;
     public WeaponState weaponStates = WeaponState.PopLauncher;
     public bool isChanged = false;
     public event Action AttackAction;
@@ -27,11 +26,6 @@ public class AnimationEventScript : MonoBehaviour
         {
             weaponIndex.Add(m_weaponList[i].name, i);
         }
-    }
-
-    void Start()
-    {
-        soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
     }
 
     void Update()
@@ -73,9 +67,8 @@ public class AnimationEventScript : MonoBehaviour
         int candyBeat = GetWeaponIndex("CandyBeat"); 
         m_weaponList[candyBeat].GetComponent<BoxCollider>().enabled = true;
         EffectManager.PlayEffect(EffectType.Slam, m_candyBeatEffectPos.position);
-        soundManager.PlaySeByName("JumpAttack");
+        SoundManager.Instance.PlaySeByName("JumpAttack");
         StartCoroutine(HitStop());
-        Time.timeScale = 0.05f;
     }
 
     public void FinishCandyAttack()
@@ -88,7 +81,7 @@ public class AnimationEventScript : MonoBehaviour
     {
         int candyBeat = GetWeaponIndex("CandyBeat");
         m_weaponList[candyBeat].GetComponent<BoxCollider>().enabled = true;
-        soundManager.PlaySeByName("LightAttack");
+        SoundManager.Instance.PlaySeByName("LightAttack");
     }
     public void FinishLightCandyAttack()
     {
@@ -99,16 +92,18 @@ public class AnimationEventScript : MonoBehaviour
     public void ShootBullet()
     {
         AttackAction();
-        soundManager.PlaySeByName("Shoot");
+        SoundManager.Instance.PlaySeByName("Shoot");
     }
 
     public void FootStep()
     {
-        soundManager.PlaySeByName("FootStep");
+        SoundManager.Instance.PlaySeByName("FootStep");
     }
 
     IEnumerator HitStop()
     {
+        Time.timeScale = 0.05f;
+
         yield return new WaitForSeconds(m_hitStopTime);
 
         Time.timeScale = 1.0f;

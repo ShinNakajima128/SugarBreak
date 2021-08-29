@@ -18,7 +18,11 @@ public class NormalBox : ItemboxBase
                 col.enabled = false;
             }
             EffectManager.PlayEffect(EffectType.EnemyDead, transform.position);
-            SoundManager.Instance.PlaySeByName("Break");
+            if (m_playSeCount < 3)
+            {
+                SoundManager.Instance.PlaySeByName("Break");
+                m_playSeCount++;
+            }
             KonpeitouGenerator.Instance.GenerateKonpeitou(transform, m_konpeitouNum, m_popPower);
             StartCoroutine(Vanish(m_vanishTime));
         }

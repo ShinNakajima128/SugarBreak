@@ -16,6 +16,7 @@ public class Konpeitou : MonoBehaviour
     Vector3 velocity;
     bool isSearched = false;
     bool isUpdated = false;
+    public static int playSeCount = 0;
 
     private void Awake()
     {
@@ -53,6 +54,7 @@ public class Konpeitou : MonoBehaviour
         {
             playerData.TotalKonpeitou++;
             SoundManager.Instance.PlaySeByName("Gain");
+
             Destroy(this.gameObject);
         }
         velocity += acceleration * Time.deltaTime;
@@ -75,7 +77,7 @@ public class Konpeitou : MonoBehaviour
 
     IEnumerator Stopping()
     {
-        var a = Random.Range(0, 0.1f);
+        var a = Random.Range(0f, 1.5f);
         yield return new WaitForSeconds(m_startMovingTimer + a);
 
         m_searchCollider.enabled = true;
