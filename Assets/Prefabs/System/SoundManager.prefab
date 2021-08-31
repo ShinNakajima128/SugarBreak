@@ -313,6 +313,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c44aa9005c774e948b4a699561a4d801, type: 3}
   - {fileID: 8300000, guid: ccdcb730bafe4424a9d3b3b6f7145d43, type: 3}
   - {fileID: 8300000, guid: 505565ff808348f4a9adec3a3ee71867, type: 3}
+  - {fileID: 8300000, guid: d05a9265615ff2f459859a969525cf3d, type: 3}
   m_ses:
   - {fileID: 8300000, guid: 935f871baaa0b6645992218b6084c796, type: 3}
   - {fileID: 8300000, guid: 6dce9ad66aa6bfd45889f10e0d7e0368, type: 3}
