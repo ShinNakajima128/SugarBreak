@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         ///Playerが操作可能だったら
-        if (PlayerStatesManager.isOperation)
+        if (PlayerStatesManager.Instance.IsOperation)
         {
             PlayerMove();
 
@@ -183,14 +183,14 @@ public class PlayerController : MonoBehaviour
         ///CandyBeatの弱攻撃
         if (Input.GetButtonDown("Fire1") && animationEventScript.weaponStates == WeaponState.CandyBeat)
         {
-            PlayerStatesManager.isOperation = false;
+            PlayerStatesManager.Instance.IsOperation = false;
             m_anim.SetBool("Light", true);
             StartCoroutine(AttackMotionTimer());
         }
         ///CandyBeatの強攻撃
         if (Input.GetButtonDown("Fire2") && animationEventScript.weaponStates == WeaponState.CandyBeat)
         {
-            PlayerStatesManager.isOperation = false;
+            PlayerStatesManager.Instance.IsOperation = false;
             m_rb.AddForce(Vector3.up * 4, ForceMode.Impulse);
             m_anim.SetBool("Strong", true);
             StartCoroutine(AttackMotionTimer());
@@ -198,7 +198,7 @@ public class PlayerController : MonoBehaviour
         ///PopLauncherの射撃
         if (Input.GetButtonDown("Fire1") && animationEventScript.weaponStates == WeaponState.PopLauncher)
         {
-            PlayerStatesManager.isOperation = false;
+            PlayerStatesManager.Instance.IsOperation = false;
             m_anim.SetBool("Shoot", true);
             StartCoroutine(AttackMotionTimer());
             m_rb.velocity = new Vector3(0, m_rb.velocity.y, 0);
@@ -271,7 +271,7 @@ public class PlayerController : MonoBehaviour
         m_anim.SetFloat("Move", 0);
         yield return new WaitForSeconds(m_waitTime);
 
-        PlayerStatesManager.isOperation = true;
+        PlayerStatesManager.Instance.IsOperation = true;
     }
 
     IEnumerator Jump()

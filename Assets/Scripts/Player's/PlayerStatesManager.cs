@@ -6,19 +6,24 @@ using Cinemachine;
 
 public class PlayerStatesManager : MonoBehaviour, IDamagable
 {
+    public static PlayerStatesManager Instance;
     [SerializeField] PlayerData playerData = default;
     [SerializeField] Text m_totalKonpeitou = default;
     [SerializeField] Text m_hpText = default;
     [SerializeField] HpGauge hpGauge = default;
-    [SerializeField] SoundManager soundManager = default;
     [SerializeField] Animator m_anim = default;
     [SerializeField] PlayerController m_player = default;
     [SerializeField] CinemachineFreeLook m_freeLook = default;
     [SerializeField] Rigidbody m_rb = default;
-    public static bool isOperation = true;
     int defaultHp = 8;
 
-    
+    public bool IsOperation { get; set; } = true;
+
+    void Awake()
+    {
+        Instance = this;
+    }
+
     void Start()
     {
         playerData.SetStartHp(defaultHp);
@@ -48,13 +53,13 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
         playerData.HP -= attackPower;
         hpGauge.SetHpGauge(playerData.HP);
         Debug.Log("被弾");
-        soundManager.PlaySeByName("Damage");
+        SoundManager.Instance.PlaySeByName("Damage");
         m_anim.SetTrigger("isDamaged");
     }
 
     public void OffOperation()
     {
-        isOperation = false;
+        IsOperation = false;
         m_anim.SetFloat("Move", 0f);
         m_rb.velocity = Vector3.zero;
         m_freeLook.m_XAxis.m_InputAxisName = "";
@@ -63,7 +68,7 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
 
     public void OnOperation()
     {
-        isOperation = true;
+        IsOperation = true;
         m_freeLook.m_XAxis.m_InputAxisName = "Camera X";
         m_freeLook.m_YAxis.m_InputAxisName = "Camera Y";
     }
