@@ -17,11 +17,11 @@ public class MenuManager : MonoBehaviour
     [SerializeField] GameObject[] m_menuPanels = default;
     Dictionary<MenuState, int> menuIndex = new Dictionary<MenuState, int>();
     MenuState state = MenuState.Close;
-    SoundManager soundManager;
 
 
     void Start()
     {
+        Cursor.visible = false;
         for (int i = 0; i < m_menuPanels.Length; i++)
         {
             MenuState menuState = (MenuState)(i + 1);
@@ -32,8 +32,6 @@ public class MenuManager : MonoBehaviour
         {
             menu.SetActive(false);
         }
-
-        soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
     }
 
     void Update()
@@ -42,34 +40,18 @@ public class MenuManager : MonoBehaviour
         {
             if (state == MenuState.Close)   //メニューを開く
             {
+                Cursor.visible = true;
                 Time.timeScale = 0f;
                 ActiveMenu(MenuState.Open);
                 state = MenuState.Open;
             }
             else if (state != MenuState.Close)  //メニューを閉じる
             {
+                Cursor.visible = false;
                 Time.timeScale = 1f;
                 ActiveMenu(MenuState.Close);
                 state = MenuState.Close;
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            ActiveMenu(MenuState.Audio);
-            state = MenuState.Audio;
-        }
-
-        //if (Input.GetKeyDown(KeyCode.I))
-        //{
-        //    ActiveMenu(MenuState.Exit);
-        //    state = MenuState.Exit;
-        //}
-
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            ActiveMenu(MenuState.Option);
-            state = MenuState.Option;
         }
     }
 
