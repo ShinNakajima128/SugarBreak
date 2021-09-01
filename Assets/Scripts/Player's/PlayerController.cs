@@ -181,14 +181,14 @@ public class PlayerController : MonoBehaviour
     void AttackMove()
     {
         ///CandyBeatの弱攻撃
-        if (Input.GetButtonDown("Fire1") && animationEventScript.weaponStates == WeaponState.CandyBeat)
-        {
-            PlayerStatesManager.Instance.IsOperation = false;
-            m_anim.SetBool("Light", true);
-            StartCoroutine(AttackMotionTimer());
-        }
+        //if (Input.GetButtonDown("Fire1") && animationEventScript.weaponStates == WeaponState.CandyBeat)
+        //{
+        //    PlayerStatesManager.Instance.IsOperation = false;
+        //    m_anim.SetBool("Light", true);
+        //    StartCoroutine(AttackMotionTimer());
+        //}
         ///CandyBeatの強攻撃
-        if (Input.GetButtonDown("Fire2") && animationEventScript.weaponStates == WeaponState.CandyBeat)
+        if (Input.GetButtonDown("Fire1") && animationEventScript.weaponStates == WeaponState.CandyBeat)
         {
             PlayerStatesManager.Instance.IsOperation = false;
             m_rb.AddForce(Vector3.up * 4, ForceMode.Impulse);
