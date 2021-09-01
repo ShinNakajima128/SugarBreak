@@ -26,7 +26,5 @@ public class NormalBox : ItemboxBase
             KonpeitouGenerator.Instance.GenerateKonpeitou(transform, m_konpeitouNum, m_popPower);
             StartCoroutine(Vanish(m_vanishTime));
         }
-        
-        Debug.Log("NormalBoxに当たった");
     }
 }

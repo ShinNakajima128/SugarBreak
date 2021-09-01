@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LoadSceneManager : MonoBehaviour
 {
+    public static LoadSceneManager Instance;
     /// <summary> フェードさせるパネル </summary>
     [SerializeField] Fade fade = default;
     /// <summary> ロードにかける時間 </summary>
@@ -15,17 +16,29 @@ public class LoadSceneManager : MonoBehaviour
     [SerializeField] FadeImage fadeImage = default;
     /// <summary> フェードさせる歳のマスク </summary>
     [SerializeField] Texture[] m_masks = default;
-    /// <summary> サウンドマネージャー </summary>
-    SoundManager soundManager;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
-        soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
         m_loadAnim.SetActive(false);
 
-        fade.FadeOut(1.0f, () => TitleMenu.isInputtable = true);
+        fade.FadeOut(0.7f, () => TitleMenu.isInputtable = true);
+    }
+    public void FadeIn()
+    {
+        fadeImage.UpdateMaskTexture(m_masks[2]);
+        fade.FadeIn(0.7f);
     }
 
+    public void FadeOut()
+    {
+        fadeImage.UpdateMaskTexture(m_masks[1]);
+        fade.FadeOut(0.7f);
+    }
     /// <summary>
     /// 指定したSceneに遷移する
     /// </summary>

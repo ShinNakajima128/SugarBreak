@@ -30,7 +30,7 @@ public class TalkTrigger : MonoBehaviour
     /// </summary>
     public void ActiveCamera()
     {
-        freeLook.Priority = 12;
+        freeLook.Priority = 16;
     }
     /// <summary>
     /// 注目用のカメラをOFFにする
