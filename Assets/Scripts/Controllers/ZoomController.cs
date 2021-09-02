@@ -9,39 +9,103 @@ using Cinemachine;
 public class ZoomController : MonoBehaviour
 {
     [SerializeField] CinemachineFreeLook m_freelook = default;
-    [SerializeField] float m_minCameraDistance = 6;
-    [SerializeField] float m_maxCameraDistance = 11;
+    [SerializeField] float m_minOrbitsDistance = 6;
+    [SerializeField] float m_maxOrbitsDistance = 11;
+    [SerializeField] float m_minFovDistance = 40;
+    [SerializeField] float m_maxFovDistance = 60;
     [SerializeField, Range(1F, 5F)] float zoomSpeed = 1;
+    [SerializeField] bool m_FovChangeMode = false;
 
     void Start()
     {
-        m_freelook.m_Orbits[1].m_Radius = m_minCameraDistance;
+        if (m_FovChangeMode)
+        {
+            m_freelook.m_Lens.FieldOfView = m_minFovDistance;
+        }
+        else
+        {
+            m_freelook.m_Orbits[1].m_Radius = m_minOrbitsDistance;
+        }
     }
 
     void Update()
     {
         if (PlayerStatesManager.Instance.IsOperation)
         {
-            float scroll = Input.GetAxis("Mouse ScrollWheel");
-
-            if (m_freelook.m_Orbits[1].m_Radius <= m_maxCameraDistance && scroll < 0)
+            if (m_FovChangeMode)
             {
-                m_freelook.m_Orbits[1].m_Radius -= scroll * zoomSpeed;
-
-                if (m_freelook.m_Orbits[1].m_Radius > m_maxCameraDistance)
-                {
-                    m_freelook.m_Orbits[1].m_Radius = m_maxCameraDistance;
-                }
+                FovChange();
             }
-            else if (m_freelook.m_Orbits[1].m_Radius >= 6 && scroll > 0)
+            else
             {
-                m_freelook.m_Orbits[1].m_Radius -= scroll * zoomSpeed;
-
-                if (m_freelook.m_Orbits[1].m_Radius < m_minCameraDistance)
-                {
-                    m_freelook.m_Orbits[1].m_Radius = m_minCameraDistance;
-                }
+                OrbisChange();
             }
         }   
+    }
+
+    void OrbisChange()
+    {
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+
+        if (m_freelook.m_Orbits[1].m_Radius < m_maxOrbitsDistance && scroll < 0)
+        {
+            if (m_freelook.m_Orbits[1].m_Radius > m_maxOrbitsDistance)
+            {
+                m_freelook.m_Orbits[1].m_Radius = m_maxOrbitsDistance;
+                return;
+            }
+            else
+            {
+                m_freelook.m_Orbits[0].m_Height -= scroll * zoomSpeed * 0.5f;
+                m_freelook.m_Orbits[0].m_Radius -= scroll * zoomSpeed * 0.8f;
+                m_freelook.m_Orbits[1].m_Radius -= scroll * zoomSpeed;
+                m_freelook.m_Orbits[2].m_Radius -= scroll * zoomSpeed;
+            }
+        }
+        else if (m_freelook.m_Orbits[1].m_Radius > m_minOrbitsDistance && scroll > 0)
+        {
+            if (m_freelook.m_Orbits[1].m_Radius < m_minOrbitsDistance)
+            {
+                m_freelook.m_Orbits[1].m_Radius = m_minOrbitsDistance;
+                return;
+            }
+            else
+            {
+                m_freelook.m_Orbits[0].m_Height -= scroll * zoomSpeed * 0.5f;
+                m_freelook.m_Orbits[0].m_Radius -= scroll * zoomSpeed * 0.8f;
+                m_freelook.m_Orbits[1].m_Radius -= scroll * zoomSpeed;
+                m_freelook.m_Orbits[2].m_Radius -= scroll * zoomSpeed;
+            }
+        }
+    }
+    void FovChange()
+    {
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+
+        if (m_freelook.m_Lens.FieldOfView < m_maxFovDistance && scroll < 0)
+        {
+            if (m_freelook.m_Lens.FieldOfView > m_maxFovDistance)
+            {
+                m_freelook.m_Lens.FieldOfView = m_maxFovDistance;
+                return;
+            }
+            else
+            {
+                m_freelook.m_Lens.FieldOfView -= scroll * zoomSpeed * 3;
+                
+            }
+        }
+        else if (m_freelook.m_Lens.FieldOfView > m_minFovDistance && scroll > 0)
+        {
+            if (m_freelook.m_Lens.FieldOfView < m_minFovDistance)
+            {
+                m_freelook.m_Lens.FieldOfView = m_minFovDistance;
+                return;
+            }
+            else
+            {
+                m_freelook.m_Lens.FieldOfView -= scroll * zoomSpeed * 3;
+            }
+        }
     }
 }
