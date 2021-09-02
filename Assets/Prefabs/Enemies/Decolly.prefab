@@ -170,7 +170,6 @@ GameObject:
   - component: {fileID: 2413091900176269269}
   - component: {fileID: 4395578559711457561}
   - component: {fileID: 1145669020384550936}
-  - component: {fileID: 357710001903440952}
   m_Layer: 9
   m_Name: Decolly
   m_TagString: Enemy
@@ -194,6 +193,7 @@ Transform:
   - {fileID: 2331062130016263662}
   - {fileID: 1923877214196729359}
   - {fileID: 9121007191956706673}
+  - {fileID: 2545667296139177028}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 106.659004, z: 0}
@@ -230,15 +230,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: fae5e188f69d7e344bf7cafb917bb4e9, type: 2}
   m_HpSlider: {fileID: 2331062131480411573}
-  generator: {fileID: 1200807237471451455, guid: de3f4ad6ea347224eab66b465cf0e1c8,
-    type: 3}
-  m_damageEffect: {fileID: 1845240806346120, guid: b395d5d6eb4b4b846acc021ee036b744,
-    type: 3}
-  m_vanishEffect: {fileID: 100018, guid: a40b64bf23366dc42a892af2c6ff6140, type: 3}
   m_vanishTime: 2
   m_effectPos: {fileID: 1923877214196729359}
   m_moveSpeed: 3
-  searchArea: {fileID: 357710001903440952}
+  searchArea: {fileID: 1353075978805246254}
   searchAngle: 70
   waitTime: 3
 --- !u!54 &2413091900176269269
@@ -287,19 +282,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.6, z: 0}
---- !u!135 &357710001903440952
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7349301462782107804}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 6
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7349321606221374678
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,6 +557,50 @@ Transform:
   m_Father: {fileID: 7346653540276783146}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 47.824013, y: 90, z: 0}
+--- !u!1 &7355343655650742678
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2545667296139177028}
+  - component: {fileID: 1353075978805246254}
+  m_Layer: 9
+  m_Name: SearchArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2545667296139177028
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7355343655650742678}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7346898209518142754}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1353075978805246254
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7355343655650742678}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 6
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8325788668713773044
 GameObject:
   m_ObjectHideFlags: 0
@@ -622,6 +648,7 @@ MonoBehaviour:
   decollyData: {fileID: 11400000, guid: fae5e188f69d7e344bf7cafb917bb4e9, type: 2}
   decolly: {fileID: 7348511099762241590}
   m_boxCollider: {fileID: 8505569564295418210}
+  m_knockbackPower: 2
 --- !u!65 &8505569564295418210
 BoxCollider:
   m_ObjectHideFlags: 0
