@@ -55,8 +55,6 @@ public class Decolly : EnemyBase
 
     private void Update()
     {
-        //Debug.Log(decollyState);
-
         if (decollyState == DecollyState.Move || decollyState == DecollyState.Chase)
         {
             if (decollyState == DecollyState.Chase)
@@ -158,14 +156,12 @@ public class Decolly : EnemyBase
         }
         else if (tempState == DecollyState.Attack)
         {
-            Debug.Log("攻撃");
             velocity = Vector3.zero;
             m_anim.SetFloat("Speed", 0f);
             m_anim.SetBool("Attack", true);
         }
         else if (tempState == DecollyState.Freeze)
         {
-            Debug.Log("待機");
             elapsedTime = 0f;
             velocity = Vector3.zero;
             m_anim.SetFloat("Speed", 0f);
@@ -221,7 +217,6 @@ public class Decolly : EnemyBase
     {
         if (other.gameObject.CompareTag("Player") && !isdead)
         {
-            Debug.Log("見失った");
             SetState(DecollyState.Idle);
         }
     }

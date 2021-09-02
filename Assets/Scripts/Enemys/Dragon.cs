@@ -121,7 +121,6 @@ public class Dragon : EnemyBase
 
     public void StateEnd()
     {
-        Debug.Log("一時待機");
         StateEndAction?.Invoke();
     }
 
@@ -144,7 +143,7 @@ public class Dragon : EnemyBase
         arrived = true;
         m_anim.SetBool("Dead", true);
         characterController.enabled = false;
-        KonpeitouGenerator.Instance.GenerateKonpeitou(this.transform, enemyData.konpeitou, 2);
+        KonpeitouGenerator.Instance.GenerateKonpeitou(this.transform, enemyData.konpeitou, 10);
         StartCoroutine(Vanish(EffectType.BossDead, m_vanishTime));
     
     }
@@ -177,14 +176,12 @@ public class Dragon : EnemyBase
         }
         else if (tempState == DragonState.Attack)
         {
-            Debug.Log("攻撃");
             velocity = Vector3.zero;
             m_anim.SetFloat("Speed", 0f);
             m_anim.SetBool("Attack_1", true);
         }
         else if (tempState == DragonState.Freeze)
         {
-            Debug.Log("待機");
             elapsedTime = 0f;
             velocity = Vector3.zero;
             m_anim.SetFloat("Speed", 0f);
