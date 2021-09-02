@@ -14,6 +14,7 @@ public class SkipMovieController : MonoBehaviour
     void Start()
     {
         m_director = GetComponent<PlayableDirector>();
+        m_director.stopped += MovieFinished;
     }
 
     void Update()
@@ -21,11 +22,6 @@ public class SkipMovieController : MonoBehaviour
         if (!isPlayed && Input.anyKeyDown)
         {
             StartCoroutine(SkipMovie());
-        }
-        if (m_director.time >= m_director.duration)
-        {
-            Debug.Log("再生終了");
-            isPlayed = true;
         }
     }
 
@@ -36,6 +32,13 @@ public class SkipMovieController : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         LoadSceneManager.Instance.FadeOut();
         m_director.playableGraph.GetRootPlayable(0).SetSpeed(500);
+        Debug.Log("再生終了");
+        isPlayed = true;
+    }
+
+    void MovieFinished(PlayableDirector director)
+    {
+        Debug.Log("再生終了");
         isPlayed = true;
     }
 }
