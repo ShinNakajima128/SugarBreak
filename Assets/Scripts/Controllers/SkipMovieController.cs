@@ -28,12 +28,11 @@ public class SkipMovieController : MonoBehaviour
     IEnumerator SkipMovie()
     {
         LoadSceneManager.Instance.FadeIn();
-
+        isPlayed = true;
         yield return new WaitForSeconds(1.0f);
         LoadSceneManager.Instance.FadeOut();
         m_director.playableGraph.GetRootPlayable(0).SetSpeed(500);
         Debug.Log("再生終了");
-        isPlayed = true;
     }
 
     void MovieFinished(PlayableDirector director)
