@@ -12,8 +12,9 @@ public class BossArea : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             isBattle = true;
-            SoundManager.Instance.PlayBgmByName("BossBattle");
+            SoundManager.Instance.SwitchBGM("BossBattle");
             Debug.Log("ボスエリアに入った");
+            Debug.Log(other.name);
         }
     }
 
@@ -24,7 +25,7 @@ public class BossArea : MonoBehaviour
             if (SceneManager.GetActiveScene().name == "BakedValley")
             {
                 isBattle = false;
-                SoundManager.Instance.PlayBgmByName("BakedValley");
+                SoundManager.Instance.SwitchBGM("BakedValley");
                 Debug.Log("ボスエリアを抜けた");
             }
         }

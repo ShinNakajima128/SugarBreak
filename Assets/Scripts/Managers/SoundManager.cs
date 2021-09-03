@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using System.Collections;
 
 public class SoundManager : SingletonMonoBehaviour<SoundManager>
 {
@@ -76,6 +76,10 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
             PlayBgmByName("BakedValley");
         }
         else if (SceneManager.GetActiveScene().name == "BakedValley")
+        {
+            PlayBgmByName("BakedValley");
+        }
+        else if (SceneManager.GetActiveScene().name == "ModelTest")
         {
             PlayBgmByName("BakedValley");
         }
@@ -222,6 +226,35 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         m_voiceAudioSource.clip = null;
     }
 
+    public void SwitchBGM(string afterBgm)
+    {
+        StartCoroutine(SwitchingBgm(afterBgm));
+    }
+
+    IEnumerator SwitchingBgm(string after)
+    {
+        var currentVol = m_bgmAudioSource.volume;
+
+        while (m_bgmAudioSource.volume > 0)
+        {
+            m_bgmAudioSource.volume -= 0.01f * 0.5f;
+            yield return null;
+        }
+        Debug.Log($"音量：{m_bgmAudioSource.volume}");
+
+        var aft = GetBgmIndex(after);
+        m_bgmAudioSource.clip = m_bgms[aft];
+        m_bgmAudioSource.Play();
+
+        while (m_bgmAudioSource.volume < currentVol)
+        {
+            m_bgmAudioSource.volume += 0.01f * 0.5f;
+            yield return null;
+        }
+        Debug.Log(m_bgmAudioSource.volume);
+
+        yield break;
+    }
     int GetBgmIndex(string name)
     {
         if (bgmIndex.ContainsKey(name))
