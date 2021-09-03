@@ -145,7 +145,6 @@ public class Dragon : EnemyBase
         characterController.enabled = false;
         KonpeitouGenerator.Instance.GenerateKonpeitou(this.transform, enemyData.konpeitou, 10);
         StartCoroutine(Vanish(EffectType.BossDead, m_vanishTime));
-    
     }
 
     public void SetState(DragonState tempState, Transform target = null)

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Dragon
   maxHp: 100
-  atk: 3
+  atk: 2
   konpeitou: 50
