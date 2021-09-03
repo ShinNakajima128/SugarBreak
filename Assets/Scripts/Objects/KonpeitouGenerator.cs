@@ -26,19 +26,19 @@ public class KonpeitouGenerator : MonoBehaviour
 
     public void GenerateKonpeitou(Transform Tfm, int generateNum, float power)
     {
-        StartCoroutine(GenerateInterval(Tfm, generateNum, power));
+        StartCoroutine(GenerateInterval(Tfm.position, generateNum, power));
     }
 
-    IEnumerator GenerateInterval(Transform enemy, int geneNum, float power)
+    IEnumerator GenerateInterval(Vector3 startPos, int geneNum, float power)
     {
         for (int i = 0; i < geneNum; i++)
         {
             yield return new WaitForSeconds(m_generateTime);
 
-            var kon = Instantiate(m_konpeito[Random.Range(0, m_konpeito.Length)], enemy.position, Quaternion.identity, transform);
+            var kon = Instantiate(m_konpeito[Random.Range(0, m_konpeito.Length)], startPos, Quaternion.identity, transform);
             var konpei = kon.GetComponent<Konpeitou>();
             konpei.m_target = m_targetObject;
-            konpei.m_position = enemy.position;
+            konpei.m_position = startPos;
             var m_rb = kon.gameObject.GetComponent<Rigidbody>();
             Vector3 force = new Vector3(Random.Range(-2, 2), power, Random.Range(-2, 2));
 
