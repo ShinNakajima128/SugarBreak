@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class ItemboxBase : MonoBehaviour, IDamagable
 {
-    [SerializeField] protected ItemboxData itemboxData = default;
-    [SerializeField] protected float m_vanishTime = 2.0f;
+    [SerializeField] 
+    protected ItemboxData itemboxData = default;
+
+    [SerializeField] 
+    protected float m_vanishTime = 2.0f;
+
     protected static int m_playSeCount = 0;
     protected int m_currentHp;
     protected int m_konpeitouNum;

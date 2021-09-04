@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class SignaleManager : MonoBehaviour
 {
+    [Header("フェード用のオブジェクト")]
     [SerializeField] Fade fade = default;
+    [Header("演出用のボス")]
     [SerializeField] GameObject m_standingDragon = default;
+    [Header("戦闘するボス")]
     [SerializeField] GameObject m_mainDragon = default;
 
     private void Awake()
@@ -33,5 +36,10 @@ public class SignaleManager : MonoBehaviour
     {
         m_standingDragon.SetActive(false);
         m_mainDragon.SetActive(true);
+    }
+
+    public void OnLandingEffect()
+    {
+        EffectManager.PlayEffect(EffectType.Landing, m_standingDragon.transform.position);
     }
 }

@@ -14,7 +14,9 @@ public enum MenuState
 
 public class MenuManager : MonoBehaviour
 {
-    [SerializeField] GameObject[] m_menuPanels = default;
+    [SerializeField] 
+    GameObject[] m_menuPanels = default;
+
     Dictionary<MenuState, int> menuIndex = new Dictionary<MenuState, int>();
     MenuState state = MenuState.Close;
 

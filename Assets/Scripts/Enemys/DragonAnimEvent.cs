@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class DragonAnimEvent : MonoBehaviour
 {
-    [SerializeField] EnemyData dragonData = default;
-    [SerializeField] Dragon m_dragon = default;
-    [SerializeField] BoxCollider m_boxCollider = default;
-    [SerializeField] float m_knockbackPower = 2;
+    [SerializeField] 
+    EnemyData dragonData = default;
+
+    [SerializeField] 
+    Dragon m_dragon = default;
+
+    [SerializeField] 
+    BoxCollider m_boxCollider = default;
+
+    [SerializeField] 
+    float m_knockbackPower = 2;
 
     private void Start()
     {

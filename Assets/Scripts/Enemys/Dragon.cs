@@ -19,12 +19,16 @@ public class Dragon : EnemyBase
 {
     [SerializeField] 
     float m_moveSpeed = 1.0f;
+
     [SerializeField]
     float waitTime = 2.0f;
+
     [SerializeField] 
     SphereCollider searchArea;
+
     [SerializeField] 
     float m_distanceToPlayer = 1.5f;
+
     /// <summary> 索敵の角度 </summary>
     [SerializeField] 
     float searchAngle = 130f;

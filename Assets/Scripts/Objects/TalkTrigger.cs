@@ -6,12 +6,18 @@ using Cinemachine;
 
 public class TalkTrigger : MonoBehaviour
 {
-    /// <summary> フローチャート </summary>
-    [SerializeField] Flowchart m_flowchart = default;
-    /// <summary> 呼び出すフローチャートのキーワード </summary>
-    [SerializeField] string m_TalkChart = default;
-    /// <summary> 注目する時用のカメラ </summary>
-    [SerializeField] CinemachineFreeLook freeLook = default;
+    [Header("フローチャート")]
+    [SerializeField] 
+    Flowchart m_flowchart = default;
+
+    [Header("呼び出すフローチャートのキーワード")]
+    [SerializeField] 
+    string m_TalkChart = default;
+
+    [Header("注目する時用のカメラ")]
+    [SerializeField] 
+    CinemachineFreeLook freeLook = default;
+
     /// <summary> 表示のフラグ </summary>
     bool isActivated = false;
 

@@ -7,25 +7,45 @@ using System.Collections;
 public class SoundManager : SingletonMonoBehaviour<SoundManager>
 {
     [Header("マスター音量")]
-    [SerializeField, Range(0f, 1f)] float m_masterVolume = 1.0f;
+    [SerializeField, Range(0f, 1f)] 
+    float m_masterVolume = 1.0f;
+
     [Header("BGM音量")]
-    [SerializeField, Range(0f, 1f)] float m_bgmVolume = 0.3f;
+    [SerializeField, Range(0f, 1f)] 
+    float m_bgmVolume = 0.3f;
+
     [Header("SE音量")]
-    [SerializeField, Range(0f, 1f)] float m_seVolume = 1.0f;
+    [SerializeField, Range(0f, 1f)] 
+    float m_seVolume = 1.0f;
+
     [Header("ボイス音量")]
-    [SerializeField, Range(0f, 1f)] float m_voiceVolume = 1.0f;
+    [SerializeField, Range(0f, 1f)] 
+    float m_voiceVolume = 1.0f;
+
     [Header("BGM")]
-    [SerializeField] AudioClip[] m_bgms = null;
+    [SerializeField] 
+    AudioClip[] m_bgms = null;
+
     [Header("SE")]
-    [SerializeField] AudioClip[] m_ses = null;
+    [SerializeField] 
+    AudioClip[] m_ses = null;
+
     [Header("ボイス")]
-    [SerializeField] AudioClip[] m_voices = null;
+    [SerializeField] 
+    AudioClip[] m_voices = null;
+
     [Header("BGMのオーディオソース")]
-    [SerializeField] AudioSource m_bgmAudioSource = null;
+    [SerializeField] 
+    AudioSource m_bgmAudioSource = null;
+
     [Header("SEのオーディオソース")]
-    [SerializeField] AudioSource m_seAudioSource = null;
+    [SerializeField] 
+    AudioSource m_seAudioSource = null;
+
     [Header("ボイスのオーディオソース")]
-    [SerializeField] AudioSource m_voiceAudioSource = null;
+    [SerializeField] 
+    AudioSource m_voiceAudioSource = null;
+
     Dictionary<string, int> bgmIndex = new Dictionary<string, int>();
     Dictionary<string, int> seIndex = new Dictionary<string, int>();
     Dictionary<string, int> voiceIndex = new Dictionary<string, int>();
@@ -226,6 +246,10 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         m_voiceAudioSource.clip = null;
     }
 
+    /// <summary>
+    /// BGMを滑らかに変更する
+    /// </summary>
+    /// <param name="afterBgm"></param>
     public void SwitchBGM(string afterBgm)
     {
         StartCoroutine(SwitchingBgm(afterBgm));
@@ -235,24 +259,21 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     {
         var currentVol = m_bgmAudioSource.volume;
 
-        while (m_bgmAudioSource.volume > 0)
+        while (m_bgmAudioSource.volume > 0)　//現在の音量を0にする
         {
             m_bgmAudioSource.volume -= 0.01f * 0.5f;
             yield return null;
         }
-        Debug.Log($"音量：{m_bgmAudioSource.volume}");
 
         var aft = GetBgmIndex(after);
-        m_bgmAudioSource.clip = m_bgms[aft];
+        m_bgmAudioSource.clip = m_bgms[aft];　//BGMの入れ替え
         m_bgmAudioSource.Play();
 
-        while (m_bgmAudioSource.volume < currentVol)
+        while (m_bgmAudioSource.volume < currentVol)　//音量を元に戻す
         {
             m_bgmAudioSource.volume += 0.01f * 0.5f;
             yield return null;
         }
-        Debug.Log(m_bgmAudioSource.volume);
-
         yield break;
     }
     int GetBgmIndex(string name)

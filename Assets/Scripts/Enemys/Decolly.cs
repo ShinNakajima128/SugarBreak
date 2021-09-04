@@ -18,24 +18,32 @@ public enum DecollyState
 [RequireComponent(typeof(SetPosition))]
 public class Decolly : EnemyBase
 {
-    /// <summary> 動く速さ </summary>
-    [SerializeField] float m_moveSpeed = 1.0f;
+    [Header("動く速さ")]
+    [SerializeField] 
+    float m_moveSpeed = 1.0f;
+
+    [Header("索敵範囲")]
+    [SerializeField] 
+    SphereCollider searchArea;
+
+    [Header("索敵の角度")]
+    [SerializeField] 
+    float searchAngle = 130f;
+
+    [Header("待ち時間")]
+    [SerializeField]
+    private float waitTime = 5f;
+
     /// <summary> 速度 </summary>
     Vector3 velocity;
     /// <summary> 移動方向 </summary>
     Vector3 direction;
     /// <summary> 到着フラグ </summary>
     private bool arrived;
-    /// <summary> 索敵範囲 </summary>
-    [SerializeField] SphereCollider searchArea;
-    /// <summary> 索敵の角度 </summary>
-    [SerializeField] float searchAngle = 130f;
     /// <summary> 敵のステータス </summary>
     DecollyState decollyState;
     SetPosition setPosition;
-    //　待ち時間
-    [SerializeField]
-    private float waitTime = 5f;
+    
     //　経過時間
     private float elapsedTime;
     //　プレイヤーTransform
