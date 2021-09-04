@@ -191,6 +191,16 @@ public class Dragon : EnemyBase
             m_anim.SetBool("Attack_1", false);
         }
     }
+
+    public void GrowlSe()
+    {
+        SoundManager.Instance.PlaySeByName("Growl");
+    }
+    public void SwingSe()
+    {
+        SoundManager.Instance.PlaySeByName("Swing");
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Player") && !isdead)

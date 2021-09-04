@@ -54,6 +54,7 @@ public class SignaleManager : MonoBehaviour
     public void OnLandingEffect()
     {
         EffectManager.PlayEffect(EffectType.Landing, m_standingDragon.transform.position);
+        SoundManager.Instance.PlaySeByName("DragonFrap");
     }
 
     public void SwitchBossBgm()
@@ -63,8 +64,8 @@ public class SignaleManager : MonoBehaviour
 
     public void OnZoomBlur()
     {
+        SoundManager.Instance.PlaySeByName("DragonRoar");
         coroutine = StartCoroutine(IncreaseParameter());
-        //zoomBlur.focusPower.value = 100;
         Debug.Log("ブラーオン");
     }
 
