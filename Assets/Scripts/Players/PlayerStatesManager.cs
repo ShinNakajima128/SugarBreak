@@ -62,7 +62,7 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
         IsOperation = false;
         m_anim.SetFloat("Move", 0f);
         m_rb.velocity = Vector3.zero;
-        m_rb.isKinematic = true;
+        m_rb.constraints = RigidbodyConstraints.FreezeAll;
         m_freeLook.m_XAxis.m_InputAxisName = "";
         m_freeLook.m_YAxis.m_InputAxisName = "";
         Debug.Log("停止");
@@ -71,7 +71,7 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     public void OnOperation()
     {
         IsOperation = true;
-        m_rb.isKinematic = false;
+        m_rb.constraints = RigidbodyConstraints.FreezeRotation;
         m_freeLook.m_XAxis.m_InputAxisName = "Camera X";
         m_freeLook.m_YAxis.m_InputAxisName = "Camera Y";
     }
