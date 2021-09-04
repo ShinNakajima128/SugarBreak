@@ -11,6 +11,12 @@ public class BossArea : MonoBehaviour
 
     public static bool isBattle = false;
     public static bool isFirst = true;
+    SphereCollider collider;
+
+    private void Awake()
+    {
+        collider = GetComponent<SphereCollider>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -18,15 +24,13 @@ public class BossArea : MonoBehaviour
         {
             if (isFirst)
             {
+                collider.radius = 25.5f;
                 director.Play();
                 isFirst = false;
             }
-            else
-            {
-                SoundManager.Instance.SwitchBGM("BossBattle");
-
-            }
+            SoundManager.Instance.SwitchBGM("BossBattle");
             isBattle = true;
+            Debug.Log("ボスエリアに入った");
         }
     }
 

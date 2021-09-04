@@ -57,6 +57,8 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     bool seVolumeChange = false;
     /// <summary> ボイス音量時のフラグ </summary>
     bool voiceVolumeChange = false;
+    float currentVol;
+    Coroutine coroutine;
 
     public float GetMasterVolume { get => m_masterVolume; }
     public float GetBgmVolume { get => m_bgmVolume; }
@@ -103,6 +105,8 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         {
             PlayBgmByName("BakedValley");
         }
+
+        currentVol = m_bgmAudioSource.volume;
     }
 
     /// <summary>
@@ -136,6 +140,8 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         if (m_bgmAudioSource && bgmVolumeChange || m_bgmAudioSource && masterVolumeChange)
         {
             m_bgmAudioSource.volume = m_bgmVolume * m_masterVolume;
+            currentVol = m_bgmAudioSource.volume;
+
             if (masterVolumeChange) masterVolumeChange = false;
             if (bgmVolumeChange) bgmVolumeChange = false;
         }
@@ -252,12 +258,14 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     /// <param name="afterBgm"></param>
     public void SwitchBGM(string afterBgm)
     {
-        StartCoroutine(SwitchingBgm(afterBgm));
+        if (coroutine == null)
+        {
+            coroutine = StartCoroutine(SwitchingBgm(afterBgm));
+        }
     }
 
     IEnumerator SwitchingBgm(string after)
     {
-        var currentVol = m_bgmAudioSource.volume;
 
         while (m_bgmAudioSource.volume > 0)　//現在の音量を0にする
         {
@@ -274,6 +282,9 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
             m_bgmAudioSource.volume += 0.01f * 0.5f;
             yield return null;
         }
+
+        if (coroutine != null) coroutine = null;
+        Debug.Log(currentVol);
     }
 
     int GetBgmIndex(string name)
