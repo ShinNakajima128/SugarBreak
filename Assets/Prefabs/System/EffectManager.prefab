@@ -52,11 +52,14 @@ MonoBehaviour:
   - EffectPrefab: {fileID: 1965343156803978, guid: aa8d6482d70a23445b4b2a928ed1b845,
       type: 3}
     MaxCount: 2
-  - EffectPrefab: {fileID: 1247311384876784, guid: 4adffb0018aeda44e9263f901167af1f,
+  - EffectPrefab: {fileID: 1247311384876784, guid: 911c6a7e6dedf3a44a3c847b17a7d522,
       type: 3}
-    MaxCount: 1
-  - EffectPrefab: {fileID: 1040608886635896, guid: a97415c6b57076f41a6621a7b51d63a3,
+    MaxCount: 2
+  - EffectPrefab: {fileID: 1040608886635896, guid: 84e455c647e17fc40bf815eac6c88886,
       type: 3}
     MaxCount: 3
   - EffectPrefab: {fileID: 100004, guid: 757df604761b8ef42831192c70ee1099, type: 3}
     MaxCount: 2
+  - EffectPrefab: {fileID: 1462327970484030, guid: f01c1eba69de19e44b04d8d651aaac37,
+      type: 3}
+    MaxCount: 3

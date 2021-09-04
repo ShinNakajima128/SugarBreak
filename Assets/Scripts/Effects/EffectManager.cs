@@ -31,7 +31,11 @@ public enum EffectType
     /// <summary>
     /// 武器切り替え
     /// </summary>
-    ChangeWeapon
+    ChangeWeapon,
+    /// <summary>
+    /// 着地
+    /// </summary>
+    Landing
 }
 
 public class EffectManager : SingletonMonoBehaviour<EffectManager>
