@@ -21,11 +21,12 @@ public class BossArea : MonoBehaviour
                 director.Play();
                 isFirst = false;
             }
-            
+            else
+            {
+                SoundManager.Instance.SwitchBGM("BossBattle");
+
+            }
             isBattle = true;
-            SoundManager.Instance.SwitchBGM("BossBattle");
-            Debug.Log("ボスエリアに入った");
-            Debug.Log(other.name);
         }
     }
 

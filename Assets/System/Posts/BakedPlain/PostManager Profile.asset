@@ -430,6 +430,7 @@ MonoBehaviour:
   - {fileID: -1872476170621863917}
   - {fileID: 4268584743344461277}
   - {fileID: 1238058431960114270}
+  - {fileID: 5335331108101574418}
 --- !u!114 &1238058431960114270
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -552,6 +553,32 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 1
     min: 0
+--- !u!114 &5335331108101574418
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 214574efd69828b439d316813dd8caac, type: 3}
+  m_Name: ZoomBlur
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  focusPower:
+    m_OverrideState: 1
+    m_Value: 0
+  focusDetail:
+    m_OverrideState: 1
+    m_Value: 5
+  focusScreenPosition:
+    m_OverrideState: 1
+    m_Value: {x: 0, y: 0}
+  referenceResolutionX:
+    m_OverrideState: 1
+    m_Value: 1334
 --- !u!114 &5550013456012825072
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -626,7 +653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf1aba9553839d41ae37dd52e9ebcce, type: 3}
   m_Name: MotionBlur
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   mode:
     m_OverrideState: 0
@@ -636,11 +663,11 @@ MonoBehaviour:
     m_Value: 2
   intensity:
     m_OverrideState: 1
-    m_Value: 0.7
+    m_Value: 0.5
     min: 0
     max: 1
   clamp:
     m_OverrideState: 1
-    m_Value: 0.093
+    m_Value: 0.102
     min: 0
     max: 0.2

@@ -274,8 +274,8 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
             m_bgmAudioSource.volume += 0.01f * 0.5f;
             yield return null;
         }
-        yield break;
     }
+
     int GetBgmIndex(string name)
     {
         if (bgmIndex.ContainsKey(name))

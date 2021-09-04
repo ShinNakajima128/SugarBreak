@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Rendering.Universal;
 
 public class SignaleManager : MonoBehaviour
 {
@@ -11,10 +11,7 @@ public class SignaleManager : MonoBehaviour
     Fade fade = default;
 
     [SerializeField]
-    PostProcessProfile profile = default; 
-    [SerializeField]
-    MotionBlur volume = default;
-    //GameObject m_postManager = default;
+    Volume m_volume = default; 
 
     [Header("演出用のボス")]
     [SerializeField] 
@@ -23,12 +20,14 @@ public class SignaleManager : MonoBehaviour
     [Header("戦闘するボス")]
     [SerializeField] GameObject m_mainDragon = default;
 
-    MotionBlur motionBlur;
+    ZoomBlur zoomBlur;
+    Coroutine coroutine;
 
     private void Awake()
     {
-        m_standingDragon.SetActive(false);
-        m_mainDragon.SetActive(false);
+        if(m_standingDragon) m_standingDragon.SetActive(false);
+        m_volume.profile.TryGet<ZoomBlur>(out zoomBlur);
+        Debug.Log(zoomBlur);
     }
 
     public void FadeIn()
@@ -57,15 +56,35 @@ public class SignaleManager : MonoBehaviour
         EffectManager.PlayEffect(EffectType.Landing, m_standingDragon.transform.position);
     }
 
-    public void OnMortionBlur()
+    public void SwitchBossBgm()
     {
-        //MotionBlur motionBlur = profile.GetSetting<MotionBlur>();
-        //motionBlur.enabled.Override(true);
+        SoundManager.Instance.SwitchBGM("BossBattle");
     }
 
-    public void OffMortionBlur()
+    public void OnZoomBlur()
     {
-        //MotionBlur motionBlur = profile.GetSetting<MotionBlur>();
-        //motionBlur.enabled.Override(false);
+        coroutine = StartCoroutine(IncreaseParameter());
+        //zoomBlur.focusPower.value = 100;
+        Debug.Log("ブラーオン");
+    }
+
+    public void OffZoomBlur()
+    {
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+            coroutine = null;
+        }
+        zoomBlur.focusPower.value = 0;
+        Debug.Log("ブラーオフ");
+    }
+
+    IEnumerator IncreaseParameter()
+    {
+        while (zoomBlur.focusPower.value < 80)
+        {
+            zoomBlur.focusPower.value += 0.8f;
+            yield return null;
+        }
     }
 }
