@@ -1,15 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.PostProcessing;
 
 public class SignaleManager : MonoBehaviour
 {
     [Header("フェード用のオブジェクト")]
-    [SerializeField] Fade fade = default;
+    [SerializeField] 
+    Fade fade = default;
+
+    [SerializeField]
+    PostProcessProfile profile = default; 
+    [SerializeField]
+    MotionBlur volume = default;
+    //GameObject m_postManager = default;
+
     [Header("演出用のボス")]
-    [SerializeField] GameObject m_standingDragon = default;
+    [SerializeField] 
+    GameObject m_standingDragon = default;
+
     [Header("戦闘するボス")]
     [SerializeField] GameObject m_mainDragon = default;
+
+    MotionBlur motionBlur;
 
     private void Awake()
     {
@@ -41,5 +55,17 @@ public class SignaleManager : MonoBehaviour
     public void OnLandingEffect()
     {
         EffectManager.PlayEffect(EffectType.Landing, m_standingDragon.transform.position);
+    }
+
+    public void OnMortionBlur()
+    {
+        //MotionBlur motionBlur = profile.GetSetting<MotionBlur>();
+        //motionBlur.enabled.Override(true);
+    }
+
+    public void OffMortionBlur()
+    {
+        //MotionBlur motionBlur = profile.GetSetting<MotionBlur>();
+        //motionBlur.enabled.Override(false);
     }
 }

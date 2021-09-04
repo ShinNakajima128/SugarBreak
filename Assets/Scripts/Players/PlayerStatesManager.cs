@@ -65,6 +65,7 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
         m_rb.isKinematic = true;
         m_freeLook.m_XAxis.m_InputAxisName = "";
         m_freeLook.m_YAxis.m_InputAxisName = "";
+        Debug.Log("停止");
     }
 
     public void OnOperation()
