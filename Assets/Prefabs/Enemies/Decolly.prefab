@@ -234,7 +234,7 @@ MonoBehaviour:
   m_effectPos: {fileID: 1923877214196729359}
   m_moveSpeed: 4
   searchArea: {fileID: 1353075978805246254}
-  searchAngle: 70
+  searchAngle: 150
   waitTime: 3
 --- !u!54 &2413091900176269269
 Rigidbody:
