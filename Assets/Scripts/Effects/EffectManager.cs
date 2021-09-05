@@ -35,7 +35,11 @@ public enum EffectType
     /// <summary>
     /// 着地
     /// </summary>
-    Landing
+    Landing,
+    /// <summary>
+    /// ロックオン
+    /// </summary>
+    Lockon
 }
 
 public class EffectManager : SingletonMonoBehaviour<EffectManager>

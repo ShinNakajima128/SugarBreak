@@ -11,6 +11,7 @@ TagManager:
   - FxTemporaire
   - PlayerState
   - Ground
+  - Box
   layers:
   - Default
   - TransparentFX
