@@ -20,13 +20,13 @@ public class KonpeitouGenerator : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            GenerateKonpeitou(this.transform, m_generateNum, m_generatePower);
+            GenerateKonpeitou(this.transform, m_generateNum);
         }
     }
 
-    public void GenerateKonpeitou(Transform Tfm, int generateNum, float power)
+    public void GenerateKonpeitou(Transform Tfm, int generateNum)
     {
-        StartCoroutine(GenerateInterval(Tfm.position, generateNum, power));
+        StartCoroutine(GenerateInterval(Tfm.position, generateNum, m_generatePower));
     }
 
     IEnumerator GenerateInterval(Vector3 startPos, int geneNum, float power)

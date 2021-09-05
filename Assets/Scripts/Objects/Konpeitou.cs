@@ -7,7 +7,7 @@ public class Konpeitou : MonoBehaviour
     [SerializeField] float m_arrivalTime = 2.0f;
     [SerializeField] PlayerData playerData = default;
     [SerializeField] SphereCollider m_sphereCollider = default;
-    [SerializeField] SphereCollider m_searchCollider = default;
+    //[SerializeField] SphereCollider m_searchCollider = default;
     [SerializeField] float m_startMovingTimer = 2;
     public Transform m_target;
     public Vector3 m_position;
@@ -20,7 +20,7 @@ public class Konpeitou : MonoBehaviour
 
     private void Awake()
     {
-        m_searchCollider.enabled = false;
+        //m_searchCollider.enabled = false;
     }
     private void Start()
     {
@@ -66,12 +66,7 @@ public class Konpeitou : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            isSearched = true;
-            m_sphereCollider.enabled = false;
-            m_rb.useGravity = false;
-            Vector3 force = new Vector3(0, 15, 0);
-            isUpdated = true;
-            m_rb.AddForce(force, ForceMode.Impulse);
+            
         }
     }
 
@@ -80,10 +75,12 @@ public class Konpeitou : MonoBehaviour
         var a = Random.Range(0f, 1.5f);
         yield return new WaitForSeconds(m_startMovingTimer + a);
 
-        m_searchCollider.enabled = true;
-        //m_rb.isKinematic = true;
-        //m_rb.velocity = Vector3.zero;
-        //m_rb.freezeRotation = true;
-        //m_rb.useGravity = false;
+        //m_searchCollider.enabled = true;
+        isSearched = true;
+        m_sphereCollider.enabled = false;
+        m_rb.useGravity = false;
+        Vector3 force = new Vector3(0, 15, 0);
+        isUpdated = true;
+        m_rb.AddForce(force, ForceMode.Impulse);
     }
 }
