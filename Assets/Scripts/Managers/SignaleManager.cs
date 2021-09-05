@@ -26,8 +26,7 @@ public class SignaleManager : MonoBehaviour
     private void Awake()
     {
         if(m_standingDragon) m_standingDragon.SetActive(false);
-        m_volume.profile.TryGet<ZoomBlur>(out zoomBlur);
-        Debug.Log(zoomBlur);
+        m_volume.profile.TryGet(out zoomBlur);
     }
 
     public void FadeIn()
