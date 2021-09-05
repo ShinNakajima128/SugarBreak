@@ -32,7 +32,6 @@ public class EnemyBase : MonoBehaviour, IDamagable
         if (currentHp <= 0)
         {
             m_anim.Play("Die");
-            KonpeitouGenerator.Instance.GenerateKonpeitou(this.transform, m_dropNum, 2);
             StartCoroutine(Vanish(EffectType.EnemyDead, m_vanishTime));
         }
     }
@@ -40,7 +39,7 @@ public class EnemyBase : MonoBehaviour, IDamagable
     protected IEnumerator Vanish(EffectType effectType, float vanishTime)
     {
         yield return new WaitForSeconds(vanishTime);
-
+        KonpeitouGenerator.Instance.GenerateKonpeitou(this.transform, m_dropNum);
         EffectManager.PlayEffect(effectType, m_effectPos.position);
         Destroy(this.gameObject);
     }

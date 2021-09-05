@@ -197,7 +197,7 @@ public class Decolly : EnemyBase
         m_anim.SetBool("Dead", true);
         m_anim.Play("Die");
         characterController.enabled = false;
-        KonpeitouGenerator.Instance.GenerateKonpeitou(this.transform, enemyData.konpeitou, 2);
+        //KonpeitouGenerator.Instance.GenerateKonpeitou(this.transform, enemyData.konpeitou);
         StartCoroutine(Vanish(EffectType.EnemyDead, m_vanishTime));
     }
 

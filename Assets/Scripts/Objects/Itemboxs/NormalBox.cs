@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class NormalBox : ItemboxBase
 {
-    [SerializeField] float m_popPower = 5;
     public override void Damage(int attackDamage)
     {
         MeshRenderer mesh = GetComponent<MeshRenderer>();
@@ -23,7 +22,7 @@ public class NormalBox : ItemboxBase
                 SoundManager.Instance.PlaySeByName("Break");
                 m_playSeCount++;
             }
-            KonpeitouGenerator.Instance.GenerateKonpeitou(transform, m_konpeitouNum, m_popPower);
+            KonpeitouGenerator.Instance.GenerateKonpeitou(transform, m_konpeitouNum);
             StartCoroutine(Vanish(m_vanishTime));
         }
     }
