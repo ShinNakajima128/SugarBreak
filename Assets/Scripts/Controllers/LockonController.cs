@@ -21,6 +21,9 @@ public class LockonController : MonoBehaviour
     [SerializeField] 
     GameObject m_LockonPrefab = default;
 
+    [SerializeField]
+    float m_playerToEnemyDistance = 15f;
+
     GameObject nearTarget;
     GameObject lockImage;
     bool isLockon = false;
@@ -42,6 +45,16 @@ public class LockonController : MonoBehaviour
             else
             {
                 OnLock();
+            }
+        }
+
+        if (isLockon)
+        {
+            var dist = Vector3.Distance(transform.position, nearTarget.transform.position);
+
+            if (dist > m_playerToEnemyDistance)
+            {
+                OffLock();
             }
         }
 
@@ -94,7 +107,7 @@ public class LockonController : MonoBehaviour
                 break;
             }
         }
-        if (m_targetGroup.m_Targets.Length < 1) m_targetGroup.AddMember(m_playerLookAt, 1, 2);
+        if (m_targetGroup.m_Targets.Length < 1) m_targetGroup.AddMember(m_playerLookAt, 2, 2);
 
         if (lockImage) Destroy(lockImage);
         isLockon = false;
