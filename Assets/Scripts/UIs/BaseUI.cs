@@ -17,7 +17,12 @@ public class BaseUI : MonoBehaviour
 {
     [SerializeField]
     BaseUIState m_baseUI = BaseUIState.Main;
-    [SerializeField] GameObject[] m_menuPanels = default;
+    
+    [SerializeField] 
+    GameObject[] m_menuPanels = default;
+
+    [SerializeField]
+    GameObject m_confirmPanel = default;
 
     void Start()
     {
@@ -50,6 +55,11 @@ public class BaseUI : MonoBehaviour
         ChangeUIPanel(BaseUIState.Exit);
     }
 
+    public void LoadTitle(string sceneName)
+    {
+        LoadSceneManager.Instance.AnyLoadScene(sceneName);
+    }
+
     void ChangeUIPanel(BaseUIState state)
     {
         m_baseUI = state;
@@ -58,6 +68,7 @@ public class BaseUI : MonoBehaviour
         {
             case BaseUIState.Main:
                 PanelChange(0);
+                if (m_confirmPanel.activeSelf) m_confirmPanel.SetActive(false);
                 break;
             case BaseUIState.StageSelect:
                 PanelChange(1);
@@ -72,7 +83,8 @@ public class BaseUI : MonoBehaviour
                 PanelChange(4);
                 break;
             case BaseUIState.Exit:
-                PanelChange(5);
+                //PanelChange(5);
+                OnConfirmPanel();
                 break;
         }
     }
@@ -90,5 +102,9 @@ public class BaseUI : MonoBehaviour
                 m_menuPanels[i].SetActive(false);
             }
         }
+    }
+    void OnConfirmPanel()
+    {
+        m_confirmPanel.SetActive(true);
     }
 }

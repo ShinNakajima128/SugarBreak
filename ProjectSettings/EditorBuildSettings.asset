@@ -6,11 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/BakedPlain.unity
-    guid: a7433f5c02f2d5c40855863cf3382832
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+    path: Assets/Scenes/Title.unity
+    guid: ff79e5b6e396f004cb11bde8084227b8
+  - enabled: 1
+    path: Assets/Scenes/Base.unity
+    guid: d59800b9a75fe724b80c89a10ccd605d
   - enabled: 1
     path: Assets/Scenes/BakedValley.unity
     guid: 44350be8fad9eb448ae2d332a56bed74
