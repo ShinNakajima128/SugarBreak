@@ -65,7 +65,7 @@ public class LockonController : MonoBehaviour
             
             m_targetGroup.AddMember(nearTarget.transform, 1, 2);
             var pos = new Vector3(nearTarget.transform.position.x, nearTarget.transform.position.y + 3f, nearTarget.transform.position.z);
-            EffectManager.PlayEffect(EffectType.Lockon, pos);
+            //EffectManager.PlayEffect(EffectType.Lockon, pos);
             Debug.Log("ロックオン");
         }
         else
