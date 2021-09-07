@@ -44,6 +44,14 @@ public class EnemyBase : MonoBehaviour, IDamagable
         Destroy(this.gameObject);
     }
 
+    protected IEnumerator Vanish(BossType bossType, EffectType effectType, float vanishTime)
+    {
+        yield return new WaitForSeconds(vanishTime);
+        KonpeitouGenerator.Instance.GenerateChocoEgg(transform);
+        EffectManager.PlayEffect(effectType, m_effectPos.position);
+        Destroy(this.gameObject);
+    }
+
     /// <summary>
     /// 敵のデータを確認する
     /// </summary>

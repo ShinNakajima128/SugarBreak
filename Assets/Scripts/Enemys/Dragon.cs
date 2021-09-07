@@ -147,8 +147,7 @@ public class Dragon : EnemyBase
         arrived = true;
         m_anim.SetBool("Dead", true);
         characterController.enabled = false;
-        //KonpeitouGenerator.Instance.GenerateKonpeitou(this.transform, enemyData.konpeitou);
-        StartCoroutine(Vanish(EffectType.BossDead, m_vanishTime));
+        StartCoroutine(Vanish(BossType.Dragon, EffectType.BossDead, m_vanishTime));
     }
 
     public void SetState(DragonState tempState, Transform target = null)
