@@ -14,8 +14,8 @@ public class DualSoda : WeaponBase
         m_leftSoda.SetActive(true);
         m_rightSoda.SetActive(true);
         //m_rightSoda.transform.Rotate(-30f, 9.7f, 149);
-        m_leftSoda.transform.parent = m_lefthand.transform;
-        m_rightSoda.transform.parent = m_righthand.transform;
+        //m_leftSoda.transform.parent = m_lefthand.transform;
+        //m_rightSoda.transform.parent = m_righthand.transform;
     }
     private void OnDisable()
     {

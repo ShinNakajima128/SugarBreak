@@ -120,7 +120,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: f0ce73d47cce349499f10d7b0409fa81, type: 2}
+  m_Motion: {fileID: 7400000, guid: 507207cee6f805b4d9094d03ea1f026a, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -169,7 +169,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 91ccb0a32a9511b47a18c30fa1fd3566, type: 2}
+  m_Motion: {fileID: 7400000, guid: 162b3104a18a6ef4e99df03c32c9518f, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -243,7 +243,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 4ae692d8bd4aabf49a3eefdaeb0a21d2, type: 2}
+  m_Motion: {fileID: 7400000, guid: ed6d59c07ae76d44683a4b860df53eac, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -455,7 +455,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PlayerAnimController
+  m_Name: LenaAnimController
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Move
@@ -608,7 +608,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 0e21a45995030f14d968c5c0041c4d65, type: 2}
+  m_Motion: {fileID: 7400000, guid: 4225565926209f84dbd53d4f36de1afb, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
