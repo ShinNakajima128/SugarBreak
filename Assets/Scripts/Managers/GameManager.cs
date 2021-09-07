@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
+    public static Action GameEnd { get; set; }
+
     void Awake()
     {
         if (this != Instance)
@@ -12,7 +15,16 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             Destroy(gameObject);
             return;
         }
-
         DontDestroyOnLoad(gameObject);
+
+       if (GameEnd != null)
+        {
+            GameEnd = null;
+        }
+    }
+
+    public void OnGameEnd()
+    {
+        GameEnd?.Invoke();
     }
 }
