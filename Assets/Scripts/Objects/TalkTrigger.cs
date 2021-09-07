@@ -21,6 +21,14 @@ public class TalkTrigger : MonoBehaviour
     /// <summary> 表示のフラグ </summary>
     bool isActivated = false;
 
+    private void Awake()
+    {
+        if (m_flowchart == null)
+        {
+            m_flowchart = GameObject.FindGameObjectWithTag("FlowChart").GetComponent<Flowchart>();
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         ///プレイヤーが来たらフローチャートを再生する

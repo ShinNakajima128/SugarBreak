@@ -12,6 +12,7 @@ TagManager:
   - PlayerState
   - Ground
   - Box
+  - FlowChart
   layers:
   - Default
   - TransparentFX
