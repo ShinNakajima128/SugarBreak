@@ -20,7 +20,7 @@ public class ChocoEgg : MonoBehaviour, IDamagable
     BossType m_bossType = BossType.Dragon;
 
     [SerializeField]
-    GameObject m_talkTrigger = default;
+    BoxCollider m_talkTrigger = default;
 
     [SerializeField]
     bool isDebug = false;
@@ -34,7 +34,7 @@ public class ChocoEgg : MonoBehaviour, IDamagable
     void Start()
     {
         m_collider = GetComponent<CapsuleCollider>();
-        m_talkTrigger.SetActive(false);
+        m_talkTrigger.enabled = false;
         m_collider.enabled = false;
         m_currentHp = m_maxHp;
         StartCoroutine(DelayEvent());
@@ -79,7 +79,7 @@ public class ChocoEgg : MonoBehaviour, IDamagable
     {
         yield return new WaitForSeconds(3.0f);
 
-        m_talkTrigger.SetActive(true);
+        m_talkTrigger.enabled = true;
         m_collider.enabled = true;
     }
 }

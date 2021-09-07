@@ -21,6 +21,9 @@ public class TalkTrigger : MonoBehaviour
     /// <summary> 表示のフラグ </summary>
     bool isActivated = false;
 
+    [SerializeField]
+    bool ChocoEgg = false;
+
     private void Awake()
     {
         if (m_flowchart == null)
@@ -34,17 +37,36 @@ public class TalkTrigger : MonoBehaviour
         ///プレイヤーが来たらフローチャートを再生する
         if (other.gameObject.CompareTag("Player") && !isActivated)
         {
+            if (ChocoEgg)
+            {
+                ActiveCamera();
+                StartCoroutine(FinishChart());
+            }
             m_flowchart.SendFungusMessage(m_TalkChart);
             isActivated = true;
         }
     }
 
+    IEnumerator FinishChart()
+    {
+        yield return null;
+
+        while (true)
+        {
+            if (PlayerStatesManager.Instance.IsOperation)
+            {
+                InactiveCamera();
+                yield break;
+            }
+            yield return null;
+        }
+    }
     /// <summary>
     /// 注目用のカメラをONにする
     /// </summary>
     public void ActiveCamera()
     {
-        freeLook.Priority = 16;
+        freeLook.Priority = 20;
     }
     /// <summary>
     /// 注目用のカメラをOFFにする
