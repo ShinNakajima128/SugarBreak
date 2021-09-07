@@ -89,7 +89,7 @@ public class AnimationEventScript : MonoBehaviour
 
     public void ShootBullet()
     {
-        AttackAction();
+        AttackAction?.Invoke();
         SoundManager.Instance.PlaySeByName("Shoot");
     }
 
