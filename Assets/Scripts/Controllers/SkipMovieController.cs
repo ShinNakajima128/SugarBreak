@@ -8,20 +8,45 @@ using UnityEngine.Playables;
 /// </summary>
 public class SkipMovieController : MonoBehaviour
 {
+    [SerializeField]
+    bool m_playOnAwake = false;
+
     PlayableDirector m_director = default;
     bool isPlayed = false;
 
-    void Start()
+    private void Awake()
     {
-        m_director = GetComponent<PlayableDirector>();
+        if (m_director == null) 
+            m_director = GetComponent<PlayableDirector>();
+
         m_director.stopped += MovieFinished;
+        m_director.played += Skip;
+
+        if (m_playOnAwake)
+        {
+            m_director.Play();
+        }
     }
 
-    void Update()
+    void Skip(PlayableDirector director)
     {
-        if (!isPlayed && Input.anyKeyDown)
+        if (m_director == director)
         {
-            StartCoroutine(SkipMovie());
+            Debug.Log("スキップ受付開始");
+            StartCoroutine(SkipCol());
+        }   
+    }
+
+    IEnumerator SkipCol()
+    {
+        while (true)
+        {
+            if (!isPlayed && Input.anyKeyDown)
+            {
+                StartCoroutine(SkipMovie());
+                yield break;
+            }
+            yield return null;
         }
     }
 
