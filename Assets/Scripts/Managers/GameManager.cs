@@ -6,7 +6,7 @@ using System;
 
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
-    public static Action GameEnd { get; set; }
+    public static Action GameEnd;
 
     void Awake()
     {
