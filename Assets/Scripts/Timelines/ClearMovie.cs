@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.Timeline;
 
 public class ClearMovie : MonoBehaviour
 {
     PlayableDirector director;
-
+   
     void Start()
     {
         director = GetComponent<PlayableDirector>();
@@ -16,6 +17,6 @@ public class ClearMovie : MonoBehaviour
     void PlayMovie()
     {
         Debug.Log("クリア演出再生");
-        //director.Play();
+        director.Play();
     }
 }
