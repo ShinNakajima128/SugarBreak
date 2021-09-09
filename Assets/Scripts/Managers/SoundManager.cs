@@ -99,11 +99,11 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         }
         else if (SceneManager.GetActiveScene().name == "BakedValley")
         {
-            PlayBgmByName("BakedValley");
+            PlayBgmByName("BakedValley1");
         }
         else if (SceneManager.GetActiveScene().name == "ModelTest")
         {
-            PlayBgmByName("BakedValley");
+            PlayBgmByName("BakedValley2");
         }
 
         currentVol = m_bgmAudioSource.volume;
@@ -122,7 +122,7 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
                 SwitchBGM("Title");
                 break;
             case "BakedValley":
-                SwitchBGM("BakedValley");
+                SwitchBGM("BakedValley1");
                 break;
             case "Base":
                 SwitchBGM("Base");
