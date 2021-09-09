@@ -32,38 +32,24 @@ public class StageSelect : MonoBehaviour
 
     static bool IsStage2Updated = false;
 
+    static bool IsStage3Updated = false;
+
+    static bool IsStage4Updated = false;
+
     private void OnEnable()
     {
-        for (int i = 0; i < m_StageNames.Length; i++)
-        {
-            if (i == 0)
-            {
-                if (GameManager.Instance.IsBakeleValleyCleared)
-                {
-                    m_StageNames[i].text = "レインディ雲海";
-                    if (!IsStage2Updated)
-                    {
-                        m_updateIcons[i].SetActive(true);
-                        IsStage2Updated = true;
-                    }
-                }
-                else
-                {
-                    m_StageNames[i].text = "？？？？？？？？";
-                }
-            }
-            else
-            {
-                m_StageNames[i].text = "？？？？？？？？";
-            }
-
-        }
+        Debug.Log("ステージ選択");
+        StageNameUpdate();
     }
 
     private void OnDisable()
     {
         ChangeUIPanel(StageSelectState.None);
-        GameManager.Instance.IsStageUpdated = false;
+
+        foreach (var s in m_updateIcons)
+        {
+            s.SetActive(false);
+        }
     }
 
     public void OnBakedValley()
@@ -77,6 +63,8 @@ public class StageSelect : MonoBehaviour
 
         ChangeUIPanel(StageSelectState.RaindyClouds);
         m_updateIcons[0].SetActive(false);
+        GameManager.Instance.IsStageUpdated = false; 
+        IsStage2Updated = true;
     }
 
     public void OnDesertResort()
@@ -85,6 +73,8 @@ public class StageSelect : MonoBehaviour
 
         ChangeUIPanel(StageSelectState.DessertResort);
         m_updateIcons[1].SetActive(false);
+        GameManager.Instance.IsStageUpdated = false;
+        IsStage3Updated = true;
     }
 
     public void OnGlaseSnowField()
@@ -93,6 +83,8 @@ public class StageSelect : MonoBehaviour
 
         ChangeUIPanel(StageSelectState.GlaseSnowField);
         m_updateIcons[2].SetActive(false);
+        GameManager.Instance.IsStageUpdated = false;
+        IsStage4Updated = true;
     }
 
     public void OnGanacheVolcano()
@@ -100,6 +92,7 @@ public class StageSelect : MonoBehaviour
         if (!GameManager.Instance.IsGlaseSnowFieldCleared) return;
 
         ChangeUIPanel(StageSelectState.GanacheVolcano);
+        GameManager.Instance.IsStageUpdated = false;
     }
 
     void ChangeUIPanel(StageSelectState state)
@@ -152,5 +145,56 @@ public class StageSelect : MonoBehaviour
                 }
             }
         }  
+    }
+    void StageNameUpdate()
+    {
+        for (int i = 0; i < m_StageNames.Length; i++)
+        {
+            if (i == 0)
+            {
+                if (GameManager.Instance.IsBakeleValleyCleared)
+                {
+                    m_StageNames[i].text = "レインディ雲海";
+                    if (!IsStage2Updated)
+                    {
+                        m_updateIcons[i].SetActive(true);
+                    }
+                }
+                else
+                {
+                    m_StageNames[i].text = "？？？？？？？？";
+                }
+            }
+            if (i == 1)
+            {
+                if (GameManager.Instance.IsRaindyCloudsCleared)
+                {
+                    m_StageNames[i].text = "デザートリゾート";
+                    if (!IsStage3Updated)
+                    {
+                        m_updateIcons[i].SetActive(true);
+                    }
+                }
+                else
+                {
+                    m_StageNames[i].text = "？？？？？？？？";
+                }
+            }
+            if (i == 2)
+            {
+                if (GameManager.Instance.IsDesertResortCleared)
+                {
+                    m_StageNames[i].text = "グラース雪原";
+                    if (!IsStage4Updated)
+                    {
+                        m_updateIcons[i].SetActive(true);
+                    }
+                }
+                else
+                {
+                    m_StageNames[i].text = "？？？？？？？？";
+                }
+            }
+        }
     }
 }

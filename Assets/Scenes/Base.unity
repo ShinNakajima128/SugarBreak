@@ -8915,8 +8915,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6e5186d1c3b9ae42a26dcda6584f88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isBakeleValleyCleared: 0
   isStageUpdated: 0
+  isBakeleValleyCleared: 0
+  isRaindyCloudsCleared: 0
+  isDesertResortCleared: 0
+  isGlaseSnowFieldCleared: 0
 --- !u!4 &1621632456
 Transform:
   m_ObjectHideFlags: 0

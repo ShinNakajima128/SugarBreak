@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System;
 
 /// <summary>
@@ -9,11 +10,19 @@ using System;
 /// </summary>
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
+
+    [SerializeField]
+    bool isStageUpdated = false;
+
     [SerializeField]
     bool isBakeleValleyCleared = false;
 
     [SerializeField]
-    bool isStageUpdated = false;
+    bool isRaindyCloudsCleared = false;
+    [SerializeField]
+    bool isDesertResortCleared = false;
+    [SerializeField]
+    bool isGlaseSnowFieldCleared = false;
 
     /// <summary>
     /// ステージクリア時のイベント
@@ -30,11 +39,11 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     /// </summary>
     public bool IsBakeleValleyCleared { get => isBakeleValleyCleared; set => isBakeleValleyCleared = value; }
 
-    public bool IsRaindyCloudsCleared { get; set; } = false;
+    public bool IsRaindyCloudsCleared { get => isRaindyCloudsCleared; set=> isRaindyCloudsCleared = value; }
 
-    public bool IsDesertResortCleared { get; set; } = false;
+    public bool IsDesertResortCleared { get => isDesertResortCleared; set => isDesertResortCleared = value; }
 
-    public bool IsGlaseSnowFieldCleared { get; set; } = false;
+    public bool IsGlaseSnowFieldCleared { get => isGlaseSnowFieldCleared; set => isGlaseSnowFieldCleared = value; }
 
 
     void Awake()
@@ -51,9 +60,38 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             GameEnd = null;
         }
     }
+    private void Start()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        if (SceneManager.GetActiveScene().name == "Title")
+        {
+        }
+        else if (SceneManager.GetActiveScene().name == "Base")
+        {
+        }
+        else if (SceneManager.GetActiveScene().name == "BakedValley")
+        {
+        }
+    }
 
     public void OnGameEnd()
     {
         GameEnd?.Invoke();
+    }
+
+    void OnSceneLoaded(Scene nextScene, LoadSceneMode mode)
+    {
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Title":
+                Cursor.visible = true;
+                break;
+            case "BakedValley":
+                Cursor.visible = false;
+                break;
+            case "Base":
+                Cursor.visible = true;
+                break;
+        }
     }
 }

@@ -38,11 +38,6 @@ public class BaseUI : MonoBehaviour
     {
         m_updateIcon?.SetActive(false);
         OnMain();
-
-        if (GameManager.Instance.IsStageUpdated)
-        {
-            m_updateIcon?.SetActive(true);
-        }
     }
 
     /// <summary>
@@ -51,6 +46,11 @@ public class BaseUI : MonoBehaviour
     public void OnMain()
     {
         ChangeUIPanel(BaseUIState.Main);
+
+        if ((bool)(!m_updateIcon?.activeSelf) && GameManager.Instance.IsStageUpdated)
+        {
+            m_updateIcon?.SetActive(true);
+        }
     }
 
     /// <summary>
