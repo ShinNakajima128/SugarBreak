@@ -122,7 +122,7 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
                 SwitchBGM("Title");
                 break;
             case "BakedValley":
-                SwitchBGM("BakedValley1");
+                SwitchBGM("BakeleValley1");
                 break;
             case "Base":
                 SwitchBGM("Base");
