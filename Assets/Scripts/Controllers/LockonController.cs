@@ -48,6 +48,11 @@ public class LockonController : MonoBehaviour
             }
         }
 
+        if (isLockon && nearTarget == null)
+        {
+            OffLock();
+        }
+
         if (isLockon)
         {
             var dist = Vector3.Distance(transform.position, nearTarget.transform.position);
@@ -56,11 +61,6 @@ public class LockonController : MonoBehaviour
             {
                 OffLock();
             }
-        }
-
-        if (isLockon && nearTarget == null)
-        {
-            OffLock();
         }
     }
 
@@ -77,9 +77,6 @@ public class LockonController : MonoBehaviour
             lockImage.transform.parent = nearTarget.transform;
             
             m_targetGroup.AddMember(nearTarget.transform, 1, 2);
-            var pos = new Vector3(nearTarget.transform.position.x, nearTarget.transform.position.y + 3f, nearTarget.transform.position.z);
-            //EffectManager.PlayEffect(EffectType.Lockon, pos);
-            Debug.Log("ロックオン");
         }
         else
         {
