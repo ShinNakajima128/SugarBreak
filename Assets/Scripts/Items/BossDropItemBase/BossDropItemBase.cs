@@ -30,6 +30,8 @@ public class BossDropItemBase : MonoBehaviour
         {
             Debug.Log(gameObject.name + "を獲得した");
             GameManager.Instance.OnGameEnd();
+            GameManager.Instance.IsBakeleValleyCleared = true;
+            GameManager.Instance.IsStageUpdated = true;
             Destroy(gameObject);
         }
     }
