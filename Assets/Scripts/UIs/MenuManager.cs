@@ -6,9 +6,9 @@ public enum MenuState
 {
     Close,
     Open,
-    Tutorial,
-    Audio,
+    Item,
     Option,
+    Picturebook,
     Exit
 }
 
@@ -16,6 +16,12 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] 
     GameObject[] m_menuPanels = default;
+
+    [SerializeField]
+    GameObject m_rootMenuPanel = default;
+
+    [SerializeField]
+    GameObject m_confirmPanel = default;
 
     Dictionary<MenuState, int> menuIndex = new Dictionary<MenuState, int>();
     MenuState state = MenuState.Close;
@@ -42,16 +48,18 @@ public class MenuManager : MonoBehaviour
         {
             if (state == MenuState.Close)   //メニューを開く
             {
+                m_rootMenuPanel.SetActive(true);
                 Cursor.visible = true;
                 Time.timeScale = 0f;
-                ActiveMenu(MenuState.Open);
+                ActiveMenu(1);
                 state = MenuState.Open;
             }
             else if (state != MenuState.Close)  //メニューを閉じる
             {
+                m_rootMenuPanel.SetActive(false);
                 Cursor.visible = false;
                 Time.timeScale = 1f;
-                ActiveMenu(MenuState.Close);
+                ActiveMenu(0);
                 state = MenuState.Close;
             }
         }
@@ -60,10 +68,21 @@ public class MenuManager : MonoBehaviour
     /// <summary>
     /// 指定のメニューを開く
     /// </summary>
-    /// <param name="menu"> 開くメニュー </param>
-    public void ActiveMenu(MenuState menu)
+    /// <param name="index"> 開くメニュー </param>
+    public void ActiveMenu(int index)
     {
-        if (menu == MenuState.Close)
+        if (index == 5)
+        {
+            m_confirmPanel.SetActive(true);
+            return;
+        }
+
+        if (m_confirmPanel.activeSelf)
+        {
+            m_confirmPanel.SetActive(false);
+        }
+
+        if (index == 0)
         {
             for (int i = 0; i < m_menuPanels.Length; i++)
             {
@@ -74,7 +93,7 @@ public class MenuManager : MonoBehaviour
 
         for (int i = 0; i < m_menuPanels.Length; i++)
         {
-            if (i == GetMenu(menu))
+            if (i == index)
             {
                 m_menuPanels[i].SetActive(true);
             }
@@ -83,6 +102,11 @@ public class MenuManager : MonoBehaviour
                 m_menuPanels[i].SetActive(false);
             }
         }
+    }
+
+    public void LoadBaseScene(string baseName)
+    {
+        LoadSceneManager.Instance.AnyLoadScene(baseName);
     }
 
     public int GetMenu(MenuState menu)
