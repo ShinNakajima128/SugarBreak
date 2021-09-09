@@ -89,6 +89,11 @@ public class SignaleManager : MonoBehaviour
         Debug.Log("ブラーオフ");
     }
 
+    public void PlayClearBGM()
+    {
+        SoundManager.Instance.PlayBgmByName("ClearJingle");
+    }
+
     public void OnClearBlur()
     {
         //SoundManager.Instance.PlaySeByName("DragonRoar");

@@ -99,11 +99,11 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         }
         else if (SceneManager.GetActiveScene().name == "BakedValley")
         {
-            PlayBgmByName("BakedValley1");
+            PlayBgmByName("BakeleValley1");
         }
         else if (SceneManager.GetActiveScene().name == "ModelTest")
         {
-            PlayBgmByName("BakedValley2");
+            PlayBgmByName("BakeleValley2");
         }
 
         currentVol = m_bgmAudioSource.volume;
