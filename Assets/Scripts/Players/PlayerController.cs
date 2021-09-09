@@ -32,11 +32,8 @@ public class PlayerController : MonoBehaviour
     PlayerState state = PlayerState.None;
     Rigidbody m_rb;
     Animator m_anim;
-    SoundManager soundManager = default;
-    /// <summary> 落下速度の下限 </summary>
-    float minVelocityY = -9.5f;
-    /// <summary> ジャンプ力の上限 </summary>
-    float maxVelocityY = 3.5f;
+    int comboNum = 0;
+    Coroutine combpCoroutine;
 
     public PlayerState State
     {
@@ -49,7 +46,6 @@ public class PlayerController : MonoBehaviour
     {
         m_rb = GetComponent<Rigidbody>();
         m_anim = GetComponent<Animator>();
-        soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
     }
 
 
@@ -194,14 +190,14 @@ public class PlayerController : MonoBehaviour
             {
                 PlayerStatesManager.Instance.IsOperation = false;
                 m_anim.SetBool("Light", true);                      ///CandyBeatの弱攻撃
-                StartCoroutine(AttackMotionTimer());
+                StartCoroutine(AttackMotionTimer(m_waitTime));
             }
             else
             {
                 PlayerStatesManager.Instance.IsOperation = false;
                 m_rb.AddForce(Vector3.up * 3, ForceMode.Impulse);
                 m_anim.SetBool("Strong", true);                     ///CandyBeatの強攻撃
-                StartCoroutine(AttackMotionTimer());
+                StartCoroutine(AttackMotionTimer(m_waitTime));
             }   
         }
 
@@ -210,8 +206,44 @@ public class PlayerController : MonoBehaviour
         {
             PlayerStatesManager.Instance.IsOperation = false;
             m_anim.SetBool("Shoot", true);
-            StartCoroutine(AttackMotionTimer());
+            StartCoroutine(AttackMotionTimer(m_waitTime));
             m_rb.velocity = new Vector3(0, m_rb.velocity.y, 0);
+        }
+
+        if (Input.GetButtonDown("Fire1") && animationEventScript.weaponStates == WeaponState.DualSoda)
+        {
+            if (comboNum == 3) return;
+
+            if(comboNum == 0)
+            {
+                m_anim.SetTrigger("SwordAttack1");
+                comboNum = 1;
+                combpCoroutine =  StartCoroutine(AttackMotionTimer(0.5f));
+            }
+            else if(comboNum == 1)
+            {
+                m_anim.SetTrigger("SwordAttack2");
+                comboNum = 2;
+                if (combpCoroutine != null)
+                {
+                    StopCoroutine(combpCoroutine);
+                    combpCoroutine = null;
+                    combpCoroutine = StartCoroutine(AttackMotionTimer(0.5f));
+                }    
+            }
+            else if (comboNum == 2)
+            {
+                m_anim.SetTrigger("SwordAttack3");
+                PlayerStatesManager.Instance.IsOperation = false;
+                StartCoroutine(AttackMotionTimer(m_waitTime));
+                comboNum = 3;
+                if (combpCoroutine != null)
+                {
+                    StopCoroutine(combpCoroutine);
+                    combpCoroutine = null;
+                    combpCoroutine = StartCoroutine(AttackMotionTimer(m_waitTime));
+                }
+            }
         }
     }
 
@@ -230,11 +262,11 @@ public class PlayerController : MonoBehaviour
 
             if (m_shabadubiMode)
             {
-                soundManager.PlaySeByName("Shabadubi");
+                SoundManager.Instance.PlaySeByName("Shabadubi");
             }
             else
             {
-                soundManager.PlaySeByName("Change");
+                SoundManager.Instance.PlaySeByName("Change");
             }
         }
         else if (Input.GetKeyDown(KeyCode.Q))
@@ -247,11 +279,11 @@ public class PlayerController : MonoBehaviour
 
             if (m_shabadubiMode)
             {
-                soundManager.PlaySeByName("Shabadubi");
+                SoundManager.Instance.PlaySeByName("Shabadubi");
             }
             else
             {
-                soundManager.PlaySeByName("Change");
+                SoundManager.Instance.PlaySeByName("Change");
             }
         }
         else if (Input.GetKeyDown(KeyCode.R))
@@ -264,11 +296,11 @@ public class PlayerController : MonoBehaviour
 
             if (m_shabadubiMode)
             {
-                soundManager.PlaySeByName("Shabadubi");
+                SoundManager.Instance.PlaySeByName("Shabadubi");
             }
             else
             {
-                soundManager.PlaySeByName("Change");
+                SoundManager.Instance.PlaySeByName("Change");
             }
         }
     }
@@ -276,12 +308,23 @@ public class PlayerController : MonoBehaviour
     /// 硬直
     /// </summary>
     /// <returns> </returns>
-    IEnumerator AttackMotionTimer()
+    IEnumerator AttackMotionTimer(float time)
     {
         m_anim.SetFloat("Move", 0);
-        yield return new WaitForSeconds(m_waitTime);
+        yield return new WaitForSeconds(time);
 
         PlayerStatesManager.Instance.IsOperation = true;
+
+        if (comboNum != 0)
+        {
+            yield return new WaitForSeconds(time);
+
+            comboNum = 0;
+
+            m_anim.SetBool("SwordAttack1", false);
+            m_anim.SetBool("SwordAttack2", false);
+            m_anim.SetBool("SwordAttack3", false);
+        }
     }
 
     IEnumerator Jump()
