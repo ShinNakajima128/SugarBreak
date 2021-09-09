@@ -23,8 +23,6 @@ public class CandyBeat : WeaponBase
 
     IEnumerator HitStop()
     {
-        Debug.Log("ヒットストップ呼び出し");
-
         Time.timeScale = 0.01f;
 
         yield return new WaitForSecondsRealtime(m_hitStopTime);
