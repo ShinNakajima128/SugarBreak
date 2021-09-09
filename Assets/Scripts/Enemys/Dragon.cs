@@ -29,6 +29,9 @@ public class Dragon : EnemyBase
     [SerializeField] 
     float m_distanceToPlayer = 1.5f;
 
+    [SerializeField]
+    GameObject m_bossUI = default;
+
     /// <summary> 索敵の角度 </summary>
     [SerializeField] 
     float searchAngle = 130f;
@@ -46,6 +49,11 @@ public class Dragon : EnemyBase
     public event Action AttackStartAction;
     public event Action AttackEndAction;
     public event Action StateEndAction;
+
+    private void OnEnable()
+    {
+        m_bossUI.SetActive(true);
+    }
 
     private void Start()
     {
@@ -148,6 +156,15 @@ public class Dragon : EnemyBase
         m_anim.SetBool("Dead", true);
         characterController.enabled = false;
         StartCoroutine(Vanish(BossType.Dragon, EffectType.BossDead, m_vanishTime));
+    }
+
+    IEnumerator Vanish(BossType bossType, EffectType effectType, float vanishTime)
+    {
+        yield return new WaitForSeconds(vanishTime);
+        m_bossUI.SetActive(false);
+        KonpeitouGenerator.Instance.GenerateChocoEgg(transform);
+        EffectManager.PlayEffect(effectType, m_effectPos.position);
+        Destroy(this.gameObject);
     }
 
     public void SetState(DragonState tempState, Transform target = null)
