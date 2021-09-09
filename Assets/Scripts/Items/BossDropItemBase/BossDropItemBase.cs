@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// ボスが落としたチョコエッグから出現するアイテムの基底クラス
+/// </summary>
 public class BossDropItemBase : MonoBehaviour
 {
     [SerializeField]

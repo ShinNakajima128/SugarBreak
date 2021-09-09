@@ -13,6 +13,9 @@ public enum StageSelectState
     GanacheVolcano
 }
 
+/// <summary>
+/// ステージ選択画面の機能を持つクラス
+/// </summary>
 public class StageSelect : MonoBehaviour
 {
     [SerializeField]

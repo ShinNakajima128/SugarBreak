@@ -8,6 +8,7 @@ using UnityEngine.Playables;
 /// </summary>
 public class SkipMovieController : MonoBehaviour
 {
+    [Header("ゲーム開始時の再生フラグ")]
     [SerializeField]
     bool m_playOnAwake = false;
 
@@ -28,11 +29,14 @@ public class SkipMovieController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// スキップ受付開始のコールバック
+    /// </summary>
+    /// <param name="director"></param>
     void Skip(PlayableDirector director)
     {
         if (m_director == director)
         {
-            Debug.Log("スキップ受付開始");
             StartCoroutine(SkipCol());
         }   
     }
@@ -60,6 +64,10 @@ public class SkipMovieController : MonoBehaviour
         Debug.Log("再生終了");
     }
 
+    /// <summary>
+    /// 再生終了のコールバック
+    /// </summary>
+    /// <param name="director"></param>
     void MovieFinished(PlayableDirector director)
     {
         Debug.Log("再生終了");

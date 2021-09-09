@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
-using UnityEngine.Timeline;
 
+/// <summary>
+/// クリア演出のクラス
+/// </summary>
 public class ClearMovie : MonoBehaviour
 {
     PlayableDirector director;
@@ -13,7 +15,10 @@ public class ClearMovie : MonoBehaviour
         director = GetComponent<PlayableDirector>();
         GameManager.GameEnd += PlayMovie;
     }
-
+        
+    /// <summary>
+    /// クリアムービーを再生する
+    /// </summary>
     void PlayMovie()
     {
         Debug.Log("クリア演出再生");
