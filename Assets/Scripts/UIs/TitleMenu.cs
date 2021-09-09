@@ -35,16 +35,14 @@ public class TitleMenu : MonoBehaviour
     /// <summary>  </summary>
     [SerializeField] GameObject[] m_menuPanels = default;
 
-    static bool isStarted = false;
-    public static bool isInputtable = true;
+    bool isStarted = false;
+    public static bool isInputtable;
     bool isChanged = false;
 
-    private void Awake()
-    {
-        isInputtable = false;
-    }
     void Start()
     {
+        isStarted = false;
+        isInputtable = false;
         SwitchingMenu(0);
         m_loadingAnim.SetActive(false);
         m_mainMenuBG.SetActive(false);
