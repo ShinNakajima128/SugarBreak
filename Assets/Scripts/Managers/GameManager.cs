@@ -9,6 +9,12 @@ using System;
 /// </summary>
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
+    [SerializeField]
+    bool isBakeleValleyCleared = false;
+
+    [SerializeField]
+    bool isStageUpdated = false;
+
     /// <summary>
     /// ステージクリア時のイベント
     /// </summary>
@@ -17,12 +23,19 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     /// <summary>
     /// ステージの更新がある時のフラグ
     /// </summary>
-    public bool IsStageUpdated { get; set; } = false;
+    public bool IsStageUpdated { get => isStageUpdated; set => isStageUpdated = value; }
 
     /// <summary>
     /// ベイクルバレーのクリアフラグ
     /// </summary>
-    public bool IsBakeleValleyCleared { get; set; } = false;
+    public bool IsBakeleValleyCleared { get => isBakeleValleyCleared; set => isBakeleValleyCleared = value; }
+
+    public bool IsRaindyCloudsCleared { get; set; } = false;
+
+    public bool IsDesertResortCleared { get; set; } = false;
+
+    public bool IsGlaseSnowFieldCleared { get; set; } = false;
+
 
     void Awake()
     {

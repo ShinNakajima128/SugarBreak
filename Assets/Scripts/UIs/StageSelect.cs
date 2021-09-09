@@ -24,9 +24,46 @@ public class StageSelect : MonoBehaviour
     [SerializeField]
     StageSelectState m_stageSelectState = default;
 
+    [SerializeField]
+    Text[] m_StageNames = default;
+
+    [SerializeField]
+    GameObject[] m_updateIcons = default;
+
+    static bool IsStage2Updated = false;
+
+    private void OnEnable()
+    {
+        for (int i = 0; i < m_StageNames.Length; i++)
+        {
+            if (i == 0)
+            {
+                if (GameManager.Instance.IsBakeleValleyCleared)
+                {
+                    m_StageNames[i].text = "レインディ雲海";
+                    if (!IsStage2Updated)
+                    {
+                        m_updateIcons[i].SetActive(true);
+                        IsStage2Updated = true;
+                    }
+                }
+                else
+                {
+                    m_StageNames[i].text = "？？？？？？？？";
+                }
+            }
+            else
+            {
+                m_StageNames[i].text = "？？？？？？？？";
+            }
+
+        }
+    }
+
     private void OnDisable()
     {
         ChangeUIPanel(StageSelectState.None);
+        GameManager.Instance.IsStageUpdated = false;
     }
 
     public void OnBakedValley()
@@ -36,21 +73,32 @@ public class StageSelect : MonoBehaviour
 
     public void OnRaindyClouds()
     {
+        if (!GameManager.Instance.IsBakeleValleyCleared) return;
+
         ChangeUIPanel(StageSelectState.RaindyClouds);
+        m_updateIcons[0].SetActive(false);
     }
 
     public void OnDesertResort()
     {
+        if (!GameManager.Instance.IsRaindyCloudsCleared) return;
+
         ChangeUIPanel(StageSelectState.DessertResort);
+        m_updateIcons[1].SetActive(false);
     }
 
     public void OnGlaseSnowField()
     {
+        if (!GameManager.Instance.IsDesertResortCleared) return;
+
         ChangeUIPanel(StageSelectState.GlaseSnowField);
+        m_updateIcons[2].SetActive(false);
     }
 
     public void OnGanacheVolcano()
     {
+        if (!GameManager.Instance.IsGlaseSnowFieldCleared) return;
+
         ChangeUIPanel(StageSelectState.GanacheVolcano);
     }
 

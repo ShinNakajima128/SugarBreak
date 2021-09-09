@@ -60,7 +60,7 @@ public class BaseUI : MonoBehaviour
     {
         ChangeUIPanel(BaseUIState.StageSelect);
 
-        if (m_updateIcon.activeSelf)
+        if ((bool)(m_updateIcon?.activeSelf))
         {
             m_updateIcon?.SetActive(false);
         }
