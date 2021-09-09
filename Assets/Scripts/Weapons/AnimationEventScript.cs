@@ -63,7 +63,8 @@ public class AnimationEventScript : MonoBehaviour
 
     public void CandyAttack()
     {
-        int candyBeat = GetWeaponIndex("CandyBeat"); 
+        int candyBeat = GetWeaponIndex("CandyBeat");
+        m_weaponList[candyBeat].GetComponent<CandyBeat>().AttackDamage = 10;
         m_weaponList[candyBeat].GetComponent<BoxCollider>().enabled = true;
         EffectManager.PlayEffect(EffectType.Slam, m_candyBeatEffectPos.position);
         SoundManager.Instance.PlaySeByName("JumpAttack");
@@ -78,6 +79,7 @@ public class AnimationEventScript : MonoBehaviour
     public void LightCandyAttack()
     {
         int candyBeat = GetWeaponIndex("CandyBeat");
+        m_weaponList[candyBeat].GetComponent<CandyBeat>().AttackDamage = 5;
         m_weaponList[candyBeat].GetComponent<BoxCollider>().enabled = true;
         SoundManager.Instance.PlaySeByName("LightAttack");
     }

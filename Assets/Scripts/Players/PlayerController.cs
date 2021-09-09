@@ -156,6 +156,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void FallDown()
+    {
+        if (!IsGrounded())
+        {
+            m_rb.AddForce(Vector3.down * 50, ForceMode.Impulse);
+        }
+    }
+
     /// <summary>
     /// ジャンプ
     /// </summary>
@@ -180,21 +188,23 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void AttackMove()
     {
-        ///CandyBeatの弱攻撃
-        //if (Input.GetButtonDown("Fire1") && animationEventScript.weaponStates == WeaponState.CandyBeat)
-        //{
-        //    PlayerStatesManager.Instance.IsOperation = false;
-        //    m_anim.SetBool("Light", true);
-        //    StartCoroutine(AttackMotionTimer());
-        //}
-        ///CandyBeatの強攻撃
         if (Input.GetButtonDown("Fire1") && animationEventScript.weaponStates == WeaponState.CandyBeat)
         {
-            PlayerStatesManager.Instance.IsOperation = false;
-            m_rb.AddForce(Vector3.up * 4, ForceMode.Impulse);
-            m_anim.SetBool("Strong", true);
-            StartCoroutine(AttackMotionTimer());
+            if (IsGrounded())
+            {
+                PlayerStatesManager.Instance.IsOperation = false;
+                m_anim.SetBool("Light", true);                      ///CandyBeatの弱攻撃
+                StartCoroutine(AttackMotionTimer());
+            }
+            else
+            {
+                PlayerStatesManager.Instance.IsOperation = false;
+                m_rb.AddForce(Vector3.up * 3, ForceMode.Impulse);
+                m_anim.SetBool("Strong", true);                     ///CandyBeatの強攻撃
+                StartCoroutine(AttackMotionTimer());
+            }   
         }
+
         ///PopLauncherの射撃
         if (Input.GetButtonDown("Fire1") && animationEventScript.weaponStates == WeaponState.PopLauncher)
         {
