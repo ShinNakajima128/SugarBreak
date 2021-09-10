@@ -48,7 +48,6 @@ public class PlayerController : MonoBehaviour
         m_anim = GetComponent<Animator>();
     }
 
-
     void Update()
     {
         ///Playerが操作可能だったら

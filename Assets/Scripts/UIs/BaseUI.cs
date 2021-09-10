@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public enum BaseUIState
 {
@@ -16,7 +17,7 @@ public enum BaseUIState
 /// <summary>
 /// 拠点のUIをコントロールするクラス
 /// </summary>
-public class BaseUI : MonoBehaviour
+public class BaseUI : MonoBehaviour, IPointerEnterHandler
 {
     [Header("UIのステータス")]
     [SerializeField]
@@ -33,6 +34,7 @@ public class BaseUI : MonoBehaviour
     [Header("ステージが更新された時に表示するアイコン")]
     [SerializeField]
     GameObject m_updateIcon = default;
+
 
     void Start()
     {
@@ -156,5 +158,10 @@ public class BaseUI : MonoBehaviour
     void OnConfirmPanel()
     {
         m_confirmPanel?.SetActive(true);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        SoundManager.Instance.PlaySeByName("Gain");
     }
 }

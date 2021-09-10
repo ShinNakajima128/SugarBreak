@@ -51,7 +51,7 @@ public class MenuManager : MonoBehaviour
                 m_rootMenuPanel.SetActive(true);
                 Cursor.visible = true;
                 Time.timeScale = 0f;
-                ActiveMenu(1);
+                ActiveMenu(0);
                 state = MenuState.Open;
             }
             else if (state != MenuState.Close)  //メニューを閉じる
@@ -59,7 +59,7 @@ public class MenuManager : MonoBehaviour
                 m_rootMenuPanel.SetActive(false);
                 Cursor.visible = false;
                 Time.timeScale = 1f;
-                ActiveMenu(0);
+                ActiveMenu(6);
                 state = MenuState.Close;
             }
         }
@@ -71,6 +71,15 @@ public class MenuManager : MonoBehaviour
     /// <param name="index"> 開くメニュー </param>
     public void ActiveMenu(int index)
     {
+        if (index == 6)
+        {
+            for (int i = 0; i < m_menuPanels.Length; i++)
+            {
+                m_menuPanels[i].SetActive(false);
+            }
+            return;
+        }
+
         if (index == 5)
         {
             m_confirmPanel.SetActive(true);
@@ -80,15 +89,6 @@ public class MenuManager : MonoBehaviour
         if (m_confirmPanel.activeSelf)
         {
             m_confirmPanel.SetActive(false);
-        }
-
-        if (index == 0)
-        {
-            for (int i = 0; i < m_menuPanels.Length; i++)
-            {
-                m_menuPanels[i].SetActive(false);
-            }
-            return;
         }
 
         for (int i = 0; i < m_menuPanels.Length; i++)
@@ -106,6 +106,7 @@ public class MenuManager : MonoBehaviour
 
     public void LoadBaseScene(string baseName)
     {
+        Time.timeScale = 1f;
         LoadSceneManager.Instance.AnyLoadScene(baseName);
     }
 
