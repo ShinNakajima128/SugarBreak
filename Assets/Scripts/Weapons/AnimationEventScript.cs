@@ -100,6 +100,7 @@ public class AnimationEventScript : MonoBehaviour
         int dualsoda = GetWeaponIndex("DualSoda");
         m_weaponList[dualsoda].GetComponent<DualSoda>().AttackDamage = 2;
         m_weaponList[dualsoda].GetComponent<BoxCollider>().enabled = true;
+        SoundManager.Instance.PlaySeByName("DualSodaAttack");
     }
 
     public void FinishSwordAttack1()
@@ -113,6 +114,7 @@ public class AnimationEventScript : MonoBehaviour
         int dualsoda = GetWeaponIndex("DualSoda");
         m_weaponList[dualsoda].GetComponent<DualSoda>().AttackDamage = 4;
         m_weaponList[dualsoda].GetComponent<BoxCollider>().enabled = true;
+        SoundManager.Instance.PlaySeByName("DualSodaAttack");
     }
 
     public void FinishSwordAttack2()
@@ -128,6 +130,7 @@ public class AnimationEventScript : MonoBehaviour
         var collider = m_weaponList[dualsoda].GetComponent<BoxCollider>();
         collider.enabled = true;
         collider.size = new Vector3(2f, 2f, 2f);
+        SoundManager.Instance.PlaySeByName("DualSodaFinish");
     }
 
     public void FinishSwordAttack3()
