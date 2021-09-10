@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f1135d6058213458d9ea49f65c87d9, type: 3}
   m_Name: NormalBox
   m_EditorClassIdentifier: 
-  m_maxHp: 5
+  m_maxHp: 1
   m_konpeitouNum: 2

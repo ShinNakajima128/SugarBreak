@@ -6,11 +6,13 @@ public class NormalBox : ItemboxBase
 {
     public override void Damage(int attackDamage)
     {
-        MeshRenderer mesh = GetComponent<MeshRenderer>();
-        mesh.enabled = false;
+        
         base.Damage(attackDamage);
         if (m_currentHp <= 0)
         {
+            MeshRenderer mesh = GetComponent<MeshRenderer>();
+            mesh.enabled = false;
+
             var box = GetComponents<BoxCollider>();
             foreach (var col in box)
             {
