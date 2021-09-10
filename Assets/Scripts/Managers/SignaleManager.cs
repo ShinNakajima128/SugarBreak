@@ -22,6 +22,9 @@ public class SignaleManager : MonoBehaviour
     GameObject m_mainDragon = default;
 
     [SerializeField]
+    GameObject m_weapons = default;
+
+    [SerializeField]
     int m_bossZoomBlueValue = 80;
 
     [SerializeField]
@@ -86,7 +89,6 @@ public class SignaleManager : MonoBehaviour
             coroutine = null;
         }
         zoomBlur.focusPower.value = 0;
-        Debug.Log("ブラーオフ");
     }
 
     public void PlayClearBGM()
@@ -96,9 +98,7 @@ public class SignaleManager : MonoBehaviour
 
     public void OnClearBlur()
     {
-        //SoundManager.Instance.PlaySeByName("DragonRoar");
         coroutine = StartCoroutine(IncreaseParameter(m_clearBlurValue));
-        Debug.Log("ブラーオン");
     }
 
     public void OffClearBlur()
@@ -109,6 +109,11 @@ public class SignaleManager : MonoBehaviour
             coroutine = null;
         }
         coroutine = StartCoroutine(DecreaseParameter());
+    }
+
+    public void OffWeapons()
+    {
+        m_weapons?.SetActive(false);
     }
 
     IEnumerator IncreaseParameter(float value)
