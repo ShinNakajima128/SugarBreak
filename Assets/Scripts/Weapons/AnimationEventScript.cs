@@ -95,6 +95,48 @@ public class AnimationEventScript : MonoBehaviour
         SoundManager.Instance.PlaySeByName("Shoot");
     }
 
+    public void SwordAttack1()
+    {
+        int dualsoda = GetWeaponIndex("DualSoda");
+        m_weaponList[dualsoda].GetComponent<DualSoda>().AttackDamage = 2;
+        m_weaponList[dualsoda].GetComponent<BoxCollider>().enabled = true;
+    }
+
+    public void FinishSwordAttack1()
+    {
+        int dualsoda = GetWeaponIndex("DualSoda");
+        m_weaponList[dualsoda].GetComponent<BoxCollider>().enabled = false;
+    }
+
+    public void SwordAttack2()
+    {
+        int dualsoda = GetWeaponIndex("DualSoda");
+        m_weaponList[dualsoda].GetComponent<DualSoda>().AttackDamage = 4;
+        m_weaponList[dualsoda].GetComponent<BoxCollider>().enabled = true;
+    }
+
+    public void FinishSwordAttack2()
+    {
+        int dualsoda = GetWeaponIndex("DualSoda");
+        m_weaponList[dualsoda].GetComponent<BoxCollider>().enabled = false;
+    }
+
+    public void SwordAttack3()
+    {
+        int dualsoda = GetWeaponIndex("DualSoda");
+        m_weaponList[dualsoda].GetComponent<DualSoda>().AttackDamage = 8;
+        var collider = m_weaponList[dualsoda].GetComponent<BoxCollider>();
+        collider.enabled = true;
+        collider.size = new Vector3(2f, 2f, 2f);
+    }
+
+    public void FinishSwordAttack3()
+    {
+        int dualsoda = GetWeaponIndex("DualSoda");
+        var collider = m_weaponList[dualsoda].GetComponent<BoxCollider>();
+        collider.enabled = false;
+        collider.size = new Vector3(1.2f, 1.2f, 1.2f);
+    }
     public void FootStep()
     {
         SoundManager.Instance.PlaySeByName("FootStep");

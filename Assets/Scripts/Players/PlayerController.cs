@@ -54,7 +54,10 @@ public class PlayerController : MonoBehaviour
         ///Playerが操作可能だったら
         if (PlayerStatesManager.Instance.IsOperation)
         {
-            PlayerMove();
+            if (comboNum <= 0)
+            {
+                PlayerMove();
+            }
 
             AttackMove();
 
@@ -180,7 +183,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// 攻撃
+    /// キャンディビートの攻撃
     /// </summary>
     void AttackMove()
     {
@@ -201,7 +204,7 @@ public class PlayerController : MonoBehaviour
             }   
         }
 
-        ///PopLauncherの射撃
+        ///ポップランチャーの攻撃
         if (Input.GetButtonDown("Fire1") && animationEventScript.weaponStates == WeaponState.PopLauncher)
         {
             PlayerStatesManager.Instance.IsOperation = false;
@@ -210,15 +213,18 @@ public class PlayerController : MonoBehaviour
             m_rb.velocity = new Vector3(0, m_rb.velocity.y, 0);
         }
 
+        ///デュアルソーダの攻撃
         if (Input.GetButtonDown("Fire1") && animationEventScript.weaponStates == WeaponState.DualSoda)
         {
             if (comboNum == 3) return;
+
+            m_rb.velocity = Vector3.zero;
 
             if(comboNum == 0)
             {
                 m_anim.SetTrigger("SwordAttack1");
                 comboNum = 1;
-                combpCoroutine =  StartCoroutine(AttackMotionTimer(0.5f));
+                combpCoroutine =  StartCoroutine(AttackMotionTimer(0.3f));
             }
             else if(comboNum == 1)
             {
@@ -228,7 +234,7 @@ public class PlayerController : MonoBehaviour
                 {
                     StopCoroutine(combpCoroutine);
                     combpCoroutine = null;
-                    combpCoroutine = StartCoroutine(AttackMotionTimer(0.5f));
+                    combpCoroutine = StartCoroutine(AttackMotionTimer(0.3f));
                 }    
             }
             else if (comboNum == 2)
@@ -241,7 +247,7 @@ public class PlayerController : MonoBehaviour
                 {
                     StopCoroutine(combpCoroutine);
                     combpCoroutine = null;
-                    combpCoroutine = StartCoroutine(AttackMotionTimer(m_waitTime));
+                    combpCoroutine = StartCoroutine(AttackMotionTimer(0.5f));
                 }
             }
         }
