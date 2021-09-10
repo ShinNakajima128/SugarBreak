@@ -131,6 +131,7 @@ public class AnimationEventScript : MonoBehaviour
         collider.enabled = true;
         collider.size = new Vector3(2f, 2f, 2f);
         SoundManager.Instance.PlaySeByName("DualSodaFinish");
+        EffectManager.PlayEffect(EffectType.Slam, m_candyBeatEffectPos.position);
     }
 
     public void FinishSwordAttack3()
