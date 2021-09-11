@@ -58,7 +58,7 @@ public class LoadSceneManager : MonoBehaviour
     public void QuitGame()
     {
         fadeImage.UpdateMaskTexture(m_masks[0]);
-        fade.FadeIn(1.0f);
+        fade.FadeIn(0.7f);
         StartCoroutine(DelayQuit());
     }
 
