@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class ReturnArea : MonoBehaviour
 {
-    [SerializeField]
-    GameObject m_returnPoint = default;
+    public static ReturnArea Instance;
 
     GameObject player;
+
+    public Vector3 ReturnPoint { get; set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -28,7 +34,7 @@ public class ReturnArea : MonoBehaviour
     {
         yield return new WaitForSeconds(1.0f);
 
-        player.transform.position = m_returnPoint.transform.position;
+        player.transform.position = ReturnPoint;
 
         yield return new WaitForSeconds(1.0f);
 
