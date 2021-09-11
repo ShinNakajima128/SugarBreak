@@ -43,6 +43,7 @@ public class DecollyAnimEvent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        
         if (other.gameObject.CompareTag("Player"))
         {
             var target = GameObject.FindGameObjectWithTag("PlayerState").GetComponent<IDamagable>();

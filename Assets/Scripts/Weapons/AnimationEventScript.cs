@@ -10,6 +10,9 @@ public enum WeaponState
     DualSoda
 }
 
+/// <summary>
+/// 武器のアニメーションイベントの機能を持つクラス
+/// </summary>
 public class AnimationEventScript : MonoBehaviour
 {
     [SerializeField] GameObject[] m_weaponList = null;
@@ -61,6 +64,9 @@ public class AnimationEventScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// キャンディビートのジャンプ攻撃の当たり判定の開始イベント
+    /// </summary>
     public void CandyAttack()
     {
         int candyBeat = GetWeaponIndex("CandyBeat");
@@ -70,6 +76,9 @@ public class AnimationEventScript : MonoBehaviour
         SoundManager.Instance.PlaySeByName("JumpAttack");
     }
 
+    /// <summary>
+    /// ジャンプ攻撃の当たり判定の終了イベント
+    /// </summary>
     public void FinishCandyAttack()
     {
         int candyBeat = GetWeaponIndex("CandyBeat");
