@@ -131,26 +131,23 @@ public class PlayerController : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(dir);
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, targetRotation, Time.deltaTime * m_turnSpeed);  // Slerp を使うのがポイント
 
-            if (Input.GetKey(KeyCode.LeftShift) && dir != Vector3.zero)
+            if (dir != Vector3.zero)
             {
-                Vector3 velo = dir.normalized * m_runSpeed; // 入力した方向に移動する
-                //float velocityY = Mathf.Clamp(m_rb.velocity.y, minVelocityY, maxVelocityY);
-                velo.y = m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
-                //velo.y = velocityY;
-                m_rb.velocity = velo;   // 計算した速度ベクトルをセットする
-                state = PlayerState.Run;
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    Vector3 velo = dir.normalized * m_walkSpeed; // 入力した方向に移動する
+                    velo.y = m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
+                    m_rb.velocity = velo;
+                    state = PlayerState.Walk;
+                }
+                else
+                {
+                    Vector3 velo = dir.normalized * m_runSpeed; // 入力した方向に移動する
+                    velo.y = m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
+                    m_rb.velocity = velo;   // 計算した速度ベクトルをセットする
+                    state = PlayerState.Run;
+                }      
             }
-            else if (dir != Vector3.zero)
-            {
-                Vector3 velo = dir.normalized * m_walkSpeed; // 入力した方向に移動する
-                //float velocityY = Mathf.Clamp(m_rb.velocity.y, minVelocityY, maxVelocityY);
-                velo.y = m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
-                //velo.y = velocityY;
-                m_rb.velocity = velo;
-                state = PlayerState.Walk;
-            }
-            //Vector3 velo = dir.normalized * m_movingSpeed; // 入力した方向に移動する
-            
         }
     }
 
