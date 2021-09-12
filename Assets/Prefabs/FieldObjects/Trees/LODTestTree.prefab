@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5432381251904515357}
   - component: {fileID: 4198131895948934561}
   - component: {fileID: 7939712376725355703}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: LODTestTree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,6 +143,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Cristmas_tree4
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f1e1bd777a799cd4aa0ea286140d3b32,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1e1bd777a799cd4aa0ea286140d3b32, type: 3}
