@@ -91,6 +91,7 @@ public class AnimationEventScript : MonoBehaviour
         m_weaponList[candyBeat].GetComponent<CandyBeat>().AttackDamage = 5;
         m_weaponList[candyBeat].GetComponent<BoxCollider>().enabled = true;
         SoundManager.Instance.PlaySeByName("LightAttack");
+        SoundManager.Instance.PlayVoiceByName("univ0002");
     }
     public void FinishLightCandyAttack()
     {
@@ -110,6 +111,7 @@ public class AnimationEventScript : MonoBehaviour
         m_weaponList[dualsoda].GetComponent<DualSoda>().AttackDamage = 2;
         m_weaponList[dualsoda].GetComponent<BoxCollider>().enabled = true;
         SoundManager.Instance.PlaySeByName("DualSodaAttack");
+        SoundManager.Instance.PlayVoiceByName("univ1254");
     }
 
     public void FinishSwordAttack1()
@@ -124,6 +126,7 @@ public class AnimationEventScript : MonoBehaviour
         m_weaponList[dualsoda].GetComponent<DualSoda>().AttackDamage = 4;
         m_weaponList[dualsoda].GetComponent<BoxCollider>().enabled = true;
         SoundManager.Instance.PlaySeByName("DualSodaAttack");
+        SoundManager.Instance.PlayVoiceByName("univ1255");
     }
 
     public void FinishSwordAttack2()
@@ -140,6 +143,7 @@ public class AnimationEventScript : MonoBehaviour
         collider.enabled = true;
         collider.size = new Vector3(2f, 2f, 2f);
         SoundManager.Instance.PlaySeByName("DualSodaFinish");
+        SoundManager.Instance.PlayVoiceByName("univ1256");
         EffectManager.PlayEffect(EffectType.Slam, m_candyBeatEffectPos.position);
     }
 

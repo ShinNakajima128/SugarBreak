@@ -9,9 +9,6 @@ public class ReturnArea : MonoBehaviour
 {
     public static ReturnArea Instance;
 
-    [SerializeField]
-    FadeImage m_fadeImage = default;
-    
     GameObject player;
 
     public Vector3 ReturnPoint { get; set; }
@@ -37,6 +34,7 @@ public class ReturnArea : MonoBehaviour
             PlayerStatesManager.Instance.OffOperation();
             LoadSceneManager.Instance.FadeIn(LoadSceneManager.Instance.Masks[3]);
             StartCoroutine(Return());
+            SoundManager.Instance.PlayVoiceByName("univ1093");
         }
     }
 
@@ -51,5 +49,6 @@ public class ReturnArea : MonoBehaviour
         LoadSceneManager.Instance.FadeOut(LoadSceneManager.Instance.Masks[4]);
         PlayerStatesManager.Instance.OnOperation();
         CameraManager.Instance.CameraReset();
+        SoundManager.Instance.PlayVoiceByName("univ1099");
     }
 }
