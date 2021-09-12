@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum TitleMenuState
 {
@@ -13,36 +14,58 @@ public enum TitleMenuState
 public class TitleMenu : MonoBehaviour
 {
     /// <summary> タイトル画面のPanel </summary>
-    [SerializeField] GameObject m_titleMenuPanel = default;
+    [SerializeField] 
+    GameObject m_titleMenuPanel = default;
+
     /// <summary>  </summary>
-    [SerializeField] Fade fade = default;
+    [SerializeField] 
+    Fade fade = default;
+
     /// <summary>  </summary>
-    [SerializeField] FadeImage fadeImage = default;
+    [SerializeField] 
+    FadeImage fadeImage = default;
+
     /// <summary>  </summary>
-    [SerializeField] float m_loadTime = 1.0f;
+    [SerializeField] 
+    float m_loadTime = 1.0f;
+
     /// <summary>  </summary>
-    [SerializeField] Texture[] m_masks = default;
+    [SerializeField] 
+    Texture[] m_masks = default;
+
     /// <summary>  </summary>
-    [SerializeField] TitleMenuState titleState = TitleMenuState.Begin;
+    [SerializeField] 
+    TitleMenuState titleState = TitleMenuState.Begin;
+
     /// <summary>  </summary>
-    [SerializeField] GameObject m_loadingAnim = default;
+    [SerializeField] 
+    GameObject m_loadingAnim = default;
+
     /// <summary>  </summary>
-    [SerializeField] GameObject m_mainMenuBG = default;
+    [SerializeField] 
+    GameObject m_mainMenuBG = default;
+
     /// <summary>  </summary>
-    [SerializeField] GameObject m_mainMenuList = default;
+    [SerializeField] 
+    GameObject m_mainMenuList = default;
+
     /// <summary>  </summary>
-    [SerializeField] GameObject m_confirmPanel = default;
+    [SerializeField]
+    GameObject m_confirmPanel = default;
+
     /// <summary>  </summary>
-    [SerializeField] GameObject[] m_menuPanels = default;
+    [SerializeField] 
+    GameObject[] m_menuPanels = default;
+
+    [SerializeField]
+    Text m_playButtonText = default;
 
     bool isStarted = false;
-    public static bool isInputtable;
     bool isChanged = false;
 
     void Start()
     {
         isStarted = false;
-        isInputtable = false;
         SwitchingMenu(0);
         m_loadingAnim.SetActive(false);
         m_mainMenuBG.SetActive(false);
@@ -53,35 +76,37 @@ public class TitleMenu : MonoBehaviour
     {
         if (!isStarted)
         {
-            if (Input.anyKeyDown && isInputtable)
+            if (Input.anyKeyDown)
             {
-                isInputtable = false;
-                SoundManager.Instance.PlaySeByName("Transition2");
-                fadeImage.UpdateMaskTexture(m_masks[0]);
-                fade.FadeIn(1.0f, () =>
-                 {
-                     titleState = TitleMenuState.MainMenu;
-                     isChanged = false;
-                     m_mainMenuBG.SetActive(true);
-                     StartCoroutine(StartWait(m_masks[1]));
-                 });
+                //SoundManager.Instance.PlaySeByName("Transition2");
+                //fadeImage.UpdateMaskTexture(m_masks[0]);
+                //fade.FadeIn(1.0f, () =>
+                // {
+                //     titleState = TitleMenuState.MainMenu;
+                //     isChanged = false;
+                //     m_mainMenuBG.SetActive(true);
+                //     StartCoroutine(StartWait(m_masks[1]));
+                // });
+                titleState = TitleMenuState.MainMenu;
+                isChanged = false;
                 isStarted = true;
             }
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Escape) && isInputtable)
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                isInputtable = false;
-                SoundManager.Instance.PlaySeByName("Transition2");
-                fadeImage.UpdateMaskTexture(m_masks[1]);
-                fade.FadeIn(1.0f, () =>
-                {
-                    titleState = TitleMenuState.Begin;
-                    isChanged = false;
-                    m_mainMenuBG.SetActive(false);
-                    StartCoroutine(StartWait(m_masks[0]));
-                });
+                //SoundManager.Instance.PlaySeByName("Transition2");
+                //fadeImage.UpdateMaskTexture(m_masks[1]);
+                //fade.FadeIn(1.0f, () =>
+                //{
+                //    titleState = TitleMenuState.Begin;
+                //    isChanged = false;
+                //    m_mainMenuBG.SetActive(false);
+                //    StartCoroutine(StartWait(m_masks[0]));
+                //});
+                titleState = TitleMenuState.Begin;
+                isChanged = false;
                 isStarted = false;
             }
         }
@@ -101,6 +126,7 @@ public class TitleMenu : MonoBehaviour
                 {
                     SwitchingMenu(1);
                     isChanged = true;
+                    TextChange();
                     Debug.Log("メインメニュー");
                 }
                 break;
@@ -115,18 +141,27 @@ public class TitleMenu : MonoBehaviour
         }
     }
 
-    void SwitchingMenu(int menuNum)
+    public void OnChangeColor(Text text)
     {
-        for (int i = 0; i < m_menuPanels.Length; i++)
+        text.color = new Color(0.99f, 1.0f, 0.71f);
+    }
+
+    public void OffChangeColor(Text text)
+    {
+        text.color = Color.white;
+    }
+
+    public void PlayGame()
+    {
+        if (!GameManager.Instance.GameStarted)
         {
-            if (i == menuNum)
-            {
-                m_menuPanels[i].SetActive(true);
-            }
-            else
-            {
-                m_menuPanels[i].SetActive(false);
-            }
+            ///あらすじのSceneができたらここの引数を書き換える
+            LoadSceneManager.Instance.AnyLoadScene("Base");
+            GameManager.Instance.GameStarted = true;
+        }
+        else
+        {
+            LoadSceneManager.Instance.AnyLoadScene("Base");
         }
     }
 
@@ -168,6 +203,33 @@ public class TitleMenu : MonoBehaviour
         m_mainMenuList.SetActive(true);
     }
 
+    void TextChange()
+    {
+        if (!GameManager.Instance.GameStarted)
+        {
+            m_playButtonText.text = "はじめから";
+        }
+        else
+        {
+            m_playButtonText.text = "つづきから";
+        }
+    }
+
+    void SwitchingMenu(int menuNum)
+    {
+        for (int i = 0; i < m_menuPanels.Length; i++)
+        {
+            if (i == menuNum)
+            {
+                m_menuPanels[i].SetActive(true);
+            }
+            else
+            {
+                m_menuPanels[i].SetActive(false);
+            }
+        }
+    }
+
     /// <summary>
     /// 各フェード時に呼び出すコルーチン
     /// </summary>
@@ -183,7 +245,5 @@ public class TitleMenu : MonoBehaviour
         fade.FadeOut(1.0f);
 
         yield return new WaitForSeconds(1.0f);
-
-        isInputtable = true;
     }
 }

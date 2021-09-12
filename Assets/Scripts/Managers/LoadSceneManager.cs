@@ -36,7 +36,7 @@ public class LoadSceneManager : MonoBehaviour
     {
         m_loadAnim.SetActive(false);
 
-        fade.FadeOut(0.7f, () => TitleMenu.isInputtable = true);
+        fade.FadeOut(0.7f);
     }
     public void FadeIn(Texture mask)
     {
