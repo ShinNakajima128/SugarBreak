@@ -74,6 +74,7 @@ public class AnimationEventScript : MonoBehaviour
         m_weaponList[candyBeat].GetComponent<BoxCollider>().enabled = true;
         EffectManager.PlayEffect(EffectType.Slam, m_candyBeatEffectPos.position);
         SoundManager.Instance.PlaySeByName("JumpAttack");
+        SoundManager.Instance.PlayVoiceByName("univ1257");
     }
 
     /// <summary>

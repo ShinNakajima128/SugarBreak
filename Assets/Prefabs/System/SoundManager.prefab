@@ -354,6 +354,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9a5a9cad2e3d14feba240cb5c8449361, type: 3}
   - {fileID: 8300000, guid: 01272370b6a6c46efa539424d1295436, type: 3}
   - {fileID: 8300000, guid: d4192b1c6089a4194ba8d1b217951774, type: 3}
+  - {fileID: 8300000, guid: 0bcf363c116234b2eb593bac01a170d4, type: 3}
   m_bgmAudioSource: {fileID: 7875906673182120677}
   m_seAudioSource: {fileID: 7875906674509727388}
   m_voiceAudioSource: {fileID: 4030012398126113642}

@@ -49,6 +49,6 @@ public class ReturnArea : MonoBehaviour
         LoadSceneManager.Instance.FadeOut(LoadSceneManager.Instance.Masks[4]);
         PlayerStatesManager.Instance.OnOperation();
         CameraManager.Instance.CameraReset();
-        SoundManager.Instance.PlayVoiceByName("univ1099");
+        //SoundManager.Instance.PlayVoiceByName("univ1099");
     }
 }
