@@ -303,7 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_masterVolume: 1
-  m_bgmVolume: 0.25
+  m_bgmVolume: 0.3
   m_seVolume: 1
   m_voiceVolume: 1
   m_bgms:

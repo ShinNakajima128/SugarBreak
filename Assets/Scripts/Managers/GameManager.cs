@@ -30,6 +30,11 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public static Action GameEnd;
 
     /// <summary>
+    /// ゲームを開始フラグ
+    /// </summary>
+    public bool GameStarted { get; set; }
+
+    /// <summary>
     /// ステージの更新がある時のフラグ
     /// </summary>
     public bool IsStageUpdated { get => isStageUpdated; set => isStageUpdated = value; }
