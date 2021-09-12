@@ -7,16 +7,26 @@ public class LoadSceneManager : MonoBehaviour
 {
     public static LoadSceneManager Instance;
     /// <summary> フェードさせるパネル </summary>
-    [SerializeField] Fade fade = default;
-    /// <summary> ロードにかける時間 </summary>
-    [SerializeField] float m_loadTime = 1.0f;
-    /// <summary> ロード画面中のアニメーション </summary>
-    [SerializeField] GameObject m_loadAnim = default;
-    /// <summary> フェードのマスクを管理するオブジェクト </summary>
-    [SerializeField] FadeImage fadeImage = default;
-    /// <summary> フェードさせる歳のマスク </summary>
-    [SerializeField] Texture[] m_masks = default;
+    [SerializeField] 
+    Fade fade = default;
 
+    /// <summary> ロードにかける時間 </summary>
+    [SerializeField] 
+    float m_loadTime = 1.0f;
+
+    /// <summary> ロード画面中のアニメーション </summary>
+    [SerializeField] 
+    GameObject m_loadAnim = default;
+
+    /// <summary> フェードのマスクを管理するオブジェクト </summary>
+    [SerializeField] 
+    FadeImage fadeImage = default;
+
+    /// <summary> フェードさせる歳のマスク </summary>
+    [SerializeField] 
+    Texture[] m_masks = default;
+
+    public Texture[] Masks { get => m_masks; }
     private void Awake()
     {
         Instance = this;
@@ -28,15 +38,17 @@ public class LoadSceneManager : MonoBehaviour
 
         fade.FadeOut(0.7f, () => TitleMenu.isInputtable = true);
     }
-    public void FadeIn()
+    public void FadeIn(Texture mask)
     {
-        fadeImage.UpdateMaskTexture(m_masks[2]);
+        //fadeImage.UpdateMaskTexture(m_masks[2]);
+        fadeImage.UpdateMaskTexture(mask);
         fade.FadeIn(0.7f);
     }
 
-    public void FadeOut()
+    public void FadeOut(Texture mask)
     {
-        fadeImage.UpdateMaskTexture(m_masks[1]);
+        //fadeImage.UpdateMaskTexture(m_masks[1]);
+        fadeImage.UpdateMaskTexture(mask);
         fade.FadeOut(0.7f);
     }
     /// <summary>

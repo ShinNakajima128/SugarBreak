@@ -44,12 +44,12 @@ public class SignaleManager : MonoBehaviour
 
     public void FadeIn()
     {
-        LoadSceneManager.Instance.FadeIn();
+        LoadSceneManager.Instance.FadeIn(LoadSceneManager.Instance.Masks[2]);
     }
 
     public void FadeOut()
     {
-        LoadSceneManager.Instance.FadeOut();
+        LoadSceneManager.Instance.FadeOut(LoadSceneManager.Instance.Masks[1]);
     }
 
     public void OnDragon()

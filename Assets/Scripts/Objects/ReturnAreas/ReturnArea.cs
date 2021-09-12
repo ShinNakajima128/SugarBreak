@@ -9,6 +9,9 @@ public class ReturnArea : MonoBehaviour
 {
     public static ReturnArea Instance;
 
+    [SerializeField]
+    FadeImage m_fadeImage = default;
+    
     GameObject player;
 
     public Vector3 ReturnPoint { get; set; }
@@ -32,7 +35,7 @@ public class ReturnArea : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             PlayerStatesManager.Instance.OffOperation();
-            LoadSceneManager.Instance.FadeIn();
+            LoadSceneManager.Instance.FadeIn(LoadSceneManager.Instance.Masks[3]);
             StartCoroutine(Return());
         }
     }
@@ -45,7 +48,7 @@ public class ReturnArea : MonoBehaviour
         player.transform.rotation = ReturnRotation;
 
         yield return new WaitForSeconds(1.0f);
-        LoadSceneManager.Instance.FadeOut();
+        LoadSceneManager.Instance.FadeOut(LoadSceneManager.Instance.Masks[4]);
         PlayerStatesManager.Instance.OnOperation();
         CameraManager.Instance.CameraReset();
     }
