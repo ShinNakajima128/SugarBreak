@@ -109,6 +109,10 @@ public class BaseUI : MonoBehaviour, IPointerEnterHandler
         ChangeUIPanel(BaseUIState.Exit);
     }
 
+    public void PlaySE()
+    {
+        SoundManager.Instance.PlaySeByName("CursolMove");
+    }
     /// <summary>
     /// タイトルSceneに遷移する
     /// </summary>

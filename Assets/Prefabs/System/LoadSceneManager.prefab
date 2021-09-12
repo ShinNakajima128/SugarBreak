@@ -243,7 +243,7 @@ MonoBehaviour:
   m_loadAnim: {fileID: 1462793453}
   fadeImage: {fileID: 2003259596525899390}
   m_masks:
-  - {fileID: 2800000, guid: 05db717b9ed466f4f9e4119ef2f0749b, type: 3}
+  - {fileID: 2800000, guid: 49bafcc98febc2a44b0090e5e19cb90d, type: 3}
   - {fileID: 2800000, guid: cc1446e1c64cf0c48bd5ed713fc5ed7b, type: 3}
   - {fileID: 2800000, guid: db9c14a57b367fa409217fcce666a9a1, type: 3}
   - {fileID: 2800000, guid: 86d3e0a77cc69904d951493a7c057440, type: 3}
@@ -270,7 +270,7 @@ PrefabInstance:
     - target: {fileID: 11486218, guid: 53c22e1773be7f84aad8ed8b7b58fa6e, type: 3}
       propertyPath: maskTexture
       value: 
-      objectReference: {fileID: 2800000, guid: cc1446e1c64cf0c48bd5ed713fc5ed7b, type: 3}
+      objectReference: {fileID: 2800000, guid: 49bafcc98febc2a44b0090e5e19cb90d, type: 3}
     - target: {fileID: 11486218, guid: 53c22e1773be7f84aad8ed8b7b58fa6e, type: 3}
       propertyPath: m_Color.r
       value: 0.22352941
