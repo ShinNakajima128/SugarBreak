@@ -162,7 +162,7 @@ public class StageSelect : MonoBehaviour
                 }
                 else
                 {
-                    m_StageNames[i].text = "？？？？？？？？";
+                    m_StageNames[i].text = "？？？？？";
                 }
             }
             if (i == 1)
@@ -177,7 +177,7 @@ public class StageSelect : MonoBehaviour
                 }
                 else
                 {
-                    m_StageNames[i].text = "？？？？？？？？";
+                    m_StageNames[i].text = "？？？？？";
                 }
             }
             if (i == 2)
@@ -192,7 +192,7 @@ public class StageSelect : MonoBehaviour
                 }
                 else
                 {
-                    m_StageNames[i].text = "？？？？？？？？";
+                    m_StageNames[i].text = "？？？？？";
                 }
             }
         }
