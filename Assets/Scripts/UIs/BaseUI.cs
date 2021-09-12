@@ -9,6 +9,7 @@ public enum BaseUIState
     Main,
     StageSelect,
     ItemMake,
+    Weapon,
     Option,
     Tutorial,
     Exit
@@ -77,6 +78,14 @@ public class BaseUI : MonoBehaviour, IPointerEnterHandler
     }
 
     /// <summary>
+    /// 装備画面を表示する
+    /// </summary>
+    public void OnWeapon()
+    {
+        ChangeUIPanel(BaseUIState.Weapon);
+    }
+
+    /// <summary>
     /// オプション画面を表示する
     /// </summary>
     public void OnOption()
@@ -129,11 +138,14 @@ public class BaseUI : MonoBehaviour, IPointerEnterHandler
             case BaseUIState.ItemMake:
                 PanelChange(2);
                 break;
-            case BaseUIState.Option:
+            case BaseUIState.Weapon:
                 PanelChange(3);
                 break;
-            case BaseUIState.Tutorial:
+            case BaseUIState.Option:
                 PanelChange(4);
+                break;
+            case BaseUIState.Tutorial:
+                PanelChange(5);
                 break;
             case BaseUIState.Exit:
                 OnConfirmPanel();
@@ -162,6 +174,6 @@ public class BaseUI : MonoBehaviour, IPointerEnterHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        SoundManager.Instance.PlaySeByName("Gain");
+        //SoundManager.Instance.PlaySeByName("Gain");
     }
 }
