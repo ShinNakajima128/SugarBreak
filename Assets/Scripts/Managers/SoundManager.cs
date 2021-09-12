@@ -84,6 +84,11 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         {
             seIndex.Add(m_ses[i].name, i);
         }
+
+        for (int i = 0; i < m_voices.Length; i++)
+        {
+            voiceIndex.Add(m_voices[i].name, i);
+        }
     }
 
     private void Start()
