@@ -12,6 +12,7 @@ public class ReturnPointUpdater : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             ReturnArea.Instance.ReturnPoint = transform.position;
+            ReturnArea.Instance.ReturnRotation = transform.rotation;
         }
     }
 }
