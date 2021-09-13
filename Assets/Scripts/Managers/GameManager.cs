@@ -19,8 +19,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     [SerializeField]
     bool isRaindyCloudsCleared = false;
+
     [SerializeField]
     bool isDesertResortCleared = false;
+
     [SerializeField]
     bool isGlaseSnowFieldCleared = false;
 
@@ -59,11 +61,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             return;
         }
         DontDestroyOnLoad(gameObject);
-
-       if (GameEnd != null)
-        {
-            GameEnd = null;
-        }
     }
     private void Start()
     {
@@ -84,19 +81,37 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         GameEnd?.Invoke();
     }
 
+    public void OnGameEndClearedStage()
+    {
+        StartCoroutine(LoadBase());
+    }
+
     void OnSceneLoaded(Scene nextScene, LoadSceneMode mode)
     {
         switch (SceneManager.GetActiveScene().name)
         {
             case "Title":
-                Cursor.visible = true;
+                if (GameEnd != null)
+                {
+                    GameEnd = null;
+                }
                 break;
             case "BakedValley":
-                Cursor.visible = false;
                 break;
             case "Base":
-                Cursor.visible = true;
+                if (GameEnd != null)
+                {
+                    GameEnd = null;
+                }
                 break;
         }
+    }
+
+    IEnumerator LoadBase()
+    {
+        Debug.Log("ロード開始");
+        yield return new WaitForSeconds(3.0f);
+
+        GameEnd?.Invoke();
     }
 }

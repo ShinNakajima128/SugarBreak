@@ -11,11 +11,12 @@ public class BossArea : MonoBehaviour
 
     public static bool isBattle = false;
     public static bool isFirst = true;
-    SphereCollider collider;
+    SphereCollider m_collider;
 
     private void Awake()
     {
-        collider = GetComponent<SphereCollider>();
+        m_collider = GetComponent<SphereCollider>();
+        isFirst = true;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -24,7 +25,7 @@ public class BossArea : MonoBehaviour
         {
             if (isFirst)
             {
-                collider.radius = 25.5f;
+                m_collider.radius = 25.5f;
                 director.Play();
                 isFirst = false;
             }
@@ -42,7 +43,6 @@ public class BossArea : MonoBehaviour
             {
                 isBattle = false;
                 SoundManager.Instance.SwitchBGM("BakedValley");
-                Debug.Log("ボスエリアを抜けた");
             }
         }
     }
