@@ -52,7 +52,6 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     {
         playerData.HP -= attackPower;
         hpGauge.SetHpGauge(playerData.HP);
-        Debug.Log("被弾");
         SoundManager.Instance.PlaySeByName("Damage");
         m_anim.SetTrigger("isDamaged");
     }

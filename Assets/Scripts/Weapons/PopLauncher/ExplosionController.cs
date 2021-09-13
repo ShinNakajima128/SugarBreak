@@ -20,7 +20,6 @@ public class ExplosionController : WeaponBase
         {
             foreach (var t in targets)
             {
-                Debug.Log(t.ToString());
                 t.Damage(m_damage);
             }
         }

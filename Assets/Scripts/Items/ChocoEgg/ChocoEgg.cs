@@ -65,7 +65,15 @@ public class ChocoEgg : MonoBehaviour, IDamagable
         switch (type)
         {
             case BossType.Dragon:
-                Instantiate(m_dropItems[0], transform.position, m_dropItems[0].transform.rotation);
+                if (!GameManager.Instance.IsBakeleValleyCleared)
+                {
+                    Instantiate(m_dropItems[0], transform.position, m_dropItems[0].transform.rotation);
+                }
+                else
+                {
+                    KonpeitouGenerator.Instance.GenerateKonpeitou(transform, 30);
+                    GameManager.Instance.OnGameEndClearedStage();
+                }
                 break;
             case BossType.CottonCandy:
                 Instantiate(m_dropItems[1], transform.position, m_dropItems[1].transform.rotation);
