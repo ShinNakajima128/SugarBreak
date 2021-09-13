@@ -54,7 +54,7 @@ public class SignaleManager : MonoBehaviour
 
     public void OnDragon()
     {
-        m_standingDragon.SetActive(true);
+        m_standingDragon?.SetActive(true);
     }
 
     public void SwitchDragon()
@@ -78,7 +78,6 @@ public class SignaleManager : MonoBehaviour
     {
         SoundManager.Instance.PlaySeByName("DragonRoar");
         coroutine = StartCoroutine(IncreaseParameter(m_bossZoomBlueValue));
-        Debug.Log("ブラーオン");
     }
 
     public void OffZoomBlur()
