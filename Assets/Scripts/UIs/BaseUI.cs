@@ -41,6 +41,12 @@ public class BaseUI : MonoBehaviour, IPointerEnterHandler
     {
         m_updateIcon?.SetActive(false);
         OnMain();
+
+        if (Cursor.lockState != CursorLockMode.None)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 
     /// <summary>
