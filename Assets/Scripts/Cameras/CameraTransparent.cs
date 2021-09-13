@@ -83,12 +83,14 @@ public class CameraTransparent : MonoBehaviour
             if (renderer != null)
             {
                 m_rendererHitsList.Add(renderer);
-                renderer.enabled = false;
+                renderer.material.color = new Color(1, 1, 1, 0.3f);
+                //renderer.enabled = false;
             }
             else if (renderer == null && ChildRenderer != null)
             {
                 m_rendererHitsList.Add(ChildRenderer);
-                ChildRenderer.enabled = false;
+                ChildRenderer.material.color = new Color(1, 1, 1, 0.3f);
+                //ChildRenderer.enabled = false;
             }
         }
 
@@ -98,7 +100,8 @@ public class CameraTransparent : MonoBehaviour
             // 遮蔽物でなくなった Renderer コンポーネントを有効にする
             if (renderer != null)
             {
-                renderer.enabled = true;
+                renderer.material.color = new Color(1, 1, 1, 1);
+                //renderer.enabled = true;
             }
         }
     }
