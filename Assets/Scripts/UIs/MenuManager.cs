@@ -30,6 +30,7 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         for (int i = 0; i < m_menuPanels.Length; i++)
         {
             MenuState menuState = (MenuState)(i + 1);
@@ -50,17 +51,20 @@ public class MenuManager : MonoBehaviour
             {
                 m_rootMenuPanel.SetActive(true);
                 Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
                 Time.timeScale = 0f;
                 ActiveMenu(0);
                 state = MenuState.Open;
             }
             else if (state != MenuState.Close)  //メニューを閉じる
             {
-                m_rootMenuPanel.SetActive(false);
-                Cursor.visible = false;
                 Time.timeScale = 1f;
+                m_rootMenuPanel.SetActive(false);
                 ActiveMenu(6);
                 state = MenuState.Close;
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                Debug.Log("メニューを閉じた");
             }
         }
     }
