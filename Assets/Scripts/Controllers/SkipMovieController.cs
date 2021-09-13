@@ -15,13 +15,15 @@ public class SkipMovieController : MonoBehaviour
     PlayableDirector m_director = default;
     bool isPlayed = false;
 
-    private void Awake()
+    void Start()
     {
         if (m_director == null) 
             m_director = GetComponent<PlayableDirector>();
 
         m_director.stopped += MovieFinished;
+        m_director.stopped += CanOpenMenu;
         m_director.played += Skip;
+        m_director.played += CanNotOpenMenu;
 
         if (m_playOnAwake)
         {
@@ -72,5 +74,15 @@ public class SkipMovieController : MonoBehaviour
     {
         Debug.Log("再生終了");
         isPlayed = true;
+    }
+
+    void CanNotOpenMenu(PlayableDirector director)
+    {
+        MenuManager.Instance.WhetherOpenMenu = false;
+    }
+
+    void CanOpenMenu(PlayableDirector director)
+    {
+        MenuManager.Instance.WhetherOpenMenu = true;
     }
 }

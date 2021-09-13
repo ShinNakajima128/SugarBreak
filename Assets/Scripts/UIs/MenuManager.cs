@@ -14,6 +14,8 @@ public enum MenuState
 
 public class MenuManager : MonoBehaviour
 {
+    public static MenuManager Instance;
+
     [SerializeField] 
     GameObject[] m_menuPanels = default;
 
@@ -26,6 +28,13 @@ public class MenuManager : MonoBehaviour
     Dictionary<MenuState, int> menuIndex = new Dictionary<MenuState, int>();
     MenuState state = MenuState.Close;
 
+    /// <summary> メニューが開ける状態かどうかのフラグ </summary>
+    public bool WhetherOpenMenu { get; set; } = false;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -45,28 +54,31 @@ public class MenuManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))   
+        if (WhetherOpenMenu)
         {
-            if (state == MenuState.Close)   //メニューを開く
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                m_rootMenuPanel.SetActive(true);
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-                Time.timeScale = 0f;
-                ActiveMenu(0);
-                state = MenuState.Open;
+                if (state == MenuState.Close)   //メニューを開く
+                {
+                    m_rootMenuPanel.SetActive(true);
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
+                    Time.timeScale = 0f;
+                    ActiveMenu(0);
+                    state = MenuState.Open;
+                }
+                else if (state != MenuState.Close)  //メニューを閉じる
+                {
+                    Time.timeScale = 1f;
+                    m_rootMenuPanel.SetActive(false);
+                    ActiveMenu(6);
+                    state = MenuState.Close;
+                    Cursor.visible = false;
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Debug.Log("メニューを閉じた");
+                }
             }
-            else if (state != MenuState.Close)  //メニューを閉じる
-            {
-                Time.timeScale = 1f;
-                m_rootMenuPanel.SetActive(false);
-                ActiveMenu(6);
-                state = MenuState.Close;
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
-                Debug.Log("メニューを閉じた");
-            }
-        }
+        }  
     }
 
     /// <summary>

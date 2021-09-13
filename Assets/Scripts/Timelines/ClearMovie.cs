@@ -14,6 +14,7 @@ public class ClearMovie : MonoBehaviour
     {
         director = GetComponent<PlayableDirector>();
         GameManager.GameEnd += PlayMovie;
+        GameManager.GameEnd += CanNotOpenMenu;
     }
         
     /// <summary>
@@ -23,5 +24,10 @@ public class ClearMovie : MonoBehaviour
     {
         Debug.Log("クリア演出再生");
         director.Play();
+    }
+
+    void CanNotOpenMenu()
+    {
+        MenuManager.Instance.WhetherOpenMenu = false;
     }
 }
