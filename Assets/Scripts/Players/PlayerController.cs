@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!IsGrounded())
         {
-            m_rb.AddForce(Vector3.down * 50, ForceMode.Impulse);
+            m_rb.AddForce(Vector3.down * 35, ForceMode.Impulse);
         }
     }
 
@@ -215,8 +215,6 @@ public class PlayerController : MonoBehaviour
         {
             if (comboNum == 3) return;
 
-            m_rb.velocity = Vector3.zero;
-
             if(comboNum == 0)
             {
                 m_anim.SetTrigger("SwordAttack1");
@@ -236,6 +234,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (comboNum == 2)
             {
+                m_rb.velocity = Vector3.zero;
                 m_anim.SetTrigger("SwordAttack3");
                 PlayerStatesManager.Instance.IsOperation = false;
                 StartCoroutine(AttackMotionTimer(m_waitTime));
