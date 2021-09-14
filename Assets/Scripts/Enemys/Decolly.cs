@@ -82,7 +82,7 @@ public class Decolly : EnemyBase
             if (decollyState == DecollyState.Move)
             {
                 //　目的地に到着したかどうかの判定
-                if (Vector3.Distance(transform.position, setPosition.GetDestination()) < 1.5f)
+                if (Vector3.Distance(transform.position, setPosition.GetDestination()) < 2.0f)
                 {
                     SetState(DecollyState.Idle);
                     m_anim.SetFloat("Speed", 0.0f);
@@ -91,9 +91,8 @@ public class Decolly : EnemyBase
             else if (decollyState == DecollyState.Chase)
             {
                 //　攻撃する距離だったら攻撃
-                if (Vector3.Distance(transform.position, setPosition.GetDestination()) < 1.5f)
+                if (Vector3.Distance(transform.position, setPosition.GetDestination()) < 2.0f)
                 {
-                    //Debug.Log("デコリーの攻撃");
                     SetState(DecollyState.Attack);
                 }
             }
