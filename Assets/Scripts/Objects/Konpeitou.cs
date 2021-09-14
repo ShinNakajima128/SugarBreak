@@ -28,6 +28,17 @@ public class Konpeitou : MonoBehaviour
         period = m_arrivalTime;
         StartCoroutine(Stopping());
     }
+
+    private void OnEnable()
+    {
+        if (isSearched)
+        {
+            isSearched = false;
+            period = m_arrivalTime;
+            StartCoroutine(Stopping());
+        }
+    }
+    
     private void Update()
     {
         if (isSearched)
@@ -53,9 +64,10 @@ public class Konpeitou : MonoBehaviour
         if (period <= 0f)
         {
             playerData.TotalKonpeitou++;
-            SoundManager.Instance.PlaySeByName("Gain");
+            //SoundManager.Instance.PlaySeByName("Gain");
 
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
         }
         velocity += acceleration * Time.deltaTime;
         m_position += velocity * Time.deltaTime;
