@@ -33,11 +33,15 @@ public class ReturnArea : MonoBehaviour
         {
             PlayerStatesManager.Instance.OffOperation();
             LoadSceneManager.Instance.FadeIn(LoadSceneManager.Instance.Masks[3]);
-            StartCoroutine(Return());
+            ReturnComebackPoint();
             SoundManager.Instance.PlayVoiceByName("univ1093");
         }
     }
 
+    public void ReturnComebackPoint()
+    {
+        StartCoroutine(Return());
+    }
     IEnumerator Return()
     {
         yield return new WaitForSeconds(1.0f);
@@ -46,9 +50,10 @@ public class ReturnArea : MonoBehaviour
         player.transform.rotation = ReturnRotation;
 
         yield return new WaitForSeconds(1.0f);
+        
+        if (LoadSceneManager.Instance.LoadAnim.activeSelf) LoadSceneManager.Instance.LoadAnim.SetActive(false);
         LoadSceneManager.Instance.FadeOut(LoadSceneManager.Instance.Masks[4]);
         PlayerStatesManager.Instance.OnOperation();
         CameraManager.Instance.CameraReset();
-        //SoundManager.Instance.PlayVoiceByName("univ1099");
     }
 }

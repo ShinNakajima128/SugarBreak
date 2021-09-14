@@ -27,6 +27,8 @@ public class LoadSceneManager : MonoBehaviour
     Texture[] m_masks = default;
 
     public Texture[] Masks { get => m_masks; }
+
+    public GameObject LoadAnim { get => m_loadAnim; set => m_loadAnim = value; }
     private void Awake()
     {
         Instance = this;
