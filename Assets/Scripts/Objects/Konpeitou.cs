@@ -7,7 +7,6 @@ public class Konpeitou : MonoBehaviour
     [SerializeField] float m_arrivalTime = 2.0f;
     [SerializeField] PlayerData playerData = default;
     [SerializeField] SphereCollider m_sphereCollider = default;
-    //[SerializeField] SphereCollider m_searchCollider = default;
     [SerializeField] float m_startMovingTimer = 2;
     public Transform m_target;
     public Vector3 m_position;
@@ -18,27 +17,26 @@ public class Konpeitou : MonoBehaviour
     bool isUpdated = false;
     public static int playSeCount = 0;
 
-    private void Awake()
-    {
-        //m_searchCollider.enabled = false;
-    }
     private void Start()
     {
         m_rb = GetComponent<Rigidbody>();
+    }
+
+    void OnEnable()
+    {
         period = m_arrivalTime;
         StartCoroutine(Stopping());
     }
 
-    private void OnEnable()
+    void OnDisable()
     {
         if (isSearched)
         {
             isSearched = false;
-            period = m_arrivalTime;
-            StartCoroutine(Stopping());
+            m_rb.useGravity = true;
         }
     }
-    
+
     private void Update()
     {
         if (isSearched)
@@ -64,9 +62,7 @@ public class Konpeitou : MonoBehaviour
         if (period <= 0f)
         {
             playerData.TotalKonpeitou++;
-            //SoundManager.Instance.PlaySeByName("Gain");
-
-            //Destroy(this.gameObject);
+            SoundManager.Instance.PlaySeByName("Gain");
             this.gameObject.SetActive(false);
         }
         velocity += acceleration * Time.deltaTime;
@@ -74,20 +70,16 @@ public class Konpeitou : MonoBehaviour
         transform.position = m_position;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            
-        }
-    }
-
     IEnumerator Stopping()
     {
+        yield return new WaitForSeconds(0.1f);
+
+        velocity = Vector3.zero;
+        m_sphereCollider.enabled = true;
         var a = Random.Range(0f, 1.5f);
+        
         yield return new WaitForSeconds(m_startMovingTimer + a);
 
-        //m_searchCollider.enabled = true;
         isSearched = true;
         m_sphereCollider.enabled = false;
         m_rb.useGravity = false;

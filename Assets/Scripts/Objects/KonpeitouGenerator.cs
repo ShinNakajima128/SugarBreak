@@ -8,15 +8,15 @@ public class KonpeitouGenerator : MonoBehaviour
 
     [Header("金平糖のプレハブ")]
     [SerializeField] 
-    GameObject[] m_konpeito = null;
+    GameObject[] m_konpeitous = null;
 
     [Header("チョコエッグのプレハブ")]
     [SerializeField]
     GameObject m_chocoEgg = default;
     
-    [Header("生成する金平糖の数")]
+    [Header("オブジェクトプールに入れる金平糖の数")]
     [SerializeField] 
-    int m_generateNum = 10;
+    int m_generateNum = 100;
     
     [Header("生成時間")]
     [SerializeField] 
@@ -29,22 +29,38 @@ public class KonpeitouGenerator : MonoBehaviour
     [SerializeField] 
     Transform m_targetObject = null;
 
+    GameObject[] m_generateKon;
+
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
+        m_generateKon = new GameObject[m_generateNum];
+
+        for (int i = 0; i < m_generateNum; i++)
+        {
+            var r = Random.Range(0, m_konpeitous.Length);
+
+            m_generateKon[i] = Instantiate(m_konpeitous[r], this.transform);
+
+            m_generateKon[i].SetActive(false);
+        }
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            GenerateKonpeitou(this.transform, m_generateNum);
+            GenerateKonpeitou(5, m_targetObject.position);
         }
     }
 
-    public void GenerateKonpeitou(Transform Tfm, int generateNum)
+    public void GenerateKonpeitou(int generateNum, Vector3 pos)
     {
-        StartCoroutine(GenerateInterval(Tfm.position, generateNum, m_generatePower));
+        StartCoroutine(GenerateInterval(generateNum, pos, m_generatePower));
     }
 
     public void GenerateChocoEgg(Transform tfm)
@@ -53,22 +69,49 @@ public class KonpeitouGenerator : MonoBehaviour
         egg.GetComponentInChildren<ChocoEgg>().BossTypes = BossType.Dragon;
     }
 
-    IEnumerator GenerateInterval(Vector3 startPos, int geneNum, float power)
+    IEnumerator GenerateInterval(int num, Vector3 pos, float power)
     {
-        Vector3 pos = startPos;
+        //Vector3 pos = startPos;
 
-        for (int i = 0; i < geneNum; i++)
+        //for (int i = 0; i < geneNum; i++)
+        //{
+        //    yield return new WaitForSeconds(m_generateTime);
+
+        //    var kon = Instantiate(m_konpeitous[Random.Range(0, m_konpeitous.Length)], pos, Quaternion.identity, transform);
+        //    var konpei = kon.GetComponent<Konpeitou>();
+        //    konpei.m_target = m_targetObject;
+        //    konpei.m_position = pos;
+        //    var m_rb = kon.gameObject.GetComponent<Rigidbody>();
+        //    Vector3 force = new Vector3(Random.Range(-2, 2), power, Random.Range(-2, 2));
+
+        //    m_rb.AddForce(force, ForceMode.Impulse);
+        //}
+        foreach (var kon in m_generateKon)
         {
-            yield return new WaitForSeconds(m_generateTime);
+            if (num <= 0)
+            {
+                break;
+            }
+            else
+            {
+                if (kon.activeSelf)
+                {
+                    continue;
+                }
+                else
+                {
+                    num--;
+                    kon.SetActive(true);
+                    kon.transform.position = pos;
+                    kon.GetComponent<Konpeitou>().m_target = m_targetObject;
+                    var m_rb = kon.gameObject.GetComponent<Rigidbody>();
+                    m_rb.velocity = Vector3.zero;
+                    Vector3 force = new Vector3(Random.Range(-2, 2), power, Random.Range(-2, 2));
+                    m_rb.AddForce(force, ForceMode.Impulse);
 
-            var kon = Instantiate(m_konpeito[Random.Range(0, m_konpeito.Length)], pos, Quaternion.identity, transform);
-            var konpei = kon.GetComponent<Konpeitou>();
-            konpei.m_target = m_targetObject;
-            konpei.m_position = pos;
-            var m_rb = kon.gameObject.GetComponent<Rigidbody>();
-            Vector3 force = new Vector3(Random.Range(-2, 2), power, Random.Range(-2, 2));
-
-            m_rb.AddForce(force, ForceMode.Impulse);
+                    yield return new WaitForSeconds(m_generateTime);
+                }
+            }
         }
 
         if (Konpeitou.playSeCount >= 7)

@@ -17,6 +17,7 @@ public class KonpeitouPool : MonoBehaviour
     Transform m_enemyPos = default;
 
     GameObject[] m_generateKon;
+
     void Start()
     {
         m_generateKon = new GameObject[m_generateNum];
@@ -35,13 +36,13 @@ public class KonpeitouPool : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
-            GenerateKonpeitou(5);
+            GenerateKonpeitou(5, m_enemyPos.position);
         }
     }
 
-    void GenerateKonpeitou(int num)
+    void GenerateKonpeitou(int num, Vector3 pos)
     {
-        StartCoroutine(Generate(num, m_enemyPos.position));
+        StartCoroutine(Generate(num, pos));
     }
 
     IEnumerator Generate(int num, Vector3 pos)

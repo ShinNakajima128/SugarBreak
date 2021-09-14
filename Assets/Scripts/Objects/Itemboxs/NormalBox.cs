@@ -24,7 +24,7 @@ public class NormalBox : ItemboxBase
                 SoundManager.Instance.PlaySeByName("Break");
                 m_playSeCount++;
             }
-            KonpeitouGenerator.Instance.GenerateKonpeitou(transform, m_konpeitouNum);
+            KonpeitouGenerator.Instance.GenerateKonpeitou(m_konpeitouNum, transform.position);
             StartCoroutine(Vanish(m_vanishTime));
         }
     }
