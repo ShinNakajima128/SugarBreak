@@ -78,15 +78,7 @@ public class TitleMenu : MonoBehaviour
         {
             if (Input.anyKeyDown)
             {
-                //SoundManager.Instance.PlaySeByName("Transition2");
-                //fadeImage.UpdateMaskTexture(m_masks[0]);
-                //fade.FadeIn(1.0f, () =>
-                // {
-                //     titleState = TitleMenuState.MainMenu;
-                //     isChanged = false;
-                //     m_mainMenuBG.SetActive(true);
-                //     StartCoroutine(StartWait(m_masks[1]));
-                // });
+                SoundManager.Instance.PlaySeByName("Select");
                 titleState = TitleMenuState.MainMenu;
                 isChanged = false;
                 isStarted = true;
@@ -96,15 +88,7 @@ public class TitleMenu : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                //SoundManager.Instance.PlaySeByName("Transition2");
-                //fadeImage.UpdateMaskTexture(m_masks[1]);
-                //fade.FadeIn(1.0f, () =>
-                //{
-                //    titleState = TitleMenuState.Begin;
-                //    isChanged = false;
-                //    m_mainMenuBG.SetActive(false);
-                //    StartCoroutine(StartWait(m_masks[0]));
-                //});
+                SoundManager.Instance.PlaySeByName("Cancel");
                 titleState = TitleMenuState.Begin;
                 isChanged = false;
                 isStarted = false;
@@ -153,6 +137,7 @@ public class TitleMenu : MonoBehaviour
 
     public void PlayGame()
     {
+        SoundManager.Instance.PlaySeByName("Load");
         if (!GameManager.Instance.GameStarted)
         {
             ///あらすじのSceneができたらここの引数を書き換える
