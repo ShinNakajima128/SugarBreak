@@ -18,7 +18,7 @@ public enum BaseUIState
 /// <summary>
 /// 拠点のUIをコントロールするクラス
 /// </summary>
-public class BaseUI : MonoBehaviour, IPointerEnterHandler
+public class BaseUI : MonoBehaviour
 {
     [Header("UIのステータス")]
     [SerializeField]
@@ -115,6 +115,11 @@ public class BaseUI : MonoBehaviour, IPointerEnterHandler
         ChangeUIPanel(BaseUIState.Exit);
     }
 
+    public void CancelSE()
+    {
+        SoundManager.Instance.PlaySeByName("Cancel");
+    }
+
     public void PlaySE()
     {
         SoundManager.Instance.PlaySeByName("CursolMove");
@@ -180,10 +185,5 @@ public class BaseUI : MonoBehaviour, IPointerEnterHandler
     void OnConfirmPanel()
     {
         m_confirmPanel?.SetActive(true);
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        //SoundManager.Instance.PlaySeByName("Gain");
     }
 }

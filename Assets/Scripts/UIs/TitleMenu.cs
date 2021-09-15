@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public enum TitleMenuState
 {
@@ -78,6 +79,7 @@ public class TitleMenu : MonoBehaviour
         {
             if (Input.anyKeyDown)
             {
+                TextAnimation.Instance.FinishAnim();
                 SoundManager.Instance.PlaySeByName("Select");
                 titleState = TitleMenuState.MainMenu;
                 isChanged = false;
@@ -92,6 +94,7 @@ public class TitleMenu : MonoBehaviour
                 titleState = TitleMenuState.Begin;
                 isChanged = false;
                 isStarted = false;
+                StartCoroutine(Restart());
             }
         }
 
@@ -213,6 +216,13 @@ public class TitleMenu : MonoBehaviour
                 m_menuPanels[i].SetActive(false);
             }
         }
+    }
+
+    IEnumerator Restart()
+    {
+        yield return null;
+
+        TextAnimation.Instance.OnAnim();
     }
 
     /// <summary>
