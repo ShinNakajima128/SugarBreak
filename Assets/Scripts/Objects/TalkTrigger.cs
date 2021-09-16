@@ -34,6 +34,8 @@ public class TalkTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (GameManager.Instance.IsBakeleValleyCleared) return;
+
         ///プレイヤーが来たらフローチャートを再生する
         if (other.gameObject.CompareTag("Player") && !isActivated)
         {
