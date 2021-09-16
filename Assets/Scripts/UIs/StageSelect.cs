@@ -36,6 +36,8 @@ public class StageSelect : MonoBehaviour
 
     static bool IsStage4Updated = false;
 
+    static bool IsStage5Updated = false;
+
     private void OnEnable()
     {
         Debug.Log("ステージ選択");
@@ -92,7 +94,9 @@ public class StageSelect : MonoBehaviour
         if (!GameManager.Instance.IsGlaseSnowFieldCleared) return;
 
         ChangeUIPanel(StageSelectState.GanacheVolcano);
+        m_updateIcons[3].SetActive(false);
         GameManager.Instance.IsStageUpdated = false;
+        IsStage5Updated = true;
     }
 
     void ChangeUIPanel(StageSelectState state)
@@ -165,6 +169,7 @@ public class StageSelect : MonoBehaviour
                     m_StageNames[i].text = "？？？？？";
                 }
             }
+
             if (i == 1)
             {
                 if (GameManager.Instance.IsRaindyCloudsCleared)
@@ -180,12 +185,29 @@ public class StageSelect : MonoBehaviour
                     m_StageNames[i].text = "？？？？？";
                 }
             }
+
             if (i == 2)
             {
                 if (GameManager.Instance.IsDesertResortCleared)
                 {
                     m_StageNames[i].text = "グラース雪原";
                     if (!IsStage4Updated)
+                    {
+                        m_updateIcons[i].SetActive(true);
+                    }
+                }
+                else
+                {
+                    m_StageNames[i].text = "？？？？？";
+                }
+            }
+
+            if (i == 3)
+            {
+                if (GameManager.Instance.IsGlaseSnowFieldCleared)
+                {
+                    m_StageNames[i].text = "ガナッシュ火山";
+                    if (!IsStage5Updated)
                     {
                         m_updateIcons[i].SetActive(true);
                     }
