@@ -37,9 +37,9 @@ public enum EffectType
     /// </summary>
     Landing,
     /// <summary>
-    /// ロックオン
+    /// 土埃
     /// </summary>
-    Lockon
+    Mokumoku
 }
 
 public class EffectManager : SingletonMonoBehaviour<EffectManager>

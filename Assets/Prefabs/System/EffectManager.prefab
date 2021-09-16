@@ -63,5 +63,6 @@ MonoBehaviour:
   - EffectPrefab: {fileID: 1462327970484030, guid: f01c1eba69de19e44b04d8d651aaac37,
       type: 3}
     MaxCount: 3
-  - EffectPrefab: {fileID: 100006, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}
-    MaxCount: 3
+  - EffectPrefab: {fileID: 3343523154514759114, guid: b4f540f837be95b4094ff919f51caa1c,
+      type: 3}
+    MaxCount: 5
