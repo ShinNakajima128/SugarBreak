@@ -48,3 +48,7 @@ MonoBehaviour:
   isRaindyCloudsCleared: 0
   isDesertResortCleared: 0
   isGlaseSnowFieldCleared: 0
+  m_currentWeaponList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

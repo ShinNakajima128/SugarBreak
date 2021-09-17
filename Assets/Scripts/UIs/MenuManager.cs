@@ -31,6 +31,8 @@ public class MenuManager : MonoBehaviour
     /// <summary> メニューが開ける状態かどうかのフラグ </summary>
     public bool WhetherOpenMenu { get; set; } = false;
 
+    public MenuState MenuStates => state;
+
     private void Awake()
     {
         Instance = this;
@@ -56,7 +58,7 @@ public class MenuManager : MonoBehaviour
     {
         if (WhetherOpenMenu)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) && !Map.Instance.PauseFlag)
             {
                 if (state == MenuState.Close)   //メニューを開く
                 {

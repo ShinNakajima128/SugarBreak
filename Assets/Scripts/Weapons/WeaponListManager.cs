@@ -34,7 +34,6 @@ public class WeaponListManager : MonoBehaviour
             {
                 m_weaponIconList[i].sprite = GameManager.Instance.CurrentWeaponList[i].WeaponData.DeactiveWeaponImage;
             }
-
         }
     }
 }
