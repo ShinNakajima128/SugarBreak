@@ -56,6 +56,7 @@ public class ChocoEgg : MonoBehaviour, IDamagable
             }
 
             EffectManager.PlayEffect(EffectType.EnemyDead, transform.position);
+            SoundManager.Instance.PlaySeByName("ChocoEgg");
             Destroy(gameObject);
         }
     }
