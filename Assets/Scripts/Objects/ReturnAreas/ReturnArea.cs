@@ -11,6 +11,8 @@ public class ReturnArea : MonoBehaviour
 
     GameObject player;
 
+    CapsuleCollider m_collider;
+
     public Vector3 ReturnPoint { get; set; }
 
     public Quaternion ReturnRotation { get; set; }
@@ -23,6 +25,7 @@ public class ReturnArea : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        m_collider = player.GetComponent<CapsuleCollider>();
         ReturnPoint = player.transform.position;
         ReturnRotation = player.transform.rotation;
     }
@@ -40,12 +43,14 @@ public class ReturnArea : MonoBehaviour
 
     public void ReturnComebackPoint()
     {
+        m_collider.enabled = false;
         StartCoroutine(Return());
     }
     IEnumerator Return()
     {
         yield return new WaitForSeconds(1.0f);
 
+        m_collider.enabled = true;
         player.transform.position = ReturnPoint;
         player.transform.rotation = ReturnRotation;
 
@@ -53,6 +58,7 @@ public class ReturnArea : MonoBehaviour
         
         if (LoadSceneManager.Instance.LoadAnim.activeSelf) LoadSceneManager.Instance.LoadAnim.SetActive(false);
         LoadSceneManager.Instance.FadeOut(LoadSceneManager.Instance.Masks[4]);
+        SoundManager.Instance.PlaySeByName("Transition2");
         PlayerStatesManager.Instance.OnOperation();
         CameraManager.Instance.CameraReset();
         if (UIManager.Instance.BossUI.activeSelf) UIManager.Instance.BossUI.SetActive(false);

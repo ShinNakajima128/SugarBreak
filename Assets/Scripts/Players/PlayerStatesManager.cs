@@ -40,6 +40,7 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     {
         playerData.SetStartHp(defaultHp);
         hpGauge.SetHpGauge(playerData.HP);
+        GameManager.GameEnd += OffOperation;
     }
 
     void Update()
@@ -70,10 +71,12 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
         {
             isDying = true;
             StartCoroutine(Dying());
+
+            if (BossArea.isBattle) BossArea.isBattle = false;
         }
         else
         {
-            SoundManager.Instance.PlaySeByName("Damage");
+            SoundManager.Instance.PlaySeByName("Damage3");
             m_anim.SetTrigger("isDamaged");
         }
     }
