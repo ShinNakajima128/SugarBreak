@@ -63,6 +63,15 @@ public class SignaleManager : MonoBehaviour
         m_mainDragon.SetActive(true);
     }
 
+    public void GrowlSe()
+    {
+        SoundManager.Instance.PlaySeByName("Growl");
+    }
+    public void SwingSe()
+    {
+        SoundManager.Instance.PlaySeByName("Swing");
+    }
+
     public void OnLandingEffect()
     {
         EffectManager.PlayEffect(EffectType.Landing, m_standingDragon.transform.position);
