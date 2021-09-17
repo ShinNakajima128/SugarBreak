@@ -254,13 +254,14 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void WeaponChange()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             if (animationEventScript.weaponStates == WeaponState.CandyBeat) return;
 
             EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
             animationEventScript.isChanged = false;
-            animationEventScript.weaponStates = WeaponState.CandyBeat;
+            //animationEventScript.weaponStates = WeaponState.CandyBeat;
+            animationEventScript.WeaponChange(WeaponState.CandyBeat);
 
             if (m_shabadubiMode)
             {
@@ -271,13 +272,14 @@ public class PlayerController : MonoBehaviour
                 SoundManager.Instance.PlaySeByName("Change");
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Q))
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             if (animationEventScript.weaponStates == WeaponState.PopLauncher) return;
             
             EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
             animationEventScript.isChanged = false;
-            animationEventScript.weaponStates = WeaponState.PopLauncher;
+            //animationEventScript.weaponStates = WeaponState.PopLauncher;
+            animationEventScript.WeaponChange(WeaponState.PopLauncher);
 
             if (m_shabadubiMode)
             {
@@ -288,13 +290,14 @@ public class PlayerController : MonoBehaviour
                 SoundManager.Instance.PlaySeByName("Change");
             }
         }
-        else if (Input.GetKeyDown(KeyCode.R))
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             if (animationEventScript.weaponStates == WeaponState.DualSoda) return;
 
             EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
             animationEventScript.isChanged = false;
-            animationEventScript.weaponStates = WeaponState.DualSoda;
+            //animationEventScript.weaponStates = WeaponState.DualSoda;
+            animationEventScript.WeaponChange(WeaponState.DualSoda);
 
             if (m_shabadubiMode)
             {
@@ -305,7 +308,10 @@ public class PlayerController : MonoBehaviour
                 SoundManager.Instance.PlaySeByName("Change");
             }
         }
+
+        WeaponListManager.Instance.IconChange();
     }
+
     /// <summary>
     /// 硬直
     /// </summary>

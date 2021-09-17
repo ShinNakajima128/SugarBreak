@@ -43,6 +43,8 @@ public class Decolly : EnemyBase
     /// <summary> 敵のステータス </summary>
     DecollyState decollyState;
     SetPosition setPosition;
+
+    Rigidbody m_rb;
     
     //　経過時間
     private float elapsedTime;
@@ -55,6 +57,7 @@ public class Decolly : EnemyBase
 
     private void Start()
     {
+        m_rb = GetComponent<Rigidbody>();
         setPosition = GetComponent<SetPosition>();
         setPosition.CreateRandomPosition();
         characterController = GetComponent<CharacterController>();

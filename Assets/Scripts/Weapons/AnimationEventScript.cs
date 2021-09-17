@@ -29,25 +29,43 @@ public class AnimationEventScript : MonoBehaviour
             weaponIndex.Add(m_weaponList[i].name, i);
         }
     }
-
-    void Update()
+    private void Start()
     {
+        WeaponChange(weaponStates);
+    }
+
+    public void WeaponChange(WeaponState state)
+    {
+        weaponStates = state;
+
         switch (weaponStates)
         {
             case WeaponState.CandyBeat:
                 m_weaponList[GetWeaponIndex("RolipopCandy")].SetActive(true);
                 m_weaponList[GetWeaponIndex("PopLauncher")].SetActive(false);
                 m_weaponList[GetWeaponIndex("DualSoda")].SetActive(false);
+
+                m_weaponList[GetWeaponIndex("RolipopCandy")].GetComponent<WeaponBase>().IsActived = true;
+                m_weaponList[GetWeaponIndex("PopLauncher")].GetComponent<WeaponBase>().IsActived = false;
+                m_weaponList[GetWeaponIndex("DualSoda")].GetComponent<WeaponBase>().IsActived = false;
                 break;
             case WeaponState.PopLauncher:
                 m_weaponList[GetWeaponIndex("RolipopCandy")].SetActive(false);
                 m_weaponList[GetWeaponIndex("PopLauncher")].SetActive(true);
                 m_weaponList[GetWeaponIndex("DualSoda")].SetActive(false);
+
+                m_weaponList[GetWeaponIndex("RolipopCandy")].GetComponent<WeaponBase>().IsActived = false;
+                m_weaponList[GetWeaponIndex("PopLauncher")].GetComponent<WeaponBase>().IsActived = true;
+                m_weaponList[GetWeaponIndex("DualSoda")].GetComponent<WeaponBase>().IsActived = false;
                 break;
             case WeaponState.DualSoda:
                 m_weaponList[GetWeaponIndex("RolipopCandy")].SetActive(false);
                 m_weaponList[GetWeaponIndex("PopLauncher")].SetActive(false);
                 m_weaponList[GetWeaponIndex("DualSoda")].SetActive(true);
+
+                m_weaponList[GetWeaponIndex("RolipopCandy")].GetComponent<WeaponBase>().IsActived = false;
+                m_weaponList[GetWeaponIndex("PopLauncher")].GetComponent<WeaponBase>().IsActived = false;
+                m_weaponList[GetWeaponIndex("DualSoda")].GetComponent<WeaponBase>().IsActived = true;
                 break;
         }
     }
