@@ -194,8 +194,8 @@ public class PlayerController : MonoBehaviour
             else
             {
                 PlayerStatesManager.Instance.IsOperation = false;
-                m_rb.velocity = new Vector3(0, m_rb.velocity.y, 0);
-                m_rb.AddForce(Vector3.up * 6, ForceMode.Impulse);
+                m_rb.velocity = new Vector3(m_rb.velocity.x, 0, m_rb.velocity.z);
+                m_rb.AddForce(Vector3.up * 10, ForceMode.Impulse);
                 m_anim.SetBool("Strong", true);                     ///CandyBeatの強攻撃
                 StartCoroutine(AttackMotionTimer(m_waitTime));
             }   
