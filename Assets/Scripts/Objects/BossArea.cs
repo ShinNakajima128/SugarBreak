@@ -49,7 +49,7 @@ public class BossArea : MonoBehaviour
         {
             if (SceneManager.GetActiveScene().name == "BakedValley")
             {
-                SoundManager.Instance.SwitchBGM("BakedValley");
+                SoundManager.Instance.SwitchBGM("BakeleValley");
                 isBattle = false;
                 m_bossAreaEffect?.SetActive(false);
             }

@@ -40,6 +40,7 @@ public class LoadSceneManager : MonoBehaviour
 
         fade.FadeOut(0.7f);
     }
+
     public void FadeIn(Texture mask)
     {
         //fadeImage.UpdateMaskTexture(m_masks[2]);
@@ -59,6 +60,7 @@ public class LoadSceneManager : MonoBehaviour
     /// <param name="name"> 遷移先のSceneの名前 </param>
     public void AnyLoadScene(string name)
     {
+        //SoundManager.Instance.PlaySeByName("Transition2");
         fadeImage.UpdateMaskTexture(m_masks[2]);
         fade.FadeIn(1.0f, () =>
         {
