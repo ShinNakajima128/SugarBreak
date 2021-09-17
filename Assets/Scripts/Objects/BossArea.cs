@@ -9,6 +9,9 @@ public class BossArea : MonoBehaviour
     [SerializeField] 
     PlayableDirector director = default;
 
+    [SerializeField]
+    GameObject m_bossAreaEffect = default;
+
     public static bool isBattle = false;
     public static bool isFirst = true;
     SphereCollider m_collider;
@@ -31,7 +34,7 @@ public class BossArea : MonoBehaviour
             }
             SoundManager.Instance.SwitchBGM("BossBattle");
             isBattle = true;
-            Debug.Log("ボスエリアに入った");
+            m_bossAreaEffect?.SetActive(true);
         }
     }
 
@@ -41,8 +44,10 @@ public class BossArea : MonoBehaviour
         {
             if (SceneManager.GetActiveScene().name == "BakedValley")
             {
-                isBattle = false;
                 SoundManager.Instance.SwitchBGM("BakedValley");
+                isBattle = false;
+                m_bossAreaEffect?.SetActive(true);
+
             }
         }
     }

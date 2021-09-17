@@ -54,7 +54,9 @@ public class EffectManager : SingletonMonoBehaviour<EffectManager>
         public int MaxCount = 1;
     }
 
-    [SerializeField] EffectData[] m_effectDatas = default;
+    [SerializeField] 
+    EffectData[] m_effectDatas = default;
+
     Dictionary<EffectType, List<EffectControl>> m_effectDic = new Dictionary<EffectType, List<EffectControl>>();
 
     void Awake()
