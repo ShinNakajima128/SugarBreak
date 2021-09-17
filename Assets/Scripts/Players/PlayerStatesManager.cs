@@ -3,18 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Cinemachine;
+using TMPro;
 
 public class PlayerStatesManager : MonoBehaviour, IDamagable
 {
     public static PlayerStatesManager Instance;
-    [SerializeField] PlayerData playerData = default;
-    [SerializeField] Text m_totalKonpeitou = default;
-    [SerializeField] Text m_hpText = default;
-    [SerializeField] HpGauge hpGauge = default;
-    [SerializeField] Animator m_anim = default;
-    [SerializeField] PlayerController m_player = default;
-    [SerializeField] CinemachineFreeLook m_freeLook = default;
-    [SerializeField] Rigidbody m_rb = default;
+    [SerializeField] 
+    PlayerData playerData = default;
+
+    [SerializeField] 
+    TextMeshProUGUI m_totalKonpeitouTmp = default;
+
+    [SerializeField] 
+    HpGauge hpGauge = default;
+
+    [SerializeField] 
+    Animator m_anim = default;
+
+    [SerializeField] 
+    CinemachineFreeLook m_freeLook = default;
+
+    [SerializeField] 
+    Rigidbody m_rb = default;
     int defaultHp = 8;
 
     bool isDying = false;
@@ -34,8 +44,7 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
 
     void Update()
     {
-        m_hpText.text = playerData.HP.ToString();
-        m_totalKonpeitou.text = "× " + playerData.TotalKonpeitou.ToString();
+        m_totalKonpeitouTmp.text = playerData.TotalKonpeitou.ToString();
 
         if (Input.GetKeyDown(KeyCode.H))
         {
