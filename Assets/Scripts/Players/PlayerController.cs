@@ -168,14 +168,19 @@ public class PlayerController : MonoBehaviour
         {
             if (IsGrounded())
             {
-                StartCoroutine(Jump());
                 m_rb.AddForce(Vector3.up * m_jumpPower, ForceMode.Impulse);
-                m_anim.SetBool("Jump", true);
-                m_anim.SetBool("isGround", false);
+                JumpMotion();
                 SoundManager.Instance.PlayVoiceByName("univ0001");
             }
         }
         
+    }
+
+    public void JumpMotion()
+    {
+        StartCoroutine(Jump());
+        m_anim.SetBool("Jump", true);
+        m_anim.SetBool("isGround", false);
     }
 
     /// <summary>
