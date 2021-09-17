@@ -47,7 +47,7 @@ public class Map : MonoBehaviour
             else
             {
                 m_mapUI.SetActive(false);
-                m_mainPanelUI.SetActive(false);
+                m_mainPanelUI.SetActive(true);
                 m_depthOfField.gaussianStart.value = 25.5f;
                 m_depthOfField.gaussianEnd.value = 86;
                 Time.timeScale = 1;
