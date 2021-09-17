@@ -41,6 +41,7 @@ public class Map : MonoBehaviour
                 m_mainPanelUI.SetActive(false);
                 m_depthOfField.gaussianStart.value = 0;
                 m_depthOfField.gaussianEnd.value = 0;
+                PlayerStatesManager.Instance.OffOperation();
                 Time.timeScale = 0;
             }
             else
@@ -50,6 +51,7 @@ public class Map : MonoBehaviour
                 m_depthOfField.gaussianStart.value = 25.5f;
                 m_depthOfField.gaussianEnd.value = 86;
                 Time.timeScale = 1;
+                PlayerStatesManager.Instance.OnOperation();
             }
         }
     }

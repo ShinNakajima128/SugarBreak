@@ -26,10 +26,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     [SerializeField]
     bool isGlaseSnowFieldCleared = false;
 
-    [SerializeField]
-    List<WeaponBase> m_currentWeaponList = new List<WeaponBase>();
-
-    public List<WeaponBase> CurrentWeaponList { get => m_currentWeaponList; set => m_currentWeaponList = value; }
     /// <summary>
     /// ステージクリア時のイベント
     /// </summary>

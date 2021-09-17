@@ -7,6 +7,9 @@ public class WeaponListManager : MonoBehaviour
 {
     public static WeaponListManager Instance;
 
+    [SerializeField]
+    List<WeaponBase> m_currentWeaponList = new List<WeaponBase>();
+
     List<Image> m_weaponIconList = new List<Image>();
 
     private void Awake()
@@ -26,13 +29,13 @@ public class WeaponListManager : MonoBehaviour
     {
         for (int i = 0; i < m_weaponIconList.Count; i++)
         {
-            if (GameManager.Instance.CurrentWeaponList[i].IsActived)
+            if (m_currentWeaponList[i].IsActived)
             {
-                m_weaponIconList[i].sprite = GameManager.Instance.CurrentWeaponList[i].WeaponData.ActiveWeaponImage;
+                m_weaponIconList[i].sprite = m_currentWeaponList[i].WeaponData.ActiveWeaponImage;
             }
             else
             {
-                m_weaponIconList[i].sprite = GameManager.Instance.CurrentWeaponList[i].WeaponData.DeactiveWeaponImage;
+                m_weaponIconList[i].sprite = m_currentWeaponList[i].WeaponData.DeactiveWeaponImage;
             }
         }
     }

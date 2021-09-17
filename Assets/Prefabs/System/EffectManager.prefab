@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_effectDatas:
-  - EffectPrefab: {fileID: 1845240806346120, guid: b395d5d6eb4b4b846acc021ee036b744,
+  - EffectPrefab: {fileID: 348168886034584824, guid: fca4226000c71df47839958f6e7047e9,
       type: 3}
     MaxCount: 10
   - EffectPrefab: {fileID: 100018, guid: a40b64bf23366dc42a892af2c6ff6140, type: 3}
@@ -65,4 +65,4 @@ MonoBehaviour:
     MaxCount: 3
   - EffectPrefab: {fileID: 3343523154514759114, guid: b4f540f837be95b4094ff919f51caa1c,
       type: 3}
-    MaxCount: 5
+    MaxCount: 10

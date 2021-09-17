@@ -16,14 +16,21 @@ public class MenuManager : MonoBehaviour
 {
     public static MenuManager Instance;
 
+    [Header("メニューのパネル")]
     [SerializeField] 
     GameObject[] m_menuPanels = default;
 
+    [Header("メニューの根本のパネル")]
     [SerializeField]
     GameObject m_rootMenuPanel = default;
 
+    [Header("ゲーム終了の確認画面")]
     [SerializeField]
     GameObject m_confirmPanel = default;
+
+    [Header("HUDのパネル")]
+    [SerializeField]
+    GameObject m_hudPanel = default;
 
     Dictionary<MenuState, int> menuIndex = new Dictionary<MenuState, int>();
     MenuState state = MenuState.Close;
@@ -63,21 +70,24 @@ public class MenuManager : MonoBehaviour
                 if (state == MenuState.Close)   //メニューを開く
                 {
                     m_rootMenuPanel.SetActive(true);
+                    m_hudPanel.SetActive(false);
                     Cursor.visible = true;
                     Cursor.lockState = CursorLockMode.None;
                     Time.timeScale = 0f;
                     ActiveMenu(0);
                     state = MenuState.Open;
+                    PlayerStatesManager.Instance.OffOperation();
                 }
                 else if (state != MenuState.Close)  //メニューを閉じる
                 {
                     Time.timeScale = 1f;
                     m_rootMenuPanel.SetActive(false);
+                    m_hudPanel.SetActive(true);
                     ActiveMenu(6);
                     state = MenuState.Close;
                     Cursor.visible = false;
                     Cursor.lockState = CursorLockMode.Locked;
-                    Debug.Log("メニューを閉じた");
+                    PlayerStatesManager.Instance.OnOperation();
                 }
             }
         }  
