@@ -32,6 +32,11 @@ public class BossArea : MonoBehaviour
                 director.Play();
                 isFirst = false;
             }
+            else
+            {
+                if (!UIManager.Instance.BossUI.activeSelf) UIManager.Instance.BossUI.SetActive(true);
+            }
+            
             SoundManager.Instance.SwitchBGM("BossBattle");
             isBattle = true;
             m_bossAreaEffect?.SetActive(true);
@@ -46,8 +51,7 @@ public class BossArea : MonoBehaviour
             {
                 SoundManager.Instance.SwitchBGM("BakedValley");
                 isBattle = false;
-                m_bossAreaEffect?.SetActive(true);
-
+                m_bossAreaEffect?.SetActive(false);
             }
         }
     }

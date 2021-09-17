@@ -55,5 +55,6 @@ public class ReturnArea : MonoBehaviour
         LoadSceneManager.Instance.FadeOut(LoadSceneManager.Instance.Masks[4]);
         PlayerStatesManager.Instance.OnOperation();
         CameraManager.Instance.CameraReset();
+        if (UIManager.Instance.BossUI.activeSelf) UIManager.Instance.BossUI.SetActive(false);
     }
 }

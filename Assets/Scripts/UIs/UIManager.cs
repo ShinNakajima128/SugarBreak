@@ -5,7 +5,20 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] GameObject m_stageName = default;
+    public static UIManager Instance;
+
+    [SerializeField] 
+    GameObject m_stageName = default;
+
+    [SerializeField]
+    GameObject m_bossUI = default;
+
+    public GameObject BossUI { get => m_bossUI; set => m_bossUI = value; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     public void EnableStageName()
     {
