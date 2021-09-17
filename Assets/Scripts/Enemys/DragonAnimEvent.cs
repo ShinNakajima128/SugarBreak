@@ -40,6 +40,7 @@ public class DragonAnimEvent : MonoBehaviour
 
     public void StateEnd()
     {
+        Debug.Log("デバッグ");
         m_dragon.SetState(DragonState.Freeze);
     }
 

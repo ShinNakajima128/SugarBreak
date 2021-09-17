@@ -64,7 +64,7 @@ public class Dragon : EnemyBase
 
     private void Update()
     {
-        if (!BossArea.isBattle) return;
+        if (!BossArea.isBattle || isdead) return;
 
         if (dragonState == DragonState.Freeze)
         {
@@ -141,11 +141,17 @@ public class Dragon : EnemyBase
         currentHp -= attackPower;
         m_HpSlider.value = currentHp;
 
-        if (currentHp > 0) m_anim.SetTrigger("Damage");
+        if (currentHp > 0) 
+        {
+            m_anim.SetTrigger("Damage");
+            SoundManager.Instance.PlaySeByName("Damage3");
+            EffectManager.PlayEffect(EffectType.Damage, m_effectPos.position);
+        }
 
         if (currentHp <= 0 && !isdead)
         {
             isdead = true;
+            SoundManager.Instance.PlaySeByName("Glowl");
             SetState(DragonState.Dead);
         }
     }
