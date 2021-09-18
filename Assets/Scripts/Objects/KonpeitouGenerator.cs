@@ -71,21 +71,6 @@ public class KonpeitouGenerator : MonoBehaviour
 
     IEnumerator GenerateInterval(int num, Vector3 pos, float power)
     {
-        //Vector3 pos = startPos;
-
-        //for (int i = 0; i < geneNum; i++)
-        //{
-        //    yield return new WaitForSeconds(m_generateTime);
-
-        //    var kon = Instantiate(m_konpeitous[Random.Range(0, m_konpeitous.Length)], pos, Quaternion.identity, transform);
-        //    var konpei = kon.GetComponent<Konpeitou>();
-        //    konpei.m_target = m_targetObject;
-        //    konpei.m_position = pos;
-        //    var m_rb = kon.gameObject.GetComponent<Rigidbody>();
-        //    Vector3 force = new Vector3(Random.Range(-2, 2), power, Random.Range(-2, 2));
-
-        //    m_rb.AddForce(force, ForceMode.Impulse);
-        //}
         foreach (var kon in m_generateKon)
         {
             if (num <= 0)

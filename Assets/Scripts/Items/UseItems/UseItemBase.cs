@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UseItemBase : MonoBehaviour
+/// <summary>
+/// 消費アイテムの基底クラス
+/// </summary>
+public  abstract class UseItemBase : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    protected UseItemData m_itemData = default;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public abstract void UseItem();
 }

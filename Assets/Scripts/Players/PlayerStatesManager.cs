@@ -49,7 +49,7 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
 
         if (Input.GetKeyDown(KeyCode.H))
         {
-            playerData.HP++;
+            Heal(1);
             hpGauge.SetHpGauge(playerData.HP);
         }
 
@@ -78,6 +78,19 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
         {
             SoundManager.Instance.PlaySeByName("Damage3");
             m_anim.SetTrigger("isDamaged");
+        }
+    }
+
+    public void Heal(int healValue)
+    {
+        if (isDying) return;
+
+        playerData.HP += healValue;
+        hpGauge.SetHpGauge(playerData.HP);
+
+        if (playerData.HP > playerData.MaxHp)
+        {
+            playerData.HP = playerData.MaxHp;
         }
     }
 
