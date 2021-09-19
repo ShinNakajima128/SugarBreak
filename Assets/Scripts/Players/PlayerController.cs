@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float m_jumpPower = 5f;
     /// <summary> 硬直時間 </summary>
     [SerializeField] float m_waitTime = 1.0f;
-    [SerializeField] AnimationEventScript animationEventScript = null; 
+    [SerializeField] AnimationEventScript animationEventScript = null;
     /// <summary> 着地判定を取る距離 </summary>
     [SerializeField] float m_isGroundedLength = 0.05f;
     /// <summary> Effectを表示する場所 </summary>
@@ -50,17 +50,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //float h = Input.GetAxisRaw("D Pad Hori");
-        //float v = Input.GetAxisRaw("D Pad Ver");
-        //if (h != 0)
-        //{
-        //    Debug.Log(h);
-        //}
-        //else if(v != 0)
-        //{
-        //    Debug.Log(v);
-        //}
-
         ///Playerが操作可能だったら
         if (PlayerStatesManager.Instance.IsOperation)
         {
@@ -93,10 +82,9 @@ public class PlayerController : MonoBehaviour
                     {
                         m_anim.SetFloat("Move", 0f);
                     }
-                    
                 }
             }
-        }  
+        }
     }
 
     /// <summary>
@@ -157,7 +145,7 @@ public class PlayerController : MonoBehaviour
                     velo.y = m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
                     m_rb.velocity = velo;   // 計算した速度ベクトルをセットする
                     state = PlayerState.Run;
-                }      
+                }
             }
         }
     }
@@ -184,7 +172,7 @@ public class PlayerController : MonoBehaviour
                 SoundManager.Instance.PlayVoiceByName("univ0001");
             }
         }
-        
+
     }
 
     public void JumpMotion()
@@ -199,70 +187,74 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void AttackMove()
     {
-        if (Input.GetButtonDown("Fire1") && animationEventScript.weaponStates == WeaponState.CandyBeat)
+        
+        if (Input.GetButtonDown("Fire1") || Input.GetAxis("Trigger") > 0)
         {
-            if (IsGrounded())
+            if (animationEventScript.weaponStates == WeaponState.CandyBeat)
             {
-                PlayerStatesManager.Instance.IsOperation = false;
-                m_anim.SetBool("Light", true);                      ///CandyBeatの弱攻撃
-                StartCoroutine(AttackMotionTimer(m_waitTime));
-            }
-            else
-            {
-                PlayerStatesManager.Instance.IsOperation = false;
-                m_rb.velocity = new Vector3(m_rb.velocity.x, 0, m_rb.velocity.z);
-                m_rb.AddForce(Vector3.up * 10, ForceMode.Impulse);
-                m_anim.SetBool("Strong", true);                     ///CandyBeatの強攻撃
-                StartCoroutine(AttackMotionTimer(m_waitTime));
-            }   
-        }
-
-        ///ポップランチャーの攻撃
-        if (Input.GetButtonDown("Fire1") && animationEventScript.weaponStates == WeaponState.PopLauncher)
-        {
-            PlayerStatesManager.Instance.IsOperation = false;
-            m_anim.SetBool("Shoot", true);
-            StartCoroutine(AttackMotionTimer(m_waitTime));
-            m_rb.velocity = new Vector3(0, m_rb.velocity.y, 0);
-        }
-
-        ///デュアルソーダの攻撃
-        if (Input.GetButtonDown("Fire1") && animationEventScript.weaponStates == WeaponState.DualSoda)
-        {
-            if (comboNum == 3) return;
-
-            if(comboNum == 0)
-            {
-                m_anim.SetTrigger("SwordAttack1");
-                comboNum = 1;
-                combpCoroutine =  StartCoroutine(AttackMotionTimer(0.3f));
-            }
-            else if(comboNum == 1)
-            {
-                m_anim.SetTrigger("SwordAttack2");
-                comboNum = 2;
-                if (combpCoroutine != null)
+                if (IsGrounded())
                 {
-                    StopCoroutine(combpCoroutine);
-                    combpCoroutine = null;
-                    combpCoroutine = StartCoroutine(AttackMotionTimer(0.3f));
-                }    
-            }
-            else if (comboNum == 2)
-            {
-                m_rb.velocity = Vector3.zero;
-                m_anim.SetTrigger("SwordAttack3");
-                PlayerStatesManager.Instance.IsOperation = false;
-                StartCoroutine(AttackMotionTimer(m_waitTime));
-                comboNum = 3;
-                if (combpCoroutine != null)
+                    PlayerStatesManager.Instance.IsOperation = false;
+                    m_anim.SetBool("Light", true);                      ///CandyBeatの弱攻撃
+                    StartCoroutine(AttackMotionTimer(m_waitTime));
+                }
+                else
                 {
-                    StopCoroutine(combpCoroutine);
-                    combpCoroutine = null;
-                    combpCoroutine = StartCoroutine(AttackMotionTimer(0.5f));
+                    PlayerStatesManager.Instance.IsOperation = false;
+                    m_rb.velocity = new Vector3(m_rb.velocity.x, 0, m_rb.velocity.z);
+                    m_rb.AddForce(Vector3.up * 10, ForceMode.Impulse);
+                    m_anim.SetBool("Strong", true);                     ///CandyBeatの強攻撃
+                    StartCoroutine(AttackMotionTimer(m_waitTime));
                 }
             }
-        }
+
+            ///ポップランチャーの攻撃
+            if (animationEventScript.weaponStates == WeaponState.PopLauncher)
+            {
+                PlayerStatesManager.Instance.IsOperation = false;
+                m_anim.SetBool("Shoot", true);
+                StartCoroutine(AttackMotionTimer(m_waitTime));
+                m_rb.velocity = new Vector3(0, m_rb.velocity.y, 0);
+            }
+
+            ///デュアルソーダの攻撃
+            if (animationEventScript.weaponStates == WeaponState.DualSoda)
+            {
+                if (comboNum == 3) return;
+
+                if (comboNum == 0)
+                {
+                    m_anim.SetTrigger("SwordAttack1");
+                    comboNum = 1;
+                    combpCoroutine = StartCoroutine(AttackMotionTimer(0.3f));
+                }
+                else if (comboNum == 1)
+                {
+                    m_anim.SetTrigger("SwordAttack2");
+                    comboNum = 2;
+                    if (combpCoroutine != null)
+                    {
+                        StopCoroutine(combpCoroutine);
+                        combpCoroutine = null;
+                        combpCoroutine = StartCoroutine(AttackMotionTimer(0.3f));
+                    }
+                }
+                else if (comboNum == 2)
+                {
+                    m_rb.velocity = Vector3.zero;
+                    m_anim.SetTrigger("SwordAttack3");
+                    PlayerStatesManager.Instance.IsOperation = false;
+                    StartCoroutine(AttackMotionTimer(m_waitTime));
+                    comboNum = 3;
+                    if (combpCoroutine != null)
+                    {
+                        StopCoroutine(combpCoroutine);
+                        combpCoroutine = null;
+                        combpCoroutine = StartCoroutine(AttackMotionTimer(0.5f));
+                    }
+                }
+            }
+        }   
     }
 
     /// <summary>
@@ -291,7 +283,7 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetAxisRaw("D Pad Ver") == 1)
         {
             if (animationEventScript.weaponStates == WeaponState.PopLauncher) return;
-            
+
             EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
             animationEventScript.isChanged = false;
             //animationEventScript.weaponStates = WeaponState.PopLauncher;
