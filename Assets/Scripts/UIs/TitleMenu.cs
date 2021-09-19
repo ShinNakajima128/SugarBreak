@@ -61,6 +61,9 @@ public class TitleMenu : MonoBehaviour
     [SerializeField]
     Text m_playButtonText = default;
 
+    [SerializeField]
+    Button m_menuFirstButton = default;
+
     bool isStarted = false;
     bool isChanged = false;
 
@@ -114,6 +117,7 @@ public class TitleMenu : MonoBehaviour
                     SwitchingMenu(1);
                     isChanged = true;
                     TextChange();
+                    m_menuFirstButton.Select();
                     Debug.Log("メインメニュー");
                 }
                 break;
