@@ -19,8 +19,6 @@ public class CameraManager : MonoBehaviour
     {
         Instance = this;
         m_initialPos = m_freeLook.transform.localPosition;
-
-        Debug.Log(m_initialPos);
     }
 
     public void CameraReset()

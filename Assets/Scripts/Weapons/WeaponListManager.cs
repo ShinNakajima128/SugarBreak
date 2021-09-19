@@ -20,7 +20,6 @@ public class WeaponListManager : MonoBehaviour
 
         foreach (var image in weaponList)
         {
-            Debug.Log(image.sprite.name);
             m_weaponIconList.Add(image);
         }
     }

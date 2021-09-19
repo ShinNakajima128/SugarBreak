@@ -50,6 +50,17 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        //float h = Input.GetAxisRaw("D Pad Hori");
+        //float v = Input.GetAxisRaw("D Pad Ver");
+        //if (h != 0)
+        //{
+        //    Debug.Log(h);
+        //}
+        //else if(v != 0)
+        //{
+        //    Debug.Log(v);
+        //}
+
         ///Playerが操作可能だったら
         if (PlayerStatesManager.Instance.IsOperation)
         {
@@ -259,7 +270,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void WeaponChange()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetAxisRaw("D Pad Hori") == 1)
         {
             if (animationEventScript.weaponStates == WeaponState.CandyBeat) return;
 
@@ -277,7 +288,7 @@ public class PlayerController : MonoBehaviour
                 SoundManager.Instance.PlaySeByName("Change");
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetAxisRaw("D Pad Ver") == 1)
         {
             if (animationEventScript.weaponStates == WeaponState.PopLauncher) return;
             
@@ -295,7 +306,7 @@ public class PlayerController : MonoBehaviour
                 SoundManager.Instance.PlaySeByName("Change");
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        else if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetAxisRaw("D Pad Hori") == -1)
         {
             if (animationEventScript.weaponStates == WeaponState.DualSoda) return;
 

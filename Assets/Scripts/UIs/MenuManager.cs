@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum MenuState
 {
@@ -17,7 +18,7 @@ public class MenuManager : MonoBehaviour
     public static MenuManager Instance;
 
     [Header("メニューのパネル")]
-    [SerializeField] 
+    [SerializeField]
     GameObject[] m_menuPanels = default;
 
     [Header("メニューの根本のパネル")]
@@ -31,6 +32,18 @@ public class MenuManager : MonoBehaviour
     [Header("HUDのパネル")]
     [SerializeField]
     GameObject m_hudPanel = default;
+
+    [Header("メニューを開いた時に選択するボタン")]
+    [SerializeField]
+    Button m_menuFirstButton = default;
+
+    [Header("オプション開いた時に選択するボタン")]
+    [SerializeField]
+    Button m_optionFirstButton = default;
+
+    [Header("拠点に戻るボタンを押した時に選択するボタン")]
+    [SerializeField]
+    Button m_exitFirstButton = default;
 
     Dictionary<MenuState, int> menuIndex = new Dictionary<MenuState, int>();
     MenuState state = MenuState.Close;
@@ -65,7 +78,7 @@ public class MenuManager : MonoBehaviour
     {
         if (WhetherOpenMenu)
         {
-            if (Input.GetKeyDown(KeyCode.Escape) && !Map.Instance.PauseFlag)
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button7) && !Map.Instance.PauseFlag)
             {
                 if (state == MenuState.Close)   //メニューを開く
                 {
@@ -77,21 +90,35 @@ public class MenuManager : MonoBehaviour
                     ActiveMenu(0);
                     state = MenuState.Open;
                     PlayerStatesManager.Instance.OffOperation();
+
+                    MenuSelectButton();
                 }
                 else if (state != MenuState.Close)  //メニューを閉じる
                 {
-                    Time.timeScale = 1f;
-                    m_rootMenuPanel.SetActive(false);
-                    m_hudPanel.SetActive(true);
-                    ActiveMenu(6);
-                    state = MenuState.Close;
-                    Cursor.visible = false;
-                    Cursor.lockState = CursorLockMode.Locked;
-                    PlayerStatesManager.Instance.OnOperation();
+                    CloseMenu();
                 }
             }
-        }  
+
+            if (Input.GetButtonDown("Cancel"))
+            {
+                if (m_confirmPanel.activeSelf)
+                {
+                    ActiveMenu(0);
+                }
+                else if (m_rootMenuPanel.activeSelf)
+                {
+                    CloseMenu();
+                }
+            }
+        }
+
+
     }
+
+    public void MenuSelectButton() => m_menuFirstButton.Select();
+   
+    public void ExitSelectButton() => m_exitFirstButton.Select();
+
 
     /// <summary>
     /// 指定のメニューを開く
@@ -138,7 +165,19 @@ public class MenuManager : MonoBehaviour
         LoadSceneManager.Instance.AnyLoadScene(baseName);
     }
 
-    public int GetMenu(MenuState menu)
+    void CloseMenu()
+    {
+        Time.timeScale = 1f;
+        m_rootMenuPanel.SetActive(false);
+        m_hudPanel.SetActive(true);
+        ActiveMenu(6);
+        state = MenuState.Close;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        PlayerStatesManager.Instance.OnOperation();
+    }
+
+    int GetMenu(MenuState menu)
     {
         if (menuIndex.ContainsKey(menu))
         {
@@ -149,5 +188,5 @@ public class MenuManager : MonoBehaviour
             return 0;
         }
     }
-        
+
 }
