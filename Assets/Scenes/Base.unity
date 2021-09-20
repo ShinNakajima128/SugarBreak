@@ -5838,10 +5838,9 @@ MonoBehaviour:
   - {fileID: 1404284619}
   - {fileID: 1239119150}
   - {fileID: 639640072}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1031167724}
+  - {fileID: 1459207776}
+  - {fileID: 162012777}
   m_confirmPanel: {fileID: 1870652775}
   m_updateIcon: {fileID: 1870859266}
 --- !u!1 &703052912

@@ -78,41 +78,42 @@ public class MenuManager : MonoBehaviour
     {
         if (WhetherOpenMenu)
         {
-            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button7) && !Map.Instance.PauseFlag)
+            if (!Map.Instance.PauseFlag)
             {
-                if (state == MenuState.Close)   //メニューを開く
+                if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown("joystick button 7"))
                 {
-                    m_rootMenuPanel.SetActive(true);
-                    m_hudPanel.SetActive(false);
-                    Cursor.visible = true;
-                    Cursor.lockState = CursorLockMode.None;
-                    Time.timeScale = 0f;
-                    ActiveMenu(0);
-                    state = MenuState.Open;
-                    PlayerStatesManager.Instance.OffOperation();
+                    Debug.Log("メニューを開いた");
+                    if (state == MenuState.Close)   //メニューを開く
+                    {
+                        m_rootMenuPanel.SetActive(true);
+                        m_hudPanel.SetActive(false);
+                        Cursor.visible = true;
+                        Cursor.lockState = CursorLockMode.None;
+                        Time.timeScale = 0f;
+                        ActiveMenu(0);
+                        state = MenuState.Open;
+                        PlayerStatesManager.Instance.OffOperation();
 
-                    MenuSelectButton();
+                        MenuSelectButton();
+                    }
+                    else if (state != MenuState.Close)  //メニューを閉じる
+                    {
+                        CloseMenu();
+                    }
                 }
-                else if (state != MenuState.Close)  //メニューを閉じる
+                else if (Input.GetButtonDown("Cancel"))
                 {
-                    CloseMenu();
+                    if (m_confirmPanel.activeSelf)
+                    {
+                        ActiveMenu(0);
+                    }
+                    else if (m_rootMenuPanel.activeSelf)
+                    {
+                        CloseMenu();
+                    }
                 }
-            }
-
-            if (Input.GetButtonDown("Cancel"))
-            {
-                if (m_confirmPanel.activeSelf)
-                {
-                    ActiveMenu(0);
-                }
-                else if (m_rootMenuPanel.activeSelf)
-                {
-                    CloseMenu();
-                }
-            }
+            }          
         }
-
-
     }
 
     public void MenuSelectButton() => m_menuFirstButton.Select();
