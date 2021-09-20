@@ -8,6 +8,7 @@ public class WeaponBase : MonoBehaviour
     [SerializeField]
     WeaponData m_data = default;
 
+    [Header("武器の攻撃力")]
     [SerializeField]
     protected int attackDamage = 5;
 

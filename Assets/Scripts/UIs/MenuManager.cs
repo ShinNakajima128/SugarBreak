@@ -76,13 +76,12 @@ public class MenuManager : MonoBehaviour
 
     void Update()
     {
-        if (WhetherOpenMenu)
+        if (WhetherOpenMenu)    //メニューが開ける状態だったら
         {
-            if (!Map.Instance.PauseFlag)
+            if (!Map.Instance.PauseFlag)    //マップを開いていなかったらメニューを開ける
             {
-                if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown("joystick button 7"))
+                if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown("joystick button 7"))      //Escキーかゲームパッドのスタートボタンが押されたら
                 {
-                    Debug.Log("メニューを開いた");
                     if (state == MenuState.Close)   //メニューを開く
                     {
                         m_rootMenuPanel.SetActive(true);
@@ -116,8 +115,14 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// メニューを開いた時にボタンを選択
+    /// </summary>
     public void MenuSelectButton() => m_menuFirstButton.Select();
    
+    /// <summary>
+    /// 拠点に戻る確認画面を開いた時にボタンを選択する
+    /// </summary>
     public void ExitSelectButton() => m_exitFirstButton.Select();
 
 
@@ -189,5 +194,4 @@ public class MenuManager : MonoBehaviour
             return 0;
         }
     }
-
 }
