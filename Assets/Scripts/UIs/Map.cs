@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
+/// <summary>
+/// マップを開閉して操作するクラス
+/// </summary>
 public class Map : MonoBehaviour
 {
     public static Map Instance;
@@ -31,28 +34,31 @@ public class Map : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.M) && MenuManager.Instance.MenuStates == MenuState.Close)
+        if (MenuManager.Instance.MenuStates == MenuState.Close)     //メニューが開かれていない状態なら
         {
-            pauseFlag = !pauseFlag;
+            if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown("joystick button 3"))   //キーボードのMかゲームパッドのYボタンが押されたら
+            {
+                pauseFlag = !pauseFlag;
 
-            if (pauseFlag)
-            {
-                m_mapUI.SetActive(true);
-                m_mainPanelUI.SetActive(false);
-                m_depthOfField.gaussianStart.value = 0;
-                m_depthOfField.gaussianEnd.value = 0;
-                PlayerStatesManager.Instance.OffOperation();
-                Time.timeScale = 0;
-            }
-            else
-            {
-                m_mapUI.SetActive(false);
-                m_mainPanelUI.SetActive(true);
-                m_depthOfField.gaussianStart.value = 25.5f;
-                m_depthOfField.gaussianEnd.value = 86;
-                Time.timeScale = 1;
-                PlayerStatesManager.Instance.OnOperation();
-            }
+                if (pauseFlag)
+                {
+                    m_mapUI.SetActive(true);
+                    m_mainPanelUI.SetActive(false);
+                    m_depthOfField.gaussianStart.value = 0;
+                    m_depthOfField.gaussianEnd.value = 0;
+                    PlayerStatesManager.Instance.OffOperation();
+                    Time.timeScale = 0;
+                }
+                else
+                {
+                    m_mapUI.SetActive(false);
+                    m_mainPanelUI.SetActive(true);
+                    m_depthOfField.gaussianStart.value = 25.5f;
+                    m_depthOfField.gaussianEnd.value = 86;
+                    Time.timeScale = 1;
+                    PlayerStatesManager.Instance.OnOperation();
+                }
+            }          
         }
     }
 }
