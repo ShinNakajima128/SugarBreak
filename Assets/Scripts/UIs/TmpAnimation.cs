@@ -12,10 +12,10 @@ public class TmpAnimation : MonoBehaviour
     {
         m_tmpText = GetComponent<TextMeshProUGUI>();
         m_tmpText.DOFade(0, 0);
-        gameObject.SetActive(false);
+        m_tmpText.enabled = false;
     }
 
-    private void OnEnable()
+    public void StartPlay()
     {
         StartCoroutine(PlayAnim());
     }

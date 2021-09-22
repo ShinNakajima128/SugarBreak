@@ -63,7 +63,6 @@ public class SkipMovieController : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         LoadSceneManager.Instance.FadeOut(LoadSceneManager.Instance.Masks[1]);
         m_director.playableGraph.GetRootPlayable(0).SetSpeed(500);
-        Debug.Log("再生終了");
     }
 
     /// <summary>
@@ -72,7 +71,6 @@ public class SkipMovieController : MonoBehaviour
     /// <param name="director"></param>
     void MovieFinished(PlayableDirector director)
     {
-        Debug.Log("再生終了");
         isPlayed = true;
     }
 
