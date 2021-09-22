@@ -8,9 +8,12 @@ using TMPro;
 public class PlayerStatesManager : MonoBehaviour, IDamagable
 {
     public static PlayerStatesManager Instance;
+
+    [Header("プレイヤーのデータ")]
     [SerializeField] 
     PlayerData playerData = default;
 
+    [Header("金平糖の所持数を表示するテキスト")]
     [SerializeField] 
     TextMeshProUGUI m_totalKonpeitouTmp = default;
 
