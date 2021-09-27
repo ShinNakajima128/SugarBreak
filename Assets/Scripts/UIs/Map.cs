@@ -9,7 +9,7 @@ using UnityEngine.Rendering.Universal;
 /// </summary>
 public class Map : MonoBehaviour
 {
-    public static Map Instance;
+    public static Map Instance { get; private set; }
 
     [SerializeField]
     GameObject m_mapUI;
@@ -34,7 +34,7 @@ public class Map : MonoBehaviour
     void Update()
     {
 
-        if (MenuManager.Instance.MenuStates == MenuState.Close)     //メニューが開かれていない状態なら
+        if (MenuManager.Instance.MenuStates == MenuState.Close && !GameManager.Instance.IsPlayingMovie)     //プレイヤーが操作できる時且つメニューが開かれていない状態なら
         {
             if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown("joystick button 3"))   //キーボードのMかゲームパッドのYボタンが押されたら
             {

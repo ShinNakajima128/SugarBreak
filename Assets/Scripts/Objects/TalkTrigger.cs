@@ -69,6 +69,7 @@ public class TalkTrigger : MonoBehaviour
     public void ActiveCamera()
     {
         freeLook.Priority = 20;
+        GameManager.Instance.IsPlayingMovie = true;
     }
     /// <summary>
     /// 注目用のカメラをOFFにする
@@ -76,6 +77,7 @@ public class TalkTrigger : MonoBehaviour
     public void InactiveCamera()
     {
         freeLook.Priority = 9;
+        GameManager.Instance.IsPlayingMovie = false;
     }
 
 }

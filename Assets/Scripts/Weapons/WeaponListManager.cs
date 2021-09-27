@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class WeaponListManager : MonoBehaviour
 {
-    public static WeaponListManager Instance;
+    public static WeaponListManager Instance { get; private set; }
 
     [SerializeField]
     List<WeaponBase> m_currentWeaponList = new List<WeaponBase>();

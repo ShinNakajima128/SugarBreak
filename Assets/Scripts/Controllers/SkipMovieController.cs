@@ -82,10 +82,12 @@ public class SkipMovieController : MonoBehaviour
     void CanNotOpenMenu(PlayableDirector director)
     {
         MenuManager.Instance.WhetherOpenMenu = false;
+        GameManager.Instance.IsPlayingMovie = true;
     }
 
     void CanOpenMenu(PlayableDirector director)
     {
         MenuManager.Instance.WhetherOpenMenu = true;
+        GameManager.Instance.IsPlayingMovie = false;
     }
 }

@@ -7,7 +7,7 @@ using TMPro;
 
 public class PlayerStatesManager : MonoBehaviour, IDamagable
 {
-    public static PlayerStatesManager Instance;
+    public static PlayerStatesManager Instance { get; private set; }
 
     [Header("プレイヤーのデータ")]
     [SerializeField] 

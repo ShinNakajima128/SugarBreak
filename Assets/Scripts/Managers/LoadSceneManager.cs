@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LoadSceneManager : MonoBehaviour
 {
-    public static LoadSceneManager Instance;
+    public static LoadSceneManager Instance { get; private set; }
     /// <summary> フェードさせるパネル </summary>
     [SerializeField] 
     Fade fade = default;

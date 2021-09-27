@@ -29,5 +29,6 @@ public class ClearMovie : MonoBehaviour
     void CanNotOpenMenu()
     {
         MenuManager.Instance.WhetherOpenMenu = false;
+        GameManager.Instance.IsPlayingMovie = true;
     }
 }

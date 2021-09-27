@@ -15,7 +15,7 @@ public enum MenuState
 
 public class MenuManager : MonoBehaviour
 {
-    public static MenuManager Instance;
+    public static MenuManager Instance { get; private set; }
 
     [Header("メニューのパネル")]
     [SerializeField]
@@ -78,7 +78,7 @@ public class MenuManager : MonoBehaviour
     {
         if (WhetherOpenMenu)    //メニューが開ける状態だったら
         {
-            if (!Map.Instance.PauseFlag)    //マップを開いていなかったらメニューを開ける
+            if (!Map.Instance.PauseFlag && !GameManager.Instance.IsPlayingMovie)    //マップを開いていなかったらメニューを開ける
             {
                 if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown("joystick button 7"))      //Escキーかゲームパッドのスタートボタンが押されたら
                 {

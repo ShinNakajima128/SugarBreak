@@ -52,6 +52,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     public bool IsGlaseSnowFieldCleared { get => isGlaseSnowFieldCleared; set => isGlaseSnowFieldCleared = value; }
 
+    public bool IsPlayingMovie { get; set; } = false;
 
     void Awake()
     {
