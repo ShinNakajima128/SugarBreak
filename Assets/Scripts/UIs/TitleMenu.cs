@@ -64,11 +64,24 @@ public class TitleMenu : MonoBehaviour
     [SerializeField]
     Button m_menuFirstButton = default;
 
+    [SerializeField]
+    Slider m_masterVolume = default;
+
+    [SerializeField]
+    Slider m_bgmVolume = default;
+
+    [SerializeField]
+    Slider m_seVolume = default;
+
+    [SerializeField]
+    Slider m_voiceVolume = default;
+
     bool isStarted = false;
     bool isChanged = false;
 
     void Start()
     {
+        VolumeSetup();
         isStarted = false;
         SwitchingMenu(0);
         m_loadingAnim.SetActive(false);
@@ -129,7 +142,26 @@ public class TitleMenu : MonoBehaviour
                     Debug.Log("オプション");
                 }
                 break;
+            case TitleMenuState.Audio:
+                if (!isChanged)
+                {
+                    SwitchingMenu(3);
+                    isChanged = true;
+                    Debug.Log("オーディオ設定");
+                }
+                break;
         }
+    }
+
+    void VolumeSetup()
+    {
+        if (m_masterVolume) m_masterVolume.value = SoundManager.Instance.GetMasterVolume;
+
+        if (m_bgmVolume) m_bgmVolume.value = SoundManager.Instance.GetBgmVolume;
+
+        if (m_seVolume) m_seVolume.value = SoundManager.Instance.GetSeVolume;
+
+        if (m_voiceVolume) m_voiceVolume.value = SoundManager.Instance.GetVoiceVolume;
     }
 
     public void OnChangeColor(Text text)
@@ -177,6 +209,13 @@ public class TitleMenu : MonoBehaviour
         isChanged = false;
     }
 
+    public void AudioSelect()
+    {
+        SoundManager.Instance.PlaySeByName("Select");
+        titleState = TitleMenuState.Audio;
+        isChanged = false;
+    }
+
     /// <summary>
     /// ゲーム終了前の確認画面を表示する
     /// </summary>
@@ -193,6 +232,26 @@ public class TitleMenu : MonoBehaviour
     {
         m_confirmPanel.SetActive(false);
         m_mainMenuList.SetActive(true);
+    }
+
+    public void MasterChange()
+    {
+        SoundManager.Instance.MasterVolChange(m_masterVolume.value);
+    }
+
+    public void BgmChange()
+    {
+        SoundManager.Instance.BgmVolChange(m_bgmVolume.value);
+    }
+
+    public void SeChange()
+    {
+        SoundManager.Instance.SeVolChange(m_seVolume.value);
+    }
+
+    public void VoiceChange()
+    {
+        SoundManager.Instance.VoiceVolChange(m_voiceVolume.value);
     }
 
     void TextChange()
