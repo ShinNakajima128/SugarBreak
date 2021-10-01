@@ -204,7 +204,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4056887}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 702951158}
+        m_MethodName: OnItemMake
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4056887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4579,7 +4590,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 639640072}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 688feab9ade967d488d304b57da29578, type: 3}
   m_Name: 
@@ -10730,7 +10741,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u30B9\u30C6\u30FC\u30B8"
+  m_Text: "\u3067\u304B\u3051\u308B"
 --- !u!222 &1309854489
 CanvasRenderer:
   m_ObjectHideFlags: 0
