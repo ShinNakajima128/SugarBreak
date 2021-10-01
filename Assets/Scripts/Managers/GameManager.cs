@@ -66,14 +66,21 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        if (SceneManager.GetActiveScene().name == "Title")
+
+        var sceneName = SceneManager.GetActiveScene().name;
+
+        if (sceneName == "Title")
         {
         }
-        else if (SceneManager.GetActiveScene().name == "Base")
+        else if (sceneName == "Base")
         {
         }
-        else if (SceneManager.GetActiveScene().name == "BakedValley")
+        else if (sceneName == "BakedValley")
         {
+        }
+        else if (sceneName == "CookieDungeon")
+        {
+            MenuManager.Instance.WhetherOpenMenu = true;
         }
     }
 
