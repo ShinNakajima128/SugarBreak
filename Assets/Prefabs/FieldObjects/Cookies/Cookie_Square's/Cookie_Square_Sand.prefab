@@ -89,7 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6814329094429470883}
   m_Layer: 0
-  m_Name: Cookie_Square_Sand 1
+  m_Name: Cookie_Square_Sand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,7 +103,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6186411630035970585}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 34.45, y: 0, z: 3.89}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5451074037825563370}
