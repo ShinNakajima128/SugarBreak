@@ -130,7 +130,7 @@ public class TitleMenu : MonoBehaviour
                     SwitchingMenu(1);
                     isChanged = true;
                     TextChange();
-                    m_menuFirstButton.Select();
+                    //m_menuFirstButton.Select();
                     Debug.Log("メインメニュー");
                 }
                 break;
