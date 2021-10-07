@@ -35,6 +35,9 @@ public class BaseUI : MonoBehaviour
     [SerializeField]
     GameObject m_updateIcon = default;
 
+    [Header("各メニューの最初に選択するボタン")]
+    [SerializeField]
+    Button[] m_menuButtons = default;
 
     void Start()
     {
@@ -163,6 +166,7 @@ public class BaseUI : MonoBehaviour
                 break;
             case BaseUIState.Exit:
                 OnConfirmPanel();
+                m_menuButtons[6].Select();
                 break;
         }
     }
@@ -174,6 +178,7 @@ public class BaseUI : MonoBehaviour
             if (i == index)
             {
                 m_menuPanels[i]?.SetActive(true);
+                m_menuButtons[i].Select();
             }
             else
             {

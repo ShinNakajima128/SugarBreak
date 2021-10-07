@@ -42,4 +42,33 @@ public class ButtonAnimation : MonoBehaviour, IPointerEnterHandler, IPointerExit
         seq?.Kill();
         transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
     }
+
+    public void SubmitButton()
+    {
+        seq?.Kill();
+
+        seq = DOTween.Sequence();
+
+        seq.Append(transform.DOMoveY(transform.position.y - 7, 0.05f))
+           .Join(buttonImage.DOColor(new Color(0.7f, 0.7f, 0.7f), 0.05f))
+           .Append(transform.DOMoveY(transform.position.y, 0.05f))
+           .Join(buttonImage.DOColor(new Color(1, 1, 1), 0.05f));
+    }
+
+    public void OnSelectButton()
+    {
+        seq?.Kill();
+
+        seq = DOTween.Sequence();
+
+        seq.Append(transform.DOScale(new Vector3(0.45f, 0.45f, 0.45f), 0.5f))
+        .Append(transform.DOScale(new Vector3(0.4f, 0.4f, 0.4f), 0.5f))
+        .SetLoops(-1);
+    }
+
+    public void OffSelectButton()
+    {
+        seq?.Kill();
+        transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+    }
 }
