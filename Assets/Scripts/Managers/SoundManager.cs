@@ -49,13 +49,13 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     Dictionary<string, int> bgmIndex = new Dictionary<string, int>();
     Dictionary<string, int> seIndex = new Dictionary<string, int>();
     Dictionary<string, int> voiceIndex = new Dictionary<string, int>();
-    /// <summary> マスター音量時のフラグ </summary>
+    /// <summary> マスター音量変更時のフラグ </summary>
     bool masterVolumeChange = false;
-    /// <summary> BGM音量時のフラグ </summary>
+    /// <summary> BGM音量変更時のフラグ </summary>
     bool bgmVolumeChange = false;
-    /// <summary> SE音量時のフラグ </summary>
+    /// <summary> SE音量変更時のフラグ </summary>
     bool seVolumeChange = false;
-    /// <summary> ボイス音量時のフラグ </summary>
+    /// <summary> ボイス音量変更時のフラグ </summary>
     bool voiceVolumeChange = false;
     float currentVol;
     Coroutine coroutine;

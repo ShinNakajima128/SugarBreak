@@ -10,7 +10,7 @@ public enum BaseUIState
     ItemMake,
     Weapon,
     Option,
-    Tutorial,
+    Collection,
     Exit
 }
 
@@ -101,9 +101,9 @@ public class BaseUI : MonoBehaviour
     /// <summary>
     /// チュートリアル画面を表示する
     /// </summary>
-    public void OnTutorial()
+    public void OnCollection()
     {
-        ChangeUIPanel(BaseUIState.Tutorial);
+        ChangeUIPanel(BaseUIState.Collection);
     }
 
     /// <summary>
@@ -158,7 +158,7 @@ public class BaseUI : MonoBehaviour
             case BaseUIState.Option:
                 PanelChange(4);
                 break;
-            case BaseUIState.Tutorial:
+            case BaseUIState.Collection:
                 PanelChange(5);
                 break;
             case BaseUIState.Exit:
