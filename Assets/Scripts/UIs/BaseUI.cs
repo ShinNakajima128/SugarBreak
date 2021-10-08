@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using UnityEngine.EventSystems;
 
 public enum BaseUIState
 {
@@ -39,6 +41,14 @@ public class BaseUI : MonoBehaviour
     [SerializeField]
     Button[] m_menuButtons = default;
 
+    public static Action OnButtonScaleReset = default;
+
+    Button m_currentButton = default;
+
+    private void Awake()
+    {
+        if (OnButtonScaleReset != null) OnButtonScaleReset = null;
+    }
     void Start()
     {
         m_updateIcon?.SetActive(false);
@@ -56,6 +66,12 @@ public class BaseUI : MonoBehaviour
     /// </summary>
     public void OnMain()
     {
+        if (m_baseUI != BaseUIState.Main)
+        {
+            //OnButtonScaleReset?.Invoke();
+            m_currentButton.Select();
+        }
+
         ChangeUIPanel(BaseUIState.Main);
 
         if ((bool)(!m_updateIcon?.activeSelf) && GameManager.Instance.IsStageUpdated)
@@ -150,21 +166,27 @@ public class BaseUI : MonoBehaviour
                 if (m_confirmPanel.activeSelf) m_confirmPanel.SetActive(false);
                 break;
             case BaseUIState.StageSelect:
+                SaveSelectButton();
                 PanelChange(1);
                 break;
             case BaseUIState.ItemMake:
+                SaveSelectButton();
                 PanelChange(2);
                 break;
             case BaseUIState.Weapon:
+                SaveSelectButton();
                 PanelChange(3);
                 break;
             case BaseUIState.Option:
+                SaveSelectButton();
                 PanelChange(4);
                 break;
             case BaseUIState.Collection:
+                SaveSelectButton();
                 PanelChange(5);
                 break;
             case BaseUIState.Exit:
+                SaveSelectButton();
                 OnConfirmPanel();
                 m_menuButtons[6].Select();
                 break;
@@ -189,5 +211,10 @@ public class BaseUI : MonoBehaviour
     void OnConfirmPanel()
     {
         m_confirmPanel?.SetActive(true);
+    }
+
+    void SaveSelectButton()
+    {
+        m_currentButton = EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
     }
 }

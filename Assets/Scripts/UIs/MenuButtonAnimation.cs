@@ -19,6 +19,7 @@ public class MenuButtonAnimation : MonoBehaviour, IPointerEnterHandler, IPointer
     private void Start()
     {
         m_originScale = transform.localScale;
+        BaseUI.OnButtonScaleReset += OffSelectButton;
     }
 
     public void OnSelectButton()

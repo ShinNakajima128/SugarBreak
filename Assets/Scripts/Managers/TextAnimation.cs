@@ -17,7 +17,7 @@ public class TextAnimation : MonoBehaviour
         Instance = this;
     }
 
-    void Start()
+    void OnEnable()
     {
         OnAnim();
     }

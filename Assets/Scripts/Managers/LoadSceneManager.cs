@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Scene遷移を管理するクラス
+/// </summary>
 public class LoadSceneManager : MonoBehaviour
 {
     public static LoadSceneManager Instance { get; private set; }
@@ -43,14 +46,12 @@ public class LoadSceneManager : MonoBehaviour
 
     public void FadeIn(Texture mask)
     {
-        //fadeImage.UpdateMaskTexture(m_masks[2]);
         fadeImage.UpdateMaskTexture(mask);
         fade.FadeIn(0.7f);
     }
 
     public void FadeOut(Texture mask)
     {
-        //fadeImage.UpdateMaskTexture(m_masks[1]);
         fadeImage.UpdateMaskTexture(mask);
         fade.FadeOut(0.7f);
     }
@@ -60,7 +61,6 @@ public class LoadSceneManager : MonoBehaviour
     /// <param name="name"> 遷移先のSceneの名前 </param>
     public void AnyLoadScene(string name)
     {
-        //SoundManager.Instance.PlaySeByName("Transition2");
         fadeImage.UpdateMaskTexture(m_masks[2]);
         fade.FadeIn(1.0f, () =>
         {
