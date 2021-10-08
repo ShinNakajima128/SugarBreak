@@ -62,7 +62,7 @@ public class TitleMenu : MonoBehaviour
     Text m_playButtonText = default;
 
     [SerializeField]
-    Button m_menuFirstButton = default;
+    Button[] m_menuFirstButtons = default;
 
     [SerializeField]
     Slider m_masterVolume = default;
@@ -121,7 +121,6 @@ public class TitleMenu : MonoBehaviour
                 {
                     SwitchingMenu(0);
                     isChanged = true;
-                    Debug.Log("タイトル画面");
                 }
                 break;
             case TitleMenuState.MainMenu:
@@ -130,8 +129,6 @@ public class TitleMenu : MonoBehaviour
                     SwitchingMenu(1);
                     isChanged = true;
                     TextChange();
-                    //m_menuFirstButton.Select();
-                    Debug.Log("メインメニュー");
                 }
                 break;
             case TitleMenuState.Option:
@@ -139,7 +136,6 @@ public class TitleMenu : MonoBehaviour
                 {
                     SwitchingMenu(2);
                     isChanged = true;
-                    Debug.Log("オプション");
                 }
                 break;
             case TitleMenuState.Audio:
@@ -147,7 +143,6 @@ public class TitleMenu : MonoBehaviour
                 {
                     SwitchingMenu(3);
                     isChanged = true;
-                    Debug.Log("オーディオ設定");
                 }
                 break;
         }
@@ -223,6 +218,7 @@ public class TitleMenu : MonoBehaviour
     {
         m_confirmPanel.SetActive(true);
         m_mainMenuList.SetActive(false);
+        m_menuFirstButtons[3].Select();
     }
 
     /// <summary>
@@ -232,6 +228,7 @@ public class TitleMenu : MonoBehaviour
     {
         m_confirmPanel.SetActive(false);
         m_mainMenuList.SetActive(true);
+        m_menuFirstButtons[0].Select();
     }
 
     public void MasterChange()
@@ -273,6 +270,11 @@ public class TitleMenu : MonoBehaviour
             if (i == menuNum)
             {
                 m_menuPanels[i].SetActive(true);
+                if (i != 0)
+                {
+                    m_menuFirstButtons[i - 1].Select();
+                    Debug.Log(m_menuFirstButtons[i - 1]);
+                }
             }
             else
             {
