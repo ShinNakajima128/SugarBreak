@@ -140,7 +140,7 @@ public class BaseUI : MonoBehaviour
 
     public void PlaySE()
     {
-        //SoundManager.Instance.PlaySeByName("CursolMove");
+        SoundManager.Instance.PlaySeByName("CursolMove");
     }
     /// <summary>
     /// タイトルSceneに遷移する
