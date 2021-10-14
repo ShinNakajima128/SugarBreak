@@ -9,7 +9,12 @@ public enum TitleMenuState
     Begin,
     MainMenu,
     Option,
-    Audio
+    Graphic,
+    Audio,
+    Extra,
+    Config,
+    MiniGame,
+    Museum,
 }
 
 public class TitleMenu : MonoBehaviour
@@ -97,8 +102,7 @@ public class TitleMenu : MonoBehaviour
             {
                 TextAnimation.Instance.FinishAnim();
                 SoundManager.Instance.PlaySeByName("Select");
-                titleState = TitleMenuState.MainMenu;
-                isChanged = false;
+                SwitchTitleState(TitleMenuState.MainMenu);
                 isStarted = true;
             }
         }
@@ -107,43 +111,36 @@ public class TitleMenu : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 SoundManager.Instance.PlaySeByName("Cancel");
-                titleState = TitleMenuState.Begin;
-                isChanged = false;
+                SwitchTitleState(TitleMenuState.Begin);
                 isStarted = false;
                 StartCoroutine(Restart());
             }
         }
 
+        
+    }
+
+    void SwitchTitleState(TitleMenuState state)
+    {
+        titleState = state;
+
         switch (titleState)
         {
             case TitleMenuState.Begin:
-                if (!isChanged)
-                {
-                    SwitchingMenu(0);
-                    isChanged = true;
-                }
+                SwitchingMenu(0);
                 break;
             case TitleMenuState.MainMenu:
-                if (!isChanged)
-                {
-                    SwitchingMenu(1);
-                    isChanged = true;
-                    TextChange();
-                }
+                SwitchingMenu(1);
+                TextChange();
                 break;
             case TitleMenuState.Option:
-                if (!isChanged)
-                {
-                    SwitchingMenu(2);
-                    isChanged = true;
-                }
+                SwitchingMenu(2);
                 break;
             case TitleMenuState.Audio:
-                if (!isChanged)
-                {
-                    SwitchingMenu(3);
-                    isChanged = true;
-                }
+                SwitchingMenu(3);
+                break;
+            case TitleMenuState.Extra:
+                SwitchingMenu(4);
                 break;
         }
     }
@@ -190,8 +187,7 @@ public class TitleMenu : MonoBehaviour
     public void MainMenuSelect()
     {
         SoundManager.Instance.PlaySeByName("Select");
-        titleState = TitleMenuState.MainMenu;
-        isChanged = false;
+        SwitchTitleState(TitleMenuState.MainMenu);
     }
 
     /// <summary>
@@ -200,15 +196,19 @@ public class TitleMenu : MonoBehaviour
     public void OptionSelect()
     {
         SoundManager.Instance.PlaySeByName("Select");
-        titleState = TitleMenuState.Option;
-        isChanged = false;
+        SwitchTitleState(TitleMenuState.Option);
     }
 
     public void AudioSelect()
     {
         SoundManager.Instance.PlaySeByName("Select");
-        titleState = TitleMenuState.Audio;
-        isChanged = false;
+        SwitchTitleState(TitleMenuState.Audio);
+    }
+
+    public void ExtraSelect()
+    {
+        SoundManager.Instance.PlaySeByName("Select");
+        SwitchTitleState(TitleMenuState.Extra);
     }
 
     /// <summary>
@@ -288,22 +288,5 @@ public class TitleMenu : MonoBehaviour
         yield return null;
 
         TextAnimation.Instance.OnAnim();
-    }
-
-    /// <summary>
-    /// 各フェード時に呼び出すコルーチン
-    /// </summary>
-    /// <param name="mask"> フェードに使うマスク </param>
-    /// <returns></returns>
-    IEnumerator StartWait(Texture mask)
-    {
-        yield return new WaitForSeconds(0.5f);
-
-        m_loadingAnim.SetActive(false);
-        m_titleMenuPanel.SetActive(true);
-        fadeImage.UpdateMaskTexture(mask);
-        fade.FadeOut(1.0f);
-
-        yield return new WaitForSeconds(1.0f);
     }
 }
