@@ -5,10 +5,23 @@ using UnityEngine;
 /// <summary>
 /// 消費アイテムの基底クラス
 /// </summary>
-public  abstract class UseItemBase : MonoBehaviour
+public class UseItemBase : ScriptableObject
 {
     [SerializeField]
-    protected UseItemData m_itemData = default;
+    string m_itemName = default;
 
-    public abstract void UseItem();
+    [SerializeField]
+    int m_healValue = default;
+
+    [SerializeField]
+    int m_cost = default;
+
+    [SerializeField]
+    Sprite m_itemIcon = default;
+
+    public int HealValue => m_healValue;
+
+    public int Cost => m_cost;
+
+    public Sprite ItemIcon => m_itemIcon;
 }
