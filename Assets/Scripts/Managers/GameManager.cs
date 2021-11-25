@@ -5,6 +5,14 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
 
+[Serializable]
+public class Stage
+{
+    public bool IsStageCleared = false;
+
+    public bool[] IsDungeonCleared = default;
+}
+
 /// <summary>
 /// ゲーム全体を管理するクラス
 /// </summary>

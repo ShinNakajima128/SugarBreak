@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class GameData : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    PlayerData m_playerData = default;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField]
+    Stage[] m_Stage = default;
 }
