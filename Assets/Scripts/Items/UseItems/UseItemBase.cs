@@ -24,4 +24,9 @@ public class UseItemBase : ScriptableObject
     public int Cost => m_cost;
 
     public Sprite ItemIcon => m_itemIcon;
+
+    public virtual void Use(int hp)
+    {
+        hp += m_healValue;
+    }
 }
