@@ -3,15 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PlayerState 
+public enum PlayerStates 
 {
     None,
     Move,
-    Attack,
     Dead
 }
 
-
+[RequireComponent(typeof(MoveBehavior))]
+[RequireComponent(typeof(JumpBehavior))]
 [RequireComponent(typeof(CharacterController))]
 public class PlayerActionControl : MonoBehaviour
 {
@@ -36,12 +36,14 @@ public class PlayerActionControl : MonoBehaviour
     Vector3 m_currentVelocity = Vector3.zero;
     Quaternion m_targetRot = Quaternion.identity;
 
+    public Action PlayerMove = default;
+
+
     void Start()
     {
         m_selfTrans = transform;
         m_charaCtrl = GetComponent<CharacterController>();
         m_anim = GetComponent<Animator>();
-
     }
 
     void Update()
@@ -51,8 +53,8 @@ public class PlayerActionControl : MonoBehaviour
 
     void ApplyInputAxis()
     {
-        var h = Input.GetAxisRaw("MoveHorizontal");
-        var v = Input.GetAxisRaw("MoveVertical");
+        var h = Input.GetAxisRaw("Horizontal");
+        var v = Input.GetAxisRaw("Vertical");
         m_inputAxis = new Vector2(h, v);
     }
 
