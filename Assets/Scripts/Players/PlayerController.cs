@@ -28,7 +28,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float m_isGroundedLength = 0.05f;
     /// <summary> Effectを表示する場所 </summary>
     [SerializeField] Transform m_effectPos = null;
-    [SerializeField] bool m_shabadubiMode = false;
     PlayerState state = PlayerState.None;
     Rigidbody m_rb;
     Animator m_anim;
@@ -268,17 +267,9 @@ public class PlayerController : MonoBehaviour
 
             EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
             animationEventScript.isChanged = false;
-            //animationEventScript.weaponStates = WeaponState.CandyBeat;
             animationEventScript.WeaponChange(WeaponState.CandyBeat);
 
-            if (m_shabadubiMode)
-            {
-                SoundManager.Instance.PlaySeByName("Shabadubi");
-            }
-            else
-            {
-                SoundManager.Instance.PlaySeByName("Change");
-            }
+            SoundManager.Instance.PlaySeByName("Change");
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetAxisRaw("D Pad Ver") == 1)
         {
@@ -286,17 +277,7 @@ public class PlayerController : MonoBehaviour
 
             EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
             animationEventScript.isChanged = false;
-            //animationEventScript.weaponStates = WeaponState.PopLauncher;
             animationEventScript.WeaponChange(WeaponState.PopLauncher);
-
-            if (m_shabadubiMode)
-            {
-                SoundManager.Instance.PlaySeByName("Shabadubi");
-            }
-            else
-            {
-                SoundManager.Instance.PlaySeByName("Change");
-            }
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetAxisRaw("D Pad Hori") == -1)
         {
@@ -304,19 +285,10 @@ public class PlayerController : MonoBehaviour
 
             EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
             animationEventScript.isChanged = false;
-            //animationEventScript.weaponStates = WeaponState.DualSoda;
             animationEventScript.WeaponChange(WeaponState.DualSoda);
-
-            if (m_shabadubiMode)
-            {
-                SoundManager.Instance.PlaySeByName("Shabadubi");
-            }
-            else
-            {
-                SoundManager.Instance.PlaySeByName("Change");
-            }
         }
 
+        SoundManager.Instance.PlaySeByName("Change");
         WeaponListManager.Instance.IconChange();
     }
 

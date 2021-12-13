@@ -1,18 +1,26 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
+public class WeaponList
+{
+    public WeaponBase[] Weapons;
+}
+
+public enum WeaponTypes 
+{
+    Default,
+    CandyBeat,
+    PopLauncher,
+    DualSoda
+}
 public class WeaponListControl : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    WeaponList m_CurrentEquipWeapons = default;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField]
+    WeaponTypes m_currentWeapon = default;
 }
