@@ -9,8 +9,10 @@ public enum PlayerActions
     Idle,
     /// <summary> 移動 </summary>
     Move,
-    /// <summary> 攻撃 </summary>
-    Attack,
+    /// <summary> 攻撃処理開始 </summary>
+    BeginAttack,
+    /// <summary> 攻撃処理終了 </summary>
+    FinishAttack,
     /// <summary> アイテム等の確認 </summary>
     Confirm,
     /// <summary> 倒された </summary>
@@ -21,7 +23,7 @@ public enum PlayerActions
 public class PlayerActionControl : MonoBehaviour
 {
     #region move
-    [Header("移動関連")]
+    [Header("移動")]
     [SerializeField]
     float m_moveSpeed = 8.0f;
 
@@ -36,7 +38,7 @@ public class PlayerActionControl : MonoBehaviour
     #endregion
 
     #region jump
-    [Header("ジャンプ関連")]
+    [Header("ジャンプ")]
     [SerializeField]
     float m_jumpSpeed = 5.0f;
 
@@ -48,9 +50,12 @@ public class PlayerActionControl : MonoBehaviour
     Animator m_anim = default;
     CharacterController m_charaCtrl = default;
 
-    
-    public Action PlayerMove = default;
+    public static PlayerActionControl Instance { get; private set; }
 
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -105,4 +110,57 @@ public class PlayerActionControl : MonoBehaviour
     {
         m_anim.CrossFadeInFixedTime(stateName, transitionDuration);
     }
+
+    /// <summary>
+    /// アクションを登録する
+    /// </summary>
+    /// <param name="actions"> アクションの種類 </param>
+    /// <param name="action"> 追加する処理 </param>
+    public static void ListenActions(PlayerActions actions, Action action)
+    {
+        if (Instance == null) return;
+        Action thisEvent;
+        if (Instance.m_playerActionDic.TryGetValue(actions, out thisEvent))
+        {
+            thisEvent += action;
+
+            Instance.m_playerActionDic[actions] = thisEvent;
+        }
+        else
+        {
+            thisEvent += action;
+            Instance.m_playerActionDic.Add(actions, thisEvent);
+        }
+    }
+
+    /// <summary>
+    /// 登録したアクションを抹消する
+    /// </summary>
+    /// <param name="events"> アクションの種類 </param>
+    /// <param name="action"> 抹消する処理 </param>
+    public static void RemoveActions(PlayerActions events, Action action)
+    {
+        if (Instance == null) return;
+        Action thisEvent;
+        if (Instance.m_playerActionDic.TryGetValue(events, out thisEvent))
+        {
+            thisEvent -= action;
+
+            Instance.m_playerActionDic[events] = thisEvent;
+        }
+    }
+
+    /// <summary>
+    /// アクションを実行する
+    /// </summary>
+    /// <param name="events"> 実行するアクション </param>
+    public static void OnAction(PlayerActions events)
+    {
+        Action thisEvent;
+        if (Instance.m_playerActionDic.TryGetValue(events, out thisEvent))
+        {
+            thisEvent?.Invoke();
+        }
+    }
 }
+
