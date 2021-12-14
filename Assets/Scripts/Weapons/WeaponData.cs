@@ -5,9 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "MyScriptable/Create WeaponData")]
 public class WeaponData : ScriptableObject
 {
-    [Header("武器名")]
+    [Header("武器の種類")]
     [SerializeField]
-    string m_weaponName = "";
+    WeaponTypes m_weaponType = default;
 
     [Header("使用している時の画像")]
     [SerializeField]
@@ -17,7 +17,7 @@ public class WeaponData : ScriptableObject
     [SerializeField]
     Sprite m_deactiveWeaponImage = default;
 
-    public string WeaponName { get => m_weaponName; }
+    public WeaponTypes WeaponType { get => m_weaponType; }
 
     public Sprite ActiveWeaponImage { get => m_activeWeaponImage; }
 

@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class WeaponList
 {
-    public WeaponBase[] Weapons;
+    public WeaponData[] Weapons;
 }
 
 public enum WeaponTypes 
@@ -19,8 +19,20 @@ public enum WeaponTypes
 public class WeaponListControl : MonoBehaviour
 {
     [SerializeField]
-    WeaponList m_CurrentEquipWeapons = default;
+    WeaponList m_currentEquipWeapons = default;
 
     [SerializeField]
     WeaponTypes m_currentWeapon = default;
+
+    public static WeaponListControl Instance { get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    public void ChangeWeapon(int index)
+    {
+
+    }
 }

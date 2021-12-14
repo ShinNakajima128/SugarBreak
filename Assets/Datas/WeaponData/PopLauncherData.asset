@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fe7e8f42cae2c4397c83a098161f25, type: 3}
   m_Name: PopLauncherData
   m_EditorClassIdentifier: 
-  m_weaponName: "\u30DD\u30C3\u30D7\u30E9\u30F3\u30C1\u30E3\u30FC"
+  m_weaponType: 2
   m_activeWeaponImage: {fileID: 21300000, guid: 5e3336947198d48419296b119dcd711b,
     type: 3}
   m_deactiveWeaponImage: {fileID: 21300000, guid: e2766d7baf817b1489231b6120434227,
