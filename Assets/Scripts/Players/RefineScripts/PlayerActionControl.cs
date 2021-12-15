@@ -5,18 +5,14 @@ using UnityEngine;
 
 public enum PlayerActions 
 {
-    /// <summary> 操作しない </summary>
-    Idle,
-    /// <summary> 移動 </summary>
-    Move,
+    /// <summary> ジャンプ </summary>
+    Jump,
     /// <summary> 攻撃処理開始 </summary>
     BeginAttack,
     /// <summary> 攻撃処理終了 </summary>
     FinishAttack,
     /// <summary> アイテム等の確認 </summary>
     Confirm,
-    /// <summary> 倒された </summary>
-    Dead
 }
 
 [RequireComponent(typeof(CharacterController))]
