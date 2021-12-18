@@ -66,9 +66,9 @@ public class WeaponListControl : MonoBehaviour
     [SerializeField]
     WeaponListTypes m_currentWeapon = default;
 
-    [Tooltip("武器のデータ")]
+    [Tooltip("武器のデータ(確認用)")]
     [SerializeField]
-    WeaponData[] weaponDatas = default;
+    WeaponData[] m_debugWeaponDatas = default;
 
     [SerializeField]
     string m_weaponListFileName = "/WeaponList.json";
@@ -100,7 +100,7 @@ public class WeaponListControl : MonoBehaviour
 
         if (isDebug)
         {
-            m_currentEquipWeapons = new WeaponList(weaponDatas[0], weaponDatas[1], weaponDatas[2], weaponDatas[3]);
+            m_currentEquipWeapons = new WeaponList(m_debugWeaponDatas[0], m_debugWeaponDatas[1], m_debugWeaponDatas[2], m_debugWeaponDatas[3]);
         }
         else
         {
