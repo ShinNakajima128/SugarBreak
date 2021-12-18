@@ -2,6 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 武器の種類
+/// </summary>
+public enum WeaponTypes
+{
+    MainWeapon,
+    CandyBeat,
+    PopLauncher,
+    DualSoda
+}
+
 [CreateAssetMenu(menuName = "MyScriptable/Create WeaponData")]
 public class WeaponData : ScriptableObject
 {
