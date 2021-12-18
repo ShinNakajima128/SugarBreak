@@ -42,23 +42,33 @@ public enum WeaponListTypes
 /// </summary>
 public class WeaponListControl : MonoBehaviour
 {
+    [Tooltip("武器切り替え可能になるまでの時間")]
     [SerializeField]
     float m_interval = 1.0f;
 
+    [Tooltip("武器オブジェクト。生成用")]
     [SerializeField]
-    WeaponList m_currentEquipWeapons = default;
+    GameObject[] m_weaponObjects = default;
 
-    [SerializeField]
-    WeaponListTypes m_currentWeapon = default;
-
+    [Tooltip("武器アイコンリスト")]
     [SerializeField]
     Image[] m_weaponIcons = default;
 
+    [Header("デバッグ用")]
     [SerializeField]
     bool isDebug = false;
 
+    [Tooltip("現在の武器リスト")]
     [SerializeField]
-    WeaponData[] weapons = default;
+    WeaponList m_currentEquipWeapons = default;
+
+    [Tooltip("現在アクティブの武器")]
+    [SerializeField]
+    WeaponListTypes m_currentWeapon = default;
+
+    [Tooltip("武器のデータ")]
+    [SerializeField]
+    WeaponData[] weaponDatas = default;
 
     [SerializeField]
     string m_weaponListFileName = "/WeaponList.json";
@@ -67,6 +77,7 @@ public class WeaponListControl : MonoBehaviour
     Dictionary<WeaponListTypes, WeaponData> m_weaponDataDic = new Dictionary<WeaponListTypes, WeaponData>();
     Dictionary<WeaponListTypes, Image> m_weaponIconsDic = new Dictionary<WeaponListTypes, Image>();
 
+    Transform m_weaponListTrans = default;
     bool m_isChanged = false;
     string dataPath;
 
@@ -85,9 +96,11 @@ public class WeaponListControl : MonoBehaviour
 
     private void Start()
     {
+        m_weaponListTrans = GameObject.FindGameObjectWithTag("WeaponList").transform;
+
         if (isDebug)
         {
-            m_currentEquipWeapons = new WeaponList(weapons[0], weapons[1], weapons[2], weapons[3]);
+            m_currentEquipWeapons = new WeaponList(weaponDatas[0], weaponDatas[1], weaponDatas[2], weaponDatas[3]);
         }
         else
         {
@@ -121,10 +134,22 @@ public class WeaponListControl : MonoBehaviour
     void Setup()
     {
         //武器オブジェクトの登録
-        m_weaponListDic[WeaponListTypes.Equip1] = GameObject.Find(m_currentEquipWeapons.Weapon1.WeaponType.ToString());
-        m_weaponListDic[WeaponListTypes.Equip2] = GameObject.Find(m_currentEquipWeapons.Weapon2.WeaponType.ToString());
-        m_weaponListDic[WeaponListTypes.Equip3] = GameObject.Find(m_currentEquipWeapons.Weapon3.WeaponType.ToString());
-        m_weaponListDic[WeaponListTypes.MainWeapon] = GameObject.Find(m_currentEquipWeapons.MainWeapon.WeaponType.ToString());
+        //生成したオブジェクトとアニメーションのオブジェクト名と一致させるために(clone)を削除する処理を行う
+        var g1 = m_weaponObjects.FirstOrDefault(o => o.name == m_currentEquipWeapons.Weapon1.WeaponType.ToString());
+        m_weaponListDic[WeaponListTypes.Equip1] = Instantiate(g1, m_weaponListTrans);
+        m_weaponListDic[WeaponListTypes.Equip1].name = g1.name;
+
+        var g2 = m_weaponObjects.FirstOrDefault(o => o.name == m_currentEquipWeapons.Weapon2.WeaponType.ToString());
+        m_weaponListDic[WeaponListTypes.Equip2] = Instantiate(g2, m_weaponListTrans);
+        m_weaponListDic[WeaponListTypes.Equip2].name = g2.name;
+
+        var g3 = m_weaponObjects.FirstOrDefault(o => o.name == m_currentEquipWeapons.Weapon3.WeaponType.ToString());
+        m_weaponListDic[WeaponListTypes.Equip3] = Instantiate(g3, m_weaponListTrans);
+        m_weaponListDic[WeaponListTypes.Equip3].name = g3.name;
+
+        var g4 = m_weaponObjects.FirstOrDefault(o => o.name == m_currentEquipWeapons.MainWeapon.WeaponType.ToString());
+        m_weaponListDic[WeaponListTypes.MainWeapon] = Instantiate(g4, m_weaponListTrans);
+        m_weaponListDic[WeaponListTypes.MainWeapon].name = g4.name;
 
         //武器データの登録
         m_weaponDataDic[WeaponListTypes.Equip1] = CurrentWeapon1Data;
