@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System.IO;
 
 /// <summary>
 /// 武器の装備リストクラス
@@ -98,15 +99,22 @@ public class WeaponListControl : MonoBehaviour
     {
         m_weaponListTrans = GameObject.FindGameObjectWithTag("WeaponList").transform;
 
-        if (isDebug)
+        if (!isDebug)
         {
-            m_currentEquipWeapons = new WeaponList(m_debugWeaponDatas[0], m_debugWeaponDatas[1], m_debugWeaponDatas[2], m_debugWeaponDatas[3]);
+            if (PlayerPrefs.HasKey("WeaponList"))
+            {
+                m_currentEquipWeapons = JsonUtility.FromJson<WeaponList>(PlayerPrefs.GetString("WeaponList"));
+                Debug.Log("武器リストのデータを読み込みました");
+            }
+            else
+            {
+                m_currentEquipWeapons = new WeaponList(m_debugWeaponDatas[0], m_debugWeaponDatas[1], m_debugWeaponDatas[2], m_debugWeaponDatas[3]);
+                var debugJson = JsonUtility.ToJson(m_currentEquipWeapons);
+                PlayerPrefs.SetString("WeaponList", debugJson);
+                Debug.Log("武器リストのデータを作成しました");
+            }   
         }
-        else
-        {
-
-        }
-
+        
         Setup();
     }
 
@@ -178,7 +186,7 @@ public class WeaponListControl : MonoBehaviour
     public void ChangeWeapon(WeaponListTypes type)
     {
         //既に装備中、または一定時間経過していなければ何もしない
-        if (m_currentWeapon == type　|| m_isChanged)
+        if (m_currentWeapon == type || m_isChanged)
         {
             return;
         }

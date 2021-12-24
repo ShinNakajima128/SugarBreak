@@ -713,6 +713,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WeaponList
       objectReference: {fileID: 0}
+    - target: {fileID: 463066663636862044, guid: dd7a06196b63e6b4c8b94b5d68ded2d6,
+        type: 3}
+      propertyPath: isDebug
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 463066663636862045, guid: dd7a06196b63e6b4c8b94b5d68ded2d6,
         type: 3}
       propertyPath: m_LocalPosition.x
