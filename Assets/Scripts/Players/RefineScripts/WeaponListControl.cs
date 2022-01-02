@@ -72,7 +72,7 @@ public class WeaponListControl : MonoBehaviour
     WeaponData[] m_debugWeaponDatas = default;
 
     [SerializeField]
-    string m_weaponListFileName = "/WeaponList.json";
+    string m_weaponListFileName = "WeaponList";
 
     Dictionary<WeaponListTypes, GameObject> m_weaponListDic = new Dictionary<WeaponListTypes, GameObject>();
     Dictionary<WeaponListTypes, WeaponData> m_weaponDataDic = new Dictionary<WeaponListTypes, WeaponData>();
@@ -101,16 +101,16 @@ public class WeaponListControl : MonoBehaviour
 
         if (!isDebug)
         {
-            if (PlayerPrefs.HasKey("WeaponList"))
+            if (PlayerPrefs.HasKey(m_weaponListFileName))
             {
-                m_currentEquipWeapons = JsonUtility.FromJson<WeaponList>(PlayerPrefs.GetString("WeaponList"));
+                m_currentEquipWeapons = JsonUtility.FromJson<WeaponList>(PlayerPrefs.GetString(m_weaponListFileName));
                 Debug.Log("武器リストのデータを読み込みました");
             }
             else
             {
                 m_currentEquipWeapons = new WeaponList(m_debugWeaponDatas[0], m_debugWeaponDatas[1], m_debugWeaponDatas[2], m_debugWeaponDatas[3]);
                 var debugJson = JsonUtility.ToJson(m_currentEquipWeapons);
-                PlayerPrefs.SetString("WeaponList", debugJson);
+                PlayerPrefs.SetString(m_weaponListFileName, debugJson);
                 Debug.Log("武器リストのデータを作成しました");
             }   
         }
