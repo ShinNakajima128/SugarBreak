@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 武器「デュアルソーダ」の機能を持つクラス
+/// </summary>
 public class DualSoda : WeaponBase
 {
     [SerializeField] float m_hitStopTime = 0.02f;

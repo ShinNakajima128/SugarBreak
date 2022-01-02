@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+/// <summary>
+/// 武器「ポップランチャー」の機能を持つクラス
+/// </summary>
 public class PopLauncher : WeaponBase
 {
     [SerializeField] GameObject m_muzzle = null;

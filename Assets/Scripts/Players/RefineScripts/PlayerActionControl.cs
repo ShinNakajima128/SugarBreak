@@ -15,6 +15,9 @@ public enum PlayerActions
     Confirm,
 }
 
+/// <summary>
+/// プレイヤーのアクション周りの処理の作り直しを行っているクラス
+/// </summary>
 [RequireComponent(typeof(CharacterController))]
 public class PlayerActionControl : MonoBehaviour
 {

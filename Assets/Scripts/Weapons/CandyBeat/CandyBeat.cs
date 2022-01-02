@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 武器「キャンディビート」の機能を持つクラス
+/// </summary>
 public class CandyBeat : WeaponBase
 {
     [SerializeField] float m_hitStopTime = 0.2f;

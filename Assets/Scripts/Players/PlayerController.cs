@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// プレイヤーのステータス
+/// </summary>
 public enum PlayerState
 {
     None,
@@ -10,6 +13,9 @@ public enum PlayerState
     Run
 }
 
+/// <summary>
+/// プレイヤー操作の機能を持つクラス
+/// </summary>
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
@@ -149,12 +155,58 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 急降下する。アニメーションイベントにて使用
+    /// </summary>
     public void FallDown()
     {
         if (!IsGrounded())
         {
             m_rb.AddForce(Vector3.down * 35, ForceMode.Impulse);
         }
+    }
+
+    public void JumpMotion()
+    {
+        StartCoroutine(Jump());
+        m_anim.SetBool("Jump", true);
+        m_anim.SetBool("isGround", false);
+    }
+
+    /// <summary>
+    /// 武器を切り替える
+    /// </summary>
+    public void WeaponChange()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetAxisRaw("D Pad Hori") == 1)
+        {
+            if (animationEventScript.weaponStates == WeaponState.CandyBeat) return;
+
+            EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
+            animationEventScript.isChanged = false;
+            animationEventScript.WeaponChange(WeaponState.CandyBeat);
+
+            SoundManager.Instance.PlaySeByName("Change");
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetAxisRaw("D Pad Ver") == 1)
+        {
+            if (animationEventScript.weaponStates == WeaponState.PopLauncher) return;
+
+            EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
+            animationEventScript.isChanged = false;
+            animationEventScript.WeaponChange(WeaponState.PopLauncher);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetAxisRaw("D Pad Hori") == -1)
+        {
+            if (animationEventScript.weaponStates == WeaponState.DualSoda) return;
+
+            EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
+            animationEventScript.isChanged = false;
+            animationEventScript.WeaponChange(WeaponState.DualSoda);
+        }
+
+        SoundManager.Instance.PlaySeByName("Change");
+        WeaponListManager.Instance.IconChange();
     }
 
     /// <summary>
@@ -172,13 +224,6 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-    }
-
-    public void JumpMotion()
-    {
-        StartCoroutine(Jump());
-        m_anim.SetBool("Jump", true);
-        m_anim.SetBool("isGround", false);
     }
 
     /// <summary>
@@ -254,42 +299,6 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }   
-    }
-
-    /// <summary>
-    /// 武器を切り替える
-    /// </summary>
-    public void WeaponChange()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetAxisRaw("D Pad Hori") == 1)
-        {
-            if (animationEventScript.weaponStates == WeaponState.CandyBeat) return;
-
-            EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
-            animationEventScript.isChanged = false;
-            animationEventScript.WeaponChange(WeaponState.CandyBeat);
-
-            SoundManager.Instance.PlaySeByName("Change");
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetAxisRaw("D Pad Ver") == 1)
-        {
-            if (animationEventScript.weaponStates == WeaponState.PopLauncher) return;
-
-            EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
-            animationEventScript.isChanged = false;
-            animationEventScript.WeaponChange(WeaponState.PopLauncher);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetAxisRaw("D Pad Hori") == -1)
-        {
-            if (animationEventScript.weaponStates == WeaponState.DualSoda) return;
-
-            EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
-            animationEventScript.isChanged = false;
-            animationEventScript.WeaponChange(WeaponState.DualSoda);
-        }
-
-        SoundManager.Instance.PlaySeByName("Change");
-        WeaponListManager.Instance.IconChange();
     }
 
     /// <summary>

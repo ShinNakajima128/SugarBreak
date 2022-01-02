@@ -13,6 +13,9 @@ public enum DragonState
     Attack
 }
 
+/// <summary>
+/// 仮作成中のボスの機能を持つクラス
+/// </summary>
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(SetPosition))]
 public class Dragon : EnemyBase

@@ -5,6 +5,9 @@ using UnityEngine.UI;
 using System;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// 拠点のUIのステータス
+/// </summary>
 public enum BaseUIState
 {
     Main,

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 武器「ポップランチャー」の弾の機能を持つクラス
+/// </summary>
 public class PopBullet : MonoBehaviour
 {
     int m_attackDamage = 0;

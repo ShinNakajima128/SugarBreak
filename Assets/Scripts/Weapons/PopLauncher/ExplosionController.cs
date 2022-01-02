@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 武器「ポップランチャー」の弾が爆発した時の機能を持つクラス
+/// </summary>
 public class ExplosionController : WeaponBase
 {
     int m_damage = 10;
