@@ -6,7 +6,7 @@ using System;
 /// <summary>
 /// 武器「ポップランチャー」の機能を持つクラス
 /// </summary>
-public class PopLauncher : WeaponBase
+public class PopLauncher : WeaponBase, IWeapon
 {
     [SerializeField] GameObject m_muzzle = null;
     [SerializeField] GameObject m_bulletPrefab = null;
@@ -37,5 +37,20 @@ public class PopLauncher : WeaponBase
         var player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
         m_rb.AddForce(bullet.transform.forward * m_shootPower, ForceMode.Impulse);
         player.AddForce(-player.transform.forward * m_recoilPower, ForceMode.Impulse);
+    }
+
+    public void WeaponAttack()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void BeginAttack()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void EndAttack()
+    {
+        throw new NotImplementedException();
     }
 }

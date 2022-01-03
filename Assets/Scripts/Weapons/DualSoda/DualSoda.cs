@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 武器「デュアルソーダ」の機能を持つクラス
 /// </summary>
-public class DualSoda : WeaponBase
+public class DualSoda : WeaponBase, IWeapon
 {
     [SerializeField] float m_hitStopTime = 0.02f;
     Coroutine coroutine;
@@ -33,5 +33,20 @@ public class DualSoda : WeaponBase
         Time.timeScale = 1.0f;
 
         coroutine = null;
+    }
+
+    public void WeaponAttack()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void BeginAttack()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void EndAttack()
+    {
+        throw new System.NotImplementedException();
     }
 }

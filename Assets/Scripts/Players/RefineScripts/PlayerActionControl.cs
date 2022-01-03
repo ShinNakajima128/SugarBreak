@@ -105,6 +105,11 @@ public class PlayerActionControl : MonoBehaviour
         }
     }
 
+    void ApplyAction()
+    {
+
+    }
+
     void PlayAnimation(string stateName, float transitionDuration = 0.1f)
     {
         m_anim.CrossFadeInFixedTime(stateName, transitionDuration);
