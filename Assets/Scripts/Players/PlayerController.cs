@@ -34,18 +34,33 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float m_isGroundedLength = 0.05f;
     /// <summary> Effectを表示する場所 </summary>
     [SerializeField] Transform m_effectPos = null;
+
+    [SerializeField]
+    float m_minVelocityY = -4.5f;
+
+    [SerializeField]
+    float m_maxVelocityY = 2.5f;
+
     PlayerState state = PlayerState.None;
     Rigidbody m_rb;
     Animator m_anim;
     int comboNum = 0;
     Coroutine combpCoroutine;
+    bool isSliding;
 
     public PlayerState State
     {
         get { return state; }
         set { state = value; }
     }
+    public float RunSpeed => m_runSpeed;
+    public bool WallHit { get; set; } = false;
+    public static PlayerController Instance { get; private set; }
 
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -140,14 +155,15 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetKey(KeyCode.LeftShift))
                 {
                     Vector3 velo = dir.normalized * m_walkSpeed; // 入力した方向に移動する
-                    velo.y = m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
+                    velo.y = Mathf.Clamp(m_rb.velocity.y, m_minVelocityY, m_maxVelocityY); ;   // ジャンプした時の y 軸方向の速度を保持する
                     m_rb.velocity = velo;
                     state = PlayerState.Walk;
                 }
                 else
                 {
                     Vector3 velo = dir.normalized * m_runSpeed; // 入力した方向に移動する
-                    velo.y = m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
+                    velo.y = Mathf.Clamp(m_rb.velocity.y, m_minVelocityY, m_maxVelocityY);   // ジャンプした時の y 軸方向の速度を保持する
+                    
                     m_rb.velocity = velo;   // 計算した速度ベクトルをセットする
                     state = PlayerState.Run;
                 }
@@ -231,7 +247,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void AttackMove()
     {
-        
+
         if (Input.GetButtonDown("Fire1") || Input.GetAxis("Trigger") > 0)
         {
             if (animationEventScript.weaponStates == WeaponState.CandyBeat)
@@ -298,7 +314,7 @@ public class PlayerController : MonoBehaviour
                     }
                 }
             }
-        }   
+        }
     }
 
     /// <summary>
