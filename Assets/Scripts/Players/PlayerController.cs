@@ -203,6 +203,7 @@ public class PlayerController : MonoBehaviour
             animationEventScript.WeaponChange(WeaponState.CandyBeat);
 
             SoundManager.Instance.PlaySeByName("Change");
+            WeaponListManager.Instance.IconChange();
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetAxisRaw("D Pad Ver") == 1)
         {
@@ -211,6 +212,8 @@ public class PlayerController : MonoBehaviour
             EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
             animationEventScript.isChanged = false;
             animationEventScript.WeaponChange(WeaponState.PopLauncher);
+            SoundManager.Instance.PlaySeByName("Change");
+            WeaponListManager.Instance.IconChange();
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetAxisRaw("D Pad Hori") == -1)
         {
@@ -219,10 +222,9 @@ public class PlayerController : MonoBehaviour
             EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
             animationEventScript.isChanged = false;
             animationEventScript.WeaponChange(WeaponState.DualSoda);
-        }
-
-        SoundManager.Instance.PlaySeByName("Change");
-        WeaponListManager.Instance.IconChange();
+            SoundManager.Instance.PlaySeByName("Change");
+            WeaponListManager.Instance.IconChange();
+        } 
     }
 
     /// <summary>
