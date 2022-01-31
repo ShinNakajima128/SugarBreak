@@ -105,6 +105,7 @@ public class PlayerController : MonoBehaviour
                         m_anim.SetFloat("Move", 0f);
                     }
                 }
+            }
         }
     }
 
