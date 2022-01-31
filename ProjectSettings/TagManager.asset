@@ -14,6 +14,7 @@ TagManager:
   - Box
   - FlowChart
   - WeaponList
+  - EffectPosition
   layers:
   - Default
   - TransparentFX
