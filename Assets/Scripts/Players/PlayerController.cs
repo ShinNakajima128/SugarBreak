@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,6 +42,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float m_maxVelocityY = 2.5f;
 
+    Dictionary<PlayerActions, Action> m_playerActionDic = new Dictionary<PlayerActions, Action>();
     PlayerState state = PlayerState.None;
     Rigidbody m_rb;
     Animator m_anim;
@@ -103,7 +105,6 @@ public class PlayerController : MonoBehaviour
                         m_anim.SetFloat("Move", 0f);
                     }
                 }
-            }
         }
     }
 
@@ -196,34 +197,27 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetAxisRaw("D Pad Hori") == 1)
         {
-            if (animationEventScript.weaponStates == WeaponState.CandyBeat) return;
+            if (WeaponListControl.Instance.CurrentEquipWeapon == WeaponListTypes.Equip1) return;
 
-            EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
-            animationEventScript.isChanged = false;
-            animationEventScript.WeaponChange(WeaponState.CandyBeat);
-
-            SoundManager.Instance.PlaySeByName("Change");
-            WeaponListManager.Instance.IconChange();
+            WeaponListControl.Instance.ChangeWeapon(WeaponListTypes.Equip1);
+            WeaponChangeAction();
+            //WeaponListManager.Instance.IconChange();
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetAxisRaw("D Pad Ver") == 1)
         {
-            if (animationEventScript.weaponStates == WeaponState.PopLauncher) return;
+            if (WeaponListControl.Instance.CurrentEquipWeapon == WeaponListTypes.Equip2) return;
 
-            EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
-            animationEventScript.isChanged = false;
-            animationEventScript.WeaponChange(WeaponState.PopLauncher);
-            SoundManager.Instance.PlaySeByName("Change");
-            WeaponListManager.Instance.IconChange();
+            WeaponListControl.Instance.ChangeWeapon(WeaponListTypes.Equip2);
+            WeaponChangeAction();
+            //WeaponListManager.Instance.IconChange();
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetAxisRaw("D Pad Hori") == -1)
         {
-            if (animationEventScript.weaponStates == WeaponState.DualSoda) return;
+            if (WeaponListControl.Instance.CurrentEquipWeapon == WeaponListTypes.Equip3) return;
 
-            EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
-            animationEventScript.isChanged = false;
-            animationEventScript.WeaponChange(WeaponState.DualSoda);
-            SoundManager.Instance.PlaySeByName("Change");
-            WeaponListManager.Instance.IconChange();
+            WeaponListControl.Instance.ChangeWeapon(WeaponListTypes.Equip3);
+            WeaponChangeAction();
+            //WeaponListManager.Instance.IconChange();
         } 
     }
 
@@ -252,7 +246,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1") || Input.GetAxis("Trigger") > 0)
         {
-            if (animationEventScript.weaponStates == WeaponState.CandyBeat)
+            if (WeaponListControl.Instance.CurrentEquipWeapon == WeaponListTypes.Equip1)
             {
                 if (IsGrounded())
                 {
@@ -271,7 +265,7 @@ public class PlayerController : MonoBehaviour
             }
 
             ///ポップランチャーの攻撃
-            if (animationEventScript.weaponStates == WeaponState.PopLauncher)
+            if (WeaponListControl.Instance.CurrentEquipWeapon == WeaponListTypes.Equip2)
             {
                 PlayerStatesManager.Instance.IsOperation = false;
                 m_anim.SetBool("Shoot", true);
@@ -280,7 +274,7 @@ public class PlayerController : MonoBehaviour
             }
 
             ///デュアルソーダの攻撃
-            if (animationEventScript.weaponStates == WeaponState.DualSoda)
+            if (WeaponListControl.Instance.CurrentEquipWeapon == WeaponListTypes.Equip3)
             {
                 if (comboNum == 3) return;
 
@@ -320,6 +314,16 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
+    /// 武器種を変更した時のエフェクト表示やサウンド再生などのアクションを実行する
+    /// </summary>
+    void WeaponChangeAction()
+    {
+        EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
+        SoundManager.Instance.PlaySeByName("Change");
+        //WeaponListManager.Instance.IconChange();
+    }
+
+    /// <summary>
     /// 硬直
     /// </summary>
     /// <returns> </returns>
@@ -347,5 +351,57 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
 
         m_anim.SetBool("isGround", false);
+    }
+
+    /// <summary>
+    /// アクションを登録する
+    /// </summary>
+    /// <param name="actions"> アクションの種類 </param>
+    /// <param name="action"> 追加する処理 </param>
+    public static void ListenActions(PlayerActions actions, Action action)
+    {
+        if (Instance == null) return;
+        Action thisEvent;
+        if (Instance.m_playerActionDic.TryGetValue(actions, out thisEvent))
+        {
+            thisEvent += action;
+
+            Instance.m_playerActionDic[actions] = thisEvent;
+        }
+        else
+        {
+            thisEvent += action;
+            Instance.m_playerActionDic.Add(actions, thisEvent);
+        }
+    }
+
+    /// <summary>
+    /// 登録したアクションを抹消する
+    /// </summary>
+    /// <param name="events"> アクションの種類 </param>
+    /// <param name="action"> 抹消する処理 </param>
+    public static void RemoveActions(PlayerActions events, Action action)
+    {
+        if (Instance == null) return;
+        Action thisEvent;
+        if (Instance.m_playerActionDic.TryGetValue(events, out thisEvent))
+        {
+            thisEvent -= action;
+
+            Instance.m_playerActionDic[events] = thisEvent;
+        }
+    }
+
+    /// <summary>
+    /// アクションを実行する
+    /// </summary>
+    /// <param name="events"> 実行するアクション </param>
+    public static void OnAction(PlayerActions events)
+    {
+        Action thisEvent;
+        if (Instance.m_playerActionDic.TryGetValue(events, out thisEvent))
+        {
+            thisEvent?.Invoke();
+        }
     }
 }

@@ -16,17 +16,17 @@ public class PopLauncher : WeaponBase, IWeapon
 
     private void Awake()
     {
-        animationEvent = GameObject.FindGameObjectWithTag("Player").GetComponent<AnimationEventScript>();   
+        //animationEvent = GameObject.FindGameObjectWithTag("Player").GetComponent<AnimationEventScript>();   
     }
 
     private void OnEnable()
     {
-        animationEvent.AttackAction += ShootBullet;
+        //animationEvent.AttackAction += ShootBullet;
     }
 
     private void OnDisable()
     {
-        animationEvent.AttackAction -= ShootBullet;
+        //animationEvent.AttackAction -= ShootBullet;
     }
 
     public  void ShootBullet()

@@ -88,6 +88,7 @@ public class WeaponListControl : MonoBehaviour
     public WeaponData CurrentWeapon2Data { get => m_currentEquipWeapons.Weapon2; }
     public WeaponData CurrentWeapon3Data { get => m_currentEquipWeapons.Weapon3; }
     public WeaponData MainWeaponData { get => m_currentEquipWeapons.MainWeapon; }
+    public WeaponListTypes CurrentEquipWeapon { get => m_currentWeapon; }
 
     private void Awake()
     {
@@ -97,25 +98,7 @@ public class WeaponListControl : MonoBehaviour
 
     private void Start()
     {
-        m_weaponListTrans = GameObject.FindGameObjectWithTag("WeaponList").transform;
-
-        if (!isDebug)
-        {
-            if (PlayerPrefs.HasKey(m_weaponListFileName))
-            {
-                m_currentEquipWeapons = JsonUtility.FromJson<WeaponList>(PlayerPrefs.GetString(m_weaponListFileName));
-                Debug.Log("武器リストのデータを読み込みました");
-            }
-            else
-            {
-                m_currentEquipWeapons = new WeaponList(m_debugWeaponDatas[0], m_debugWeaponDatas[1], m_debugWeaponDatas[2], m_debugWeaponDatas[3]);
-                var debugJson = JsonUtility.ToJson(m_currentEquipWeapons);
-                PlayerPrefs.SetString(m_weaponListFileName, debugJson);
-                Debug.Log("武器リストのデータを作成しました");
-            }   
-        }
-        
-        Setup();
+        StartCoroutine(SetUpCoroutine());
     }
 
     private void Update()
@@ -143,6 +126,7 @@ public class WeaponListControl : MonoBehaviour
     {
         //武器オブジェクトの登録
         //生成したオブジェクトとアニメーションのオブジェクト名と一致させるために(clone)を削除する処理を行う
+        Debug.Log(m_currentEquipWeapons.Weapon1.WeaponType.ToString());
         var g1 = m_weaponObjects.FirstOrDefault(o => o.name == m_currentEquipWeapons.Weapon1.WeaponType.ToString());
         m_weaponListDic[WeaponListTypes.Equip1] = Instantiate(g1, m_weaponListTrans);
         m_weaponListDic[WeaponListTypes.Equip1].name = g1.name;
@@ -210,6 +194,31 @@ public class WeaponListControl : MonoBehaviour
                 m_weaponIconsDic[w.Key].sprite = m_weaponDataDic[w.Key].DeactiveWeaponImage;
             }
         }
+    }
+
+    IEnumerator SetUpCoroutine()
+    {
+        m_weaponListTrans = GameObject.FindGameObjectWithTag("WeaponList").transform;
+
+        if (!isDebug)
+        {
+            if (PlayerPrefs.HasKey(m_weaponListFileName))
+            {
+                m_currentEquipWeapons = JsonUtility.FromJson<WeaponList>(PlayerPrefs.GetString(m_weaponListFileName));
+                Debug.Log("武器リストのデータを読み込みました");
+            }   
+        }
+        else
+        {
+            m_currentEquipWeapons = new WeaponList(m_debugWeaponDatas[0], m_debugWeaponDatas[1], m_debugWeaponDatas[2], m_debugWeaponDatas[3]);
+            var debugJson = JsonUtility.ToJson(m_currentEquipWeapons);
+            PlayerPrefs.SetString(m_weaponListFileName, debugJson);
+            Debug.Log("武器リストのデータを作成しました");
+        }
+
+        yield return null;
+
+        Setup();
     }
 
     /// <summary>
