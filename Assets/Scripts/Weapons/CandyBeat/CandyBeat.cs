@@ -10,6 +10,16 @@ public class CandyBeat : WeaponBase, IWeapon
     [SerializeField] float m_hitStopTime = 0.2f;
     Coroutine coroutine;
 
+    void OnEnable()
+    {
+
+    }
+
+    void OnDisable()
+    {
+
+    }
+
     void OnTriggerEnter(Collider other)
     {
         var target = other.GetComponent<IDamagable>();
@@ -35,17 +45,34 @@ public class CandyBeat : WeaponBase, IWeapon
         coroutine = null;
     }
 
-    public void WeaponAttack()
+    /// <summary>
+    /// 通常攻撃
+    /// </summary>
+    /// <param name="anim"></param>
+    /// <param name="rb"></param>
+    public void WeaponAction1(Animator anim, Rigidbody rb, int comboNum = 0)
     {
-        throw new System.NotImplementedException();
+        anim.SetBool("Light", true);
     }
 
-    public void BeginAttack()
+    /// <summary>
+    /// ジャンプ強攻撃
+    /// </summary>
+    /// <param name="anim"></param>
+    /// <param name="rb"></param>
+    public void WeaponAction2(Animator anim, Rigidbody rb)
     {
-        throw new System.NotImplementedException();
+        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        rb.AddForce(Vector3.up * 10, ForceMode.Impulse);
+        anim.SetBool("Strong", true);
     }
 
-    public void EndAttack()
+    /// <summary>
+    /// 考え中
+    /// </summary>
+    /// <param name="anim"></param>
+    /// <param name="rb"></param>
+    public void WeaponAction3(Animator anim, Rigidbody rb)
     {
         throw new System.NotImplementedException();
     }

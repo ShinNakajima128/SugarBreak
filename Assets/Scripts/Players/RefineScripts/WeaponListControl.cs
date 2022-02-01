@@ -119,14 +119,12 @@ public class WeaponListControl : MonoBehaviour
         {
             ChangeWeapon(WeaponListTypes.MainWeapon);
         }
-
     }
 
     void Setup()
     {
         //武器オブジェクトの登録
         //生成したオブジェクトとアニメーションのオブジェクト名と一致させるために(clone)を削除する処理を行う
-        Debug.Log(m_currentEquipWeapons.Weapon1.WeaponType.ToString());
         var g1 = m_weaponObjects.FirstOrDefault(o => o.name == m_currentEquipWeapons.Weapon1.WeaponType.ToString());
         m_weaponListDic[WeaponListTypes.Equip1] = Instantiate(g1, m_weaponListTrans);
         m_weaponListDic[WeaponListTypes.Equip1].name = g1.name;
@@ -186,6 +184,7 @@ public class WeaponListControl : MonoBehaviour
             if (w.Key == m_currentWeapon)
             {
                 w.Value.SetActive(true);
+                PlayerController.Instance.CurrentWeaponAction = w.Value.GetComponent<IWeapon>();
                 m_weaponIconsDic[w.Key].sprite = m_weaponDataDic[w.Key].ActiveWeaponImage;
             }
             else

@@ -35,17 +35,17 @@ public class DualSoda : WeaponBase, IWeapon
         coroutine = null;
     }
 
-    public void WeaponAttack()
+    public void WeaponAction1(Animator anim, Rigidbody rb, int comboNum = 0)
     {
         throw new System.NotImplementedException();
     }
 
-    public void BeginAttack()
+    public void WeaponAction2(Animator anim, Rigidbody rb)
     {
         throw new System.NotImplementedException();
     }
 
-    public void EndAttack()
+    public void WeaponAction3(Animator anim, Rigidbody rb)
     {
         throw new System.NotImplementedException();
     }

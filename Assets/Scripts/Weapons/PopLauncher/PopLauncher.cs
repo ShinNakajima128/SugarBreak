@@ -39,17 +39,17 @@ public class PopLauncher : WeaponBase, IWeapon
         player.AddForce(-player.transform.forward * m_recoilPower, ForceMode.Impulse);
     }
 
-    public void WeaponAttack()
+    public void WeaponAction1(Animator anim, Rigidbody rb, int comboNum = 0)
     {
         throw new NotImplementedException();
     }
 
-    public void BeginAttack()
+    public void WeaponAction2(Animator anim, Rigidbody rb)
     {
         throw new NotImplementedException();
     }
 
-    public void EndAttack()
+    public void WeaponAction3(Animator anim, Rigidbody rb)
     {
         throw new NotImplementedException();
     }

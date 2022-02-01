@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
     public float RunSpeed => m_runSpeed;
     public bool WallHit { get; set; } = false;
     public static PlayerController Instance { get; private set; }
+    public IWeapon CurrentWeaponAction { get; set; }
 
     void Awake()
     {
@@ -247,23 +248,36 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1") || Input.GetAxis("Trigger") > 0)
         {
-            if (WeaponListControl.Instance.CurrentEquipWeapon == WeaponListTypes.Equip1)
+            if (IsGrounded())
             {
-                if (IsGrounded())
-                {
-                    PlayerStatesManager.Instance.IsOperation = false;
-                    m_anim.SetBool("Light", true);                      ///CandyBeatの弱攻撃
-                    StartCoroutine(AttackMotionTimer(m_waitTime));
-                }
-                else
-                {
-                    PlayerStatesManager.Instance.IsOperation = false;
-                    m_rb.velocity = new Vector3(m_rb.velocity.x, 0, m_rb.velocity.z);
-                    m_rb.AddForce(Vector3.up * 10, ForceMode.Impulse);
-                    m_anim.SetBool("Strong", true);                     ///CandyBeatの強攻撃
-                    StartCoroutine(AttackMotionTimer(m_waitTime));
-                }
+                CurrentWeaponAction.WeaponAction1(m_anim, m_rb);
+                StartCoroutine(AttackMotionTimer(m_waitTime));
             }
+            else
+            {
+                CurrentWeaponAction.WeaponAction2(m_anim, m_rb);
+                StartCoroutine(AttackMotionTimer(m_waitTime));
+            }
+            PlayerStatesManager.Instance.IsOperation = false;
+            //if (WeaponListControl.Instance.CurrentEquipWeapon == WeaponListTypes.Equip1)
+            //{
+            //    if (IsGrounded())
+            //    {
+            //        CurrentWeaponAction.WeaponAction1(m_anim, m_rb);
+            //        PlayerStatesManager.Instance.IsOperation = false;
+            //        m_anim.SetBool("Light", true);                      ///CandyBeatの弱攻撃
+            //        StartCoroutine(AttackMotionTimer(m_waitTime));
+            //    }
+            //    else
+            //    {
+            //        CurrentWeaponAction.WeaponAction2(m_anim, m_rb);
+            //        PlayerStatesManager.Instance.IsOperation = false;
+            //        //m_rb.velocity = new Vector3(m_rb.velocity.x, 0, m_rb.velocity.z);
+            //        //m_rb.AddForce(Vector3.up * 10, ForceMode.Impulse);
+            //        //m_anim.SetBool("Strong", true);                     ///CandyBeatの強攻撃
+            //        StartCoroutine(AttackMotionTimer(m_waitTime));
+            //    }
+            //}
 
             ///ポップランチャーの攻撃
             if (WeaponListControl.Instance.CurrentEquipWeapon == WeaponListTypes.Equip2)
