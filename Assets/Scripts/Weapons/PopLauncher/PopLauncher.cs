@@ -52,6 +52,7 @@ public class PopLauncher : WeaponBase, IWeapon
         anim.SetBool("Shoot", true);
         rb.velocity = new Vector3(0, rb.velocity.y, 0);
         PlayerStatesManager.Instance.IsOperation = false;
+        StartCoroutine(PlayerController.Instance.AttackMotionTimer(1.0f));
     }
 
     public void WeaponAction2(Animator anim, Rigidbody rb)
