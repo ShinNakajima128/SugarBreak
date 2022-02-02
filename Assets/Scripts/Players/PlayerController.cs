@@ -137,6 +137,7 @@ public class PlayerController : MonoBehaviour
             {
                 StartCoroutine(Dodge());
                 isDodged = true;
+                SoundManager.Instance.PlayVoiceByName("univ0005");
             }
         }
     }
