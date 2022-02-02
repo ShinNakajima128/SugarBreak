@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 2928823492970431415}
   - component: {fileID: 2928823492970431414}
   - component: {fileID: 2928823492970431413}
-  - component: {fileID: 2928823492970431412}
   m_Layer: 0
   m_Name: LeftSoda
-  m_TagString: Untagged
+  m_TagString: LeftSoda
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,19 +80,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2928823492970431412
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2928823492970431403}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2928823493579870612
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,6 +247,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2928823494383996834}
+  - component: {fileID: 7200105297959072541}
+  - component: {fileID: 6492108140022031380}
   m_Layer: 0
   m_Name: DualSoda
   m_TagString: Untagged
@@ -284,6 +272,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &7200105297959072541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2928823494383996833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2d5aa5c5dc2cc94294919de31a9ea74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_data: {fileID: 11400000, guid: 296b6172ad95f4b40bee7cd3f9a96cc5, type: 2}
+  attackDamage: 5
+  m_hitStopTime: 0.02
+--- !u!65 &6492108140022031380
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2928823494383996833}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2928823494980209230
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,10 +311,9 @@ GameObject:
   - component: {fileID: 2928823494980209231}
   - component: {fileID: 2928823494980209226}
   - component: {fileID: 2928823494980209225}
-  - component: {fileID: 2928823494980209224}
   m_Layer: 0
   m_Name: RightSoda
-  m_TagString: Untagged
+  m_TagString: RightSoda
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -365,16 +380,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2928823494980209224
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2928823494980209230}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}

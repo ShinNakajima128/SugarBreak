@@ -52,7 +52,6 @@ public class PlayerController : MonoBehaviour
     PlayerState state = PlayerState.None;
     Rigidbody m_rb;
     Animator m_anim;
-    int comboNum = 0;
     Coroutine combpCoroutine;
     bool isDodged = false;
     float actualPushPower;
@@ -84,10 +83,7 @@ public class PlayerController : MonoBehaviour
         ///Playerが操作可能だったら
         if (PlayerStatesManager.Instance.IsOperation)
         {
-            if (comboNum <= 0)
-            {
-                PlayerMove();
-            }
+            PlayerMove();
 
             AttackMove();
 
@@ -164,7 +160,6 @@ public class PlayerController : MonoBehaviour
         {
             m_anim.SetBool("isGround", false);
         }
-        Debug.Log(isGrounded);
         return isGrounded;
     }
 
@@ -298,16 +293,13 @@ public class PlayerController : MonoBehaviour
             //地上にいる時の攻撃
             if (IsGrounded())
             {
-                CurrentWeaponAction.WeaponAction1(m_anim, m_rb, combpCoroutine, comboNum);
-                StartCoroutine(AttackMotionTimer(m_waitTime));
+                CurrentWeaponAction.WeaponAction1(m_anim, m_rb);
             }
             //空中時の攻撃
             else
             {
                 CurrentWeaponAction.WeaponAction2(m_anim, m_rb);
-                StartCoroutine(AttackMotionTimer(m_waitTime));
             }
-            PlayerStatesManager.Instance.IsOperation = false;
         }
     }
 
@@ -323,24 +315,16 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// 硬直
     /// </summary>
-    /// <returns> </returns>
-    public IEnumerator AttackMotionTimer(float time)
+    public IEnumerator AttackMotionTimer(float time, Action comboResetCallBack = null)
     {
+        PlayerStatesManager.Instance.IsOperation = false;
         m_anim.SetFloat("Move", 0);
         yield return new WaitForSeconds(time);
-
         PlayerStatesManager.Instance.IsOperation = true;
+        yield return new WaitForSeconds(time + 0.5f);
 
-        if (comboNum != 0)
-        {
-            yield return new WaitForSeconds(time);
-
-            comboNum = 0;
-
-            m_anim.SetBool("SwordAttack1", false);
-            m_anim.SetBool("SwordAttack2", false);
-            m_anim.SetBool("SwordAttack3", false);
-        }
+        comboResetCallBack?.Invoke();
+        Debug.Log("コンボリセット");
     }
 
     IEnumerator Jump()
