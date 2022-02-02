@@ -153,11 +153,6 @@ public class WeaponListControl : MonoBehaviour
         m_weaponIconsDic[WeaponListTypes.Equip3] = m_weaponIcons[2];
         m_weaponIconsDic[WeaponListTypes.MainWeapon] = m_weaponIcons[3];
 
-        foreach (var w in m_weaponListDic)
-        {
-            Debug.Log(w.Value.name);
-        }
-
         ChangeWeapon(WeaponListTypes.MainWeapon);
     }
 
