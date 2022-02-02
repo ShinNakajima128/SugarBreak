@@ -44,12 +44,14 @@ public class PopLauncher : WeaponBase, IWeapon
         var m_rb = bullet.GetComponent<Rigidbody>();
         m_rb.AddForce(bullet.transform.forward * m_shootPower, ForceMode.Impulse);
         m_playerRb.AddForce(-m_playerRb.transform.forward * m_recoilPower, ForceMode.Impulse);
+        SoundManager.Instance.PlaySeByName("Shoot");
     }
 
-    public void WeaponAction1(Animator anim, Rigidbody rb, Coroutine comboCor, int comboNum = 0)
+    public void WeaponAction1(Animator anim, Rigidbody rb)
     {
         anim.SetBool("Shoot", true);
         rb.velocity = new Vector3(0, rb.velocity.y, 0);
+        PlayerStatesManager.Instance.IsOperation = false;
     }
 
     public void WeaponAction2(Animator anim, Rigidbody rb)
