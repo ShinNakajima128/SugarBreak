@@ -30,7 +30,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float m_jumpPower = 5f;
     /// <summary> 硬直時間 </summary>
     [SerializeField] float m_waitTime = 1.0f;
-    [SerializeField] AnimationEventScript animationEventScript = null;
     /// <summary> 着地判定を取る距離 </summary>
     [SerializeField] float m_isGroundedLength = 0.05f;
     /// <summary> Effectを表示する場所 </summary>
@@ -42,12 +41,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float m_maxVelocityY = 2.5f;
 
+    [Header("回避モーションの各数値")]
+    /// <summary> 回避中にかけられる力の数値 </summary>
+    [SerializeField]
+    float m_pushPower = 10.0f;
+    /// <summary> 徐々に力を減らす数値 </summary>
+    [SerializeField]
+    float m_decreaseValue = 10.0f;
+
     PlayerState state = PlayerState.None;
     Rigidbody m_rb;
     Animator m_anim;
     int comboNum = 0;
     Coroutine combpCoroutine;
-    bool isSliding;
+    bool isDodged = false;
+    float actualPushPower;
 
     public PlayerState State
     {
@@ -68,6 +76,7 @@ public class PlayerController : MonoBehaviour
     {
         m_rb = GetComponent<Rigidbody>();
         m_anim = GetComponent<Animator>();
+        actualPushPower = m_pushPower;
     }
 
     void Update()
@@ -85,6 +94,8 @@ public class PlayerController : MonoBehaviour
             JumpMove();
 
             WeaponChange();
+
+            DodgeMove();
 
             if (m_anim)
             {
@@ -107,6 +118,31 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+        if (isDodged)
+        {
+            m_rb.AddForce(transform.forward * actualPushPower, ForceMode.Force);
+            if (actualPushPower >= 0)
+            {
+                actualPushPower -= m_decreaseValue * Time.deltaTime;
+            }
+        }
+    }
+
+    void DodgeMove()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (m_rb.velocity == new Vector3(0f, m_rb.velocity.y, 0f))
+            {
+                return;
+            }
+
+            if (!isDodged)
+            {
+                StartCoroutine(Dodge());
+                isDodged = true;
+            }
+        }
     }
 
     /// <summary>
@@ -116,11 +152,19 @@ public class PlayerController : MonoBehaviour
     bool IsGrounded()
     {
         // Physics.Linecast() を使って足元から線を張り、そこに何かが衝突していたら true とする
-        Vector3 start = this.transform.position;   // start: オブジェクトの中心
-        Vector3 end = start + Vector3.down * m_isGroundedLength;  // end: start から真下の地点
-        Debug.DrawLine(start, end); // 動作確認用に Scene ウィンドウ上で線を表示する
-        bool isGrounded = Physics.Linecast(start, end); // 引いたラインに何かがぶつかっていたら true とする
-        if (isGrounded) m_anim.SetBool("isGround", true);
+        Vector3 start1 = transform.position;   // start: オブジェクトの中心
+        Vector3 end1 = start1 + Vector3.down * m_isGroundedLength;  // end: start から真下の地点
+        Debug.DrawLine(start1, end1); // 動作確認用に Scene ウィンドウ上で線を表示する
+        bool isGrounded = Physics.Linecast(start1, end1); // 引いたラインに何かがぶつかっていたら true とする
+        if (isGrounded)
+        {
+            m_anim.SetBool("isGround", true);
+        }
+        else
+        {
+            m_anim.SetBool("isGround", false);
+        }
+        Debug.Log(isGrounded);
         return isGrounded;
     }
 
@@ -304,5 +348,15 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
 
         m_anim.SetBool("isGround", false);
+    }
+
+    IEnumerator Dodge()
+    {
+        PlayerStatesManager.Instance.IsOperation = false;
+        m_anim.SetTrigger("isDodged");
+        yield return new WaitForSeconds(1.0f);
+        actualPushPower = m_pushPower;
+        isDodged = false;
+        PlayerStatesManager.Instance.IsOperation = true;
     }
 }
