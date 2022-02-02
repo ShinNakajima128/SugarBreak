@@ -8,25 +8,33 @@ using System;
 /// </summary>
 public class PopLauncher : WeaponBase, IWeapon
 {
-    [SerializeField] GameObject m_muzzle = null;
-    [SerializeField] GameObject m_bulletPrefab = null;
-    [SerializeField] float m_shootPower = 5.0f;
-    [SerializeField] float m_recoilPower = 5.0f;
-    AnimationEventScript animationEvent;
+    [SerializeField] 
+    GameObject m_muzzle = null;
 
-    private void Awake()
-    {
-        //animationEvent = GameObject.FindGameObjectWithTag("Player").GetComponent<AnimationEventScript>();   
-    }
+    [SerializeField] 
+    GameObject m_bulletPrefab = null;
+
+    [SerializeField] 
+    float m_shootPower = 5.0f;
+
+    [SerializeField] 
+    float m_recoilPower = 5.0f;
+
+    Rigidbody m_playerRb = default;
 
     private void OnEnable()
     {
-        //animationEvent.AttackAction += ShootBullet;
+        if (m_playerRb == null)
+        {
+            m_playerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
+
+        }
+        WeaponActionManager.ListenAction(ActionType.Action1, ShootBullet);
     }
 
     private void OnDisable()
     {
-        //animationEvent.AttackAction -= ShootBullet;
+        WeaponActionManager.RemoveAction(ActionType.Action1, ShootBullet);
     }
 
     public  void ShootBullet()
@@ -34,9 +42,8 @@ public class PopLauncher : WeaponBase, IWeapon
         var bullet = Instantiate(m_bulletPrefab, m_muzzle.transform.position, m_muzzle.transform.rotation);
         bullet.GetComponent<PopBullet>().AttackDamage = attackDamage;
         var m_rb = bullet.GetComponent<Rigidbody>();
-        var player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
         m_rb.AddForce(bullet.transform.forward * m_shootPower, ForceMode.Impulse);
-        player.AddForce(-player.transform.forward * m_recoilPower, ForceMode.Impulse);
+        m_playerRb.AddForce(-m_playerRb.transform.forward * m_recoilPower, ForceMode.Impulse);
     }
 
     public void WeaponAction1(Animator anim, Rigidbody rb, Coroutine comboCor, int comboNum = 0)
