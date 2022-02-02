@@ -15,6 +15,7 @@ TagManager:
   - FlowChart
   - WeaponList
   - EffectPosition
+  - CandyBeatEffectPosition
   layers:
   - Default
   - TransparentFX
