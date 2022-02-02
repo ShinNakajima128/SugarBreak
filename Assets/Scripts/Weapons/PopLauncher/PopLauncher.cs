@@ -39,9 +39,10 @@ public class PopLauncher : WeaponBase, IWeapon
         player.AddForce(-player.transform.forward * m_recoilPower, ForceMode.Impulse);
     }
 
-    public void WeaponAction1(Animator anim, Rigidbody rb, int comboNum = 0)
+    public void WeaponAction1(Animator anim, Rigidbody rb, Coroutine comboCor, int comboNum = 0)
     {
-        throw new NotImplementedException();
+        anim.SetBool("Shoot", true);
+        rb.velocity = new Vector3(0, rb.velocity.y, 0);
     }
 
     public void WeaponAction2(Animator anim, Rigidbody rb)

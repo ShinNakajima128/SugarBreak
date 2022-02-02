@@ -50,7 +50,7 @@ public class CandyBeat : WeaponBase, IWeapon
     /// </summary>
     /// <param name="anim"></param>
     /// <param name="rb"></param>
-    public void WeaponAction1(Animator anim, Rigidbody rb, int comboNum = 0)
+    public void WeaponAction1(Animator anim, Rigidbody rb, Coroutine comboCor, int comboNum = 0)
     {
         anim.SetBool("Light", true);
     }

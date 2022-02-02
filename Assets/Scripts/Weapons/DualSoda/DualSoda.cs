@@ -35,9 +35,41 @@ public class DualSoda : WeaponBase, IWeapon
         coroutine = null;
     }
 
-    public void WeaponAction1(Animator anim, Rigidbody rb, int comboNum = 0)
+    public void WeaponAction1(Animator anim, Rigidbody rb, Coroutine comboCor, int comboNum = 0)
     {
-        throw new System.NotImplementedException();
+        if (comboNum == 3) return;
+
+        if (comboNum == 0)
+        {
+            anim.SetTrigger("SwordAttack1");
+            comboNum = 1;
+            comboCor = StartCoroutine(PlayerController.Instance.AttackMotionTimer(0.3f));
+        }
+        else if (comboNum == 1)
+        {
+            anim.SetTrigger("SwordAttack2");
+            comboNum = 2;
+            if (comboCor != null)
+            {
+                StopCoroutine(comboCor);
+                comboCor = null;
+                comboCor = StartCoroutine(PlayerController.Instance.AttackMotionTimer(0.3f));
+            }
+        }
+        else if (comboNum == 2)
+        {
+            rb.velocity = Vector3.zero;
+            anim.SetTrigger("SwordAttack3");
+            PlayerStatesManager.Instance.IsOperation = false;
+            StartCoroutine(PlayerController.Instance.AttackMotionTimer(1.0f));
+            comboNum = 3;
+            if (comboCor != null)
+            {
+                StopCoroutine(comboCor);
+                comboCor = null;
+                comboCor = StartCoroutine(PlayerController.Instance.AttackMotionTimer(0.5f));
+            }
+        }
     }
 
     public void WeaponAction2(Animator anim, Rigidbody rb)
