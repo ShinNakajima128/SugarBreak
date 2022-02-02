@@ -9,31 +9,32 @@ public class CandyBeat : WeaponBase, IWeapon
 {
     [SerializeField] float m_hitStopTime = 0.2f;
     Coroutine coroutine;
+    BoxCollider m_collider;
+    Transform m_effectPos;
+    bool m_init = false;
 
     void OnEnable()
     {
-
+        if (!m_init)
+        {
+            m_collider = GetComponent<BoxCollider>();
+            m_effectPos = GameObject.FindGameObjectWithTag("CandyBeatEffectPosition").transform;
+            m_init = true;
+        }
+        m_collider.enabled = false;
+        WeaponActionManager.ListenAction(ActionType.StartHitDecision, OnCollider);
+        WeaponActionManager.ListenAction(ActionType.FinishHitDecision, OffCollider);
+        WeaponActionManager.ListenAction(ActionType.WeaponEffect, OnEffect);
     }
 
     void OnDisable()
     {
-
+        WeaponActionManager.RemoveAction(ActionType.StartHitDecision, OnCollider);
+        WeaponActionManager.RemoveAction(ActionType.FinishHitDecision, OffCollider);
+        WeaponActionManager.RemoveAction(ActionType.WeaponEffect, OnEffect);
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        var target = other.GetComponent<IDamagable>();
-        if (target != null)
-        {
-            target.Damage(attackDamage);
-
-            if (coroutine == null)
-            {
-               coroutine = StartCoroutine(HitStop());
-            }
-        }
-    }
-
+   
     IEnumerator HitStop()
     {
         Time.timeScale = 0.01f;
@@ -75,5 +76,43 @@ public class CandyBeat : WeaponBase, IWeapon
     public void WeaponAction3(Animator anim, Rigidbody rb)
     {
         throw new System.NotImplementedException();
+    }
+
+    /// <summary>
+    /// 当たり判定を開始する
+    /// </summary>
+    void OnCollider()
+    {
+        m_collider.enabled = true;
+    }
+
+    /// <summary>
+    /// 当たり判定を終了する
+    /// </summary>
+    void OffCollider()
+    {
+        m_collider.enabled = false;
+    }
+
+    /// <summary>
+    /// ジャンプ強攻撃のエフェクトを再生する
+    /// </summary>
+    void OnEffect()
+    {
+        EffectManager.PlayEffect(EffectType.Slam, m_effectPos.position);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        var target = other.GetComponent<IDamagable>();
+        if (target != null)
+        {
+            target.Damage(attackDamage);
+
+            if (coroutine == null)
+            {
+                coroutine = StartCoroutine(HitStop());
+            }
+        }
     }
 }

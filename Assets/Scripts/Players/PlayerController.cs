@@ -42,7 +42,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float m_maxVelocityY = 2.5f;
 
-    Dictionary<PlayerActions, Action> m_playerActionDic = new Dictionary<PlayerActions, Action>();
     PlayerState state = PlayerState.None;
     Rigidbody m_rb;
     Animator m_anim;
@@ -203,7 +202,7 @@ public class PlayerController : MonoBehaviour
 
             WeaponListControl.Instance.ChangeWeapon(WeaponListTypes.Equip1);
             WeaponChangeAction();
-            //WeaponListManager.Instance.IconChange();
+            m_anim.Rebind();
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetAxisRaw("D Pad Ver") == 1)
         {
@@ -211,7 +210,7 @@ public class PlayerController : MonoBehaviour
 
             WeaponListControl.Instance.ChangeWeapon(WeaponListTypes.Equip2);
             WeaponChangeAction();
-            //WeaponListManager.Instance.IconChange();
+            m_anim.Rebind();
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetAxisRaw("D Pad Hori") == -1)
         {
@@ -219,7 +218,7 @@ public class PlayerController : MonoBehaviour
 
             WeaponListControl.Instance.ChangeWeapon(WeaponListTypes.Equip3);
             WeaponChangeAction();
-            //WeaponListManager.Instance.IconChange();
+            m_anim.Rebind();
         } 
     }
 
@@ -237,94 +236,29 @@ public class PlayerController : MonoBehaviour
                 SoundManager.Instance.PlayVoiceByName("univ0001");
             }
         }
-
     }
 
     /// <summary>
-    /// キャンディビートの攻撃
+    /// 各武器での攻撃アクション
     /// </summary>
     void AttackMove()
     {
-
+        //通常攻撃
         if (Input.GetButtonDown("Fire1") || Input.GetAxis("Trigger") > 0)
         {
+            //地上にいる時の攻撃
             if (IsGrounded())
             {
-                CurrentWeaponAction.WeaponAction1(m_anim, m_rb);
+                CurrentWeaponAction.WeaponAction1(m_anim, m_rb, combpCoroutine, comboNum);
                 StartCoroutine(AttackMotionTimer(m_waitTime));
             }
+            //空中時の攻撃
             else
             {
                 CurrentWeaponAction.WeaponAction2(m_anim, m_rb);
                 StartCoroutine(AttackMotionTimer(m_waitTime));
             }
             PlayerStatesManager.Instance.IsOperation = false;
-            //if (WeaponListControl.Instance.CurrentEquipWeapon == WeaponListTypes.Equip1)
-            //{
-            //    if (IsGrounded())
-            //    {
-            //        CurrentWeaponAction.WeaponAction1(m_anim, m_rb);
-            //        PlayerStatesManager.Instance.IsOperation = false;
-            //        m_anim.SetBool("Light", true);                      ///CandyBeatの弱攻撃
-            //        StartCoroutine(AttackMotionTimer(m_waitTime));
-            //    }
-            //    else
-            //    {
-            //        CurrentWeaponAction.WeaponAction2(m_anim, m_rb);
-            //        PlayerStatesManager.Instance.IsOperation = false;
-            //        //m_rb.velocity = new Vector3(m_rb.velocity.x, 0, m_rb.velocity.z);
-            //        //m_rb.AddForce(Vector3.up * 10, ForceMode.Impulse);
-            //        //m_anim.SetBool("Strong", true);                     ///CandyBeatの強攻撃
-            //        StartCoroutine(AttackMotionTimer(m_waitTime));
-            //    }
-            //}
-
-            ///ポップランチャーの攻撃
-            if (WeaponListControl.Instance.CurrentEquipWeapon == WeaponListTypes.Equip2)
-            {
-                PlayerStatesManager.Instance.IsOperation = false;
-                m_anim.SetBool("Shoot", true);
-                StartCoroutine(AttackMotionTimer(m_waitTime));
-                m_rb.velocity = new Vector3(0, m_rb.velocity.y, 0);
-            }
-
-            ///デュアルソーダの攻撃
-            if (WeaponListControl.Instance.CurrentEquipWeapon == WeaponListTypes.Equip3)
-            {
-                if (comboNum == 3) return;
-
-                if (comboNum == 0)
-                {
-                    m_anim.SetTrigger("SwordAttack1");
-                    comboNum = 1;
-                    combpCoroutine = StartCoroutine(AttackMotionTimer(0.3f));
-                }
-                else if (comboNum == 1)
-                {
-                    m_anim.SetTrigger("SwordAttack2");
-                    comboNum = 2;
-                    if (combpCoroutine != null)
-                    {
-                        StopCoroutine(combpCoroutine);
-                        combpCoroutine = null;
-                        combpCoroutine = StartCoroutine(AttackMotionTimer(0.3f));
-                    }
-                }
-                else if (comboNum == 2)
-                {
-                    m_rb.velocity = Vector3.zero;
-                    m_anim.SetTrigger("SwordAttack3");
-                    PlayerStatesManager.Instance.IsOperation = false;
-                    StartCoroutine(AttackMotionTimer(m_waitTime));
-                    comboNum = 3;
-                    if (combpCoroutine != null)
-                    {
-                        StopCoroutine(combpCoroutine);
-                        combpCoroutine = null;
-                        combpCoroutine = StartCoroutine(AttackMotionTimer(0.5f));
-                    }
-                }
-            }
         }
     }
 
@@ -335,14 +269,13 @@ public class PlayerController : MonoBehaviour
     {
         EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
         SoundManager.Instance.PlaySeByName("Change");
-        //WeaponListManager.Instance.IconChange();
     }
 
     /// <summary>
     /// 硬直
     /// </summary>
     /// <returns> </returns>
-    IEnumerator AttackMotionTimer(float time)
+    public IEnumerator AttackMotionTimer(float time)
     {
         m_anim.SetFloat("Move", 0);
         yield return new WaitForSeconds(time);
@@ -366,57 +299,5 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
 
         m_anim.SetBool("isGround", false);
-    }
-
-    /// <summary>
-    /// アクションを登録する
-    /// </summary>
-    /// <param name="actions"> アクションの種類 </param>
-    /// <param name="action"> 追加する処理 </param>
-    public static void ListenActions(PlayerActions actions, Action action)
-    {
-        if (Instance == null) return;
-        Action thisEvent;
-        if (Instance.m_playerActionDic.TryGetValue(actions, out thisEvent))
-        {
-            thisEvent += action;
-
-            Instance.m_playerActionDic[actions] = thisEvent;
-        }
-        else
-        {
-            thisEvent += action;
-            Instance.m_playerActionDic.Add(actions, thisEvent);
-        }
-    }
-
-    /// <summary>
-    /// 登録したアクションを抹消する
-    /// </summary>
-    /// <param name="events"> アクションの種類 </param>
-    /// <param name="action"> 抹消する処理 </param>
-    public static void RemoveActions(PlayerActions events, Action action)
-    {
-        if (Instance == null) return;
-        Action thisEvent;
-        if (Instance.m_playerActionDic.TryGetValue(events, out thisEvent))
-        {
-            thisEvent -= action;
-
-            Instance.m_playerActionDic[events] = thisEvent;
-        }
-    }
-
-    /// <summary>
-    /// アクションを実行する
-    /// </summary>
-    /// <param name="events"> 実行するアクション </param>
-    public static void OnAction(PlayerActions events)
-    {
-        Action thisEvent;
-        if (Instance.m_playerActionDic.TryGetValue(events, out thisEvent))
-        {
-            thisEvent?.Invoke();
-        }
     }
 }

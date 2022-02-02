@@ -82077,14 +82077,21 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 1.5666667
-    functionName: CandyAttack
+    functionName: OnStartHitDesition
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 1.6666666
-    functionName: FinishCandyAttack
+    functionName: OnFinishHitDesition
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.6666666
+    functionName: OnWeaponEffect
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
