@@ -12,6 +12,7 @@ public class CandyBeat : WeaponBase, IWeapon
     BoxCollider m_collider;
     Transform m_effectPos;
     bool m_init = false;
+    bool m_isJumpAttacked = false;
 
     void OnEnable()
     {
@@ -51,9 +52,12 @@ public class CandyBeat : WeaponBase, IWeapon
     /// </summary>
     /// <param name="anim"></param>
     /// <param name="rb"></param>
-    public void WeaponAction1(Animator anim, Rigidbody rb, Coroutine comboCor, int comboNum = 0)
+    public void WeaponAction1(Animator anim, Rigidbody rb)
     {
+        attackDamage = 5;
         anim.SetBool("Light", true);
+        PlayerStatesManager.Instance.IsOperation = false;
+        StartCoroutine(PlayerController.Instance.AttackMotionTimer(1.0f));
     }
 
     /// <summary>
@@ -63,9 +67,13 @@ public class CandyBeat : WeaponBase, IWeapon
     /// <param name="rb"></param>
     public void WeaponAction2(Animator anim, Rigidbody rb)
     {
+        attackDamage = 10;
+        m_isJumpAttacked = true;
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
         rb.AddForce(Vector3.up * 10, ForceMode.Impulse);
         anim.SetBool("Strong", true);
+        PlayerStatesManager.Instance.IsOperation = false;
+        StartCoroutine(PlayerController.Instance.AttackMotionTimer(1.0f));
     }
 
     /// <summary>
@@ -84,6 +92,16 @@ public class CandyBeat : WeaponBase, IWeapon
     void OnCollider()
     {
         m_collider.enabled = true;
+        if (!m_isJumpAttacked)
+        {
+            SoundManager.Instance.PlaySeByName("LightAttack");
+            SoundManager.Instance.PlayVoiceByName("univ0002");
+        }
+        else
+        {
+            SoundManager.Instance.PlaySeByName("JumpAttack");
+            SoundManager.Instance.PlayVoiceByName("univ1257");
+        }        
     }
 
     /// <summary>
@@ -92,6 +110,7 @@ public class CandyBeat : WeaponBase, IWeapon
     void OffCollider()
     {
         m_collider.enabled = false;
+        m_isJumpAttacked = false;
     }
 
     /// <summary>
