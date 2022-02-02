@@ -222,6 +222,12 @@ public class PlayerController : MonoBehaviour
         } 
     }
 
+    public void JumpUp()
+    {
+        Debug.Log("ジャンプ");
+        m_rb.AddForce(Vector3.up * m_jumpPower, ForceMode.Impulse);
+    }
+
     /// <summary>
     /// ジャンプ
     /// </summary>
@@ -231,7 +237,6 @@ public class PlayerController : MonoBehaviour
         {
             if (IsGrounded())
             {
-                m_rb.AddForce(Vector3.up * m_jumpPower, ForceMode.Impulse);
                 JumpMotion();
                 SoundManager.Instance.PlayVoiceByName("univ0001");
             }
