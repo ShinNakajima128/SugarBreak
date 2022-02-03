@@ -97,6 +97,11 @@ public class DualSoda : WeaponBase, IWeapon
         coroutine = null;
     }
 
+    /// <summary>
+    /// 地上時の連続コンボ攻撃
+    /// </summary>
+    /// <param name="anim"> プレイヤーのAnimator </param>
+    /// <param name="rb"> プレイヤーのRigidbody </param>
     public void WeaponAction1(Animator anim, Rigidbody rb)
     {
         if (comboNum == 3 || !PlayerStatesManager.Instance.IsOperation) return;
@@ -107,9 +112,9 @@ public class DualSoda : WeaponBase, IWeapon
             comboCoroutine = null;
         }
 
+        rb.velocity = new Vector3(0, rb.velocity.y, 0);
         if (comboNum == 0)
         {
-            Debug.Log("1回目");
             attackDamage = 2;
             anim.SetTrigger("SwordAttack1");
             comboNum = 1;
@@ -119,11 +124,11 @@ public class DualSoda : WeaponBase, IWeapon
                 anim.SetBool("SwordAttack2", false);
                 anim.SetBool("SwordAttack3", false);
                 comboNum = 0;
+                Debug.Log("コンボリセット");
             }));
         }
         else if (comboNum == 1)
         {
-            Debug.Log("2回目");
             attackDamage = 4;
             anim.SetTrigger("SwordAttack2");
             comboNum = 2;
@@ -133,11 +138,11 @@ public class DualSoda : WeaponBase, IWeapon
                 anim.SetBool("SwordAttack2", false);
                 anim.SetBool("SwordAttack3", false);
                 comboNum = 0;
+                Debug.Log("コンボリセット");
             }));
         }
         else if (comboNum == 2)
         {
-            Debug.Log("3回目");
             attackDamage = 8;
             rb.velocity = Vector3.zero;
             anim.SetTrigger("SwordAttack3");
@@ -150,6 +155,7 @@ public class DualSoda : WeaponBase, IWeapon
                 anim.SetBool("SwordAttack2", false);
                 anim.SetBool("SwordAttack3", false);
                 comboNum = 0;
+                Debug.Log("コンボリセット");
             }));
         }
     }
