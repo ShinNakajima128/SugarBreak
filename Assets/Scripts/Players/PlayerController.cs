@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
     Animator m_anim;
     Coroutine combpCoroutine;
     bool isDodged = false;
+    bool isAttackMotioned = false;
     float actualPushPower;
 
     public PlayerState State
@@ -89,7 +90,10 @@ public class PlayerController : MonoBehaviour
 
             JumpMove();
 
-            WeaponChange();
+            if (!isAttackMotioned)
+            {
+                WeaponChange();
+            }
 
             DodgeMove();
 
@@ -319,13 +323,14 @@ public class PlayerController : MonoBehaviour
     public IEnumerator AttackMotionTimer(float time, Action comboResetCallBack = null)
     {
         PlayerStatesManager.Instance.IsOperation = false;
+        isAttackMotioned = true;
         m_anim.SetFloat("Move", 0);
         yield return new WaitForSeconds(time);
         PlayerStatesManager.Instance.IsOperation = true;
         yield return new WaitForSeconds(time + 0.5f);
 
         comboResetCallBack?.Invoke();
-        Debug.Log("コンボリセット");
+        isAttackMotioned = false;
     }
 
     IEnumerator Jump()
