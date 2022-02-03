@@ -37,6 +37,9 @@ public class PopLauncher : WeaponBase, IWeapon
         WeaponActionManager.RemoveAction(ActionType.Action1, ShootBullet);
     }
 
+    /// <summary>
+    /// 弾を発射する
+    /// </summary>
     public  void ShootBullet()
     {
         var bullet = Instantiate(m_bulletPrefab, m_muzzle.transform.position, m_muzzle.transform.rotation);
@@ -47,6 +50,11 @@ public class PopLauncher : WeaponBase, IWeapon
         SoundManager.Instance.PlaySeByName("Shoot");
     }
 
+    /// <summary>
+    /// 地上時の通常攻撃
+    /// </summary>
+    /// <param name="anim"> プレイヤーのAnimator </param>
+    /// <param name="rb"> プレイヤーのRigidbody </param>
     public void WeaponAction1(Animator anim, Rigidbody rb)
     {
         anim.SetBool("Shoot", true);

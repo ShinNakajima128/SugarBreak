@@ -48,10 +48,10 @@ public class CandyBeat : WeaponBase, IWeapon
     }
 
     /// <summary>
-    /// 通常攻撃
+    /// 地上時の通常攻撃
     /// </summary>
-    /// <param name="anim"></param>
-    /// <param name="rb"></param>
+    /// <param name="anim"> プレイヤーのAnimator </param>
+    /// <param name="rb"> プレイヤーのRigidbody </param>
     public void WeaponAction1(Animator anim, Rigidbody rb)
     {
         attackDamage = 5;
