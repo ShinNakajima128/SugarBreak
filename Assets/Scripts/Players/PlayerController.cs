@@ -231,8 +231,6 @@ public class PlayerController : MonoBehaviour
     public void JumpMotion()
     {
         StartCoroutine(Jump());
-        m_anim.SetBool("Jump", true);
-        m_anim.SetBool("isGround", false);
     }
 
     /// <summary>
@@ -266,6 +264,9 @@ public class PlayerController : MonoBehaviour
         } 
     }
 
+    /// <summary>
+    /// ジャンプする。アニメーションイベントに設定
+    /// </summary>
     public void JumpUp()
     {
         Debug.Log("ジャンプ");
@@ -279,9 +280,11 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
+            //接地していたらジャンプ
             if (IsGrounded())
             {
                 JumpMotion();
+                m_anim.SetBool("Jump", true);
                 SoundManager.Instance.PlayVoiceByName("univ0001");
             }
         }
@@ -292,7 +295,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void AttackMove()
     {
-        //通常攻撃
+        //通常攻撃ボタンを押したら
         if (Input.GetButtonDown("Fire1") || Input.GetAxis("Trigger") > 0)
         {
             //地上にいる時の攻撃
@@ -340,6 +343,9 @@ public class PlayerController : MonoBehaviour
         m_anim.SetBool("isGround", false);
     }
 
+    /// <summary>
+    /// 回避モーション
+    /// </summary>
     IEnumerator Dodge()
     {
         PlayerStatesManager.Instance.IsOperation = false;
