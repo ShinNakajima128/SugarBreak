@@ -269,7 +269,6 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void JumpUp()
     {
-        Debug.Log("ジャンプ");
         m_rb.AddForce(Vector3.up * m_jumpPower, ForceMode.Impulse);
     }
 
