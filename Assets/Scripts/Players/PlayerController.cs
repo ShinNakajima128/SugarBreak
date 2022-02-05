@@ -52,7 +52,6 @@ public class PlayerController : MonoBehaviour
     PlayerState state = PlayerState.None;
     Rigidbody m_rb;
     Animator m_anim;
-    Coroutine combpCoroutine;
     bool isDodged = false;
     bool isAttackMotioned = false;
     float actualPushPower;
@@ -63,6 +62,7 @@ public class PlayerController : MonoBehaviour
         set { state = value; }
     }
     public float RunSpeed => m_runSpeed;
+    public bool IsDodged => isDodged;
     public bool WallHit { get; set; } = false;
     public static PlayerController Instance { get; private set; }
     public IWeapon CurrentWeaponAction { get; set; }

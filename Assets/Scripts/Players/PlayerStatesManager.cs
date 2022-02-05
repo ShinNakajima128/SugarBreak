@@ -65,7 +65,7 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
 
     public void Damage(int attackPower)
     {
-        if (isDying) return;
+        if (isDying || PlayerController.Instance.IsDodged) return;
 
         playerData.HP -= attackPower;
         hpGauge.SetHpGauge(playerData.HP);
