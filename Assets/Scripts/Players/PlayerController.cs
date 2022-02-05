@@ -52,8 +52,9 @@ public class PlayerController : MonoBehaviour
     PlayerState state = PlayerState.None;
     Rigidbody m_rb;
     Animator m_anim;
-    bool isDodged = false;
-    bool isAttackMotioned = false;
+    bool m_isDodged = false;
+    bool m_isAttackMotioned = false;
+    bool m_isAimed = false;
     float actualPushPower;
 
     public PlayerState State
@@ -62,7 +63,8 @@ public class PlayerController : MonoBehaviour
         set { state = value; }
     }
     public float RunSpeed => m_runSpeed;
-    public bool IsDodged => isDodged;
+    public bool IsDodged => m_isDodged;
+    public bool IsAimed { get => m_isAimed; set => m_isAimed = value; }
     public bool WallHit { get; set; } = false;
     public static PlayerController Instance { get; private set; }
     public IWeapon CurrentWeaponAction { get; set; }
@@ -90,7 +92,7 @@ public class PlayerController : MonoBehaviour
 
             JumpMove();
 
-            if (!isAttackMotioned)
+            if (!m_isAttackMotioned)
             {
                 WeaponChange();
             }
@@ -118,7 +120,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        if (isDodged)
+        if (m_isDodged)
         {
             m_rb.AddForce(transform.forward * actualPushPower, ForceMode.Force);
             if (actualPushPower >= 0)
@@ -137,10 +139,10 @@ public class PlayerController : MonoBehaviour
                 return;
             }
 
-            if (!isDodged)
+            if (!m_isDodged)
             {
                 StartCoroutine(Dodge());
-                isDodged = true;
+                m_isDodged = true;
                 SoundManager.Instance.PlayVoiceByName("univ0005");
             }
         }
@@ -191,14 +193,17 @@ public class PlayerController : MonoBehaviour
             // カメラを基準に入力が上下=奥/手前, 左右=左右にキャラクターを向ける
             dir = Camera.main.transform.TransformDirection(dir);    // メインカメラを基準に入力方向のベクトルを変換する
             dir.y = 0;  // y 軸方向はゼロにして水平方向のベクトルにする
-
-            // 入力方向に滑らかに回転させる
-            Quaternion targetRotation = Quaternion.LookRotation(dir);
-            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, targetRotation, Time.deltaTime * m_turnSpeed);  // Slerp を使うのがポイント
+            
+            if (!IsAimed)
+            {
+                // 入力方向に滑らかに回転させる
+                Quaternion targetRotation = Quaternion.LookRotation(dir);
+                this.transform.rotation = Quaternion.Slerp(this.transform.rotation, targetRotation, Time.deltaTime * m_turnSpeed);
+            }
 
             if (dir != Vector3.zero)
             {
-                if (Input.GetKey(KeyCode.LeftShift))
+                if (Input.GetKey(KeyCode.LeftShift) || IsAimed)
                 {
                     Vector3 velo = dir.normalized * m_walkSpeed; // 入力した方向に移動する
                     velo.y = Mathf.Clamp(m_rb.velocity.y, m_minVelocityY, m_maxVelocityY); ;   // ジャンプした時の y 軸方向の速度を保持する
@@ -308,6 +313,11 @@ public class PlayerController : MonoBehaviour
                 CurrentWeaponAction.WeaponAction2(m_anim, m_rb);
             }
         }
+
+        if (Input.GetButtonDown("Fire2"))
+        {
+            CurrentWeaponAction.WeaponAction3(m_anim, m_rb);
+        }
     }
 
     /// <summary>
@@ -325,14 +335,14 @@ public class PlayerController : MonoBehaviour
     public IEnumerator AttackMotionTimer(float time, Action comboResetCallBack = null)
     {
         PlayerStatesManager.Instance.IsOperation = false;
-        isAttackMotioned = true;
+        m_isAttackMotioned = true;
         m_anim.SetFloat("Move", 0);
         yield return new WaitForSeconds(time);
         PlayerStatesManager.Instance.IsOperation = true;
         yield return new WaitForSeconds(time + 0.5f);
 
         comboResetCallBack?.Invoke();
-        isAttackMotioned = false;
+        m_isAttackMotioned = false;
     }
 
     IEnumerator Jump()
@@ -351,7 +361,7 @@ public class PlayerController : MonoBehaviour
         m_anim.SetTrigger("isDodged");
         yield return new WaitForSeconds(1.0f);
         actualPushPower = m_pushPower;
-        isDodged = false;
+        m_isDodged = false;
         PlayerStatesManager.Instance.IsOperation = true;
     }
 }

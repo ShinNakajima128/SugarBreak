@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Cinemachine;
 
 /// <summary>
 /// 武器「ポップランチャー」の機能を持つクラス
@@ -20,13 +21,22 @@ public class PopLauncher : WeaponBase, IWeapon
     [SerializeField] 
     float m_recoilPower = 5.0f;
 
+    [SerializeField]
+    float m_aimSpeed = 0.1f;
+
     Rigidbody m_playerRb = default;
+    CinemachineVirtualCamera m_aimingCamera = default;
+    CinemachineBrain m_brain = default;
+    bool m_init = false;
 
     private void OnEnable()
     {
-        if (m_playerRb == null)
+        if (!m_init)
         {
             m_playerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
+            m_aimingCamera = GameObject.FindGameObjectWithTag("AimingCamera").GetComponent<CinemachineVirtualCamera>();
+            m_brain = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CinemachineBrain>();
+            m_init = true;
 
         }
         WeaponActionManager.ListenAction(ActionType.Action1, ShootBullet);
@@ -70,6 +80,22 @@ public class PopLauncher : WeaponBase, IWeapon
 
     public void WeaponAction3(Animator anim, Rigidbody rb)
     {
-        throw new NotImplementedException();
+        StartCoroutine(BrendSpeedChange());
+
+        if (!PlayerController.Instance.IsAimed)
+        {
+            m_aimingCamera.Priority = 30;
+        }
+        else
+        {
+            m_aimingCamera.Priority = 10;
+        }
+        PlayerController.Instance.IsAimed = !PlayerController.Instance.IsAimed;
+    }
+    IEnumerator BrendSpeedChange()
+    {
+        m_brain.m_DefaultBlend.m_Time = m_aimSpeed;
+        yield return new WaitForSeconds(m_aimSpeed);
+        m_brain.m_DefaultBlend.m_Time = 1.0f;
     }
 }

@@ -16,6 +16,10 @@ TagManager:
   - WeaponList
   - EffectPosition
   - CandyBeatEffectPosition
+  - LeftSoda
+  - RightSoda
+  - AimingCamera
+  - DefaultCamera
   layers:
   - Default
   - TransparentFX
