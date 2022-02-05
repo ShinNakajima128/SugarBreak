@@ -219,6 +219,52 @@ public class PlayerController : MonoBehaviour
                     state = PlayerState.Run;
                 }
             }
+
+            if (IsAimed)
+            {
+                Debug.Log(dir);
+
+                if (dir.z >= 0.9f)
+                {
+                    Debug.Log("前");
+                    m_anim.SetBool("Forward", true);
+                    m_anim.SetBool("Backward", false);
+                    m_anim.SetBool("Right", false);
+                    m_anim.SetBool("Left", false);
+                }
+                else if (dir.z <= -0.9f)
+                {
+                    Debug.Log("後");
+                    m_anim.SetBool("Forward", false);
+                    m_anim.SetBool("Backward", true);
+                    m_anim.SetBool("Right", false);
+                    m_anim.SetBool("Left", false);
+                }
+                if (dir.x >= 0.9f)
+                {
+                    Debug.Log("右");
+                    m_anim.SetBool("Forward", false);
+                    m_anim.SetBool("Backward", false);
+                    m_anim.SetBool("Right", true);
+                    m_anim.SetBool("Left", false);
+                }
+                else if (dir.x <= -0.9f)
+                {
+                    Debug.Log("左");
+                    m_anim.SetBool("Forward", false);
+                    m_anim.SetBool("Backward", false);
+                    m_anim.SetBool("Right", false);
+                    m_anim.SetBool("Left", true);
+                }
+                else
+                {
+                    Debug.Log("Idle");
+                    m_anim.SetBool("Forward", false);
+                    m_anim.SetBool("Backward", false);
+                    m_anim.SetBool("Right", false);
+                    m_anim.SetBool("Left", false);
+                }
+            }
         }
     }
 
