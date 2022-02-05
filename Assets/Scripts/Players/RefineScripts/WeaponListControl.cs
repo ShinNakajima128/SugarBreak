@@ -178,20 +178,24 @@ public class WeaponListControl : MonoBehaviour
         {
             if (w.Key == m_currentWeapon)
             {
-                w.Value.SetActive(true);
-                PlayerController.Instance.CurrentWeaponAction = w.Value.GetComponent<IWeapon>();
-                m_weaponIconsDic[w.Key].sprite = m_weaponDataDic[w.Key].ActiveWeaponImage;
+                w.Value.SetActive(true); //武器オブジェクトをアクティブにする
+                PlayerController.Instance.CurrentWeaponAction = w.Value.GetComponent<IWeapon>(); //装備中の武器の機能を登録
+                m_weaponIconsDic[w.Key].sprite = m_weaponDataDic[w.Key].ActiveWeaponImage; //武器アイコンをアクティブの画像に差し替える
             }
             else
             {
-                w.Value.SetActive(false);
-                m_weaponIconsDic[w.Key].sprite = m_weaponDataDic[w.Key].DeactiveWeaponImage;
+                w.Value.SetActive(false); //武器オブジェクトを非アクティブにする
+                m_weaponIconsDic[w.Key].sprite = m_weaponDataDic[w.Key].DeactiveWeaponImage; //武器アイコンを非アクティブの画像に差し替える
             }
         }
     }
 
+    /// <summary>
+    /// 武器データ読込のコルーチン
+    /// </summary>
     IEnumerator SetUpCoroutine()
     {
+        //各武器を子オブジェクトとして管理するオブジェクトを取得
         m_weaponListTrans = GameObject.FindGameObjectWithTag("WeaponList").transform;
 
         if (!isDebug)
