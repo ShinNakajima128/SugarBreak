@@ -238,7 +238,6 @@ public class PlayerController : MonoBehaviour
 
                 if (dir.z >= 0.9f)
                 {
-                    Debug.Log("前");
                     m_anim.SetFloat("ForwardMove", 2.0f);
                     m_anim.SetFloat("BackwardMove", 0);
                     m_anim.SetFloat("RightMove", 0);
@@ -246,7 +245,6 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (dir.z <= -0.9f)
                 {
-                    Debug.Log("後");
                     m_anim.SetFloat("ForwardMove", 0);
                     m_anim.SetFloat("BackwardMove", 2.0f);
                     m_anim.SetFloat("RightMove", 0);
@@ -254,7 +252,6 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (dir.x >= 0.9f)
                 {
-                    Debug.Log("右");
                     m_anim.SetFloat("ForwardMove", 0);
                     m_anim.SetFloat("BackwardMove", 0);
                     m_anim.SetFloat("RightMove", 2);
@@ -262,7 +259,6 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (dir.x <= -0.9f)
                 {
-                    Debug.Log("左");
                     m_anim.SetFloat("ForwardMove", 0);
                     m_anim.SetFloat("BackwardMove", 0);
                     m_anim.SetFloat("RightMove", 0);
@@ -270,7 +266,6 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Idle");
                     m_anim.SetFloat("ForwardMove", 0);
                     m_anim.SetFloat("BackwardMove", 0);
                     m_anim.SetFloat("RightMove", 0);
