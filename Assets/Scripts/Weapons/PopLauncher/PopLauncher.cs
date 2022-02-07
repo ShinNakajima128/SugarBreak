@@ -91,6 +91,7 @@ public class PopLauncher : WeaponBase, IWeapon
         {
             m_aimingCamera.Priority = 10;
             anim.SetBool("isAimed", false);
+            rb.gameObject.transform.rotation = Quaternion.Euler(0, rb.gameObject.transform.rotation.y, 0);
         }
         PlayerController.Instance.IsAimed = !PlayerController.Instance.IsAimed;
     }

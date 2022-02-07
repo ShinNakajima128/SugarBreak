@@ -231,8 +231,6 @@ public class PlayerController : MonoBehaviour
 
             if (IsAimed)
             {
-                Debug.Log(dir);
-
                 if (!m_isAimMoved)
                 {
                     m_isAimMoved = true;
