@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 遠隔武器の弾道予測線を表示する機能を持つクラス
+/// </summary>
 public class DrawArc : MonoBehaviour
 {
     /// <summary>
@@ -205,7 +208,7 @@ public class DrawArc : MonoBehaviour
             float distance = Vector3.Distance(startPosition, endPosition);
             if (hitInfo.collider.tag != "Bullet" && hitInfo.collider.tag != "System")
             {
-                Debug.Log(hitInfo.collider.gameObject.name);
+                //Debug.Log(hitInfo.collider.gameObject.name);
                 return startTime + (endTime - startTime) * (hitInfo.distance / distance);
             }
         }
