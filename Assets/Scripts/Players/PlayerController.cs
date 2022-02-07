@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
     bool m_isDodged = false;
     bool m_isAttackMotioned = false;
     bool m_isAimed = false;
+    bool m_isAimMoved = false;
     float actualPushPower;
 
     public PlayerState State
@@ -187,6 +188,14 @@ public class PlayerController : MonoBehaviour
             // 方向の入力がニュートラルの時は、y 軸方向の速度を保持するだけ
             m_rb.velocity = new Vector3(0f, m_rb.velocity.y, 0f);
             state = PlayerState.Idle;
+            if (m_isAimed && m_isAimMoved)
+            {
+                m_anim.SetFloat("ForwardMove", 0);
+                m_anim.SetFloat("BackwardMove", 0);
+                m_anim.SetFloat("RightMove", 0);
+                m_anim.SetFloat("LeftMove", 0);
+                m_isAimMoved = false;
+            }
         }
         else
         {
@@ -224,45 +233,50 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log(dir);
 
+                if (!m_isAimMoved)
+                {
+                    m_isAimMoved = true;
+                }
+
                 if (dir.z >= 0.9f)
                 {
                     Debug.Log("前");
-                    m_anim.SetBool("Forward", true);
-                    m_anim.SetBool("Backward", false);
-                    m_anim.SetBool("Right", false);
-                    m_anim.SetBool("Left", false);
+                    m_anim.SetFloat("ForwardMove", 2.0f);
+                    m_anim.SetFloat("BackwardMove", 0);
+                    m_anim.SetFloat("RightMove", 0);
+                    m_anim.SetFloat("LeftMove", 0);
                 }
                 else if (dir.z <= -0.9f)
                 {
                     Debug.Log("後");
-                    m_anim.SetBool("Forward", false);
-                    m_anim.SetBool("Backward", true);
-                    m_anim.SetBool("Right", false);
-                    m_anim.SetBool("Left", false);
+                    m_anim.SetFloat("ForwardMove", 0);
+                    m_anim.SetFloat("BackwardMove", 2.0f);
+                    m_anim.SetFloat("RightMove", 0);
+                    m_anim.SetFloat("LeftMove", 0);
                 }
-                if (dir.x >= 0.9f)
+                else if (dir.x >= 0.9f)
                 {
                     Debug.Log("右");
-                    m_anim.SetBool("Forward", false);
-                    m_anim.SetBool("Backward", false);
-                    m_anim.SetBool("Right", true);
-                    m_anim.SetBool("Left", false);
+                    m_anim.SetFloat("ForwardMove", 0);
+                    m_anim.SetFloat("BackwardMove", 0);
+                    m_anim.SetFloat("RightMove", 2);
+                    m_anim.SetFloat("LeftMove", 0);
                 }
                 else if (dir.x <= -0.9f)
                 {
                     Debug.Log("左");
-                    m_anim.SetBool("Forward", false);
-                    m_anim.SetBool("Backward", false);
-                    m_anim.SetBool("Right", false);
-                    m_anim.SetBool("Left", true);
+                    m_anim.SetFloat("ForwardMove", 0);
+                    m_anim.SetFloat("BackwardMove", 0);
+                    m_anim.SetFloat("RightMove", 0);
+                    m_anim.SetFloat("LeftMove", 2);
                 }
                 else
                 {
                     Debug.Log("Idle");
-                    m_anim.SetBool("Forward", false);
-                    m_anim.SetBool("Backward", false);
-                    m_anim.SetBool("Right", false);
-                    m_anim.SetBool("Left", false);
+                    m_anim.SetFloat("ForwardMove", 0);
+                    m_anim.SetFloat("BackwardMove", 0);
+                    m_anim.SetFloat("RightMove", 0);
+                    m_anim.SetFloat("LeftMove", 0);
                 }
             }
         }
