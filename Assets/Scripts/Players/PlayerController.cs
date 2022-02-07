@@ -296,6 +296,13 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void WeaponChange()
     {
+        //ADS中は武器変更不可
+        if (m_isAimed) 
+        { 
+            return; 
+        }
+
+        //キーボードの「1」かゲームパッドの十字キー「左」を押したら「装備1」に変更
         if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetAxisRaw("D Pad Hori") == 1)
         {
             if (WeaponListControl.Instance.CurrentEquipWeapon == WeaponListTypes.Equip1) return;
@@ -304,6 +311,7 @@ public class PlayerController : MonoBehaviour
             WeaponChangeAction();
             m_anim.Rebind();
         }
+        //キーボードの「2」かゲームパッドの十字キー「上」を押したら「装備2」に変更
         else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetAxisRaw("D Pad Ver") == 1)
         {
             if (WeaponListControl.Instance.CurrentEquipWeapon == WeaponListTypes.Equip2) return;
@@ -312,6 +320,7 @@ public class PlayerController : MonoBehaviour
             WeaponChangeAction();
             m_anim.Rebind();
         }
+        //キーボードの「3」かゲームパッドの十字キー「右」を押したら「装備3」に変更
         else if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetAxisRaw("D Pad Hori") == -1)
         {
             if (WeaponListControl.Instance.CurrentEquipWeapon == WeaponListTypes.Equip3) return;
