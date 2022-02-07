@@ -20,10 +20,19 @@ public class AimRotation : MonoBehaviour
     float m_minAngle = -5;
 
     Transform m_playerTrans = default;
+    Transform m_weaponListTrans = default;
+    Quaternion m_weaponListOriginTrans;
+    public static AimRotation Instance { get; private set; }
 
+    void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
         m_playerTrans = GetComponent<Transform>();
+        m_weaponListTrans = GameObject.FindGameObjectWithTag("WeaponList").transform;
+        m_weaponListOriginTrans = m_weaponListTrans.transform.rotation;
     }
 
     void Update()
@@ -39,7 +48,17 @@ public class AimRotation : MonoBehaviour
 
         //プレイヤーの上下角度が上限に達していたらそれ以上は向かないようにする
         
-        Vector3 angle = new Vector3(scroll * m_rotateSpeed * 2, h * m_rotateSpeed, 0);
-        m_playerTrans.Rotate(angle);
+        Vector3 playerAngle = new Vector3(0, h * m_rotateSpeed, 0);
+        Vector3 weaponListAngle = new Vector3(scroll * m_rotateSpeed * 2, 0, 0);
+        m_playerTrans.Rotate(playerAngle);
+        m_weaponListTrans.Rotate(weaponListAngle);
+    } 
+
+    /// <summary>
+    /// ウェポンリストのRotationを初期化する
+    /// </summary>
+    public void ResetWeaponListRotation()
+    {
+        m_weaponListTrans.rotation = m_weaponListOriginTrans;
     }
 }

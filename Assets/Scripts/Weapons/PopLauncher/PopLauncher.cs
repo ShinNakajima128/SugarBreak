@@ -28,6 +28,9 @@ public class PopLauncher : WeaponBase, IWeapon
     CinemachineVirtualCamera m_aimingCamera = default;
     CinemachineBrain m_brain = default;
     bool m_init = false;
+    bool m_isActive = false;
+    public Vector3 ShootVelocity => m_muzzle.transform.forward * m_shootPower;
+    public Vector3 InstantiatePosition => m_muzzle.transform.position;
 
     private void OnEnable()
     {
@@ -37,14 +40,16 @@ public class PopLauncher : WeaponBase, IWeapon
             m_aimingCamera = GameObject.FindGameObjectWithTag("AimingCamera").GetComponent<CinemachineVirtualCamera>();
             m_brain = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CinemachineBrain>();
             m_init = true;
-
         }
+        m_isActive = true;
         WeaponActionManager.ListenAction(ActionType.Action1, ShootBullet);
     }
 
     private void OnDisable()
     {
+        m_isActive = false;
         WeaponActionManager.RemoveAction(ActionType.Action1, ShootBullet);
+        AimRotation.Instance.ResetWeaponListRotation();
     }
 
     /// <summary>
@@ -67,7 +72,14 @@ public class PopLauncher : WeaponBase, IWeapon
     /// <param name="rb"> プレイヤーのRigidbody </param>
     public void WeaponAction1(Animator anim, Rigidbody rb)
     {
-        anim.SetBool("Shoot", true);
+        if (PlayerController.Instance.IsAimed)
+        {
+            anim.SetBool("AimShoot", true);
+        }
+        else
+        {
+            anim.SetBool("Shoot", true);
+        }
         rb.velocity = new Vector3(0, rb.velocity.y, 0);
         PlayerStatesManager.Instance.IsOperation = false;
         StartCoroutine(PlayerController.Instance.AttackMotionTimer(1.0f));
@@ -75,7 +87,7 @@ public class PopLauncher : WeaponBase, IWeapon
 
     public void WeaponAction2(Animator anim, Rigidbody rb)
     {
-        throw new NotImplementedException();
+        Debug.Log("ポップランチャージャンプ時攻撃");
     }
 
     public void WeaponAction3(Animator anim, Rigidbody rb)
