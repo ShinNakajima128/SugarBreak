@@ -28,7 +28,6 @@ public class PopLauncher : WeaponBase, IWeapon
     CinemachineVirtualCamera m_aimingCamera = default;
     CinemachineBrain m_brain = default;
     bool m_init = false;
-    bool m_isActive = false;
     public Vector3 ShootVelocity => m_muzzle.transform.forward * m_shootPower;
     public Vector3 InstantiatePosition => m_muzzle.transform.position;
 
@@ -41,13 +40,11 @@ public class PopLauncher : WeaponBase, IWeapon
             m_brain = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CinemachineBrain>();
             m_init = true;
         }
-        m_isActive = true;
         WeaponActionManager.ListenAction(ActionType.Action1, ShootBullet);
     }
 
     private void OnDisable()
     {
-        m_isActive = false;
         WeaponActionManager.RemoveAction(ActionType.Action1, ShootBullet);
         AimRotation.Instance.ResetWeaponListRotation();
     }

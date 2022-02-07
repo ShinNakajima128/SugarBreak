@@ -388,6 +388,7 @@ public class PlayerController : MonoBehaviour
     public IEnumerator AttackMotionTimer(float time, Action comboResetCallBack = null)
     {
         PlayerStatesManager.Instance.IsOperation = false;
+       
         m_isAttackMotioned = true;
         m_anim.SetFloat("Move", 0);
         yield return new WaitForSeconds(time);

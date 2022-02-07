@@ -58,7 +58,7 @@ public class DrawArc : MonoBehaviour
     /// </summary>
     private GameObject pointerObject;
     bool m_init = false;
-
+    bool m_draw = false;
     private void OnEnable()
     {
         if (!m_init)
@@ -82,26 +82,26 @@ public class DrawArc : MonoBehaviour
         initialVelocity = m_launcher.ShootVelocity;
         arcStartPosition = m_launcher.InstantiatePosition;
 
-        if (PlayerController.Instance.IsAimed)
+        if (PlayerController.Instance.IsAimed && PlayerStatesManager.Instance.IsOperation)
         {
             // 放物線を表示
             float timeStep = predictionTime / segmentCount;
-            bool draw = false;
+            m_draw = false;
             float hitTime = float.MaxValue;
             for (int i = 0; i < segmentCount; i++)
             {
                 // 線の座標を更新
                 float startTime = timeStep * i;
                 float endTime = startTime + timeStep;
-                SetLineRendererPosition(i, startTime, endTime, !draw);
+                SetLineRendererPosition(i, startTime, endTime, !m_draw);
 
                 // 衝突判定
-                if (!draw)
+                if (!m_draw)
                 {
                     hitTime = GetArcHitTime(startTime, endTime);
                     if (hitTime != float.MaxValue)
                     {
-                        draw = true; // 衝突したらその先の放物線は表示しない
+                        m_draw = true; // 衝突したらその先の放物線は表示しない
                     }
                 }
             }
@@ -203,7 +203,7 @@ public class DrawArc : MonoBehaviour
         {
             // 衝突したColliderまでの距離から実際の衝突時間を算出
             float distance = Vector3.Distance(startPosition, endPosition);
-            if (hitInfo.collider.tag != "Bullet")
+            if (hitInfo.collider.tag != "Bullet" && hitInfo.collider.tag != "System")
             {
                 Debug.Log(hitInfo.collider.gameObject.name);
                 return startTime + (endTime - startTime) * (hitInfo.distance / distance);
