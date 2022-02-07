@@ -30,7 +30,7 @@ public class ZoomController : MonoBehaviour
 
     void Update()
     {
-        if (PlayerStatesManager.Instance.IsOperation)
+        if (PlayerStatesManager.Instance.IsOperation && !PlayerController.Instance.IsAimed)
         {
             if (m_FovChangeMode)
             {
