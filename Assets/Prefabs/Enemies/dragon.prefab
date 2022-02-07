@@ -1773,6 +1773,7 @@ MonoBehaviour:
   waitTime: 2
   searchArea: {fileID: 7824432365220682324}
   m_distanceToPlayer: 8
+  m_bossUI: {fileID: 0}
   searchAngle: 180
 --- !u!143 &6000802254401654178
 CharacterController:
@@ -4666,7 +4667,7 @@ GameObject:
   - component: {fileID: 1494679326898591505}
   m_Layer: 0
   m_Name: AttackCollider
-  m_TagString: Untagged
+  m_TagString: System
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4726,7 +4727,7 @@ GameObject:
   - component: {fileID: 7824432365220682324}
   m_Layer: 0
   m_Name: SearchArea
-  m_TagString: Untagged
+  m_TagString: System
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
