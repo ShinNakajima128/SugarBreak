@@ -51,14 +51,25 @@ public class AimRotation : MonoBehaviour
         float h = Input.GetAxisRaw("Camera X");
         float scroll = Input.GetAxis("Mouse ScrollWheel");
 
-        //プレイヤーの上下角度が上限に達していたらそれ以上は向かないようにする
-        
-        Vector3 playerAngle = new Vector3(0, h * m_rotateSpeed, 0);
-        Vector3 weaponListAngle = new Vector3(scroll * m_scrollSpeed, 0, 0);
-        m_currentValue += weaponListAngle.x;
-        Debug.Log(m_currentValue);
-        m_playerTrans.Rotate(playerAngle);
+        Vector3 weaponListAngle = Vector3.zero;
 
+        if (Input.GetKey(KeyCode.Joystick1Button4))
+        {
+            float stickScroll = Input.GetAxisRaw("Camera Y");
+            weaponListAngle = new Vector3(stickScroll * m_scrollSpeed / 2, 0, 0);
+            m_currentValue += weaponListAngle.x;
+            Debug.Log("右スティック操作");
+        }
+        else
+        {
+            Vector3 playerAngle = new Vector3(0, h * m_rotateSpeed, 0);
+            weaponListAngle = new Vector3(scroll * m_scrollSpeed, 0, 0);
+            m_currentValue += weaponListAngle.x;
+            m_playerTrans.Rotate(playerAngle);
+        }
+        Debug.Log(m_currentValue);
+
+        //プレイヤーの上下角度が上限に達していたらそれ以上は向かないようにする
         if (m_currentValue >= m_maxValue)
         {
             m_currentValue = m_maxValue;
