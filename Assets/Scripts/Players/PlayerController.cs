@@ -283,6 +283,7 @@ public class PlayerController : MonoBehaviour
         if (!IsGrounded())
         {
             m_rb.AddForce(Vector3.down * 35, ForceMode.Impulse);
+            EventManager.OnEvent(Events.CameraShake);
         }
     }
 

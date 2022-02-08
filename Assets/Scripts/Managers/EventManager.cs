@@ -8,12 +8,7 @@ using System;
 /// </summary>
 public enum Events
 {
-    /// <summary> 攻撃1 </summary>
-    WeaponAction1,
-    /// <summary> 攻撃2 </summary>
-    WeaponAction2,
-    /// <summary> 射撃系武器のエイムアクション </summary>
-    Aiming
+    CameraShake
 }
 
 /// <summary>

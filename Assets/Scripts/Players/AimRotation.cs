@@ -67,7 +67,6 @@ public class AimRotation : MonoBehaviour
             m_currentValue += weaponListAngle.x;
             m_playerTrans.Rotate(playerAngle);
         }
-        Debug.Log(m_currentValue);
 
         //プレイヤーの上下角度が上限に達していたらそれ以上は向かないようにする
         if (m_currentValue >= m_maxValue)

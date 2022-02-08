@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using Cinemachine;
 
 [Serializable]
 public class Stage
@@ -33,6 +34,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     [SerializeField]
     bool isGlaseSnowFieldCleared = false;
+
+    CinemachineImpulseSource m_impulseSource;
 
     /// <summary>
     /// ステージクリア時のイベント
@@ -90,6 +93,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         {
             MenuManager.Instance.WhetherOpenMenu = true;
         }
+        m_impulseSource = GetComponent<CinemachineImpulseSource>();
+        EventManager.ListenEvents(Events.CameraShake, CameraShake);
     }
 
     public void OnGameEnd()
@@ -121,6 +126,15 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 }
                 break;
         }
+    }
+
+    /// <summary>
+    /// カメラを揺らす
+    /// </summary>
+    void CameraShake()
+    {
+        m_impulseSource.GenerateImpulseAt(PlayerController.Instance.gameObject.transform.position, Vector3.down);
+        Debug.Log("カメラ振動");
     }
 
     IEnumerator LoadBase()
