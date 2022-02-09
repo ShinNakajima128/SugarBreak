@@ -80,7 +80,7 @@ public class WeaponListControl : MonoBehaviour
 
     Transform m_weaponListTrans = default;
     bool m_isChanged = false;
-    string dataPath;
+    bool m_init = false;
 
     public static WeaponListControl Instance { get; private set; }
 
@@ -96,9 +96,13 @@ public class WeaponListControl : MonoBehaviour
 
     }
 
-    private void Start()
+    void OnEnable()
     {
-        StartCoroutine(SetUpCoroutine());
+        if (!m_init)
+        {
+            StartCoroutine(SetUpCoroutine());
+            m_init = true;
+        }
     }
 
     private void Update()
