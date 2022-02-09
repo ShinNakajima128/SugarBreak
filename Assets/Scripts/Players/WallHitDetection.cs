@@ -7,9 +7,25 @@ using UnityEngine;
 /// </summary>
 public class WallHitDetection : MonoBehaviour
 {
-    [Header("壁判定用のRayを飛ばす位置")]
+    [Header("壁判定用のRayを中央から飛ばす位置")]
     [SerializeField]
-    Vector3 m_wallRayOffset = new Vector3(0, 0.1f, 0);
+    Vector3 m_centerWallRayOffset = new Vector3(0, 0.1f, 0);
+
+    [Header("壁判定用のRayを左から飛ばす位置")]
+    [SerializeField]
+    Vector3 m_leftWallRayOffset = new Vector3(0, 0.1f, 0);
+
+    [Header("左のRayの角度")]
+    [SerializeField]
+    Vector3 m_leftRayAngle = new Vector3(-1, 0, 1);
+
+    [Header("壁判定用のRayを右から飛ばす位置")]
+    [SerializeField]
+    Vector3 m_rightWallRayOffset = new Vector3(0, 0.1f, 0);
+
+    [Header("右のRayの角度")]
+    [SerializeField]
+    Vector3 m_rightRayAngle = new Vector3(1, 0, 1);
 
     [Header("昇れる段差")]
     [SerializeField]
@@ -29,28 +45,30 @@ public class WallHitDetection : MonoBehaviour
 
     Vector3 m_velocity = default;
     Rigidbody m_rb = default;
-    float m_runSpeed = default;
 
     void Start()
     {
         m_rb = GetComponent<Rigidbody>();
-        m_runSpeed = PlayerController.Instance.RunSpeed;
+        
     }
 
     private void Update()
     {
-        m_velocity = m_rb.velocity;
-        var stepRayPosition = m_rb.position + m_wallRayOffset;
+        var stepRayCenterPosition = transform.position + m_centerWallRayOffset;
+        var stepRayLeftPosition = transform.position + m_leftWallRayOffset;
+        var stepRayRightPosition = transform.position + m_rightWallRayOffset;
+        RaycastHit stepHit;
 
-        if (Physics.Linecast(stepRayPosition, stepRayPosition + m_rb.transform.forward * m_wallDistance, out var stepHit))
+        if (Physics.Linecast(stepRayCenterPosition, stepRayCenterPosition + transform.forward * m_wallDistance, out stepHit)||
+            Physics.Linecast(stepRayLeftPosition, stepRayLeftPosition + m_leftRayAngle * m_wallDistance, out stepHit) ||
+            Physics.Linecast(stepRayRightPosition, stepRayRightPosition + m_rightRayAngle * m_wallDistance, out stepHit))
         {
             //　進行方向の地面の角度が指定以下、または昇れる段差より下だった場合の移動処理
-            if (Vector3.Angle(m_rb.transform.up, stepHit.normal) <= m_slopeLimit
-            || (Vector3.Angle(m_rb.transform.up, stepHit.normal) > m_slopeLimit
-                && !Physics.Linecast(m_rb.position + new Vector3(0f, m_stepOffset, 0f), m_rb.position + new Vector3(0f, m_stepOffset, 0f) + m_rb.transform.forward * m_slopeDistance))
+            if (Vector3.Angle(transform.transform.up, stepHit.normal) <= m_slopeLimit
+            || (Vector3.Angle(transform.transform.up, stepHit.normal) > m_slopeLimit
+                && !Physics.Linecast(transform.position + new Vector3(0f, m_stepOffset, 0f), transform.position + new Vector3(0f, m_stepOffset, 0f) + transform.transform.forward * m_slopeDistance))
             )
             {
-                Debug.Log("壁から離れた");
                 PlayerController.Instance.WallHit = false;
             }
             else
@@ -58,14 +76,21 @@ public class WallHitDetection : MonoBehaviour
                 PlayerController.Instance.WallHit = true;
             }
         }
-        m_rb.velocity = m_velocity;
     }
+
+    /// <summary>
+    /// 壁との当たり判定用のRayCastを描写する
+    /// </summary>
     void OnDrawGizmos()
     {
         //　衝突確認のギズモ
-        var stepRayPosition = transform.position + m_wallRayOffset;
+        var stepRayCenterPosition = transform.position + m_centerWallRayOffset;
+        var stepRayLeftPosition = transform.position + m_leftWallRayOffset;
+        var stepRayRightPosition = transform.position + m_rightWallRayOffset;
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(stepRayPosition, stepRayPosition + transform.forward * m_wallDistance);
+        Gizmos.DrawLine(stepRayCenterPosition, stepRayCenterPosition + transform.forward * m_wallDistance);
+        Gizmos.DrawLine(stepRayLeftPosition, stepRayLeftPosition + m_leftRayAngle * m_wallDistance);
+        Gizmos.DrawLine(stepRayRightPosition, stepRayRightPosition + m_rightRayAngle * m_wallDistance);
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position + new Vector3(0f, m_stepOffset, 0f), transform.position + new Vector3(0f, m_stepOffset, 0f) + transform.forward * m_slopeDistance);
     }

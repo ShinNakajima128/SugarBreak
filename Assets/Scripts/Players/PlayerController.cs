@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour
     bool m_isAttackMotioned = false;
     bool m_isAimed = false;
     bool m_isAimMoved = false;
+    bool m_isJumped = false;
     float actualPushPower;
 
     public PlayerState State
@@ -133,7 +134,7 @@ public class PlayerController : MonoBehaviour
 
     void DodgeMove()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && IsGrounded())
         {
             if (m_rb.velocity == new Vector3(0f, m_rb.velocity.y, 0f))
             {
@@ -202,7 +203,8 @@ public class PlayerController : MonoBehaviour
             // カメラを基準に入力が上下=奥/手前, 左右=左右にキャラクターを向ける
             dir = Camera.main.transform.TransformDirection(dir);    // メインカメラを基準に入力方向のベクトルを変換する
             dir.y = 0;  // y 軸方向はゼロにして水平方向のベクトルにする
-            
+
+
             if (!IsAimed)
             {
                 // 入力方向に滑らかに回転させる
@@ -215,15 +217,15 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetKey(KeyCode.LeftShift) || IsAimed)
                 {
                     Vector3 velo = dir.normalized * m_walkSpeed; // 入力した方向に移動する
-                    velo.y = Mathf.Clamp(m_rb.velocity.y, m_minVelocityY, m_maxVelocityY); ;   // ジャンプした時の y 軸方向の速度を保持する
+                    velo.y = WallHit ? -9.8f : m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
                     m_rb.velocity = velo;
                     state = PlayerState.Walk;
                 }
                 else
                 {
                     Vector3 velo = dir.normalized * m_runSpeed; // 入力した方向に移動する
-                    velo.y = Mathf.Clamp(m_rb.velocity.y, m_minVelocityY, m_maxVelocityY);   // ジャンプした時の y 軸方向の速度を保持する
-                    
+                    velo.y = WallHit ? -9.8f : m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
+
                     m_rb.velocity = velo;   // 計算した速度ベクトルをセットする
                     state = PlayerState.Run;
                 }
@@ -266,6 +268,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+        Debug.Log(m_rb.velocity);
     }
 
     /// <summary>
@@ -273,11 +276,8 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void FallDown()
     {
-        if (!IsGrounded())
-        {
-            m_rb.AddForce(Vector3.down * 35, ForceMode.Impulse);
-            EventManager.OnEvent(Events.CameraShake);
-        }
+        m_rb.AddForce(Vector3.down * 35, ForceMode.Impulse);
+        EventManager.OnEvent(Events.CameraShake);
     }
 
     public void JumpMotion()
@@ -291,9 +291,9 @@ public class PlayerController : MonoBehaviour
     public void WeaponChange()
     {
         //ADS中は武器変更不可
-        if (m_isAimed) 
-        { 
-            return; 
+        if (m_isAimed)
+        {
+            return;
         }
 
         //キーボードの「1」かゲームパッドの十字キー「左」を押したら「装備1」に変更
@@ -322,7 +322,7 @@ public class PlayerController : MonoBehaviour
             WeaponListControl.Instance.ChangeWeapon(WeaponListTypes.Equip3);
             WeaponChangeAction();
             m_anim.Rebind();
-        } 
+        }
     }
 
     /// <summary>
@@ -338,7 +338,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void JumpMove()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && !m_isJumped)
         {
             //接地していたらジャンプ
             if (IsGrounded())
@@ -391,7 +391,7 @@ public class PlayerController : MonoBehaviour
     public IEnumerator AttackMotionTimer(float time, Action comboResetCallBack = null)
     {
         PlayerStatesManager.Instance.IsOperation = false;
-       
+
         m_isAttackMotioned = true;
         m_anim.SetFloat("Move", 0);
         yield return new WaitForSeconds(time);
@@ -404,9 +404,11 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Jump()
     {
-        yield return new WaitForSeconds(0.3f);
+        m_isJumped = true;
+        yield return new WaitForSeconds(0.2f);
 
-        m_anim.SetBool("isGround", false);
+        //m_anim.SetBool("isGround", false);
+        m_isJumped = false;
     }
 
     /// <summary>
