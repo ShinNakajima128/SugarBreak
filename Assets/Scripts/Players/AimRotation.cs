@@ -58,7 +58,6 @@ public class AimRotation : MonoBehaviour
             float stickScroll = Input.GetAxisRaw("Camera Y");
             weaponListAngle = new Vector3(stickScroll * m_scrollSpeed / 2, 0, 0);
             m_currentValue += weaponListAngle.x;
-            Debug.Log("右スティック操作");
         }
         else
         {

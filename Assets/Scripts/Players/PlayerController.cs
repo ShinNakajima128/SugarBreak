@@ -264,13 +264,6 @@ public class PlayerController : MonoBehaviour
                     m_anim.SetFloat("RightMove", 0);
                     m_anim.SetFloat("LeftMove", 2);
                 }
-                else
-                {
-                    m_anim.SetFloat("ForwardMove", 0);
-                    m_anim.SetFloat("BackwardMove", 0);
-                    m_anim.SetFloat("RightMove", 0);
-                    m_anim.SetFloat("LeftMove", 0);
-                }
             }
         }
     }
