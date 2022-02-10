@@ -268,7 +268,6 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        Debug.Log(m_rb.velocity);
     }
 
     /// <summary>
