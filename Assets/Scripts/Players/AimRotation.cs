@@ -90,5 +90,6 @@ public class AimRotation : MonoBehaviour
     public void ResetWeaponListRotation()
     {
         m_weaponListTrans.rotation = m_weaponListOriginTrans;
+        m_currentValue = 0;
     }
 }
