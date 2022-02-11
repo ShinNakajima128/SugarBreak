@@ -217,20 +217,21 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetKey(KeyCode.LeftShift) || IsAimed)
                 {
                     Vector3 velo = dir.normalized * m_walkSpeed; // 入力した方向に移動する
-                    velo.y = WallHit ? -9.8f : m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
+                    velo.y = WallHit ? -9.8f : m_rb.velocity.y;   // 壁に当たっているかどうかでVelocityを調整
                     m_rb.velocity = velo;
                     state = PlayerState.Walk;
                 }
                 else
                 {
                     Vector3 velo = dir.normalized * m_runSpeed; // 入力した方向に移動する
-                    velo.y = WallHit ? -9.8f : m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
+                    velo.y = WallHit ? -9.8f : m_rb.velocity.y;   // 壁に当たっているかどうかでVelocityを調整
 
                     m_rb.velocity = velo;   // 計算した速度ベクトルをセットする
                     state = PlayerState.Run;
                 }
             }
 
+            //精密射撃モードの場合
             if (IsAimed)
             {
                 if (!m_isAimMoved)
@@ -238,6 +239,7 @@ public class PlayerController : MonoBehaviour
                     m_isAimMoved = true;
                 }
 
+                //前に進むアニメーション
                 if (dir.z >= 0.9f)
                 {
                     m_anim.SetFloat("ForwardMove", 2.0f);
@@ -245,6 +247,7 @@ public class PlayerController : MonoBehaviour
                     m_anim.SetFloat("RightMove", 0);
                     m_anim.SetFloat("LeftMove", 0);
                 }
+                //後ろに進むアニメーション
                 else if (dir.z <= -0.9f)
                 {
                     m_anim.SetFloat("ForwardMove", 0);
@@ -252,6 +255,7 @@ public class PlayerController : MonoBehaviour
                     m_anim.SetFloat("RightMove", 0);
                     m_anim.SetFloat("LeftMove", 0);
                 }
+                //左に進むアニメーション
                 else if (dir.x >= 0.9f)
                 {
                     m_anim.SetFloat("ForwardMove", 0);
@@ -259,6 +263,7 @@ public class PlayerController : MonoBehaviour
                     m_anim.SetFloat("RightMove", 2);
                     m_anim.SetFloat("LeftMove", 0);
                 }
+                //右に進むアニメーション
                 else if (dir.x <= -0.9f)
                 {
                     m_anim.SetFloat("ForwardMove", 0);
@@ -279,6 +284,9 @@ public class PlayerController : MonoBehaviour
         EventManager.OnEvent(Events.CameraShake);
     }
 
+    /// <summary>
+    /// ジャンプモーションを開始する
+    /// </summary>
     public void JumpMotion()
     {
         StartCoroutine(Jump());
