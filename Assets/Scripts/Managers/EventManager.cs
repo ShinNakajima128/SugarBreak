@@ -8,7 +8,11 @@ using System;
 /// </summary>
 public enum Events
 {
-    CameraShake
+    Setup,
+    StageStart,
+    StageEnd,
+    CameraShake,
+    GetKonpeitou
 }
 
 /// <summary>
