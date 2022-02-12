@@ -134,7 +134,7 @@ public class PlayerController : MonoBehaviour
 
     void DodgeMove()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && IsGrounded())
+        if (Input.GetKeyDown(KeyCode.Q) && IsGrounded() && !IsAimed)
         {
             if (m_rb.velocity == new Vector3(0f, m_rb.velocity.y, 0f))
             {
