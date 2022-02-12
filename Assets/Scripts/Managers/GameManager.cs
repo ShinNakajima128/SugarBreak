@@ -134,9 +134,11 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     void CameraShake()
     {
         m_impulseSource.GenerateImpulseAt(PlayerController.Instance.gameObject.transform.position, Vector3.down);
-        Debug.Log("カメラ振動");
     }
 
+    /// <summary>
+    /// 拠点Sceneに遷移する
+    /// </summary>
     IEnumerator LoadBase()
     {
         Debug.Log("ロード開始");
