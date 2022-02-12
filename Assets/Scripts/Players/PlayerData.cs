@@ -5,9 +5,14 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "MyScriptable/Create PlayerData")]
 public class PlayerData : ScriptableObject
 {
-    [SerializeField] int m_maxHp = 8;
-    [SerializeField] int m_hp = 8;
-    [SerializeField] int m_totalKonpeitou = 0;
+    [SerializeField] 
+    int m_maxHp = 8;
+
+    [SerializeField] 
+    int m_hp = 8;
+
+    [SerializeField] 
+    int m_totalKonpeitou = 0;
 
     public int MaxHp
     {
@@ -48,10 +53,18 @@ public class PlayerData : ScriptableObject
         }
     }
 
+    /// <summary>
+    /// 金平糖の所持数
+    /// </summary>
     public int TotalKonpeitou
     {
         get { return m_totalKonpeitou; }
-        set { m_totalKonpeitou = value; }
+        set 
+        { 
+            m_totalKonpeitou = value;
+            //所持数を更新
+            EventManager.OnEvent(Events.GetKonpeitou);
+        }
     }
 
     public void SetStartHp(int hp)
