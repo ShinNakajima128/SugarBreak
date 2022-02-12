@@ -7,30 +7,27 @@ using TMPro;
 
 public class PlayerStatesManager : MonoBehaviour, IDamagable
 {
-    public static PlayerStatesManager Instance { get; private set; }
-
     [Header("プレイヤーのデータ")]
     [SerializeField] 
-    PlayerData playerData = default;
+    PlayerData m_playerData = default;
 
-    [Header("金平糖の所持数を表示するテキスト")]
-    [SerializeField] 
+    /// <summary> 金平糖の所持数を表示するテキスト </summary>
     TextMeshProUGUI m_totalKonpeitouTmp = default;
 
-    [SerializeField] 
-    HpGauge hpGauge = default;
+    HpGauge m_hpGauge = default;
 
-    [SerializeField] 
+    /// <summary>  </summary>
     Animator m_anim = default;
 
-    [SerializeField] 
     CinemachineFreeLook m_freeLook = default;
 
-    [SerializeField] 
     Rigidbody m_rb = default;
+
     int defaultHp = 8;
 
     bool isDying = false;
+
+    public static PlayerStatesManager Instance { get; private set; }
 
     public bool IsOperation { get; set; } = true;
 
@@ -41,25 +38,30 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
 
     void Start()
     {
-        playerData.SetStartHp(defaultHp);
-        hpGauge.SetHpGauge(playerData.HP);
+        m_anim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
+        m_rb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
+        m_freeLook = GameObject.FindGameObjectWithTag("DefaultCamera").GetComponent<CinemachineFreeLook>();
+        m_totalKonpeitouTmp = GameObject.FindGameObjectWithTag("KonpeiText").GetComponent<TextMeshProUGUI>();
+        m_hpGauge = GameObject.FindGameObjectWithTag("HPGauge").GetComponent<HpGauge>();
+        m_playerData.SetStartHp(defaultHp);
+        m_hpGauge.SetHpGauge(m_playerData.HP);
         GameManager.GameEnd += OffOperation;
+        EventManager.ListenEvents(Events.GetKonpeitou, UpdateCount);
+        m_totalKonpeitouTmp.text = m_playerData.TotalKonpeitou.ToString();
     }
 
     void Update()
     {
-        m_totalKonpeitouTmp.text = playerData.TotalKonpeitou.ToString();
-
         if (Input.GetKeyDown(KeyCode.H))
         {
             Heal(1);
-            hpGauge.SetHpGauge(playerData.HP);
+            m_hpGauge.SetHpGauge(m_playerData.HP);
         }
 
         if (Input.GetKeyDown(KeyCode.G))
         {
             Damage(1);
-            hpGauge.SetHpGauge(playerData.HP);
+            m_hpGauge.SetHpGauge(m_playerData.HP);
         }
     }
 
@@ -67,10 +69,10 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     {
         if (isDying || PlayerController.Instance.IsDodged) return;
 
-        playerData.HP -= attackPower;
-        hpGauge.SetHpGauge(playerData.HP);
+        m_playerData.HP -= attackPower;
+        m_hpGauge.SetHpGauge(m_playerData.HP);
 
-        if (playerData.HP <= 0)
+        if (m_playerData.HP <= 0)
         {
             isDying = true;
             StartCoroutine(Dying());
@@ -88,12 +90,12 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     {
         if (isDying) return;
 
-        playerData.HP += healValue;
-        hpGauge.SetHpGauge(playerData.HP);
+        m_playerData.HP += healValue;
+        m_hpGauge.SetHpGauge(m_playerData.HP);
 
-        if (playerData.HP > playerData.MaxHp)
+        if (m_playerData.HP > m_playerData.MaxHp)
         {
-            playerData.HP = playerData.MaxHp;
+            m_playerData.HP = m_playerData.MaxHp;
         }
     }
 
@@ -139,8 +141,16 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
         ReturnArea.Instance.ReturnComebackPoint(); //復帰地点に戻る
         m_freeLook.m_XAxis.m_InputAxisName = "Camera X";
         m_freeLook.m_YAxis.m_InputAxisName = "Camera Y";
-        playerData.HP = 8;                         //体力リセット
-        hpGauge.SetHpGauge(playerData.HP);
+        m_playerData.HP = 8;                         //体力リセット
+        m_hpGauge.SetHpGauge(m_playerData.HP);
         isDying = false;
+    }
+
+    /// <summary>
+    /// 金平糖の所持数を更新する
+    /// </summary>
+    void UpdateCount()
+    {
+        m_totalKonpeitouTmp.text = m_playerData.TotalKonpeitou.ToString();
     }
 }
