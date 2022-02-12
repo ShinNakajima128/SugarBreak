@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KonpeitouGenerator : MonoBehaviour
+/// <summary>
+/// アイテムを生成する機能を持つクラス
+/// </summary>
+public class ItemGenerator : MonoBehaviour
 {
-    public static KonpeitouGenerator Instance { get; private set; }
-
     [Header("金平糖のプレハブ")]
     [SerializeField] 
     GameObject[] m_konpeitous = null;
@@ -26,10 +27,10 @@ public class KonpeitouGenerator : MonoBehaviour
     [SerializeField] 
     float m_generatePower = 10;
     
-    [SerializeField] 
     Transform m_targetObject = null;
 
     GameObject[] m_generateKon;
+    public static ItemGenerator Instance { get; private set; }
 
     private void Awake()
     {
@@ -38,6 +39,7 @@ public class KonpeitouGenerator : MonoBehaviour
 
     private void Start()
     {
+        m_targetObject = GameObject.FindGameObjectWithTag("Target").GetComponent<Transform>();
         m_generateKon = new GameObject[m_generateNum];
 
         for (int i = 0; i < m_generateNum; i++)
@@ -50,19 +52,20 @@ public class KonpeitouGenerator : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            GenerateKonpeitou(5, m_targetObject.position);
-        }
-    }
-
+    /// <summary>
+    /// 金平糖を生成する
+    /// </summary>
+    /// <param name="generateNum"> 生成する数 </param>
+    /// <param name="pos"> 生成する位置 </param>
     public void GenerateKonpeitou(int generateNum, Vector3 pos)
     {
         StartCoroutine(GenerateInterval(generateNum, pos, m_generatePower));
     }
 
+    /// <summary>
+    /// チョコエッグを生成する
+    /// </summary>
+    /// <param name="tfm"> 生成する位置 </param>
     public void GenerateChocoEgg(Transform tfm)
     {
         var egg = Instantiate(m_chocoEgg, tfm.position, m_chocoEgg.transform.rotation);
@@ -88,7 +91,7 @@ public class KonpeitouGenerator : MonoBehaviour
                     num--;
                     kon.SetActive(true);
                     kon.transform.position = pos;
-                    kon.GetComponent<Konpeitou>().m_target = m_targetObject;
+                    kon.GetComponent<Konpeitou>().Target = m_targetObject;
                     var m_rb = kon.gameObject.GetComponent<Rigidbody>();
                     m_rb.velocity = Vector3.zero;
                     Vector3 force = new Vector3(Random.Range(-2, 2), power, Random.Range(-2, 2));

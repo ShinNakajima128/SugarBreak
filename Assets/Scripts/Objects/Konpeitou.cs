@@ -8,7 +8,6 @@ public class Konpeitou : MonoBehaviour
     [SerializeField] PlayerData playerData = default;
     [SerializeField] SphereCollider m_sphereCollider = default;
     [SerializeField] float m_startMovingTimer = 2;
-    public Transform m_target;
     public Vector3 m_position;
     Rigidbody m_rb;
     float period;
@@ -16,6 +15,8 @@ public class Konpeitou : MonoBehaviour
     bool isSearched = false;
     bool isUpdated = false;
     public static int playSeCount = 0;
+
+    public Transform Target { get; set; }
 
     private void Start()
     {
@@ -55,7 +56,7 @@ public class Konpeitou : MonoBehaviour
         }
 
         var acceleration = m_rb.velocity;
-        var diff = m_target.position - m_position;
+        var diff = Target.position - m_position;
         acceleration += (diff - velocity * period) * 2.0f / (period * period);
         period -= Time.deltaTime;
 

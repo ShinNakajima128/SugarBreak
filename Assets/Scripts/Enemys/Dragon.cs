@@ -171,7 +171,7 @@ public class Dragon : EnemyBase
     {
         yield return new WaitForSeconds(vanishTime);
         m_bossUI.SetActive(false);
-        KonpeitouGenerator.Instance.GenerateChocoEgg(transform);
+        ItemGenerator.Instance.GenerateChocoEgg(transform);
         EffectManager.PlayEffect(effectType, m_effectPos.position);
         Destroy(this.gameObject);
     }

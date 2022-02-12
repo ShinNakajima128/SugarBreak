@@ -72,7 +72,7 @@ public class ChocoEgg : MonoBehaviour, IDamagable
                 }
                 else
                 {
-                    KonpeitouGenerator.Instance.GenerateKonpeitou(30, transform.position);
+                    ItemGenerator.Instance.GenerateKonpeitou(30, transform.position);
                     GameManager.Instance.OnGameEndClearedStage();
                 }
                 break;

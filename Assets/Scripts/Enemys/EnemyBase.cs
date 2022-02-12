@@ -39,7 +39,7 @@ public class EnemyBase : MonoBehaviour, IDamagable
     protected IEnumerator Vanish(EffectType effectType, float vanishTime)
     {
         yield return new WaitForSeconds(vanishTime);
-        KonpeitouGenerator.Instance.GenerateKonpeitou(m_dropNum, this.transform.position);
+        ItemGenerator.Instance.GenerateKonpeitou(m_dropNum, this.transform.position);
         EffectManager.PlayEffect(effectType, m_effectPos.position);
         Destroy(this.gameObject);
     }

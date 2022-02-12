@@ -64,7 +64,7 @@ public class KonpeitouPool : MonoBehaviour
                     num--;
                     kon.SetActive(true);
                     kon.transform.position = pos;
-                    kon.GetComponent<Konpeitou>().m_target = m_playerPos;
+                    kon.GetComponent<Konpeitou>().Target = m_playerPos;
                     yield return new WaitForSeconds(0.05f);
                 }
             }     
