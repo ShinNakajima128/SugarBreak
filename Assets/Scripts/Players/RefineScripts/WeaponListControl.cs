@@ -12,8 +12,6 @@ using System.IO;
 [Serializable]
 public class WeaponList
 {
-    //public WeaponData[] Weapons = new WeaponData[4];
-
     public WeaponData Weapon1;
     public WeaponData Weapon2;
     public WeaponData Weapon3;
@@ -93,7 +91,6 @@ public class WeaponListControl : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-
     }
 
     void OnEnable()
