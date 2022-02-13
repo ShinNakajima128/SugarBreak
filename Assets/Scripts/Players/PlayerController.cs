@@ -310,6 +310,7 @@ public class PlayerController : MonoBehaviour
 
             WeaponListControl.Instance.ChangeWeapon(WeaponListTypes.Equip1);
             WeaponChangeAction();
+            AimRotation.Instance.ResetWeaponListRotation();
             m_anim.Rebind();
         }
         //キーボードの「2」かゲームパッドの十字キー「上」を押したら「装備2」に変更
@@ -320,6 +321,7 @@ public class PlayerController : MonoBehaviour
             WeaponListControl.Instance.ChangeWeapon(WeaponListTypes.Equip2);
             WeaponChangeAction();
             m_anim.Rebind();
+            AimRotation.Instance.ResetWeaponListRotation();
         }
         //キーボードの「3」かゲームパッドの十字キー「右」を押したら「装備3」に変更
         else if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetAxisRaw("D Pad Hori") == -1)
@@ -329,6 +331,7 @@ public class PlayerController : MonoBehaviour
             WeaponListControl.Instance.ChangeWeapon(WeaponListTypes.Equip3);
             WeaponChangeAction();
             m_anim.Rebind();
+            AimRotation.Instance.ResetWeaponListRotation();
         }
     }
 

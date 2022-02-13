@@ -94,7 +94,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             MenuManager.Instance.WhetherOpenMenu = true;
         }
         m_impulseSource = GetComponent<CinemachineImpulseSource>();
-        EventManager.ListenEvents(Events.CameraShake, CameraShake);
     }
 
     public void OnGameEnd()
@@ -126,6 +125,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 }
                 break;
         }
+        EventManager.ListenEvents(Events.CameraShake, CameraShake);
     }
 
     /// <summary>

@@ -214,10 +214,8 @@ public class WeaponListControl : MonoBehaviour
             PlayerPrefs.SetString(m_weaponListFileName, debugJson);
             Debug.Log("武器リストのデータを作成しました");
         }
-
-        yield return null;
-
         Setup();
+        yield return null;
     }
 
     /// <summary>

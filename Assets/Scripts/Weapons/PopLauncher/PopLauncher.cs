@@ -46,7 +46,6 @@ public class PopLauncher : WeaponBase, IWeapon
     private void OnDisable()
     {
         WeaponActionManager.RemoveAction(ActionType.Action1, ShootBullet);
-        AimRotation.Instance.ResetWeaponListRotation();
     }
 
     /// <summary>
