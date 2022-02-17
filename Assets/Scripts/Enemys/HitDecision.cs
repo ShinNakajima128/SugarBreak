@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public class HitDecision : MonoBehaviour
 {
+    /// <summary> 与えるダメージ </summary>
     public int AttackDamage { get; set; }
 
     private void OnTriggerEnter(Collider other)
@@ -15,11 +16,6 @@ public class HitDecision : MonoBehaviour
         {
             return;
         }
-
-        var target = other.GetComponent<IDamagable>();
-        if (target != null)
-        {
-            target.Damage(AttackDamage);
-        }
+        PlayerStatesManager.Instance.Damage(AttackDamage);
     }
 }
