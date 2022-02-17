@@ -72,6 +72,7 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
         m_playerData.HP -= attackPower;
         m_hpGauge.SetHpGauge(m_playerData.HP);
 
+
         if (m_playerData.HP <= 0)
         {
             isDying = true;
@@ -83,9 +84,14 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
         {
             SoundManager.Instance.PlaySeByName("Damage3");
             m_anim.SetTrigger("isDamaged");
+            StartCoroutine(Damege());
         }
     }
 
+    /// <summary>
+    /// 回復する
+    /// </summary>
+    /// <param name="healValue"> 回復する値 </param>
     public void Heal(int healValue)
     {
         if (isDying) return;
@@ -99,6 +105,9 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
         }
     }
 
+    /// <summary>
+    /// 操作不可にする
+    /// </summary>
     public void OffOperation()
     {
         IsOperation = false;
@@ -109,6 +118,9 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
         m_freeLook.m_YAxis.m_InputAxisName = "";
     }
 
+    /// <summary>
+    /// 操作可能にする
+    /// </summary>
     public void OnOperation()
     {
         IsOperation = true;
@@ -117,6 +129,9 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
         m_freeLook.m_YAxis.m_InputAxisName = "Camera Y";
     }
 
+    /// <summary>
+    /// 倒された
+    /// </summary>
     IEnumerator Dying()
     {
         IsOperation = false;
@@ -144,6 +159,19 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
         m_playerData.HP = 8;                         //体力リセット
         m_hpGauge.SetHpGauge(m_playerData.HP);
         isDying = false;
+    }
+
+    /// <summary>
+    /// 攻撃を受けた時のコルーチン
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator Damege()
+    {
+        IsOperation = false;
+
+        yield return new WaitForSeconds(1.0f);
+
+        IsOperation = true;
     }
 
     /// <summary>
