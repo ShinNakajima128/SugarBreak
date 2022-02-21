@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
 
 /// <summary>
 /// ボスの機能のテスト用クラス
@@ -11,6 +10,10 @@ public class BossMotionTest : MonoBehaviour
     /// <summary> 攻撃力 </summary>
     [SerializeField]
     int m_attackPower = 2;
+
+    /// <summary> 移動速度 </summary>
+    [SerializeField]
+    float m_moveSpeed = 5.0f;
 
     /// <summary> 歩行時のエフェクトを出す位置 </summary>
     [SerializeField]
@@ -27,6 +30,8 @@ public class BossMotionTest : MonoBehaviour
     /// <summary> Playerにヒットしたか判定するクラス </summary>
     [SerializeField]
     HitDecision m_hd = default;
+
+    CharacterController m_cc = default;
 
     /// <summary>
     /// 歩く
