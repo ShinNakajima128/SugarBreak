@@ -32,6 +32,12 @@ public class BossMotionTest : MonoBehaviour
     HitDecision m_hd = default;
 
     CharacterController m_cc = default;
+    PlayerSearcher m_ps = default;
+
+    void Start()
+    {
+        
+    }
 
     /// <summary>
     /// 歩く
@@ -40,7 +46,7 @@ public class BossMotionTest : MonoBehaviour
     {
         EventManager.OnEvent(Events.CameraShake); //カメラを揺らす
         SoundManager.Instance.PlaySeByName("怪獣の足音");
-        EffectManager.PlayEffect(EffectType.Explosion, m_walkEffectPos.position);
+        EffectManager.PlayEffect(EffectType.Landing, m_walkEffectPos.position);
     }
 
     /// <summary>
