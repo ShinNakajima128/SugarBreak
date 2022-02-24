@@ -73,6 +73,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             return;
         }
         DontDestroyOnLoad(gameObject);
+        m_impulseSource = GetComponent<CinemachineImpulseSource>();
     }
     private void Start()
     {
@@ -93,7 +94,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         {
             MenuManager.Instance.WhetherOpenMenu = true;
         }
-        m_impulseSource = GetComponent<CinemachineImpulseSource>();
+        EventManager.ListenEvents(Events.CameraShake, CameraShake);
     }
 
     public void OnGameEnd()
