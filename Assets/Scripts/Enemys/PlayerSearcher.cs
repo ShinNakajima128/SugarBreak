@@ -3,8 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+/// <summary>
+/// プレイヤーを策定するクラス
+/// </summary>
 public class PlayerSearcher : MonoBehaviour
 {
+    /// <summary> 敵の共通するクラス </summary>
+    [SerializeField]
+    BossMotionTest m_enemy = default;
+
     /// <summary> 索敵の角度 </summary>
     [SerializeField]
     float searchAngle = 130f;
@@ -17,14 +24,22 @@ public class PlayerSearcher : MonoBehaviour
     [SerializeField]
     SphereCollider m_searchArea = default;
 
+    /// <summary> プレイヤーのTransform </summary>
+    Vector3 m_playerPosition = default;
+
     /// <summary> 見つけているか </summary>
     public bool IsFind { get; private set; } = false;
 
     /// <summary> 索敵の範囲内か </summary>
     public bool IsWithinRange { get; private set; } = false;
 
+    /// <summary> プレイヤーのTransform </summary>
+    public Vector3 PlayerPosition { get => m_playerPosition; }
+
     void OnTriggerStay(Collider other)
     {
+        if (m_enemy.CurrentState == EnemyState.dead) return;
+
         if (other.gameObject.tag == "Player")
         {
             //　主人公の方向
@@ -35,6 +50,7 @@ public class PlayerSearcher : MonoBehaviour
             if (angle <= searchAngle)
             {
                 IsFind = true;
+                m_playerPosition = other.transform.position;
             }
             else
             {

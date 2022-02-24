@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
+public class Enemy
+{
+
+}
+
 public class EnemyBase : MonoBehaviour, IDamagable
 {
     [SerializeField] protected EnemyData enemyData = null;
