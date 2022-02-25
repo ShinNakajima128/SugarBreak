@@ -52,15 +52,19 @@ public class PlayerSearcher : MonoBehaviour
             //　敵の前方からの主人公の方向
             var angle = Vector3.Angle(transform.forward, playerDirection);
             //　サーチする角度内だったら発見
-            if (angle <= m_searchAngle)
+            if (IsWithinRange)
             {
-                IsFind = true;
                 m_playerPosition = other.transform.position;
+                if (angle <= m_searchAngle)
+                {
+                    IsFind = true;
+                }
+                else
+                {
+                    IsFind = false;
+                }
             }
-            else
-            {
-                IsFind = false;
-            }
+            
         }
     }
 
