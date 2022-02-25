@@ -26,6 +26,10 @@ public class BossMotionTest : MonoBehaviour
     [SerializeField]
     float m_moveSpeed = 5.0f;
 
+    /// <summary> 回転速度 </summary>
+    [SerializeField]
+    float m_turnSpeed = 3.0f;
+
     [SerializeField]
     float m_distanceToPlayer = 0.1f;
 
@@ -87,7 +91,7 @@ public class BossMotionTest : MonoBehaviour
             switch (m_states)
             {
                 case EnemyState.Idle:
-                    if (m_ps.IsFind)
+                    if (m_ps.IsWithinRange)
                     {
                         StartCoroutine(ChangeState(EnemyState.Move));
                     }
@@ -107,7 +111,9 @@ public class BossMotionTest : MonoBehaviour
     void MoveAction()
     {
         m_direction = (m_ps.PlayerPosition - transform.position).normalized;
-        transform.LookAt(new Vector3(m_ps.PlayerPosition.x, transform.position.y, m_ps.PlayerPosition.z));
+        Quaternion targetRotation = Quaternion.LookRotation(m_direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, m_turnSpeed * Time.deltaTime);
+        //transform.LookAt(new Vector3(m_ps.PlayerPosition.x, transform.position.y, m_ps.PlayerPosition.z));
         m_velocity = m_direction * m_moveSpeed;
         m_velocity.y += Physics.gravity.y * Time.deltaTime;
 
@@ -119,24 +125,11 @@ public class BossMotionTest : MonoBehaviour
 
         //Debug.Log($"追跡中:距離{Vector3.Distance(transform.position, m_ps.PlayerTrans.position)}");
         //　攻撃する距離だったら攻撃
-        if (Vector3.Distance(transform.position, m_ps.PlayerPosition) < m_distanceToPlayer)
+        if (Vector3.Distance(transform.position, m_ps.PlayerPosition) < m_distanceToPlayer && m_ps.IsFind)
         {
             StartCoroutine(ChangeState(EnemyState.Attack, 3.4f));
             Debug.Log("攻撃");
         }
-        //if (m_cc.isGrounded)
-        //{
-        //    Debug.Log("移動中");
-
-        //    m_direction = (m_ps.transform.position - transform.position).normalized;
-        //    transform.LookAt(new Vector3(m_ps.PlayerTrans.position.x, transform.position.y, m_ps.transform.position.z));
-
-        //    //　攻撃する距離だったら攻撃
-        //    if (Vector3.Distance(transform.position, m_ps.PlayerTrans.position) < m_distanceToPlayer)
-        //    {
-        //        StartCoroutine(ChangeState(EnemyState.Attack));
-        //    }
-        //}
     }
 
     /// <summary>
@@ -184,7 +177,7 @@ public class BossMotionTest : MonoBehaviour
     {
         EventManager.OnEvent(Events.CameraShake); //カメラを揺らす
         SoundManager.Instance.PlaySeByName("怪獣の足音");
-        EffectManager.PlayEffect(EffectType.Landing, m_walkEffectPos.position);
+        //EffectManager.PlayEffect(EffectType.Landing, m_walkEffectPos.position);
     }
 
     /// <summary>

@@ -14,7 +14,7 @@ public class PlayerSearcher : MonoBehaviour
 
     /// <summary> 索敵の角度 </summary>
     [SerializeField]
-    float searchAngle = 130f;
+    float m_searchAngle = 130f;
 
     /// <summary> 見失うまでの時間 </summary>
     [SerializeField]
@@ -27,14 +27,18 @@ public class PlayerSearcher : MonoBehaviour
     /// <summary> プレイヤーのTransform </summary>
     Vector3 m_playerPosition = default;
 
+    Quaternion m_playerRotation = default;
+
     /// <summary> 見つけているか </summary>
     public bool IsFind { get; private set; } = false;
 
     /// <summary> 索敵の範囲内か </summary>
     public bool IsWithinRange { get; private set; } = false;
 
-    /// <summary> プレイヤーのTransform </summary>
-    public Vector3 PlayerPosition { get => m_playerPosition; }
+    /// <summary> プレイヤーのPosition </summary>
+    public Vector3 PlayerPosition => m_playerPosition;
+    /// <summary> プレイヤーのRotation </summary>
+    public Quaternion PlayerRotation => m_playerRotation;
 
     void OnTriggerStay(Collider other)
     {
@@ -42,12 +46,13 @@ public class PlayerSearcher : MonoBehaviour
 
         if (other.gameObject.tag == "Player")
         {
+            IsWithinRange = true;
             //　主人公の方向
             var playerDirection = other.transform.position - transform.position;
             //　敵の前方からの主人公の方向
             var angle = Vector3.Angle(transform.forward, playerDirection);
             //　サーチする角度内だったら発見
-            if (angle <= searchAngle)
+            if (angle <= m_searchAngle)
             {
                 IsFind = true;
                 m_playerPosition = other.transform.position;
@@ -89,7 +94,7 @@ public class PlayerSearcher : MonoBehaviour
     private void OnDrawGizmos()
     {
         Handles.color = new Color(1, 0, 0, 0.3f);
-        Handles.DrawSolidArc(transform.position, Vector3.up, Quaternion.Euler(0f, -searchAngle, 0f) * transform.forward, searchAngle * 2f, m_searchArea.radius);
+        Handles.DrawSolidArc(transform.position, Vector3.up, Quaternion.Euler(0f, -m_searchAngle, 0f) * transform.forward, m_searchAngle * 2f, m_searchArea.radius);
     }
 #endif
 }
