@@ -15,11 +15,11 @@ public class SignaleManager : MonoBehaviour
 
     [Header("演出用のボス")]
     [SerializeField] 
-    GameObject m_standingDragon = default;
+    GameObject m_ActingBoss = default;
 
     [Header("戦闘するボス")]
     [SerializeField] 
-    GameObject m_mainDragon = default;
+    GameObject m_mainBoss = default;
 
     [SerializeField]
     GameObject m_weapons = default;
@@ -38,7 +38,7 @@ public class SignaleManager : MonoBehaviour
 
     private void Awake()
     {
-        if(m_standingDragon) m_standingDragon.SetActive(false);
+        if(m_ActingBoss) m_ActingBoss.SetActive(false);
         m_volume.profile.TryGet(out zoomBlur);
     }
 
@@ -54,18 +54,21 @@ public class SignaleManager : MonoBehaviour
 
     public void OnDragon()
     {
-        m_standingDragon?.SetActive(true);
+        m_ActingBoss?.SetActive(true);
     }
 
     public void SwitchDragon()
     {
-        m_standingDragon.SetActive(false);
-        m_mainDragon.SetActive(true);
+        m_ActingBoss.SetActive(false);
+        m_mainBoss.SetActive(true);
     }
 
     public void GrowlSe()
     {
         SoundManager.Instance.PlaySeByName("Growl");
+        var rb = m_ActingBoss.gameObject.GetComponent<Rigidbody>();
+        rb.useGravity = false;
+        rb.constraints = RigidbodyConstraints.FreezeAll;
     }
     public void SwingSe()
     {
@@ -74,7 +77,7 @@ public class SignaleManager : MonoBehaviour
 
     public void OnLandingEffect()
     {
-        EffectManager.PlayEffect(EffectType.Landing, m_standingDragon.transform.position);
+        EffectManager.PlayEffect(EffectType.Landing, m_ActingBoss.transform.position);
         SoundManager.Instance.PlaySeByName("DragonFrap");
     }
 
