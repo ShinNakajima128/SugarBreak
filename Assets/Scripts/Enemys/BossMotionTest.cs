@@ -16,8 +16,11 @@ public enum EnemyState
 /// <summary>
 /// ボスの機能のテスト用クラス
 /// </summary>
-public class BossMotionTest : MonoBehaviour
+public class BossMotionTest : MonoBehaviour, IDamagable
 {
+    [SerializeField]
+    int m_maxHp = 50;
+
     /// <summary> 攻撃力 </summary>
     [SerializeField]
     int m_attackPower = 2;
@@ -49,6 +52,7 @@ public class BossMotionTest : MonoBehaviour
     [SerializeField]
     HitDecision m_hd = default;
 
+    int m_currentHp;
     /// <summary> 敵のステータス </summary>
     EnemyState m_states = EnemyState.Idle;
     /// <summary> 敵を動かすためのコンポーネント </summary>
@@ -62,18 +66,20 @@ public class BossMotionTest : MonoBehaviour
     /// <summary> 速度 </summary>
     Vector3 m_velocity = default;
     public bool IsWaited { get; private set; }
+    public bool IsDead { get; private set; } = false;
     /// <summary> 次の状態に遷移するまでの時間 </summary>
     public float WaitStatesTime { get; set; } = 3.0f;
 
     /// <summary> 現在の敵のステータス </summary>
     public EnemyState CurrentState { get => m_states; set => m_states = value; }
-
+        
     void Start()
     {
         m_cc = GetComponent<CharacterController>();
         m_anim = GetComponent<Animator>();
         m_ps = GetComponentInChildren<PlayerSearcher>();
         StartCoroutine(ChangeState(EnemyState.Idle));
+        m_currentHp = m_maxHp;
     }
 
     private void Update()
@@ -86,24 +92,27 @@ public class BossMotionTest : MonoBehaviour
     /// </summary>
     void UpdateState()
     {
-        if (!IsWaited)
+        if (!IsDead)
         {
-            switch (m_states)
+            if (!IsWaited)
             {
-                case EnemyState.Idle:
-                    if (m_ps.IsWithinRange)
-                    {
-                        StartCoroutine(ChangeState(EnemyState.Move));
-                    }
-                    break;
-                case EnemyState.Move:
-                    MoveAction();
-                    break;
-                case EnemyState.Attack:
-                    StartCoroutine(ChangeState(EnemyState.Idle));
-                    break;
-                case EnemyState.dead:
-                    break;
+                switch (m_states)
+                {
+                    case EnemyState.Idle:
+                        if (m_ps.IsWithinRange)
+                        {
+                            StartCoroutine(ChangeState(EnemyState.Move));
+                        }
+                        break;
+                    case EnemyState.Move:
+                        MoveAction();
+                        break;
+                    case EnemyState.Attack:
+                        StartCoroutine(ChangeState(EnemyState.Idle));
+                        break;
+                    case EnemyState.dead:
+                        break;
+                }
             }
         }
     }
@@ -120,7 +129,6 @@ public class BossMotionTest : MonoBehaviour
         if (m_cc.enabled)
         {
             m_cc.Move(m_velocity * Time.deltaTime);
-            Debug.Log(m_ps.PlayerPosition);
         };
 
         //Debug.Log($"追跡中:距離{Vector3.Distance(transform.position, m_ps.PlayerTrans.position)}");
@@ -204,5 +212,17 @@ public class BossMotionTest : MonoBehaviour
     public void OffAttack1Collider()
     {
         m_attackCollider.enabled = false;
+    }
+
+    public void Damage(int attackPower)
+    {
+        m_currentHp -= attackPower;
+        Debug.Log($"残りHP:{m_currentHp}");
+
+        if (m_currentHp <= 0)
+        {
+            ChangeState(EnemyState.dead);
+            IsDead = true;
+        }
     }
 }
