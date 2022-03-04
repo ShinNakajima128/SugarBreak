@@ -78,6 +78,7 @@ public class SignaleManager : MonoBehaviour
     public void OnLandingEffect()
     {
         EffectManager.PlayEffect(EffectType.Landing, m_ActingBoss.transform.position);
+        EventManager.OnEvent(Events.CameraShake);
         SoundManager.Instance.PlaySeByName("DragonFrap");
     }
 
