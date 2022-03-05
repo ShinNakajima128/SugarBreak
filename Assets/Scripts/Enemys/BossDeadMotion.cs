@@ -1,22 +1,41 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class BossDeadMotion : MonoBehaviour
 {
-    Rigidbody m_rb = default;
+    [SerializeField]
+    float m_disappearTime = 0.2f;
+
+    [SerializeField]
+    float m_explosionTime = 2.0f;
+
+    Rigidbody[] m_rbs = default;
     MeshCollider[] m_colliders = default;
     MeshRenderer[] m_meshs = default;
     void Start()
     {
-        m_rb = GetComponent<Rigidbody>();
+        m_rbs = GetComponentsInChildren<Rigidbody>();
         m_colliders = GetComponentsInChildren<MeshCollider>();
         m_meshs = GetComponentsInChildren<MeshRenderer>();
+        StartCoroutine(StartDeadMotion());
+        for (int i = 0; i < m_rbs.Length; i++)
+        {
+            m_rbs[i].isKinematic = true;
+        }
     }
 
-    IEnumerator StartDeadMmotion()
+    IEnumerator StartDeadMotion()
     {
+        yield return new WaitForSeconds(m_explosionTime);
+
+        for (int i = 0; i < m_rbs.Length; i++)
+        {
+            m_rbs[i].isKinematic = false;
+        }
         EffectManager.PlayEffect(EffectType.BossDead, transform.position);
+        
         foreach (var m in m_meshs)
         {
             StartCoroutine(Disappear(m));
@@ -27,12 +46,14 @@ public class BossDeadMotion : MonoBehaviour
     IEnumerator Disappear(MeshRenderer mesh)
     {
         float a = 1.0f;
+
         while (mesh.material.color.a > 0)
         {
-            Color c = new Color(0, 0, 0, a);
+            Color c = new Color(1, 1, 1, a);
             mesh.material.color = c;
-            a -= 0.01f * Time.deltaTime;
+            a -= m_disappearTime * Time.deltaTime;
             yield return null;
         }
+        Destroy(mesh.gameObject);
     }
 }
