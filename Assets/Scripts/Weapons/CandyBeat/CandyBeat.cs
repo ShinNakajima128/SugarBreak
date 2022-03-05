@@ -63,8 +63,8 @@ public class CandyBeat : WeaponBase, IWeapon
     /// <summary>
     /// ジャンプ強攻撃
     /// </summary>
-    /// <param name="anim"></param>
-    /// <param name="rb"></param>
+    /// <param name="anim"> プレイヤーのAnimator </param>
+    /// <param name="rb"> プレイヤーのRigidbody </param>
     public void WeaponAction2(Animator anim, Rigidbody rb)
     {
         attackDamage = 10;
