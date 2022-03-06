@@ -25,6 +25,7 @@ TagManager:
   - KonpeiText
   - HPGauge
   - Target
+  - BossUI
   layers:
   - Default
   - TransparentFX
