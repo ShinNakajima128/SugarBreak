@@ -14,6 +14,9 @@ public class BossUIManager : MonoBehaviour
     GameObject m_bossUIPanel = default;
 
     [SerializeField]
+    RectTransform m_hpBarObject = default;
+
+    [SerializeField]
     Image m_fillArea = default;
 
     [SerializeField]
@@ -58,11 +61,19 @@ public class BossUIManager : MonoBehaviour
     }
 
     /// <summary>
+    /// ダメージを受けた時のHPのアニメーション
+    /// </summary>
+    void HpBarDamageAnimation()
+    {
+        m_hpBarObject.DOShakePosition(0.2f, 20, 20);
+    }
+
+    /// <summary>
     /// ボスがダメージを受けた時の処理
     /// </summary>
     public void DamageHandle(int damageValue)
     {
-        
+        HpBarDamageAnimation();
         m_currentBossHp -= damageValue;
         m_fillArea.DOFillAmount((float)m_currentBossHp / m_currentBossMaxHp, 0.2f)
                   .OnComplete(() => 
