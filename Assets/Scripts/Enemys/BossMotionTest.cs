@@ -88,6 +88,13 @@ public class BossMotionTest : MonoBehaviour, IDamagable
     private void Update()
     {
         UpdateState();
+
+        if (!m_cc.isGrounded)
+        {
+            var velo = new Vector3(m_cc.velocity.x, m_cc.velocity.y, m_cc.velocity.z);
+            velo.y += 9.8f * Time.deltaTime;
+            m_cc.Move(velo * Time.deltaTime);
+        }
     }
 
     /// <summary>
