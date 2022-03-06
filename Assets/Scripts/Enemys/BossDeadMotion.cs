@@ -35,6 +35,7 @@ public class BossDeadMotion : MonoBehaviour
         }
         EffectManager.PlayEffect(EffectType.BossDead, transform.position);
         ItemGenerator.Instance.GenerateChocoEgg(transform);
+        EventManager.OnEvent(Events.BossBattleEnd);
 
         foreach (var m in m_meshs)
         {

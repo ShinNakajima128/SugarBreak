@@ -19,7 +19,7 @@ public enum EnemyState
 public class BossMotionTest : MonoBehaviour, IDamagable
 {
     [SerializeField]
-    int m_maxHp = 50;
+    EnemyData m_enemyData = default;
 
     /// <summary> 攻撃力 </summary>
     [SerializeField]
@@ -69,6 +69,8 @@ public class BossMotionTest : MonoBehaviour, IDamagable
     Vector3 m_direction = default;
     /// <summary> 速度 </summary>
     Vector3 m_velocity = default;
+
+    public EnemyData BossData { get => m_enemyData; }
     public bool IsWaited { get; private set; }
     /// <summary> 次の状態に遷移するまでの時間 </summary>
     public float WaitStatesTime { get; set; } = 3.0f;
@@ -82,7 +84,8 @@ public class BossMotionTest : MonoBehaviour, IDamagable
         m_anim = GetComponent<Animator>();
         m_ps = GetComponentInChildren<PlayerSearcher>();
         StartCoroutine(ChangeState(EnemyState.Idle));
-        m_currentHp = m_maxHp;
+        m_currentHp = m_enemyData.maxHp;
+        EventManager.OnEvent(Events.BossBattleStart);
     }
 
     private void Update()
@@ -92,9 +95,10 @@ public class BossMotionTest : MonoBehaviour, IDamagable
         if (!m_cc.isGrounded)
         {
             var velo = new Vector3(m_cc.velocity.x, m_cc.velocity.y, m_cc.velocity.z);
-            velo.y += 9.8f * Time.deltaTime;
+            velo.y -= 9.8f * Time.deltaTime;
             m_cc.Move(velo * Time.deltaTime);
         }
+        Debug.Log(m_cc.isGrounded);
     }
 
     /// <summary>
@@ -177,7 +181,10 @@ public class BossMotionTest : MonoBehaviour, IDamagable
                 m_anim.CrossFadeInFixedTime("Attack", 0.1f);
                 break;
             case EnemyState.dead:
-                Instantiate(m_deadModel, transform.position, transform.rotation);
+                if (m_deadModel)
+                {
+                    Instantiate(m_deadModel, transform.position, transform.rotation);
+                }
                 Destroy(gameObject);
                 break;
         }
@@ -203,8 +210,15 @@ public class BossMotionTest : MonoBehaviour, IDamagable
     {
         EventManager.OnEvent(Events.CameraShake); //カメラを揺らす
         SoundManager.Instance.PlaySeByName("全力で踏み込む");
-        EffectManager.PlayEffect(EffectType.Landing, m_attackEffectPos.position);
-        m_hd.AttackDamage = m_attackPower;
+        if (m_attackEffectPos)
+        {
+            EffectManager.PlayEffect(EffectType.Landing, m_attackEffectPos.position);
+        }
+
+        if (m_hd)
+        {
+            m_hd.AttackDamage = m_attackPower;
+        }
     }
 
     /// <summary>
@@ -212,20 +226,27 @@ public class BossMotionTest : MonoBehaviour, IDamagable
     /// </summary>
     public void OnAttack1Collider()
     {
-        m_attackCollider.enabled = true;
+        if (m_attackCollider)
+        {
+            m_attackCollider.enabled = true;
+        }
     }
     /// <summary>
     /// 攻撃1の当たり判定をOFFにする
     /// </summary>
     public void OffAttack1Collider()
     {
-        m_attackCollider.enabled = false;
+        if (m_attackCollider)
+        {
+            m_attackCollider.enabled = false;
+        }
     }
 
     public void Damage(int attackPower)
     {
         m_currentHp -= attackPower;
         Debug.Log($"残りHP:{m_currentHp}");
+        BossUIManager.Instance.DamageHandle(attackPower);
 
         if (m_currentHp <= 0)
         {
