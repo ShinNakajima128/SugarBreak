@@ -7,7 +7,12 @@ using UnityEngine;
 /// </summary>
 public class CandyBeat : WeaponBase, IWeapon
 {
-    [SerializeField] float m_hitStopTime = 0.2f;
+    [SerializeField]
+    float m_hitStopTime = 0.2f;
+
+    [SerializeField]
+    Transform m_hitEffectTrans = default;
+    
     Coroutine coroutine;
     BoxCollider m_collider;
     Transform m_effectPos;
@@ -131,6 +136,7 @@ public class CandyBeat : WeaponBase, IWeapon
             if (coroutine == null)
             {
                 coroutine = StartCoroutine(HitStop());
+                EffectManager.PlayEffect(EffectType.Damage, m_hitEffectTrans.position);
             }
         }
     }
