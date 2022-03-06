@@ -11,6 +11,10 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     [SerializeField] 
     PlayerData m_playerData = default;
 
+    [Header("HPの調整が可能となるフラグ")]
+    [SerializeField]
+    bool m_debugMode = default;
+
     /// <summary> 金平糖の所持数を表示するテキスト </summary>
     TextMeshProUGUI m_totalKonpeitouTmp = default;
 
@@ -52,6 +56,11 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
 
     void Update()
     {
+        if (!m_debugMode)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.H))
         {
             Heal(1);
