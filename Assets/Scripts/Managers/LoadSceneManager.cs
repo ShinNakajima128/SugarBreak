@@ -64,7 +64,7 @@ public class LoadSceneManager : MonoBehaviour
         fadeImage.UpdateMaskTexture(m_masks[2]);
         fade.FadeIn(1.0f, () =>
         {
-            StartCoroutine(Load(name, 3.5f));
+            StartCoroutine(Load(name, 2.0f));
         });
     }
 

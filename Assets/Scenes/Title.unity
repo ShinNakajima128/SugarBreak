@@ -2170,6 +2170,10 @@ PrefabInstance:
       propertyPath: m_ReferenceResolution.y
       value: 1080
       objectReference: {fileID: 0}
+    - target: {fileID: 1462793456, guid: 22452ef30ae001b4382d787c1bd16c67, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2003259596498201700, guid: 22452ef30ae001b4382d787c1bd16c67,
         type: 3}
       propertyPath: m_CullTransparentMesh
