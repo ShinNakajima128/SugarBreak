@@ -28,9 +28,13 @@ public class WeaponData : ScriptableObject
     [SerializeField]
     Sprite m_deactiveWeaponImage = default;
 
+    [SerializeField]
+    GameObject m_WeaponObject = default;
+
     public WeaponTypes WeaponType { get => m_weaponType; }
 
     public Sprite ActiveWeaponImage { get => m_activeWeaponImage; }
 
     public Sprite DeactiveWeaponImage { get => m_deactiveWeaponImage; }
+    public GameObject WeaponObject { get => m_WeaponObject; }
 }

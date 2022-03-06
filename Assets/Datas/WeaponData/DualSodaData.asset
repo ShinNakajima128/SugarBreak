@@ -17,3 +17,5 @@ MonoBehaviour:
     type: 3}
   m_deactiveWeaponImage: {fileID: 21300000, guid: 2fcc42d56390ac24096db7206a6236f0,
     type: 3}
+  m_WeaponObject: {fileID: 2928823494383996833, guid: 7ff5798c5e8d7954b95563be2e716c63,
+    type: 3}
