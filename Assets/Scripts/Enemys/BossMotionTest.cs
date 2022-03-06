@@ -52,6 +52,10 @@ public class BossMotionTest : MonoBehaviour, IDamagable
     [SerializeField]
     HitDecision m_hd = default;
 
+    /// <summary> 倒された際に出現させるボスのオブジェクト </summary>
+    [SerializeField]
+    GameObject m_deadModel = default;
+
     int m_currentHp;
     /// <summary> 敵のステータス </summary>
     EnemyState m_states = EnemyState.Idle;
@@ -66,7 +70,6 @@ public class BossMotionTest : MonoBehaviour, IDamagable
     /// <summary> 速度 </summary>
     Vector3 m_velocity = default;
     public bool IsWaited { get; private set; }
-    public bool IsDead { get; private set; } = false;
     /// <summary> 次の状態に遷移するまでの時間 </summary>
     public float WaitStatesTime { get; set; } = 3.0f;
 
@@ -92,27 +95,24 @@ public class BossMotionTest : MonoBehaviour, IDamagable
     /// </summary>
     void UpdateState()
     {
-        if (!IsDead)
+        if (!IsWaited)
         {
-            if (!IsWaited)
+            switch (m_states)
             {
-                switch (m_states)
-                {
-                    case EnemyState.Idle:
-                        if (m_ps.IsWithinRange)
-                        {
-                            StartCoroutine(ChangeState(EnemyState.Move));
-                        }
-                        break;
-                    case EnemyState.Move:
-                        MoveAction();
-                        break;
-                    case EnemyState.Attack:
-                        StartCoroutine(ChangeState(EnemyState.Idle));
-                        break;
-                    case EnemyState.dead:
-                        break;
-                }
+                case EnemyState.Idle:
+                    if (m_ps.IsWithinRange)
+                    {
+                        StartCoroutine(ChangeState(EnemyState.Move));
+                    }
+                    break;
+                case EnemyState.Move:
+                    MoveAction();
+                    break;
+                case EnemyState.Attack:
+                    StartCoroutine(ChangeState(EnemyState.Idle));
+                    break;
+                case EnemyState.dead:
+                    break;
             }
         }
     }
@@ -170,7 +170,8 @@ public class BossMotionTest : MonoBehaviour, IDamagable
                 m_anim.CrossFadeInFixedTime("Attack", 0.1f);
                 break;
             case EnemyState.dead:
-                m_anim.Play("Dead");
+                Instantiate(m_deadModel, transform.position, transform.rotation);
+                Destroy(gameObject);
                 break;
         }
 
@@ -221,8 +222,7 @@ public class BossMotionTest : MonoBehaviour, IDamagable
 
         if (m_currentHp <= 0)
         {
-            ChangeState(EnemyState.dead);
-            IsDead = true;
+            StartCoroutine(ChangeState(EnemyState.dead));
         }
     }
 }

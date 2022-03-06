@@ -12,12 +12,11 @@ public class BossDeadMotion : MonoBehaviour
     float m_explosionTime = 2.0f;
 
     Rigidbody[] m_rbs = default;
-    MeshCollider[] m_colliders = default;
     MeshRenderer[] m_meshs = default;
+
     void Start()
     {
         m_rbs = GetComponentsInChildren<Rigidbody>();
-        m_colliders = GetComponentsInChildren<MeshCollider>();
         m_meshs = GetComponentsInChildren<MeshRenderer>();
         StartCoroutine(StartDeadMotion());
         for (int i = 0; i < m_rbs.Length; i++)
@@ -35,7 +34,8 @@ public class BossDeadMotion : MonoBehaviour
             m_rbs[i].isKinematic = false;
         }
         EffectManager.PlayEffect(EffectType.BossDead, transform.position);
-        
+        ItemGenerator.Instance.GenerateChocoEgg(transform);
+
         foreach (var m in m_meshs)
         {
             StartCoroutine(Disappear(m));
@@ -49,7 +49,7 @@ public class BossDeadMotion : MonoBehaviour
 
         while (mesh.material.color.a > 0)
         {
-            Color c = new Color(1, 1, 1, a);
+            var c = new Color(1, 1, 1, a);
             mesh.material.color = c;
             a -= m_disappearTime * Time.deltaTime;
             yield return null;
