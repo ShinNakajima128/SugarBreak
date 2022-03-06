@@ -68,7 +68,7 @@ public class ItemGenerator : MonoBehaviour
     /// <param name="tfm"> 生成する位置 </param>
     public void GenerateChocoEgg(Transform tfm)
     {
-        var egg = Instantiate(m_chocoEgg, tfm.position, m_chocoEgg.transform.rotation);
+        var egg = Instantiate(m_chocoEgg, tfm.position, tfm.rotation);
         egg.GetComponentInChildren<ChocoEgg>().BossTypes = BossType.Dragon;
     }
 
