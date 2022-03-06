@@ -102,43 +102,24 @@ public class WeaponListControl : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            ChangeWeapon(WeaponListTypes.Equip1);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            ChangeWeapon(WeaponListTypes.Equip2);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            ChangeWeapon(WeaponListTypes.Equip3);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            ChangeWeapon(WeaponListTypes.MainWeapon);
-        }
-    }
-
     void Setup()
     {
         //武器オブジェクトの登録
         //生成したオブジェクトとアニメーションのオブジェクト名と一致させるために(clone)を削除する処理を行う
-        var g1 = m_weaponObjects.FirstOrDefault(o => o.name == m_currentEquipWeapons.Weapon1.WeaponType.ToString());
+        //var g1 = m_weaponObjects.FirstOrDefault(o => o.name == m_currentEquipWeapons.Weapon1.WeaponType.ToString());
+        var g1 = m_currentEquipWeapons.Weapon1.WeaponObject;
         m_weaponListDic[WeaponListTypes.Equip1] = Instantiate(g1, m_weaponListTrans);
         m_weaponListDic[WeaponListTypes.Equip1].name = g1.name;
 
-        var g2 = m_weaponObjects.FirstOrDefault(o => o.name == m_currentEquipWeapons.Weapon2.WeaponType.ToString());
+        var g2 = m_currentEquipWeapons.Weapon2.WeaponObject;
         m_weaponListDic[WeaponListTypes.Equip2] = Instantiate(g2, m_weaponListTrans);
         m_weaponListDic[WeaponListTypes.Equip2].name = g2.name;
 
-        var g3 = m_weaponObjects.FirstOrDefault(o => o.name == m_currentEquipWeapons.Weapon3.WeaponType.ToString());
+        var g3 = m_currentEquipWeapons.Weapon3.WeaponObject;
         m_weaponListDic[WeaponListTypes.Equip3] = Instantiate(g3, m_weaponListTrans);
         m_weaponListDic[WeaponListTypes.Equip3].name = g3.name;
 
-        var g4 = m_weaponObjects.FirstOrDefault(o => o.name == m_currentEquipWeapons.MainWeapon.WeaponType.ToString());
+        var g4 = m_currentEquipWeapons.MainWeapon.WeaponObject;
         m_weaponListDic[WeaponListTypes.MainWeapon] = Instantiate(g4, m_weaponListTrans);
         m_weaponListDic[WeaponListTypes.MainWeapon].name = g4.name;
 

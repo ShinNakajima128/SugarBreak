@@ -54,7 +54,6 @@ public class PlayerController : MonoBehaviour
     Animator m_anim;
     bool m_isDodged = false;
     bool m_isAttackMotioned = false;
-    bool m_isAimed = false;
     bool m_isAimMoved = false;
     bool m_isJumped = false;
     float actualPushPower;
@@ -66,7 +65,7 @@ public class PlayerController : MonoBehaviour
     }
     public float RunSpeed => m_runSpeed;
     public bool IsDodged => m_isDodged;
-    public bool IsAimed { get => m_isAimed; set => m_isAimed = value; }
+    public bool IsAimed { get; set; } = false;
     public bool WallHit { get; set; } = false;
     public static PlayerController Instance { get; private set; }
     public IWeapon CurrentWeaponAction { get; set; }
@@ -94,7 +93,7 @@ public class PlayerController : MonoBehaviour
 
             JumpMove();
 
-            if (!m_isAttackMotioned)
+            if (!m_isAttackMotioned && !IsAimed)
             {
                 WeaponChange();
             }
@@ -189,7 +188,7 @@ public class PlayerController : MonoBehaviour
             // 方向の入力がニュートラルの時は、y 軸方向の速度を保持するだけ
             m_rb.velocity = new Vector3(0f, m_rb.velocity.y, 0f);
             state = PlayerState.Idle;
-            if (m_isAimed && m_isAimMoved)
+            if (IsAimed && m_isAimMoved)
             {
                 m_anim.SetFloat("ForwardMove", 0);
                 m_anim.SetFloat("BackwardMove", 0);
@@ -298,11 +297,12 @@ public class PlayerController : MonoBehaviour
     public void WeaponChange()
     {
         //ADS中は武器変更不可
-        if (m_isAimed)
+        if (IsAimed)
         {
             return;
         }
 
+        Debug.Log($"武器変更:{IsAimed}");
         //キーボードの「1」かゲームパッドの十字キー「左」を押したら「装備1」に変更
         if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetAxisRaw("D Pad Hori") == 1)
         {
@@ -333,6 +333,17 @@ public class PlayerController : MonoBehaviour
             m_anim.Rebind();
             AimRotation.Instance.ResetWeaponListRotation();
         }
+        //キーボードの「4」かゲームパッドの十字キー「下」を押したら「メイン武器」に変更
+        else if (Input.GetKeyDown(KeyCode.Alpha4) || Input.GetAxisRaw("D Pad Ver") == -1)
+        {
+            if (WeaponListControl.Instance.CurrentEquipWeapon == WeaponListTypes.MainWeapon) return;
+
+            WeaponListControl.Instance.ChangeWeapon(WeaponListTypes.MainWeapon);
+            WeaponChangeAction();
+            m_anim.Rebind();
+            AimRotation.Instance.ResetWeaponListRotation();
+        }
+
     }
 
     /// <summary>
