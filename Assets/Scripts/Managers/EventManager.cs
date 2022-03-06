@@ -12,7 +12,9 @@ public enum Events
     StageStart,
     StageEnd,
     CameraShake,
-    GetKonpeitou
+    GetKonpeitou,
+    BossBattleStart,
+    BossBattleEnd
 }
 
 /// <summary>
