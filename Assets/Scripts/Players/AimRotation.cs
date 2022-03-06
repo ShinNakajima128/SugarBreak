@@ -37,7 +37,7 @@ public class AimRotation : MonoBehaviour
     {
         m_playerTrans = GetComponent<Transform>();
         m_weaponListTrans = GameObject.FindGameObjectWithTag("WeaponList").transform;
-        m_weaponListOriginTrans = m_weaponListTrans.transform.rotation;
+        m_weaponListOriginTrans = m_weaponListTrans.transform.localRotation;
     }
 
     void Update()
@@ -89,7 +89,7 @@ public class AimRotation : MonoBehaviour
     /// </summary>
     public void ResetWeaponListRotation()
     {
-        m_weaponListTrans.rotation = m_weaponListOriginTrans;
+        m_weaponListTrans.localRotation = m_weaponListOriginTrans;
         m_currentValue = 0;
     }
 }
