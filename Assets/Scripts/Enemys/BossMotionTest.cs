@@ -247,6 +247,7 @@ public class BossMotionTest : MonoBehaviour, IDamagable
         m_currentHp -= attackPower;
         Debug.Log($"残りHP:{m_currentHp}");
         BossUIManager.Instance.DamageHandle(attackPower);
+        SoundManager.Instance.PlaySeByName("BossDamage1");
 
         if (m_currentHp <= 0)
         {

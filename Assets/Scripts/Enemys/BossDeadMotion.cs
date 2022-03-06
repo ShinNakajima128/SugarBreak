@@ -27,6 +27,7 @@ public class BossDeadMotion : MonoBehaviour
 
     IEnumerator StartDeadMotion()
     {
+        SoundManager.Instance.PlaySeByName("BossDown");
         yield return new WaitForSeconds(m_explosionTime);
 
         for (int i = 0; i < m_rbs.Length; i++)
@@ -36,6 +37,7 @@ public class BossDeadMotion : MonoBehaviour
         EffectManager.PlayEffect(EffectType.BossDead, transform.position);
         ItemGenerator.Instance.GenerateChocoEgg(transform);
         EventManager.OnEvent(Events.BossBattleEnd);
+        SoundManager.Instance.PlaySeByName("BossDead");
 
         foreach (var m in m_meshs)
         {
