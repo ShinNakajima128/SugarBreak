@@ -84,13 +84,16 @@ public class BossMotionTest : MonoBehaviour, IDamagable
         m_anim = GetComponent<Animator>();
         m_ps = GetComponentInChildren<PlayerSearcher>();
         StartCoroutine(ChangeState(EnemyState.Idle));
-        m_currentHp = m_enemyData.maxHp;
-        EventManager.OnEvent(Events.BossBattleStart);
+        EventManager.ListenEvents(Events.BossBattleStart,SetHp);
+        StartCoroutine(StartBattle());
     }
 
     private void Update()
     {
-        UpdateState();
+        if (BossArea.isBattle)
+        {
+            UpdateState();
+        }
 
         if (!m_cc.isGrounded)
         {
@@ -151,6 +154,11 @@ public class BossMotionTest : MonoBehaviour, IDamagable
         }
     }
 
+    void SetHp()
+    {
+        m_currentHp = m_enemyData.maxHp;
+    }
+
     /// <summary>
     /// ステータスを変更する
     /// </summary>
@@ -192,7 +200,12 @@ public class BossMotionTest : MonoBehaviour, IDamagable
         yield return new WaitForSeconds(waitTime);
         IsWaited = false;
     }
+    IEnumerator StartBattle()
+    {
+        yield return null;
 
+        EventManager.OnEvent(Events.BossBattleStart);
+    }
     /// <summary>
     /// 歩く
     /// </summary>

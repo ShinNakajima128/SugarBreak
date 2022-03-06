@@ -34,7 +34,8 @@ public class BossArea : MonoBehaviour
             }
             else
             {
-                if (!UIManager.Instance.BossUI.activeSelf) UIManager.Instance.BossUI.SetActive(true);
+                //if (!UIManager.Instance.BossUI.activeSelf) UIManager.Instance.BossUI.SetActive(true);
+                EventManager.OnEvent(Events.BossBattleStart);
             }
             
             SoundManager.Instance.SwitchBGM("BossBattle");
