@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: MainWeaponData
   m_EditorClassIdentifier: 
   m_weaponType: 0
-  m_activeWeaponImage: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
-  m_deactiveWeaponImage: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  m_activeWeaponImage: {fileID: 21300000, guid: f0cb5a0c6df406d4f9b580c0f6a18a1d,
+    type: 3}
+  m_deactiveWeaponImage: {fileID: 21300000, guid: d38eedaf82f0b9148a1e60f6e43f4b7c,
+    type: 3}
   m_WeaponObject: {fileID: 4494997931039413512, guid: ebf2df27337645847b4cc473f08f36c8,
     type: 3}
