@@ -35,6 +35,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     [SerializeField]
     bool isGlaseSnowFieldCleared = false;
 
+    [SerializeField]
+    EnemyData[] m_stageBossData = default;
+
     CinemachineImpulseSource m_impulseSource;
 
     /// <summary>
@@ -64,6 +67,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public bool IsGlaseSnowFieldCleared { get => isGlaseSnowFieldCleared; set => isGlaseSnowFieldCleared = value; }
 
     public bool IsPlayingMovie { get; set; } = false;
+
+    public EnemyData CurrentBossData { get; set; }
 
     void Awake()
     {
@@ -95,6 +100,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             MenuManager.Instance.WhetherOpenMenu = true;
         }
         EventManager.ListenEvents(Events.CameraShake, CameraShake);
+        CurrentBossData = m_stageBossData[0];
     }
 
     public void OnGameEnd()
