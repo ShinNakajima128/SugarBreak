@@ -302,7 +302,6 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        Debug.Log($"武器変更:{IsAimed}");
         //キーボードの「1」かゲームパッドの十字キー「左」を押したら「装備1」に変更
         if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetAxisRaw("D Pad Hori") == 1)
         {

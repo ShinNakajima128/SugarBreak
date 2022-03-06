@@ -49,6 +49,8 @@ MonoBehaviour:
   isRaindyCloudsCleared: 0
   isDesertResortCleared: 0
   isGlaseSnowFieldCleared: 0
+  m_stageBossData:
+  - {fileID: 11400000, guid: 2f05cac5dfd73a446be2956f6264406a, type: 2}
 --- !u!114 &8076402509999354912
 MonoBehaviour:
   m_ObjectHideFlags: 0
