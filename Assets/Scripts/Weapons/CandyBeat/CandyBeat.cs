@@ -61,6 +61,7 @@ public class CandyBeat : WeaponBase, IWeapon
     {
         attackDamage = 5;
         rb.velocity = Vector3.zero;
+        //StartCoroutine(Accelerate(rb));
         anim.SetBool("Light", true);
         PlayerStatesManager.Instance.IsOperation = false;
         StartCoroutine(PlayerController.Instance.AttackMotionTimer(1.0f));
@@ -140,5 +141,18 @@ public class CandyBeat : WeaponBase, IWeapon
                 EffectManager.PlayEffect(EffectType.Damage, m_hitEffectTrans.position);
             }
         }
+    }
+
+    IEnumerator Accelerate(Rigidbody rb)
+    {
+        float timer = 0;
+        while (timer < 0.5f)
+        {
+            rb.AddForce(Vector3.forward * 2.0f, ForceMode.Force);
+            Debug.Log("減速中");
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        Debug.Log("減速終了");
     }
 }
