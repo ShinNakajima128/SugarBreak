@@ -24,6 +24,11 @@ public class BossArea : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (GameManager.Instance.IsPlayingMovie)
+        {
+            return;
+        }
+
         if (other.gameObject.CompareTag("Player"))
         {
             if (isFirst)
@@ -38,7 +43,7 @@ public class BossArea : MonoBehaviour
                 EventManager.OnEvent(Events.BossBattleStart);
             }
             
-            SoundManager.Instance.SwitchBGM("BossBattle");
+            SoundManager.Instance.SwitchBGM("BossBattle2");
             isBattle = true;
             m_bossAreaEffect?.SetActive(true);
         }
@@ -46,6 +51,11 @@ public class BossArea : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        if (GameManager.Instance.IsPlayingMovie)
+        {
+            return;
+        }
+
         if (other.gameObject.CompareTag("Player"))
         {
             if (SceneManager.GetActiveScene().name == "BakedValley")
