@@ -101,7 +101,6 @@ public class BossMotionTest : MonoBehaviour, IDamagable
             velo.y -= 9.8f * Time.deltaTime;
             m_cc.Move(velo * Time.deltaTime);
         }
-        Debug.Log(m_cc.isGrounded);
     }
 
     /// <summary>
@@ -136,7 +135,6 @@ public class BossMotionTest : MonoBehaviour, IDamagable
         m_direction = (m_ps.PlayerPosition - transform.position).normalized;
         Quaternion targetRotation = Quaternion.LookRotation(m_direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, m_turnSpeed * Time.deltaTime);
-        //transform.LookAt(new Vector3(m_ps.PlayerPosition.x, transform.position.y, m_ps.PlayerPosition.z));
         m_velocity = m_direction * m_moveSpeed;
         m_velocity.y += Physics.gravity.y * Time.deltaTime;
 
@@ -145,7 +143,6 @@ public class BossMotionTest : MonoBehaviour, IDamagable
             m_cc.Move(m_velocity * Time.deltaTime);
         };
 
-        //Debug.Log($"追跡中:距離{Vector3.Distance(transform.position, m_ps.PlayerTrans.position)}");
         //　攻撃する距離だったら攻撃
         if (Vector3.Distance(transform.position, m_ps.PlayerPosition) < m_distanceToPlayer && m_ps.IsFind)
         {
@@ -181,11 +178,9 @@ public class BossMotionTest : MonoBehaviour, IDamagable
                 m_anim.Play("Idle");
                 break;
             case EnemyState.Move:
-                //m_anim.Play("Move");
                 m_anim.CrossFadeInFixedTime("Move", 0.1f);
                 break;
             case EnemyState.Attack:
-                //m_anim.Play("Attack");
                 m_anim.CrossFadeInFixedTime("Attack", 0.1f);
                 break;
             case EnemyState.dead:
