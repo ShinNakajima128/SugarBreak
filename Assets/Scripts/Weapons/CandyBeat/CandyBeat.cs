@@ -60,6 +60,7 @@ public class CandyBeat : WeaponBase, IWeapon
     public void WeaponAction1(Animator anim, Rigidbody rb)
     {
         attackDamage = 5;
+        rb.velocity = Vector3.zero;
         anim.SetBool("Light", true);
         PlayerStatesManager.Instance.IsOperation = false;
         StartCoroutine(PlayerController.Instance.AttackMotionTimer(1.0f));
