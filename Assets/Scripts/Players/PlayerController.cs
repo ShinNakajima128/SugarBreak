@@ -280,7 +280,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void FallDown()
     {
-        m_rb.AddForce(Vector3.down * 35, ForceMode.Impulse);
+        m_rb.AddForce(Vector3.down * 20, ForceMode.Impulse);
         EventManager.OnEvent(Events.CameraShake);
     }
 

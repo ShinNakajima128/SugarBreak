@@ -52,8 +52,8 @@ public class DecollyAnimEvent : MonoBehaviour
             var rb = other.gameObject.GetComponent<Rigidbody>();
             if (target != null)
             {
-                rb.AddForce(rb.transform.forward * m_knockbackPower * -1, ForceMode.Impulse);
-                target.Damage(decollyData.atk);
+                //rb.AddForce(rb.transform.forward * m_knockbackPower * -1, ForceMode.Impulse);
+                target.Damage(decollyData.atk, rb, transform.forward, 2);
             }
         }
     }

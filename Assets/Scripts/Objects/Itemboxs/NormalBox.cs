@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class NormalBox : ItemboxBase
 {
-    public override void Damage(int attackDamage)
+    public override void Damage(int attackPower, Rigidbody hitRb = null, Vector3 blowUpDir = default, float blowUpPower = 1)
     {
         
-        base.Damage(attackDamage);
+        base.Damage(attackPower);
         if (m_currentHp <= 0)
         {
             MeshRenderer mesh = GetComponent<MeshRenderer>();

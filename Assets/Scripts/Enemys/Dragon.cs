@@ -139,7 +139,7 @@ public class Dragon : EnemyBase
         StateEndAction?.Invoke();
     }
 
-    public override void Damage(int attackPower)
+    public override void Damage(int attackPower, Rigidbody hitRb = null, Vector3 blowUpDir = default, float blowUpPower = 1)
     {
         currentHp -= attackPower;
         m_HpSlider.value = currentHp;

@@ -27,9 +27,9 @@ public class ItemboxBase : MonoBehaviour, IDamagable
         }
     }
 
-    public virtual void Damage(int attackDamage)
+    public virtual void Damage(int attackPower, Rigidbody hitRb = null, Vector3 blowUpDir = default, float blowUpPower = 1)
     {
-        m_currentHp -= attackDamage;
+        m_currentHp -= attackPower;
     }
 
     protected IEnumerator Vanish(float vanishTime)

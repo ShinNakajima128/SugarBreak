@@ -94,7 +94,8 @@ public class MainWeapon : WeaponBase, IWeapon
         var target = other.GetComponent<IDamagable>();
         if (target != null)
         {
-            target.Damage(attackDamage);
+            other.TryGetComponent<Rigidbody>(out var rb);
+            target.Damage(attackDamage, rb, PlayerController.Instance.gameObject.transform.forward, 3);
 
             if (coroutine == null)
             {

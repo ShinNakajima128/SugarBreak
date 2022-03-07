@@ -40,7 +40,7 @@ public class ChocoEgg : MonoBehaviour, IDamagable
         StartCoroutine(DelayEvent());
     }
 
-    public void Damage(int attackPower)
+    public void Damage(int attackPower, Rigidbody hitRb = null, Vector3 blowUpDir = default, float blowUpPower = 1)
     {
         m_currentHp -= attackPower;
 

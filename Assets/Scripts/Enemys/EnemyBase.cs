@@ -28,7 +28,7 @@ public class EnemyBase : MonoBehaviour, IDamagable
         m_anim = GetComponent<Animator>();
     }
 
-    public virtual void Damage(int attackPower)
+    public virtual void Damage(int attackPower, Rigidbody hitRb = null, Vector3 blowUpDir = default, float blowUpPower = 1)
     {
         EffectManager.PlayEffect(EffectType.Damage, m_effectPos.position);
         currentHp -= attackPower;

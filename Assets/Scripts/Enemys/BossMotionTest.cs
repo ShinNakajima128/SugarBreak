@@ -250,7 +250,7 @@ public class BossMotionTest : MonoBehaviour, IDamagable
         }
     }
 
-    public void Damage(int attackPower)
+    public void Damage(int attackPower, Rigidbody hitRb = null, Vector3 blowUpDir = default, float blowUpPower = 1)
     {
         m_currentHp -= attackPower;
         Debug.Log($"残りHP:{m_currentHp}");

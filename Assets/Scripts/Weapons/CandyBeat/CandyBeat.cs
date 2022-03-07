@@ -130,9 +130,10 @@ public class CandyBeat : WeaponBase, IWeapon
     void OnTriggerEnter(Collider other)
     {
         var target = other.GetComponent<IDamagable>();
+        other.TryGetComponent<Rigidbody>(out var rb);
         if (target != null)
         {
-            target.Damage(attackDamage);
+            target.Damage(attackDamage, rb, PlayerController.Instance.gameObject.transform.forward, 3);
 
             if (coroutine == null)
             {

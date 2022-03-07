@@ -11,8 +11,6 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     [SerializeField] 
     PlayerData m_playerData = default;
 
-    
-
     /// <summary> 金平糖の所持数を表示するテキスト </summary>
     TextMeshProUGUI m_totalKonpeitouTmp = default;
 
@@ -77,13 +75,17 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
         }
     }
 
-    public void Damage(int attackPower)
+    public void Damage(int attackPower, Rigidbody hitRb = null, Vector3 blowUpDir = default, float blowUpPower = 1)
     {
         if (isDying || PlayerController.Instance.IsDodged) return;
 
         m_playerData.HP -= attackPower;
         m_hpGauge.SetHpGauge(m_playerData.HP);
 
+        if (hitRb != null)
+        {
+            hitRb.AddForce(blowUpDir * -blowUpPower, ForceMode.Impulse);
+        }
 
         if (m_playerData.HP <= 0)
         {

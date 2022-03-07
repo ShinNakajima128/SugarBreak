@@ -19,15 +19,15 @@ public enum DecollyState
 public class Decolly : EnemyBase
 {
     [Header("動く速さ")]
-    [SerializeField] 
+    [SerializeField]
     float m_moveSpeed = 1.0f;
 
     [Header("索敵範囲")]
-    [SerializeField] 
+    [SerializeField]
     SphereCollider searchArea;
 
     [Header("索敵の角度")]
-    [SerializeField] 
+    [SerializeField]
     float searchAngle = 130f;
 
     [Header("待ち時間")]
@@ -45,7 +45,7 @@ public class Decolly : EnemyBase
     SetPosition setPosition;
 
     Rigidbody m_rb;
-    
+
     //　経過時間
     private float elapsedTime;
     //　プレイヤーTransform
@@ -177,7 +177,7 @@ public class Decolly : EnemyBase
             velocity = Vector3.zero;
             m_anim.SetFloat("Speed", 0f);
             m_anim.SetBool("Attack", false);
-        }     
+        }
     }
 
     public void AttackStart()
@@ -232,7 +232,7 @@ public class Decolly : EnemyBase
         }
     }
 
-    public override void Damage(int attackPower)
+    public override void Damage(int attackPower, Rigidbody hitRb = null, Vector3 blowUpDir = default, float blowUpPower = 1)
     {
         EffectManager.PlayEffect(EffectType.Damage, m_effectPos.position);
 
@@ -240,12 +240,16 @@ public class Decolly : EnemyBase
         m_HpSlider.value = currentHp;
         SoundManager.Instance.PlaySeByName("Damage3");
 
+        m_rb.AddForce(blowUpDir * -blowUpPower, ForceMode.Impulse);
+
         if (currentHp > 0) m_anim.SetTrigger("Damage");
 
         if (currentHp <= 0 && !isdead)
         {
             isdead = true;
             SetState(DecollyState.Dead);
+
+            m_rb.velocity = Vector3.zero;
         }
     }
 
