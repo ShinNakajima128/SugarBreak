@@ -11,9 +11,7 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     [SerializeField] 
     PlayerData m_playerData = default;
 
-    [Header("HPの調整が可能となるフラグ")]
-    [SerializeField]
-    bool m_debugMode = default;
+    
 
     /// <summary> 金平糖の所持数を表示するテキスト </summary>
     TextMeshProUGUI m_totalKonpeitouTmp = default;
@@ -30,6 +28,7 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     int defaultHp = 8;
 
     bool isDying = false;
+    bool m_debugMode = false;
 
     public static PlayerStatesManager Instance { get; private set; }
 
@@ -52,6 +51,10 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
         GameManager.GameEnd += OffOperation;
         EventManager.ListenEvents(Events.GetKonpeitou, UpdateCount);
         m_totalKonpeitouTmp.text = m_playerData.TotalKonpeitou.ToString();
+        if (GameManager.Instance.DebugMode)
+        {
+            m_debugMode = true;
+        }
     }
 
     void Update()
@@ -93,7 +96,7 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
         {
             SoundManager.Instance.PlaySeByName("Damage3");
             m_anim.SetTrigger("isDamaged");
-            StartCoroutine(Damege());
+            StartCoroutine(Damage());
         }
     }
 
@@ -174,7 +177,7 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     /// 攻撃を受けた時のコルーチン
     /// </summary>
     /// <returns></returns>
-    IEnumerator Damege()
+    IEnumerator Damage()
     {
         IsOperation = false;
 

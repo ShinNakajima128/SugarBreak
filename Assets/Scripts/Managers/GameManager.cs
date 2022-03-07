@@ -38,6 +38,13 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     [SerializeField]
     EnemyData[] m_stageBossData = default;
 
+    [Header("デバッグ用")]
+    [SerializeField]
+    bool m_debugMode = false;
+
+    [SerializeField]
+    GameObject m_debugObject = default;
+
     CinemachineImpulseSource m_impulseSource;
 
     /// <summary>
@@ -69,6 +76,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public bool IsPlayingMovie { get; set; } = false;
 
     public EnemyData CurrentBossData { get; set; }
+    public bool DebugMode { get => m_debugMode; set => m_debugMode = value; }
 
     void Awake()
     {
@@ -101,6 +109,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
         EventManager.ListenEvents(Events.CameraShake, CameraShake);
         CurrentBossData = m_stageBossData[0];
+
+        m_debugObject.SetActive(m_debugMode ? true : false);
     }
 
     public void OnGameEnd()
@@ -133,6 +143,11 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 break;
         }
         EventManager.ListenEvents(Events.CameraShake, CameraShake);
+        
+        if (DebugMode)
+        {
+            DebugMode = false;
+        }
     }
 
     /// <summary>

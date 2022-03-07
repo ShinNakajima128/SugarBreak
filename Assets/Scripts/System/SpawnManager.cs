@@ -14,12 +14,15 @@ public class SpawnManager : MonoBehaviour
     /// <summary> PlayerのTransform </summary>
     Transform m_playerTrans = default;
 
-    [SerializeField]
     bool m_debugMode = false;
 
     void Start()
     {
         m_playerTrans = GameObject.FindGameObjectWithTag("Player").transform;
+        if (GameManager.Instance.DebugMode)
+        {
+            m_debugMode = true;
+        }
     }
 
     void Update()
