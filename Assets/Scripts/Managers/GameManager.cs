@@ -143,11 +143,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 break;
         }
         EventManager.ListenEvents(Events.CameraShake, CameraShake);
-        
-        if (DebugMode)
-        {
-            DebugMode = false;
-        }
     }
 
     /// <summary>

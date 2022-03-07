@@ -100,6 +100,7 @@ public class WeaponListControl : MonoBehaviour
             StartCoroutine(SetUpCoroutine());
             m_init = true;
         }
+        m_isChanged = false;
     }
 
     void Setup()
@@ -145,6 +146,7 @@ public class WeaponListControl : MonoBehaviour
         //既に装備中、または一定時間経過していなければ何もしない
         if (m_currentWeapon == type || m_isChanged)
         {
+            Debug.Log($"武器変更不可。現在の武器:{m_currentWeapon}, {m_isChanged}");
             return;
         }
 
@@ -211,9 +213,10 @@ public class WeaponListControl : MonoBehaviour
         while (timer <= m_interval)
         {
             timer += Time.deltaTime;
+            Debug.Log("インターバル中");
             yield return null;
         }
-
+        Debug.Log("武器変更可能");
         m_isChanged = false;
     }
 }

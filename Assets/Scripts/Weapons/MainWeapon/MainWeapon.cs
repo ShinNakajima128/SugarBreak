@@ -38,7 +38,6 @@ public class MainWeapon : WeaponBase, IWeapon
 
     public void WeaponAction1(Animator anim, Rigidbody rb)
     {
-        Debug.Log("フォーク攻撃");
         attackDamage = 3;
         rb.velocity = Vector3.zero;
         anim.SetTrigger("MainAttack1");

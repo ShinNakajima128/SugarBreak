@@ -8,8 +8,6 @@ public class JumpMat : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
-
         if (collision.gameObject.CompareTag("Player"))
         {
             var player = collision.gameObject.GetComponent<Rigidbody>();
