@@ -160,7 +160,7 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
 
         LoadSceneManager.Instance.LoadAnim.SetActive(true); //ロード画面
         
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(2.0f);
         SoundManager.Instance.PlayBgmByName("BakeleValley1");
         ReturnArea.Instance.ReturnComebackPoint(); //復帰地点に戻る
         m_freeLook.m_XAxis.m_InputAxisName = "Camera X";
