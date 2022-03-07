@@ -56,6 +56,9 @@ public class BossMotionTest : MonoBehaviour, IDamagable
     [SerializeField]
     GameObject m_deadModel = default;
 
+    [SerializeField]
+    bool m_debugMode = false;
+
     int m_currentHp;
     /// <summary> 敵のステータス </summary>
     EnemyState m_states = EnemyState.Idle;
@@ -90,17 +93,17 @@ public class BossMotionTest : MonoBehaviour, IDamagable
 
     private void Update()
     {
-        if (BossArea.isBattle)
+        if (BossArea.isBattle || m_debugMode)
         {
             UpdateState();
         }
 
-        if (!m_cc.isGrounded)
-        {
-            var velo = new Vector3(m_cc.velocity.x, m_cc.velocity.y, m_cc.velocity.z);
-            velo.y -= 9.8f * Time.deltaTime;
-            m_cc.Move(velo * Time.deltaTime);
-        }
+        //if (m_cc.isGrounded)
+        //{
+        //    //var velo = new Vector3(m_cc.velocity.x, m_cc.velocity.y, m_cc.velocity.z);
+        //    //velo.y -= 9.8f * Time.deltaTime;
+        //    //m_cc.Move(velo * Time.deltaTime);
+        //}
     }
 
     /// <summary>
@@ -132,14 +135,24 @@ public class BossMotionTest : MonoBehaviour, IDamagable
 
     void MoveAction()
     {
-        m_direction = (m_ps.PlayerPosition - transform.position).normalized;
-        Quaternion targetRotation = Quaternion.LookRotation(m_direction);
+        m_direction = m_ps.PlayerPosition - transform.position;
+        m_direction.y = 0;
+
+        Quaternion targetRotation = Quaternion.LookRotation(m_direction.normalized);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, m_turnSpeed * Time.deltaTime);
-        m_velocity = m_direction * m_moveSpeed;
-        m_velocity.y += Physics.gravity.y * Time.deltaTime;
+        m_velocity = m_direction.normalized * m_moveSpeed;
 
         if (m_cc.enabled)
         {
+            if (m_cc.isGrounded)
+            {
+                m_velocity.y = 0;
+            }
+            else
+            {
+                m_velocity.y = -9.8f;
+            }
+
             m_cc.Move(m_velocity * Time.deltaTime);
         };
 
