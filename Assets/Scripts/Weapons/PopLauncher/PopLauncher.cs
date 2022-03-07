@@ -92,7 +92,7 @@ public class PopLauncher : WeaponBase, IWeapon
 
         if (!PlayerController.Instance.IsAimed)
         {
-            m_aimingCamera.Priority = 30;
+            m_aimingCamera.Priority = 17;
             anim.SetBool("isAimed", true);
         }
         else
