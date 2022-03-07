@@ -35,11 +35,17 @@ public class SignaleManager : MonoBehaviour
 
     ZoomBlur zoomBlur;
     Coroutine coroutine;
+    Transform m_playerTrans = default;
 
-    private void Awake()
+    void Awake()
     {
         if(m_ActingBoss) m_ActingBoss.SetActive(false);
         m_volume.profile.TryGet(out zoomBlur);
+    }
+
+    void Start()
+    {
+        m_playerTrans = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     public void FadeIn()
@@ -126,6 +132,12 @@ public class SignaleManager : MonoBehaviour
     public void OffWeapons()
     {
         m_weapons?.SetActive(false);
+    }
+
+    public void PlayerPositionMove()
+    {
+        m_playerTrans.position = new Vector3(0, 0, 0);
+        Debug.Log(m_playerTrans.position);
     }
 
     IEnumerator IncreaseParameter(float value)
