@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour
         m_rb = GetComponent<Rigidbody>();
         m_anim = GetComponent<Animator>();
         actualPushPower = m_pushPower;
+        EventManager.ListenEvents(Events.RebindWeaponAnimation, RebindAnimation);
     }
 
     void Update()
@@ -305,44 +306,31 @@ public class PlayerController : MonoBehaviour
         //キーボードの「1」かゲームパッドの十字キー「左」を押したら「装備1」に変更
         if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetAxisRaw("D Pad Hori") == 1)
         {
-            if (WeaponListControl.Instance.CurrentEquipWeapon == WeaponListTypes.Equip1) return;
-
-            WeaponListControl.Instance.ChangeWeapon(WeaponListTypes.Equip1);
-            WeaponChangeAction();
+            WeaponListControl.Instance.ChangeWeapon(WeaponListTypes.Equip1, WeaponChangeAction);
+            EventManager.OnEvent(Events.RebindWeaponAnimation);
             AimRotation.Instance.ResetWeaponListRotation();
-            m_anim.Rebind();
         }
         //キーボードの「2」かゲームパッドの十字キー「上」を押したら「装備2」に変更
         else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetAxisRaw("D Pad Ver") == 1)
         {
-            if (WeaponListControl.Instance.CurrentEquipWeapon == WeaponListTypes.Equip2) return;
-
-            WeaponListControl.Instance.ChangeWeapon(WeaponListTypes.Equip2);
-            WeaponChangeAction();
-            m_anim.Rebind();
+            WeaponListControl.Instance.ChangeWeapon(WeaponListTypes.Equip2, WeaponChangeAction);
+            EventManager.OnEvent(Events.RebindWeaponAnimation);
             AimRotation.Instance.ResetWeaponListRotation();
         }
         //キーボードの「3」かゲームパッドの十字キー「右」を押したら「装備3」に変更
         else if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetAxisRaw("D Pad Hori") == -1)
         {
-            if (WeaponListControl.Instance.CurrentEquipWeapon == WeaponListTypes.Equip3) return;
-
-            WeaponListControl.Instance.ChangeWeapon(WeaponListTypes.Equip3);
-            WeaponChangeAction();
-            m_anim.Rebind();
+            WeaponListControl.Instance.ChangeWeapon(WeaponListTypes.Equip3, WeaponChangeAction);
+            EventManager.OnEvent(Events.RebindWeaponAnimation);
             AimRotation.Instance.ResetWeaponListRotation();
         }
         //キーボードの「4」かゲームパッドの十字キー「下」を押したら「メイン武器」に変更
         else if (Input.GetKeyDown(KeyCode.Alpha4) || Input.GetAxisRaw("D Pad Ver") == -1)
         {
-            if (WeaponListControl.Instance.CurrentEquipWeapon == WeaponListTypes.MainWeapon) return;
-
-            WeaponListControl.Instance.ChangeWeapon(WeaponListTypes.MainWeapon);
-            WeaponChangeAction();
-            m_anim.Rebind();
+            WeaponListControl.Instance.ChangeWeapon(WeaponListTypes.MainWeapon, WeaponChangeAction);
+            EventManager.OnEvent(Events.RebindWeaponAnimation);
             AimRotation.Instance.ResetWeaponListRotation();
-        }
-
+        }   
     }
 
     /// <summary>
@@ -403,6 +391,14 @@ public class PlayerController : MonoBehaviour
     {
         EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
         SoundManager.Instance.PlaySeByName("Change");
+    }
+
+    /// <summary>
+    /// 武器切り替え時に各武器のアニメーションにオブジェクトを再設定する
+    /// </summary>
+    void RebindAnimation()
+    {
+        m_anim.Rebind();
     }
 
     /// <summary>

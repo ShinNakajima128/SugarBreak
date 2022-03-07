@@ -134,15 +134,13 @@ public class WeaponListControl : MonoBehaviour
         m_weaponIconsDic[WeaponListTypes.Equip2] = m_weaponIcons[1];
         m_weaponIconsDic[WeaponListTypes.Equip3] = m_weaponIcons[2];
         m_weaponIconsDic[WeaponListTypes.MainWeapon] = m_weaponIcons[3];
-
-        ChangeWeapon(WeaponListTypes.MainWeapon);
     }
 
     /// <summary>
     /// 武器を切り替える
     /// </summary>
     /// <param name="type"> 武器リストの種類 </param>
-    public void ChangeWeapon(WeaponListTypes type)
+    public void ChangeWeapon(WeaponListTypes type, Action action = null)
     {
         //既に装備中、または一定時間経過していなければ何もしない
         if (m_currentWeapon == type || m_isChanged)
@@ -155,6 +153,8 @@ public class WeaponListControl : MonoBehaviour
 
         m_isChanged = true;
         StartCoroutine(ChangeInterval());
+
+        action?.Invoke();
 
         foreach (var w in m_weaponListDic)
         {
@@ -197,6 +197,8 @@ public class WeaponListControl : MonoBehaviour
         }
         Setup();
         yield return null;
+        ChangeWeapon(WeaponListTypes.MainWeapon);
+        EventManager.OnEvent(Events.RebindWeaponAnimation);
     }
 
     /// <summary>

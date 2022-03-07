@@ -14,7 +14,8 @@ public enum Events
     CameraShake,
     GetKonpeitou,
     BossBattleStart,
-    BossBattleEnd
+    BossBattleEnd,
+    RebindWeaponAnimation
 }
 
 /// <summary>
