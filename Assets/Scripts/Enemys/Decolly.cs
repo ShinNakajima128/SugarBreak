@@ -240,7 +240,7 @@ public class Decolly : EnemyBase
         m_HpSlider.value = currentHp;
         SoundManager.Instance.PlaySeByName("Damage3");
 
-        m_rb.AddForce(blowUpDir * -blowUpPower, ForceMode.Impulse);
+        //m_rb.AddForce(blowUpDir * -blowUpPower, ForceMode.Impulse);
 
         if (currentHp > 0) m_anim.SetTrigger("Damage");
 
@@ -249,7 +249,7 @@ public class Decolly : EnemyBase
             isdead = true;
             SetState(DecollyState.Dead);
 
-            m_rb.velocity = Vector3.zero;
+            m_rb.Sleep();
         }
     }
 
