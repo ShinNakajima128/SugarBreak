@@ -21,10 +21,15 @@ public class DualSoda : WeaponBase, IWeapon
         {
             m_collider = GetComponent<BoxCollider>();
             m_init = true;
+            m_collider.enabled = false;
+            WeaponActionManager.ListenAction(ActionType.StartHitDecision, OnCollider);
+            WeaponActionManager.ListenAction(ActionType.FinishHitDecision, OffCollider);
         }
-        m_collider.enabled = false;
-        WeaponActionManager.ListenAction(ActionType.StartHitDecision, OnCollider);
-        WeaponActionManager.ListenAction(ActionType.FinishHitDecision, OffCollider);
+        else
+        {
+            WeaponActionManager.ListenAction(ActionType.StartHitDecision, OnCollider);
+            WeaponActionManager.ListenAction(ActionType.FinishHitDecision, OffCollider);
+        }   
     }
 
     void OnDisable()

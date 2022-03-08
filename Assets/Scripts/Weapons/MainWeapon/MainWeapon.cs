@@ -21,13 +21,16 @@ public class MainWeapon : WeaponBase, IWeapon
         if (!m_init)
         {
             m_collider = GetComponent<BoxCollider>();
-            //m_effectPos = GameObject.FindGameObjectWithTag("CandyBeatEffectPosition").transform;
+            StartCoroutine(Setup());
             m_init = true;
         }
-        m_collider.enabled = false;
-        WeaponActionManager.ListenAction(ActionType.StartHitDecision, OnCollider);
-        WeaponActionManager.ListenAction(ActionType.FinishHitDecision, OffCollider);
-        WeaponActionManager.ListenAction(ActionType.WeaponEffect, OnEffect);
+        else
+        {
+            m_collider.enabled = false;
+            WeaponActionManager.ListenAction(ActionType.StartHitDecision, OnCollider);
+            WeaponActionManager.ListenAction(ActionType.FinishHitDecision, OffCollider);
+            WeaponActionManager.ListenAction(ActionType.WeaponEffect, OnEffect);
+        }    
     }
     void OnDisable()
     {
@@ -114,5 +117,14 @@ public class MainWeapon : WeaponBase, IWeapon
         Time.timeScale = 1.0f;
 
         coroutine = null;
+    }
+
+    IEnumerator Setup()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        WeaponActionManager.ListenAction(ActionType.StartHitDecision, OnCollider);
+        WeaponActionManager.ListenAction(ActionType.FinishHitDecision, OffCollider);
+        WeaponActionManager.ListenAction(ActionType.WeaponEffect, OnEffect);
     }
 }

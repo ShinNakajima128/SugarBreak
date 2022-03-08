@@ -27,10 +27,13 @@ public class CandyBeat : WeaponBase, IWeapon
             m_effectPos = GameObject.FindGameObjectWithTag("CandyBeatEffectPosition").transform;
             m_init = true;
         }
-        m_collider.enabled = false;
-        WeaponActionManager.ListenAction(ActionType.StartHitDecision, OnCollider);
-        WeaponActionManager.ListenAction(ActionType.FinishHitDecision, OffCollider);
-        WeaponActionManager.ListenAction(ActionType.WeaponEffect, OnEffect);
+        else
+        {
+            m_collider.enabled = false;
+            WeaponActionManager.ListenAction(ActionType.StartHitDecision, OnCollider);
+            WeaponActionManager.ListenAction(ActionType.FinishHitDecision, OffCollider);
+            WeaponActionManager.ListenAction(ActionType.WeaponEffect, OnEffect);
+        }
     }
 
     void OnDisable()

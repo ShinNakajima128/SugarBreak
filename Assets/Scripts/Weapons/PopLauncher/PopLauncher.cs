@@ -40,7 +40,10 @@ public class PopLauncher : WeaponBase, IWeapon
             m_brain = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CinemachineBrain>();
             m_init = true;
         }
-        WeaponActionManager.ListenAction(ActionType.Action1, ShootBullet);
+        else
+        {
+            WeaponActionManager.ListenAction(ActionType.Action1, ShootBullet);
+        }
     }
 
     private void OnDisable()
