@@ -26,6 +26,7 @@ TagManager:
   - HPGauge
   - Target
   - BossUI
+  - Stickable
   layers:
   - Default
   - TransparentFX

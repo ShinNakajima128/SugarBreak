@@ -2,6 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// メイン武器のステータス
+/// </summary>
+public enum MainWeaponState
+{
+    /// <summary> 何も刺さってない </summary>
+    None,
+    /// <summary> 何か付属している </summary>
+    Attach
+}
+
 public class MainWeapon : WeaponBase, IWeapon
 {
     [SerializeField]
@@ -10,9 +21,14 @@ public class MainWeapon : WeaponBase, IWeapon
     [SerializeField]
     Transform m_hitEffectTrans = default;
 
+    [SerializeField]
+    Transform m_attachObjectParent = default;
+
     Coroutine coroutine;
     BoxCollider m_collider;
     
+    MainWeaponState m_mainWeaponState = MainWeaponState.None;
+
     bool m_init = false;
     bool m_isJumpAttacked = false;
 
@@ -98,12 +114,41 @@ public class MainWeapon : WeaponBase, IWeapon
         if (target != null)
         {
             other.TryGetComponent<Rigidbody>(out var rb);
-            target.Damage(attackDamage, rb, PlayerController.Instance.gameObject.transform.forward, 3);
+            switch (m_mainWeaponState)
+            {
+                case MainWeaponState.None:
+                    target.Damage(attackDamage, rb, PlayerController.Instance.gameObject.transform.forward, 3);
+                    break;
+                case MainWeaponState.Attach:
+                    target.Damage(attackDamage, rb, PlayerController.Instance.gameObject.transform.forward, 3 * 2);
+                    var go = m_attachObjectParent.GetChild(0);
+                    Destroy(go.gameObject);
+                    m_mainWeaponState = MainWeaponState.None;
+                    EffectManager.PlayEffect(EffectType.Slam, m_attachObjectParent.position);
+                    break;
+            }
 
             if (coroutine == null)
             {
                 coroutine = StartCoroutine(HitStop());
                 EffectManager.PlayEffect(EffectType.Damage, m_hitEffectTrans.position);
+            }
+        }
+        else
+        {
+            if (other.gameObject.tag == "Stickable")
+            {
+                switch (m_mainWeaponState)
+                {
+                    case MainWeaponState.None:
+                        other.transform.SetParent(m_attachObjectParent);
+                        other.transform.localPosition = new Vector3(0 ,0, 0);
+                        other.GetComponent<Collider>().enabled = false;
+                        m_mainWeaponState = MainWeaponState.Attach;
+                        break;
+                    case MainWeaponState.Attach:
+                        break;
+                }       
             }
         }
     }
