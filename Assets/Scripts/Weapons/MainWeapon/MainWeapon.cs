@@ -153,6 +153,7 @@ public class MainWeapon : WeaponBase, IWeapon
                         other.transform.localPosition = new Vector3(0 ,0, 0);
                         other.GetComponent<Collider>().enabled = false;
                         m_mainWeaponState = MainWeaponState.Attach;
+                        SoundManager.Instance.PlaySeByName("Attach");
                         TryGetComponent<FieldSweets>(out var fs);
                         if (fs != null)
                         {

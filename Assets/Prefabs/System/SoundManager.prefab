@@ -353,6 +353,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a0ffeeda21f6e9147ba4f46fa1061a6b, type: 3}
   - {fileID: 8300000, guid: 37d1082220597c645ba3373d3d7d66b5, type: 3}
   - {fileID: 8300000, guid: 082cef0f3524d1b4da63ca0f69d02c72, type: 3}
+  - {fileID: 8300000, guid: 6fb3694aae8a514478fa3cb76faab323, type: 3}
   m_voices:
   - {fileID: 8300000, guid: 6ccbc3d284bd849d49fb1f8f94ab2888, type: 3}
   - {fileID: 8300000, guid: 687990b2a12cc4b6db34fdeceb9b8636, type: 3}
