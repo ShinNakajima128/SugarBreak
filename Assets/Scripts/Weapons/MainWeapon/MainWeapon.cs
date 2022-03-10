@@ -24,6 +24,9 @@ public class MainWeapon : WeaponBase, IWeapon
     [SerializeField]
     Transform m_attachObjectParent = default;
 
+    [SerializeField]
+    bool m_debugMode = false;
+
     Coroutine coroutine;
     BoxCollider m_collider;
     Vector3 m_originColliderSize;
@@ -58,9 +61,23 @@ public class MainWeapon : WeaponBase, IWeapon
         WeaponActionManager.RemoveAction(ActionType.WeaponEffect, OnEffect);
     }
 
+    void Update()
+    {
+        if (m_debugMode)
+        {
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                m_collider.size = Vector3.zero;
+            }
+            else if (Input.GetKeyDown(KeyCode.V))
+            {
+                m_collider.size = m_originColliderSize;
+            }
+        }
+    }
+
     public void WeaponAction1(Animator anim, Rigidbody rb)
     {
-        attackDamage = 3;
         rb.velocity = Vector3.zero;
         anim.SetTrigger("MainAttack1");
         PlayerStatesManager.Instance.IsOperation = false;
@@ -116,8 +133,6 @@ public class MainWeapon : WeaponBase, IWeapon
         var target = other.GetComponent<IDamagable>();
         if (target != null)
         {
-            Debug.Log($"現在の攻撃力：{attackDamage}");
-            Debug.Log($"現在のColliderSize：{m_collider.size}");
             other.TryGetComponent<Rigidbody>(out var rb);
             switch (m_mainWeaponState)
             {
@@ -127,6 +142,7 @@ public class MainWeapon : WeaponBase, IWeapon
                 case MainWeaponState.Attach:
                     target.Damage(attackDamage, rb, PlayerController.Instance.gameObject.transform.forward, 3 * 2);
                     var go = m_attachObjectParent.GetChild(0);
+                    go.GetComponent<Collider>().enabled = false;
                     Destroy(go.gameObject);
                     m_mainWeaponState = MainWeaponState.None;
                     attackDamage = m_originAttackPower;
@@ -154,13 +170,12 @@ public class MainWeapon : WeaponBase, IWeapon
                         other.GetComponent<Collider>().enabled = false;
                         m_mainWeaponState = MainWeaponState.Attach;
                         SoundManager.Instance.PlaySeByName("Attach");
-                        TryGetComponent<FieldSweets>(out var fs);
+                        other.TryGetComponent<FieldSweets>(out var fs);
                         if (fs != null)
                         {
                             m_collider.enabled = true;
                             m_collider.enabled = false;
-                            attackDamage = fs.AttackPower;
-                            StartCoroutine(ColliderSizeChange(fs.ColliderSize));
+                            StartCoroutine(ColliderSizeChange(fs.AttackPower, fs.ColliderSize));
                         }
                         break;
                     case MainWeaponState.Attach:
@@ -189,11 +204,14 @@ public class MainWeapon : WeaponBase, IWeapon
         WeaponActionManager.ListenAction(ActionType.FinishHitDecision, OffCollider);
         WeaponActionManager.ListenAction(ActionType.WeaponEffect, OnEffect);
     }
-    IEnumerator ColliderSizeChange(Vector3 afterSize)
+    IEnumerator ColliderSizeChange(int afterPower, Vector3 afterSize)
     {
         m_collider.enabled = true;
         yield return null;
+        attackDamage = afterPower;
         m_collider.size = afterSize;
+        Debug.Log($"現在の攻撃力：{attackDamage}");
+        Debug.Log($"現在のColliderSize：{m_collider.size}");
         yield return null;
         m_collider.enabled = false;
     }
