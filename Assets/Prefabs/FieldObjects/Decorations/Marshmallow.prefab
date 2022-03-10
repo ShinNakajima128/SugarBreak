@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4958737951893042188}
   - component: {fileID: 7148354644312703174}
   - component: {fileID: 3024739744442156110}
+  - component: {fileID: 1025671199401349346}
   m_Layer: 0
   m_Name: Marshmallow
   m_TagString: Stickable
@@ -94,3 +95,16 @@ CapsuleCollider:
   m_Height: 0.98789155
   m_Direction: 2
   m_Center: {x: -0.02006498, y: -0.00000017881393, z: 0.00019812584}
+--- !u!114 &1025671199401349346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8661815013543665939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4add296e65ba1d4e9591118663a8bb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_sweetsData: {fileID: 11400000, guid: 0a04f4148d66131489c6fbc70877befa, type: 2}

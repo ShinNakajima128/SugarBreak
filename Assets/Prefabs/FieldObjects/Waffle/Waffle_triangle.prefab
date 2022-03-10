@@ -167,9 +167,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8777329514260528400}
+  - component: {fileID: 400394606211721588}
+  - component: {fileID: 4635117078899352843}
   m_Layer: 0
   m_Name: Waffle_triangle
-  m_TagString: Untagged
+  m_TagString: Stickable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -190,3 +192,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &400394606211721588
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8251867875367495594}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.1357174, y: 1, z: 1.5700712}
+  m_Center: {x: 0.00033140182, y: 0, z: 0.0053966045}
+--- !u!114 &4635117078899352843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8251867875367495594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4add296e65ba1d4e9591118663a8bb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_sweetsData: {fileID: 11400000, guid: aee87172705f0ac4ab3ce694b033fdb2, type: 2}

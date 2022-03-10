@@ -10,7 +10,7 @@ public class FieldSweets : MonoBehaviour
     [SerializeField]
     FieldSweetsData m_sweetsData = default;
 
-    public FieldSweetsType SweetsType => m_sweetsData.SweetsType;
+    public FieldSweetsSize SweetsType => m_sweetsData.SweetsSize;
     public Vector3 ColliderSize => m_sweetsData.ColliderSize;
     public int AttackPower => m_sweetsData.AttackPower;
 }

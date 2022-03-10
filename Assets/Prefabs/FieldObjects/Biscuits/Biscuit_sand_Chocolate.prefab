@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 172144946381859322}
   - component: {fileID: 3876560790114215519}
   - component: {fileID: 1308498233934729877}
+  - component: {fileID: 5750357453711880380}
+  - component: {fileID: 5639980392264116586}
   m_Layer: 0
   m_Name: Biscuit_sand_Chocolate
-  m_TagString: Untagged
+  m_TagString: Stickable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,3 +81,29 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &5750357453711880380
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659852413658231616}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.221745, y: 1.9847616, z: 0.6823083}
+  m_Center: {x: -0.00000014901161, y: 0, z: 0}
+--- !u!114 &5639980392264116586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659852413658231616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4add296e65ba1d4e9591118663a8bb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_sweetsData: {fileID: 11400000, guid: 250fd8a1415ecc14684e7e769b5ac92d, type: 2}

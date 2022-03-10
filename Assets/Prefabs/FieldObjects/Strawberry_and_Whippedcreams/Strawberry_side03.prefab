@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 7144585240928870149}
   - component: {fileID: 6091525285509812384}
   - component: {fileID: 8317452181138547818}
+  - component: {fileID: 7681356657455350563}
+  - component: {fileID: 4461169438141063131}
   m_Layer: 0
   m_Name: Strawberry_side03
-  m_TagString: Untagged
+  m_TagString: Stickable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,3 +81,29 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &7681356657455350563
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7524805521008756159}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.48471558, y: 1.1566374, z: 0.9797877}
+  m_Center: {x: 0.000000022351742, y: 0, z: 0}
+--- !u!114 &4461169438141063131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7524805521008756159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4add296e65ba1d4e9591118663a8bb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_sweetsData: {fileID: 11400000, guid: 06016a05e5c87064fb13bfc0b98c645a, type: 2}

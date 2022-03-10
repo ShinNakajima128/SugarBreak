@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7005600227081157774}
   - component: {fileID: 4262329752558739447}
+  - component: {fileID: 1421481092902210432}
   m_Layer: 0
   m_Name: Strawberryspongecake
   m_TagString: Stickable
@@ -50,6 +51,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6740643535229212108, guid: f4537732ab65b7a43b5807a5b686b4cc, type: 3}
+--- !u!114 &1421481092902210432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4433563144159020290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4add296e65ba1d4e9591118663a8bb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_sweetsData: {fileID: 11400000, guid: f9e9c50999ca4534fa884ce8aa15e127, type: 2}
 --- !u!1001 &153120379868939733
 PrefabInstance:
   m_ObjectHideFlags: 0

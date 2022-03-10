@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95ef41d96d194cb4cbc5d5087e1a22f4, type: 3}
-  m_Name: WaffleData
+  m_Name: StrawberryData
   m_EditorClassIdentifier: 
-  m_sweetsSize: 3
-  m_attackPower: 10
+  m_sweetsSize: 1
+  m_attackPower: 4
