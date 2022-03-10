@@ -89,6 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4527625430996017050}
   - component: {fileID: 972295784720551114}
+  - component: {fileID: 4014892669234247237}
   m_Layer: 0
   m_Name: Waffle_half
   m_TagString: Stickable
@@ -125,6 +126,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.2518458, y: 1, z: 1}
   m_Center: {x: 0.07036543, y: 0, z: 0}
+--- !u!114 &4014892669234247237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3863679443842794784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4add296e65ba1d4e9591118663a8bb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_sweetsData: {fileID: 11400000, guid: aee87172705f0ac4ab3ce694b033fdb2, type: 2}
 --- !u!1 &8213980114017393445
 GameObject:
   m_ObjectHideFlags: 0
