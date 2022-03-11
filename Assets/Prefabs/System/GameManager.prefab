@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4513932996812001139
 RectTransform:
   m_ObjectHideFlags: 0
@@ -544,9 +544,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: " \u3010\u30C7\u30D0\u30C3\u30B0\u6A5F\u80FD\u3011\n \u3000\u300C\u30EF\u30FC\u30D7\u300D\n6\u30AD\u30FC=\u521D\u671F\u4F4D\u7F6E
-    \n 7\u30AD\u30FC=\u30E2\u30D6\u6575\u5E83\u5834\n8\u30AD\u30FC=\u4E2D\u9593\u5730\u70B9\n
-    9\u30AD\u30FC=\u30DC\u30B9\u524D\n  \u300CHP\u8ABF\u6574\u300D\n g\u30AD\u30FC:HP-1
-    \n h\u30AD\u30FC:HP+1"
+    \n 7\u30AD\u30FC=\u30E2\u30D6\u6575\u5E83\u5834\n8\u30AD\u30FC=\u4E2D\u9593\u5730\u70B9\n9\u30AD\u30FC=\u30DC\u30B9\u524D\n 
+    \u300CHP\u8ABF\u6574\u300D\n g\u30AD\u30FC:HP-1 \n h\u30AD\u30FC:HP+1"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ca775c1625bcf84587173a444f05d7f, type: 2}
   m_sharedMaterial: {fileID: -625256431176189337, guid: 9ca775c1625bcf84587173a444f05d7f,
