@@ -113,6 +113,17 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         //m_debugObject.SetActive(m_debugMode ? true : false);
     }
 
+    void Update()
+    {
+        if (m_debugMode)
+        {
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                m_debugObject.SetActive(m_debugObject.activeSelf ? false : true);
+            }
+        }
+    }
+
     public void OnGameEnd()
     {
         GameEnd?.Invoke();
