@@ -16,7 +16,6 @@
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
 /[Aa]ssets/AssetStoreTools*
-/[Aa]ssets/Prefabs*
 /[Aa]ssets/Plugins*
 /[Aa]ssets/Resources*
 
