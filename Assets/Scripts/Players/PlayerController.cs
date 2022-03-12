@@ -85,6 +85,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(Input.GetAxisRaw("L_Trigger"));
         ///Playerが操作可能だったら
         if (PlayerStatesManager.Instance.IsOperation)
         {
@@ -134,19 +135,22 @@ public class PlayerController : MonoBehaviour
 
     void DodgeMove()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && IsGrounded() && !IsAimed)
+        if (IsGrounded() && !IsAimed)
         {
-            if (m_rb.velocity == new Vector3(0f, m_rb.velocity.y, 0f))
+            if (Input.GetKeyDown(KeyCode.Q) || Input.GetAxisRaw("L_Trigger") > 0)
             {
-                return;
-            }
+                if (m_rb.velocity == new Vector3(0f, m_rb.velocity.y, 0f))
+                {
+                    return;
+                }
 
-            if (!m_isDodged)
-            {
-                StartCoroutine(Dodge());
-                m_isDodged = true;
-                SoundManager.Instance.PlayVoiceByName("univ0005");
-            }
+                if (!m_isDodged)
+                {
+                    StartCoroutine(Dodge());
+                    m_isDodged = true;
+                    SoundManager.Instance.PlayVoiceByName("univ0005");
+                }
+            }  
         }
     }
 
@@ -204,7 +208,6 @@ public class PlayerController : MonoBehaviour
             dir = Camera.main.transform.TransformDirection(dir);    // メインカメラを基準に入力方向のベクトルを変換する
             dir.y = 0;  // y 軸方向はゼロにして水平方向のベクトルにする
 
-
             if (!IsAimed)
             {
                 // 入力方向に滑らかに回転させる
@@ -217,7 +220,7 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetKey(KeyCode.LeftShift) || IsAimed)
                 {
                     Vector3 velo = dir.normalized * m_walkSpeed; // 入力した方向に移動する
-                    velo.y = WallHit ? -9.8f : m_rb.velocity.y;   // 壁に当たっているかどうかでVelocityを調整
+                    velo.y = WallHit ? -9.8f : m_rb.velocity.y;  // 壁に当たっているかどうかでVelocityを調整
                     m_rb.velocity = velo;
                     state = PlayerState.Walk;
                 }
