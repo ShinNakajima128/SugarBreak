@@ -85,7 +85,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(Input.GetAxisRaw("L_Trigger"));
         ///Playerが操作可能だったら
         if (PlayerStatesManager.Instance.IsOperation)
         {
@@ -383,7 +382,10 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Fire2"))
         {
-            CurrentWeaponAction.WeaponAction3(m_anim, m_rb);
+            if (IsGrounded())
+            {
+                CurrentWeaponAction.WeaponAction3(m_anim, m_rb);
+            }
         }
     }
 
@@ -410,11 +412,15 @@ public class PlayerController : MonoBehaviour
     public IEnumerator AttackMotionTimer(float time, Action comboResetCallBack = null)
     {
         PlayerStatesManager.Instance.IsOperation = false;
-
+        if (IsGrounded())
+        {
+            m_rb.isKinematic = true;
+        }
         m_isAttackMotioned = true;
         m_anim.SetFloat("Move", 0);
         yield return new WaitForSeconds(time);
         PlayerStatesManager.Instance.IsOperation = true;
+        m_rb.isKinematic = m_rb.isKinematic && false;
         yield return new WaitForSeconds(time + 0.5f);
 
         comboResetCallBack?.Invoke();

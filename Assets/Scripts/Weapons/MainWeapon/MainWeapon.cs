@@ -52,13 +52,15 @@ public class MainWeapon : WeaponBase, IWeapon
             WeaponActionManager.ListenAction(ActionType.StartHitDecision, OnCollider);
             WeaponActionManager.ListenAction(ActionType.FinishHitDecision, OffCollider);
             WeaponActionManager.ListenAction(ActionType.WeaponEffect, OnEffect);
-        }    
+            WeaponActionManager.ListenAction(ActionType.SpecialAction, DisCard);
+        }
     }
     void OnDisable()
     {
         WeaponActionManager.RemoveAction(ActionType.StartHitDecision, OnCollider);
         WeaponActionManager.RemoveAction(ActionType.FinishHitDecision, OffCollider);
         WeaponActionManager.RemoveAction(ActionType.WeaponEffect, OnEffect);
+        WeaponActionManager.RemoveAction(ActionType.SpecialAction, DisCard);
     }
 
     void Update()
@@ -80,7 +82,6 @@ public class MainWeapon : WeaponBase, IWeapon
     {
         rb.velocity = Vector3.zero;
         anim.SetTrigger("MainAttack1");
-        PlayerStatesManager.Instance.IsOperation = false;
         StartCoroutine(PlayerController.Instance.AttackMotionTimer(0.5f));
     }
 
@@ -91,7 +92,31 @@ public class MainWeapon : WeaponBase, IWeapon
 
     public void WeaponAction3(Animator anim, Rigidbody rb)
     {
-        //throw new System.NotImplementedException();
+        if (m_mainWeaponState == MainWeaponState.None)
+        {
+            Debug.Log("miss");
+            return;
+        }
+        Debug.Log("call");
+        rb.velocity = Vector3.zero;
+        anim.SetTrigger("Discard");
+        StartCoroutine(PlayerController.Instance.AttackMotionTimer(2.0f));
+    }
+
+    /// <summary>
+    /// 装備中のお菓子を破棄する
+    /// </summary>
+    void DisCard()
+    {
+        var go = m_attachObjectParent.GetChild(0);
+        Destroy(go.gameObject);
+        ItemGenerator.Instance.GenerateKonpeitou(10, m_attachObjectParent.position);
+        m_mainWeaponState = MainWeaponState.None;
+        attackDamage = m_originAttackPower;
+        m_collider.size = m_originColliderSize;
+        SoundManager.Instance.PlaySeByName("Damage2");
+        SoundManager.Instance.PlayVoiceByName("univ1257");
+        EffectManager.PlayEffect(EffectType.Slam, m_attachObjectParent.position);
     }
 
     /// <summary>
@@ -121,7 +146,7 @@ public class MainWeapon : WeaponBase, IWeapon
     }
 
     /// <summary>
-    /// ジャンプ強攻撃のエフェクトを再生する
+    /// 攻撃のエフェクトを再生する
     /// </summary>
     void OnEffect()
     {
@@ -137,12 +162,11 @@ public class MainWeapon : WeaponBase, IWeapon
             switch (m_mainWeaponState)
             {
                 case MainWeaponState.None:
-                    target.Damage(attackDamage, rb, PlayerController.Instance.gameObject.transform.forward, 3);
+                    target.Damage(attackDamage, rb, PlayerController.Instance.gameObject.transform.forward, attackDamage);
                     break;
                 case MainWeaponState.Attach:
-                    target.Damage(attackDamage, rb, PlayerController.Instance.gameObject.transform.forward, 3 * 2);
+                    target.Damage(attackDamage, rb, PlayerController.Instance.gameObject.transform.forward, attackDamage);
                     var go = m_attachObjectParent.GetChild(0);
-                    go.GetComponent<Collider>().enabled = false;
                     Destroy(go.gameObject);
                     m_mainWeaponState = MainWeaponState.None;
                     attackDamage = m_originAttackPower;
@@ -166,7 +190,7 @@ public class MainWeapon : WeaponBase, IWeapon
                 {
                     case MainWeaponState.None:
                         other.transform.SetParent(m_attachObjectParent);
-                        other.transform.localPosition = new Vector3(0 ,0, 0);
+                        other.transform.localPosition = new Vector3(0, 0, 0);
                         other.GetComponent<Collider>().enabled = false;
                         m_mainWeaponState = MainWeaponState.Attach;
                         SoundManager.Instance.PlaySeByName("Attach");
@@ -180,7 +204,7 @@ public class MainWeapon : WeaponBase, IWeapon
                         break;
                     case MainWeaponState.Attach:
                         break;
-                }       
+                }
             }
         }
     }
@@ -203,6 +227,7 @@ public class MainWeapon : WeaponBase, IWeapon
         WeaponActionManager.ListenAction(ActionType.StartHitDecision, OnCollider);
         WeaponActionManager.ListenAction(ActionType.FinishHitDecision, OffCollider);
         WeaponActionManager.ListenAction(ActionType.WeaponEffect, OnEffect);
+        WeaponActionManager.ListenAction(ActionType.SpecialAction, DisCard);
     }
     IEnumerator ColliderSizeChange(int afterPower, Vector3 afterSize)
     {

@@ -14,6 +14,8 @@ public enum ActionType
     Action2,
     /// <summary> 攻撃3 </summary>
     Action3,
+    /// <summary> 特別なアクション </summary>
+    SpecialAction,
     /// <summary> 当たり判定開始 </summary>
     StartHitDecision,
     /// <summary> 当たり判定終了 </summary>
@@ -33,6 +35,8 @@ public class WeaponActionManager : MonoBehaviour
     UnityEvent m_weaponAction2 = new UnityEvent();
     /// <summary> 攻撃3の機能を持つUnityEvent </summary>
     UnityEvent m_weaponAction3 = new UnityEvent();
+    /// <summary> 武器の特別な機能を持つUnityEvent </summary>
+    UnityEvent m_weaponSpecialAction = new UnityEvent();
     /// <summary> 当たり判定開始の機能を持つUnityEvent </summary>
     UnityEvent m_startHitDecision = new UnityEvent();
     /// <summary> 当たり判定終了の機能を持つUnityEvent </summary>
@@ -69,6 +73,14 @@ public class WeaponActionManager : MonoBehaviour
     public void OnAction3()
     {
         m_weaponAction3?.Invoke();
+    }
+
+    /// <summary>
+    /// 特別なアクションを実行する
+    /// </summary>
+    public void OnSpecialAction()
+    {
+        m_weaponSpecialAction?.Invoke();
     }
 
     /// <summary>
@@ -109,6 +121,9 @@ public class WeaponActionManager : MonoBehaviour
                 break;
             case ActionType.Action3:
                 instance.m_weaponAction3.AddListener(action);
+                break;
+            case ActionType.SpecialAction:
+                instance.m_weaponSpecialAction.AddListener(action);
                 break;
             case ActionType.StartHitDecision:
                 instance.m_startHitDecision.AddListener(action);
