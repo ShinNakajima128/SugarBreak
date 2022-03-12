@@ -421,9 +421,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator Jump()
     {
         m_isJumped = true;
-        yield return new WaitForSeconds(0.2f);
-
-        //m_anim.SetBool("isGround", false);
+        yield return new WaitForSeconds(0.5f);
         m_isJumped = false;
     }
 
