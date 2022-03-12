@@ -55,11 +55,11 @@ public class BossArea : MonoBehaviour
             return;
         }
 
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && PlayerStatesManager.Instance.IsDying)
         {
             if (SceneManager.GetActiveScene().name == "BakedValley")
             {
-                SoundManager.Instance.SwitchBGM("BakeleValley");
+                SoundManager.Instance.SwitchBGM("BakeleValley1");
                 isBattle = false;
                 m_bossAreaEffect?.SetActive(false);
             }

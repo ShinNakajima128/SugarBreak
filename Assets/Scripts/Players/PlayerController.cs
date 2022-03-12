@@ -412,10 +412,10 @@ public class PlayerController : MonoBehaviour
     public IEnumerator AttackMotionTimer(float time, Action comboResetCallBack = null)
     {
         PlayerStatesManager.Instance.IsOperation = false;
-        if (IsGrounded())
-        {
-            m_rb.isKinematic = true;
-        }
+        //if (IsGrounded())
+        //{
+        //    m_rb.isKinematic = true;
+        //}
         m_isAttackMotioned = true;
         m_anim.SetFloat("Move", 0);
         yield return new WaitForSeconds(time);

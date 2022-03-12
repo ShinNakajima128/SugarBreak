@@ -90,7 +90,7 @@ public class SignaleManager : MonoBehaviour
 
     public void SwitchBossBgm()
     {
-        SoundManager.Instance.SwitchBGM("BossBattle");
+        SoundManager.Instance.SwitchBGM("BossBattle2");
     }
 
     public void OnZoomBlur()

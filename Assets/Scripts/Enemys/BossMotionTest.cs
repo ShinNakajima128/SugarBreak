@@ -180,7 +180,7 @@ public class BossMotionTest : MonoBehaviour, IDamagable
 
         m_states = state;
 
-        Debug.Log($"{prev}から{state}へ遷移");
+        //Debug.Log($"{prev}から{state}へ遷移");
 
         IsWaited = true;
 

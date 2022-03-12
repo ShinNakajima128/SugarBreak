@@ -29,8 +29,8 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     bool m_debugMode = false;
 
     public static PlayerStatesManager Instance { get; private set; }
-
     public bool IsOperation { get; set; } = true;
+    public bool IsDying => isDying;
 
     void Awake()
     {
