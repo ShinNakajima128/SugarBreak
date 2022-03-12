@@ -52,6 +52,7 @@ public class MainWeapon : WeaponBase, IWeapon
             WeaponActionManager.ListenAction(ActionType.StartHitDecision, OnCollider);
             WeaponActionManager.ListenAction(ActionType.FinishHitDecision, OffCollider);
             WeaponActionManager.ListenAction(ActionType.WeaponEffect, OnEffect);
+            WeaponActionManager.ListenAction(ActionType.Action2, OnDerivationAttack);
             WeaponActionManager.ListenAction(ActionType.SpecialAction, DisCard);
         }
     }
@@ -60,6 +61,7 @@ public class MainWeapon : WeaponBase, IWeapon
         WeaponActionManager.RemoveAction(ActionType.StartHitDecision, OnCollider);
         WeaponActionManager.RemoveAction(ActionType.FinishHitDecision, OffCollider);
         WeaponActionManager.RemoveAction(ActionType.WeaponEffect, OnEffect);
+        WeaponActionManager.RemoveAction(ActionType.Action2, OnDerivationAttack);
         WeaponActionManager.RemoveAction(ActionType.SpecialAction, DisCard);
     }
 
@@ -81,13 +83,24 @@ public class MainWeapon : WeaponBase, IWeapon
     public void WeaponAction1(Animator anim, Rigidbody rb)
     {
         rb.velocity = Vector3.zero;
-        anim.SetTrigger("MainAttack1");
-        StartCoroutine(PlayerController.Instance.AttackMotionTimer(0.5f));
+        switch (m_mainWeaponState)
+        {
+            case MainWeaponState.None:
+                anim.SetTrigger("MainAttack1");
+                StartCoroutine(PlayerController.Instance.AttackMotionTimer(0.5f));
+                break;
+            case MainWeaponState.Attach:
+                anim.SetTrigger("MainAttack2");
+                StartCoroutine(PlayerController.Instance.AttackMotionTimer(1.0f));
+                break;
+        }
+        
     }
 
     public void WeaponAction2(Animator anim, Rigidbody rb)
     {
         //throw new System.NotImplementedException();
+
     }
 
     public void WeaponAction3(Animator anim, Rigidbody rb)
@@ -108,12 +121,16 @@ public class MainWeapon : WeaponBase, IWeapon
     /// </summary>
     void DisCard()
     {
-        var go = m_attachObjectParent.GetChild(0);
-        Destroy(go.gameObject);
-        ItemGenerator.Instance.GenerateKonpeitou(10, m_attachObjectParent.position);
-        m_mainWeaponState = MainWeaponState.None;
-        attackDamage = m_originAttackPower;
-        m_collider.size = m_originColliderSize;
+        if (m_attachObjectParent.parent != null)
+        {
+            var go = m_attachObjectParent.GetChild(0);
+            Destroy(go.gameObject);
+            ItemGenerator.Instance.GenerateKonpeitou(10, m_attachObjectParent.position);
+            m_mainWeaponState = MainWeaponState.None;
+            attackDamage = m_originAttackPower;
+            m_collider.size = m_originColliderSize;
+        }
+        
         SoundManager.Instance.PlaySeByName("Damage2");
         SoundManager.Instance.PlayVoiceByName("univ1257");
         EffectManager.PlayEffect(EffectType.Slam, m_attachObjectParent.position);
@@ -125,15 +142,16 @@ public class MainWeapon : WeaponBase, IWeapon
     void OnCollider()
     {
         m_collider.enabled = true;
-        if (!m_isJumpAttacked)
+        switch (m_mainWeaponState)
         {
-            SoundManager.Instance.PlaySeByName("LightAttack");
-            SoundManager.Instance.PlayVoiceByName("univ0002");
-        }
-        else
-        {
-            SoundManager.Instance.PlaySeByName("JumpAttack");
-            SoundManager.Instance.PlayVoiceByName("univ1257");
+            case MainWeaponState.None:
+                SoundManager.Instance.PlaySeByName("LightAttack");
+                SoundManager.Instance.PlayVoiceByName("univ0002");
+                break;
+            case MainWeaponState.Attach:
+                break;
+            default:
+                break;
         }
     }
 
@@ -151,6 +169,14 @@ public class MainWeapon : WeaponBase, IWeapon
     void OnEffect()
     {
         //EffectManager.PlayEffect(EffectType.Slam, m_effectPos.position);
+    }
+
+    /// <summary>
+    /// メイン武器の派生技のイベント
+    /// </summary>
+    void OnDerivationAttack()
+    {
+        SoundManager.Instance.PlayVoiceByName("univ1256");
     }
 
     void OnTriggerEnter(Collider other)
@@ -227,6 +253,7 @@ public class MainWeapon : WeaponBase, IWeapon
         WeaponActionManager.ListenAction(ActionType.StartHitDecision, OnCollider);
         WeaponActionManager.ListenAction(ActionType.FinishHitDecision, OffCollider);
         WeaponActionManager.ListenAction(ActionType.WeaponEffect, OnEffect);
+        WeaponActionManager.ListenAction(ActionType.Action2, OnDerivationAttack);
         WeaponActionManager.ListenAction(ActionType.SpecialAction, DisCard);
     }
     IEnumerator ColliderSizeChange(int afterPower, Vector3 afterSize)

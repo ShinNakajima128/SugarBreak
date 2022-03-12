@@ -158,6 +158,9 @@ public class WeaponActionManager : MonoBehaviour
             case ActionType.Action3:
                 instance.m_weaponAction3.RemoveListener(action);
                 break;
+            case ActionType.SpecialAction:
+                instance.m_weaponSpecialAction.RemoveListener(action);
+                break;
             case ActionType.StartHitDecision:
                 instance.m_startHitDecision.RemoveListener(action);
                 break;
