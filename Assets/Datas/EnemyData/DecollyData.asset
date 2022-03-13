@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: DecollyData
   m_EditorClassIdentifier: 
   enemyName: Decolly
-  maxHp: 15
+  maxHp: 3
   atk: 1
   konpeitou: 5

@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_sweetsSize: 2
   m_attackPower: 8
+  m_konpeitoNum: 6
+  m_enduranceCount: 4

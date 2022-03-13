@@ -32,9 +32,9 @@ public class MainWeapon : WeaponBase, IWeapon
     Vector3 m_originColliderSize;
     int m_originAttackPower;
     MainWeaponState m_mainWeaponState = MainWeaponState.None;
-
+    int m_currentSweetsKonpeitouNum = 0;
+    int m_currentSweetsEnduranceCount = 0;
     bool m_init = false;
-    bool m_isJumpAttacked = false;
 
     void OnEnable()
     {
@@ -80,21 +80,27 @@ public class MainWeapon : WeaponBase, IWeapon
         }
     }
 
+    /// <summary>
+    /// メイン武器の通常アクション
+    /// </summary>
+    /// <param name="anim"> PlayerのAnimator </param>
+    /// <param name="rb"> PlayerのRigidbody </param>
     public void WeaponAction1(Animator anim, Rigidbody rb)
     {
         rb.velocity = Vector3.zero;
+        
+        //武器の状態によってアクションが変化
         switch (m_mainWeaponState)
         {
             case MainWeaponState.None:
                 anim.SetTrigger("MainAttack1");
-                StartCoroutine(PlayerController.Instance.AttackMotionTimer(0.5f));
+                StartCoroutine(PlayerController.Instance.AttackMotionTimer(0.8f));
                 break;
             case MainWeaponState.Attach:
                 anim.SetTrigger("MainAttack2");
-                StartCoroutine(PlayerController.Instance.AttackMotionTimer(1.0f));
+                StartCoroutine(PlayerController.Instance.AttackMotionTimer(1.5f));
                 break;
         }
-        
     }
 
     public void WeaponAction2(Animator anim, Rigidbody rb)
@@ -103,14 +109,17 @@ public class MainWeapon : WeaponBase, IWeapon
 
     }
 
+    /// <summary>
+    /// 装着しているお菓子を破棄するアクション
+    /// </summary>
+    /// <param name="anim"> PlayerのAnimator </param>
+    /// <param name="rb"> PlayerのRigidbody </param>
     public void WeaponAction3(Animator anim, Rigidbody rb)
     {
         if (m_mainWeaponState == MainWeaponState.None)
         {
-            Debug.Log("miss");
             return;
         }
-        Debug.Log("call");
         rb.velocity = Vector3.zero;
         anim.SetTrigger("Discard");
         StartCoroutine(PlayerController.Instance.AttackMotionTimer(2.0f));
@@ -125,7 +134,7 @@ public class MainWeapon : WeaponBase, IWeapon
         {
             var go = m_attachObjectParent.GetChild(0);
             Destroy(go.gameObject);
-            ItemGenerator.Instance.GenerateKonpeitou(10, m_attachObjectParent.position);
+            ItemGenerator.Instance.GenerateKonpeitou(m_currentSweetsKonpeitouNum, m_attachObjectParent.position);
             m_mainWeaponState = MainWeaponState.None;
             attackDamage = m_originAttackPower;
             m_collider.size = m_originColliderSize;
@@ -192,12 +201,16 @@ public class MainWeapon : WeaponBase, IWeapon
                     break;
                 case MainWeaponState.Attach:
                     target.Damage(attackDamage, rb, PlayerController.Instance.gameObject.transform.forward, attackDamage);
-                    var go = m_attachObjectParent.GetChild(0);
-                    Destroy(go.gameObject);
-                    m_mainWeaponState = MainWeaponState.None;
-                    attackDamage = m_originAttackPower;
-                    m_collider.size = m_originColliderSize;
-                    EffectManager.PlayEffect(EffectType.Slam, m_attachObjectParent.position);
+                    m_currentSweetsEnduranceCount--;
+                    if (m_currentSweetsEnduranceCount <= 0)
+                    {
+                        var go = m_attachObjectParent.GetChild(0);
+                        Destroy(go.gameObject);
+                        m_mainWeaponState = MainWeaponState.None;
+                        attackDamage = m_originAttackPower;
+                        m_collider.size = m_originColliderSize;
+                        EffectManager.PlayEffect(EffectType.Slam, m_attachObjectParent.position);
+                    }
                     break;
             }
 
@@ -215,17 +228,24 @@ public class MainWeapon : WeaponBase, IWeapon
                 switch (m_mainWeaponState)
                 {
                     case MainWeaponState.None:
-                        other.transform.SetParent(m_attachObjectParent);
+                        other.transform.SetParent(m_attachObjectParent);    //お菓子をメイン武器の子オブジェクトにする
                         other.transform.localPosition = new Vector3(0, 0, 0);
                         other.GetComponent<Collider>().enabled = false;
-                        m_mainWeaponState = MainWeaponState.Attach;
+                        m_mainWeaponState = MainWeaponState.Attach;     //メイン武器のステータスを強化状態に変更
                         SoundManager.Instance.PlaySeByName("Attach");
-                        other.TryGetComponent<FieldSweets>(out var fs);
+
+                        other.TryGetComponent<FieldSweets>(out var fs); //取り付けたお菓子のデータを取得
                         if (fs != null)
                         {
                             m_collider.enabled = true;
                             m_collider.enabled = false;
-                            StartCoroutine(ColliderSizeChange(fs.AttackPower, fs.ColliderSize));
+                            attackDamage = fs.AttackPower;
+                            m_collider.size = fs.ColliderSize;
+                            m_currentSweetsKonpeitouNum = fs.KonpeitouNum;
+                            m_currentSweetsEnduranceCount = fs.EnduranceCount;
+                            Debug.Log($"{other.gameObject.name}の金平糖数：{m_currentSweetsKonpeitouNum}");
+                            Debug.Log($"{other.gameObject.name}の耐久力：{m_currentSweetsEnduranceCount}");
+                            //StartCoroutine(ColliderSizeChange(fs.AttackPower, fs.ColliderSize));
                         }
                         break;
                     case MainWeaponState.Attach:
@@ -256,12 +276,17 @@ public class MainWeapon : WeaponBase, IWeapon
         WeaponActionManager.ListenAction(ActionType.Action2, OnDerivationAttack);
         WeaponActionManager.ListenAction(ActionType.SpecialAction, DisCard);
     }
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="afterPower"></param>
+    /// <param name="afterSize"></param>
+    /// <returns></returns>
     IEnumerator ColliderSizeChange(int afterPower, Vector3 afterSize)
     {
         m_collider.enabled = true;
         yield return null;
-        attackDamage = afterPower;
-        m_collider.size = afterSize;
+        
         Debug.Log($"現在の攻撃力：{attackDamage}");
         Debug.Log($"現在のColliderSize：{m_collider.size}");
         yield return null;

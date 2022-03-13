@@ -13,4 +13,6 @@ public class FieldSweets : MonoBehaviour
     public FieldSweetsSize SweetsType => m_sweetsData.SweetsSize;
     public Vector3 ColliderSize => m_sweetsData.ColliderSize;
     public int AttackPower => m_sweetsData.AttackPower;
+    public int KonpeitouNum => m_sweetsData.KonpeitouNum;
+    public int EnduranceCount => m_sweetsData.EnduranceCount;
 }
