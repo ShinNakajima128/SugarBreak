@@ -10,8 +10,19 @@ public class NormalBox : ItemboxBase
         base.Damage(attackPower);
         if (m_currentHp <= 0)
         {
-            MeshRenderer mesh = GetComponent<MeshRenderer>();
-            mesh.enabled = false;
+            TryGetComponent<MeshRenderer>(out var mesh);
+            if (mesh != null)
+            {
+                mesh.enabled = false;
+            }
+            else
+            {
+                var child =GetComponentInChildren<MeshRenderer>();
+                if (child != null)
+                {
+                    child.enabled = false;
+                }
+            }
 
             var box = GetComponents<BoxCollider>();
             foreach (var col in box)

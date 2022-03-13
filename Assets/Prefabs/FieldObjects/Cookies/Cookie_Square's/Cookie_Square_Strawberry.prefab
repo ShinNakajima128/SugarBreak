@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 7840076576201585039}
   - component: {fileID: 6584921876027686442}
   - component: {fileID: 8973036084749716192}
+  - component: {fileID: 3502701998187827903}
+  - component: {fileID: 5919585387992406053}
   m_Layer: 0
   m_Name: Cookie_Square_Strawberry
   m_TagString: Untagged
@@ -79,3 +81,30 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &3502701998187827903
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7459751774151994165}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 0.21599135}
+  m_Center: {x: 0, y: 0.0000003874302, z: -0.0006376803}
+--- !u!114 &5919585387992406053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7459751774151994165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e1bf13353cad67438709cb19f44a5ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemboxData: {fileID: 11400000, guid: 643c9c3af6bd46e4a872c78c027bbfc3, type: 2}
+  m_vanishTime: 2

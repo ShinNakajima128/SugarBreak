@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8347623147160015354}
   - component: {fileID: 4933531295746760287}
   - component: {fileID: 7175249996119468693}
+  - component: {fileID: 2118948553725862342}
+  - component: {fileID: 4374209539080367835}
   m_Layer: 0
   m_Name: Biscuit_Circle
   m_TagString: Untagged
@@ -79,3 +81,30 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &2118948553725862342
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8688402089459403584}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.6655519, y: 1.674726, z: 0.11356568}
+  m_Center: {x: 0.009199411, y: 0.00000020861626, z: 0.0028991885}
+--- !u!114 &4374209539080367835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8688402089459403584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e1bf13353cad67438709cb19f44a5ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemboxData: {fileID: 11400000, guid: 624003caada11514e824711ab2643cb9, type: 2}
+  m_vanishTime: 2

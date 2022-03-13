@@ -167,6 +167,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4344986629570551260}
+  - component: {fileID: 5444167429844266458}
   m_Layer: 0
   m_Name: Cupcake_arazan_cherry
   m_TagString: Untagged
@@ -195,6 +196,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5444167429844266458
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3965330399578523494}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.4577844, y: 3.7129192, z: 2.211623}
+  m_Center: {x: -0.05919206, y: 1.3564596, z: 0.012830615}
 --- !u!1 &4503527310663158093
 GameObject:
   m_ObjectHideFlags: 0

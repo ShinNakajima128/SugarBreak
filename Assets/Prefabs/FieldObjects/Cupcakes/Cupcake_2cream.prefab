@@ -325,6 +325,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8561554553213093225}
+  - component: {fileID: 7159416845843480566}
   m_Layer: 0
   m_Name: Cupcake_2cream
   m_TagString: Untagged
@@ -350,3 +351,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7159416845843480566
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9050845665211801555}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.387319, y: 3.077135, z: 2.3533936}
+  m_Center: {x: 0.01654315, y: 1.0385675, z: 0.020204782}
