@@ -151,10 +151,10 @@ public class MainWeapon : WeaponBase, IWeapon
     void OnCollider()
     {
         m_collider.enabled = true;
+        SoundManager.Instance.PlaySeByName("LightAttack");
         switch (m_mainWeaponState)
         {
-            case MainWeaponState.None:
-                SoundManager.Instance.PlaySeByName("LightAttack");
+            case MainWeaponState.None:   
                 SoundManager.Instance.PlayVoiceByName("univ0002");
                 break;
             case MainWeaponState.Attach:
