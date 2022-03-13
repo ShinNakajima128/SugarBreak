@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ShortCakeData
   m_EditorClassIdentifier: 
   m_sweetsSize: 2
-  m_attackPower: 5
+  m_attackPower: 10
   m_konpeitoNum: 10
-  m_enduranceCount: 5
+  m_enduranceCount: 2
