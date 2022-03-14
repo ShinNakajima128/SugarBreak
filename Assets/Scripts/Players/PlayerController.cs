@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
     bool m_isAimMoved = false;
     bool m_isJumped = false;
     float actualPushPower;
+    float m_gravity = 0;
 
     public PlayerState State
     {
@@ -167,6 +168,7 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
         {
             m_anim.SetBool("isGround", true);
+            m_gravity = 0;
         }
         else
         {
@@ -219,14 +221,14 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetKey(KeyCode.LeftShift) || IsAimed)
                 {
                     Vector3 velo = dir.normalized * m_walkSpeed; // 入力した方向に移動する
-                    velo.y = WallHit && !m_isJumped ? -9f : m_isJumped ? 4.9f: m_rb.velocity.y;  // 壁に当たっているかどうかでVelocityを調整
+                    velo.y = WallHit && !m_isJumped ? -9.8f : WallHit && m_isJumped ? 5 : m_rb.velocity.y;  // 壁に当たっているかどうかでVelocityを調整
                     m_rb.velocity = velo;
                     state = PlayerState.Walk;
                 }
                 else
                 {
                     Vector3 velo = dir.normalized * m_runSpeed; // 入力した方向に移動する
-                    velo.y = WallHit && !m_isJumped ? -9f : m_isJumped ? 4.9f : m_rb.velocity.y;   // 壁に当たっているかどうかでVelocityを調整
+                    velo.y = WallHit && !m_isJumped ? -9.8f : WallHit && m_isJumped ? 5 : m_rb.velocity.y;   // 壁に当たっているかどうかでVelocityを調整
 
                     m_rb.velocity = velo;   // 計算した速度ベクトルをセットする
                     state = PlayerState.Run;
@@ -412,10 +414,7 @@ public class PlayerController : MonoBehaviour
     public IEnumerator AttackMotionTimer(float time, Action comboResetCallBack = null)
     {
         PlayerStatesManager.Instance.IsOperation = false;
-        //if (IsGrounded())
-        //{
-        //    m_rb.isKinematic = true;
-        //}
+       
         m_isAttackMotioned = true;
         m_anim.SetFloat("Move", 0);
         yield return new WaitForSeconds(time);
@@ -430,7 +429,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator Jump()
     {
         m_isJumped = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.4f);
         m_isJumped = false;
     }
 
