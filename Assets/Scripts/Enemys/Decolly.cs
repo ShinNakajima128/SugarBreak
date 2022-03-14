@@ -234,13 +234,12 @@ public class Decolly : EnemyBase
 
     public override void Damage(int attackPower, Rigidbody hitRb = null, Vector3 blowUpDir = default, float blowUpPower = 1)
     {
-        EffectManager.PlayEffect(EffectType.Damage, m_effectPos.position);
-
         currentHp -= attackPower;
         m_HpSlider.value = currentHp;
         SoundManager.Instance.PlaySeByName("Damage3");
 
-        //m_rb.AddForce(blowUpDir * -blowUpPower, ForceMode.Impulse);
+        hitRb.AddForce(blowUpDir * blowUpPower, ForceMode.Impulse);
+        Debug.Log($"吹き飛ばす力：{blowUpPower}");
 
         if (currentHp > 0) m_anim.SetTrigger("Damage");
 
