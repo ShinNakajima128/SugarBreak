@@ -219,14 +219,14 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetKey(KeyCode.LeftShift) || IsAimed)
                 {
                     Vector3 velo = dir.normalized * m_walkSpeed; // 入力した方向に移動する
-                    velo.y = WallHit ? -9.8f : m_rb.velocity.y;  // 壁に当たっているかどうかでVelocityを調整
+                    velo.y = WallHit && !m_isJumped ? -9f : m_isJumped ? 4.9f: m_rb.velocity.y;  // 壁に当たっているかどうかでVelocityを調整
                     m_rb.velocity = velo;
                     state = PlayerState.Walk;
                 }
                 else
                 {
                     Vector3 velo = dir.normalized * m_runSpeed; // 入力した方向に移動する
-                    velo.y = WallHit ? -9.8f : m_rb.velocity.y;   // 壁に当たっているかどうかでVelocityを調整
+                    velo.y = WallHit && !m_isJumped ? -9f : m_isJumped ? 4.9f : m_rb.velocity.y;   // 壁に当たっているかどうかでVelocityを調整
 
                     m_rb.velocity = velo;   // 計算した速度ベクトルをセットする
                     state = PlayerState.Run;
