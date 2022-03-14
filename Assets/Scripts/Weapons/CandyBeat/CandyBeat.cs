@@ -79,7 +79,7 @@ public class CandyBeat : WeaponBase, IWeapon
         attackDamage = 10;
         m_isJumpAttacked = true;
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-        rb.AddForce(Vector3.up * 8, ForceMode.Impulse);
+        rb.AddForce(Vector3.up * 12, ForceMode.Impulse);
         anim.SetBool("Strong", true);
         PlayerStatesManager.Instance.IsOperation = false;
         StartCoroutine(PlayerController.Instance.AttackMotionTimer(1.0f));
@@ -136,7 +136,7 @@ public class CandyBeat : WeaponBase, IWeapon
         other.TryGetComponent<Rigidbody>(out var rb);
         if (target != null)
         {
-            target.Damage(attackDamage, rb, PlayerController.Instance.gameObject.transform.forward, 3);
+            target.Damage(attackDamage, rb, PlayerController.Instance.gameObject.transform.forward, 10);
 
             if (coroutine == null)
             {
