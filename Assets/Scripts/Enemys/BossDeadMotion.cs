@@ -21,7 +21,8 @@ public class BossDeadMotion : MonoBehaviour
         StartCoroutine(StartDeadMotion());
         for (int i = 0; i < m_rbs.Length; i++)
         {
-            m_rbs[i].Sleep();
+            //m_rbs[i].Sleep();
+            m_rbs[i].isKinematic = true;
         }
     }
 
@@ -32,7 +33,8 @@ public class BossDeadMotion : MonoBehaviour
 
         for (int i = 0; i < m_rbs.Length; i++)
         {
-            m_rbs[i].WakeUp();
+            //m_rbs[i].WakeUp();
+            m_rbs[i].isKinematic = false;
         }
         EffectManager.PlayEffect(EffectType.BossDead, transform.position);
         ItemGenerator.Instance.GenerateChocoEgg(transform);
