@@ -45,6 +45,7 @@ public class DualSoda : WeaponBase, IWeapon
         if (target != null)
         {
             target.Damage(attackDamage, rb, PlayerController.Instance.gameObject.transform.forward, 3);
+            EffectManager.PlayEffect(EffectType.Damage, other.gameObject.transform.position);
 
             if (coroutine == null)
             {
