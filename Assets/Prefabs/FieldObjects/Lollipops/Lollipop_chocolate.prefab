@@ -182,6 +182,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5906660539494496375}
+  - component: {fileID: 427668668991416224}
+  - component: {fileID: 880212799165092290}
+  - component: {fileID: 7673646977532726924}
   m_Layer: 0
   m_Name: Lollipop_chocolate
   m_TagString: Untagged
@@ -205,6 +208,46 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &427668668991416224
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6535704767972418253}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.15121841, y: 1.0706604, z: 0.06386474}
+  m_Center: {x: -0.0049693584, y: 0.4429828, z: -0.009280637}
+--- !u!65 &880212799165092290
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6535704767972418253}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.54601204, y: 0.4986837, z: 0.56625724}
+  m_Center: {x: -0.0023757815, y: 1.3093418, z: -0.0076025724}
+--- !u!114 &7673646977532726924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6535704767972418253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e1bf13353cad67438709cb19f44a5ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemboxData: {fileID: 11400000, guid: cec9d8c274a063d43bad90a4bc783bbc, type: 2}
+  m_vanishTime: 2
 --- !u!1 &8971684117440507307
 GameObject:
   m_ObjectHideFlags: 0
