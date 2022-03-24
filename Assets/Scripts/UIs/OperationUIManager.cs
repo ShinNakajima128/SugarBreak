@@ -193,7 +193,7 @@ public class OperationUIManager : MonoBehaviour
                     m_guideText.text = "V:切り替え B:非表示";
                     break;
                 case OperationUIState.Gamepad:
-                    m_guideText.text = "Rボタン:切り替え RS:非表示";
+                    m_guideText.text = "Rボタン:切り替え RS押し込み:非表示";
                     break;
             }
         }
@@ -206,7 +206,7 @@ public class OperationUIManager : MonoBehaviour
 
                     break;
                 case OperationUIState.Gamepad:
-                    m_guideText.text = "RS:操作方法表示";
+                    m_guideText.text = "RS押し込み:操作方法表示";
                     break;
             }
         }
