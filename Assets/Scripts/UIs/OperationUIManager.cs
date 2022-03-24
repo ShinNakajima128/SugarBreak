@@ -70,7 +70,7 @@ public class OperationUIManager : MonoBehaviour
             //操作方法が非表示の場合
             if (!m_isDisplayed)
             {
-                if (Input.GetKeyDown(KeyCode.B) || Input.GetKeyDown("joystick button 5"))
+                if (Input.GetKeyDown(KeyCode.B) || Input.GetKeyDown("joystick button 9"))
                 {
                     m_isDisplayed = true;
                     OperationDescriptionChange(m_currentState);
@@ -80,7 +80,7 @@ public class OperationUIManager : MonoBehaviour
             }
             else
             {
-                if (Input.GetKeyDown(KeyCode.B) || Input.GetKeyDown("joystick button 5"))
+                if (Input.GetKeyDown(KeyCode.B) || Input.GetKeyDown("joystick button 9"))
                 {
                     OperationDescriptionChange(OperationUIState.Hidden);
                     m_isDisplayed = false;
@@ -88,7 +88,7 @@ public class OperationUIManager : MonoBehaviour
                     return;
                 }
 
-                if (Input.GetKeyDown(KeyCode.V) || Input.GetKeyDown("joystick button 4"))
+                if (Input.GetKeyDown(KeyCode.V) || Input.GetKeyDown("joystick button 5"))
                 {
                     switch (m_currentState)
                     {
@@ -193,7 +193,7 @@ public class OperationUIManager : MonoBehaviour
                     m_guideText.text = "V:切り替え B:非表示";
                     break;
                 case OperationUIState.Gamepad:
-                    m_guideText.text = "rボタン:切り替え RS:非表示";
+                    m_guideText.text = "Rボタン:切り替え RS:非表示";
                     break;
             }
         }
