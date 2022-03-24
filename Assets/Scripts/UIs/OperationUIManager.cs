@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -25,64 +26,189 @@ public class OperationUIManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI[] m_OperationTexts = default;
 
-    OperationUIState m_currentState = OperationUIState.Hidden;
-    bool m_isInputed = false;
+    OperationUIState m_currentState = OperationUIState.Keyboard;
+    bool m_isOperated = true;
+    bool m_isDisplayed = false;
+    Vector3 m_originPos = default;
 
     void Start()
     {
+        m_originPos = m_OperationTexts[0].transform.localPosition;
+        GuideTextChange();
+        OperationDescriptionChange(OperationUIState.Hidden);
     }
 
     void Update()
     {
-        if (!PlayerStatesManager.Instance.IsOperation && m_currentState == OperationUIState.Hidden)
+        //ムービー中は非表示にする
+        if (GameManager.Instance.IsPlayingMovie)
         {
+            //切り替わった時に一度だけ処理を行う
+            if (m_isOperated)
+            {
+                OperationDescriptionChange(OperationUIState.Hidden);
+                m_guideText.enabled = false;
+                m_isOperated = false;
+            }
             return;
         }
         else
         {
-            // 方向の入力を取得し、方向を求める
-            float v = Input.GetAxisRaw("Vertical");
-            float h = Input.GetAxisRaw("Horizontal");
-
-            // 入力方向のベクトルを組み立てる
-            Vector3 dir = Vector3.forward * v + Vector3.right * h;
-            if (dir != Vector3.zero)
+            //切り替わった時に一度だけ処理を行う
+            if (!m_isOperated)
             {
+                m_isOperated = true;
+                m_guideText.enabled = true;
 
+                //操作方法が表示状態だった場合は表示する
+                if (m_isDisplayed)
+                {
+                    OperationDescriptionChange(m_currentState);
+                }
+            }
+
+            //操作方法が非表示の場合
+            if (!m_isDisplayed)
+            {
+                if (Input.GetKeyDown(KeyCode.B) || Input.GetKeyDown("joystick button 5"))
+                {
+                    m_isDisplayed = true;
+                    OperationDescriptionChange(m_currentState);
+                    GuideTextChange();
+                    return;
+                }
+            }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.B) || Input.GetKeyDown("joystick button 5"))
+                {
+                    OperationDescriptionChange(OperationUIState.Hidden);
+                    m_isDisplayed = false;
+                    GuideTextChange();
+                    return;
+                }
+
+                if (Input.GetKeyDown(KeyCode.V) || Input.GetKeyDown("joystick button 4"))
+                {
+                    switch (m_currentState)
+                    {
+                        case OperationUIState.Keyboard:
+                            OperationDescriptionChange(OperationUIState.Gamepad);
+                            break;
+                        case OperationUIState.Gamepad:
+                            OperationDescriptionChange(OperationUIState.Keyboard);
+                            break;
+                        default:
+                            Debug.LogError("不正な値です");
+                            break;
+                    }
+                    Debug.Log("表示切替");
+                }
             }
         }
-
     }
 
+    /// <summary>
+    /// 操作説明のTextの状態を切り替える
+    /// </summary>
+    /// <param name="state"> Textの状態 </param>
     void OperationDescriptionChange(OperationUIState state)
     {
-        m_currentState = state;
-
-        switch (m_currentState)
+        switch (state)
         {
             case OperationUIState.Hidden:
-                m_OperationTexts[0].enabled = false;
-                m_OperationTexts[1].enabled = false;
+                if (m_OperationTexts[0].enabled)
+                {
+                    OffAnimation(m_OperationTexts[0]);
+                }
+                else
+                {
+                    OffAnimation(m_OperationTexts[1]);
+                }
+                m_currentOperationText.text = "";
                 break;
             case OperationUIState.Keyboard:
-                m_OperationTexts[0].enabled = true;
                 m_OperationTexts[1].enabled = false;
                 OnAnimation(m_OperationTexts[0]);
+                m_currentOperationText.text = "【キーボードマウス】";
+                m_currentState = OperationUIState.Keyboard;
+                Debug.Log("キーボード表示");
                 break;
             case OperationUIState.Gamepad:
                 m_OperationTexts[0].enabled = false;
-                m_OperationTexts[1].enabled = true;
                 OnAnimation(m_OperationTexts[1]);
-                break;
-            default:
+                m_currentOperationText.text = "【ゲームパッド】";
+                m_currentState = OperationUIState.Gamepad;
+                Debug.Log("ゲームパッド表示");
                 break;
         }
+        GuideTextChange();
     }
 
+    /// <summary>
+    /// 表示にするアニメーション
+    /// </summary>
+    /// <param name="text"> 表示にするText </param>
     void OnAnimation(TextMeshProUGUI text)
     {
-        var originPos = text.rectTransform.position;
-        text.rectTransform.position = new Vector3(originPos.x + 100, originPos.y, originPos.z);
-        text.rectTransform.DOMoveX(originPos.x, 0.25f);
+        if (!text.enabled)
+        {
+            text.enabled = true;
+        }
+
+        text.rectTransform.localPosition = new Vector3(1214, m_originPos.y, m_originPos.z);
+        text.rectTransform.DOLocalMoveX(m_originPos.x, 0.1f);
+    }
+
+    /// <summary>
+    /// 非表示にするアニメーション
+    /// </summary>
+    /// <param name="text"> 非表示にするText </param>
+    void OffAnimation(TextMeshProUGUI text)
+    {
+        Debug.Log("OFF呼ばれた");
+        if (!text.enabled)
+        {
+            return;
+        }
+
+        text.rectTransform.DOLocalMoveX(1214, 0.1f)
+            .OnComplete(() => 
+            {
+                text.enabled = false;
+            });
+    }
+
+    /// <summary>
+    /// 操作方法の表示方法のTextを変更する
+    /// </summary>
+    void GuideTextChange()
+    {
+        //表示状態の場合
+        if (m_isDisplayed)
+        {
+            switch (m_currentState)
+            {
+                case OperationUIState.Keyboard:
+                    m_guideText.text = "V:切り替え B:非表示";
+                    break;
+                case OperationUIState.Gamepad:
+                    m_guideText.text = "rボタン:切り替え RS:非表示";
+                    break;
+            }
+        }
+        else
+        {
+            switch (m_currentState)
+            {
+                case OperationUIState.Keyboard:
+                    m_guideText.text = "B:操作方法表示";
+
+                    break;
+                case OperationUIState.Gamepad:
+                    m_guideText.text = "RS:操作方法表示";
+                    break;
+            }
+        }
     }
 }
