@@ -47,17 +47,15 @@ public class SkipMovieController : MonoBehaviour
     {
         //yield return new WaitForSeconds(2.0f);
 
-        while (true)
+        while (!isPlayed)
         {
-            if (!isPlayed)
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 7"))
             {
-                if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 7"))
-                {
-                    StartCoroutine(SkipMovie());
-                    yield break;
-                }
+                StartCoroutine(SkipMovie());
+                yield break;
             }
             yield return null;
+            Debug.Log("movie");
         }
     }
 
