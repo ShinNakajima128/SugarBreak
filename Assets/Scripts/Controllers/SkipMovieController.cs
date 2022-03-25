@@ -45,8 +45,6 @@ public class SkipMovieController : MonoBehaviour
 
     IEnumerator SkipCol()
     {
-        //yield return new WaitForSeconds(2.0f);
-
         while (!isPlayed)
         {
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 7"))
@@ -55,7 +53,6 @@ public class SkipMovieController : MonoBehaviour
                 yield break;
             }
             yield return null;
-            Debug.Log("movie");
         }
     }
 
