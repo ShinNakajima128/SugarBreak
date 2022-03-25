@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour
     {
         m_rb = GetComponent<Rigidbody>();
         m_anim = GetComponent<Animator>();
+        m_anim.SetBool("isGround", true);
         actualPushPower = m_pushPower;
         EventManager.ListenEvents(Events.RebindWeaponAnimation, RebindAnimation);
     }
@@ -95,34 +96,35 @@ public class PlayerController : MonoBehaviour
 
             JumpMove();
 
+            DodgeMove();
+
             if (!m_isAttackMotioned && !IsAimed)
             {
                 WeaponChange();
             }
+        }
 
-            DodgeMove();
-
-            if (m_anim)
+        if (m_anim)
+        {
+            if (IsGrounded())
             {
-                if (IsGrounded())
+                Vector3 velo = m_rb.velocity;
+                velo.y = 0;
+                if (state == PlayerState.Walk)
                 {
-                    Vector3 velo = m_rb.velocity;
-                    velo.y = 0;
-                    if (state == PlayerState.Walk)
-                    {
-                        m_anim.SetFloat("Move", velo.magnitude);
-                    }
-                    else if (state == PlayerState.Run)
-                    {
-                        m_anim.SetFloat("Move", velo.magnitude);
-                    }
-                    else if (state == PlayerState.Idle)
-                    {
-                        m_anim.SetFloat("Move", 0f);
-                    }
+                    m_anim.SetFloat("Move", velo.magnitude);
+                }
+                else if (state == PlayerState.Run)
+                {
+                    m_anim.SetFloat("Move", velo.magnitude);
+                }
+                else if (state == PlayerState.Idle)
+                {
+                    m_anim.SetFloat("Move", 0f);
                 }
             }
         }
+
         if (m_isDodged)
         {
             m_rb.AddForce(transform.forward * actualPushPower, ForceMode.Force);
@@ -137,7 +139,7 @@ public class PlayerController : MonoBehaviour
     {
         if (IsGrounded() && !IsAimed)
         {
-            if (Input.GetKeyDown(KeyCode.Q) || Input.GetAxisRaw("L_Trigger") > 0)
+            if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetAxisRaw("L_Trigger") > 0)
             {
                 if (m_rb.velocity == new Vector3(0f, m_rb.velocity.y, 0f))
                 {
@@ -218,7 +220,7 @@ public class PlayerController : MonoBehaviour
 
             if (dir != Vector3.zero)
             {
-                if (Input.GetKey(KeyCode.LeftShift) || IsAimed)
+                if (IsAimed)
                 {
                     Vector3 velo = dir.normalized * m_walkSpeed; // 入力した方向に移動する
                     velo.y = WallHit && !m_isJumped ? -9.8f : WallHit && m_isJumped ? 5 : m_rb.velocity.y;  // 壁に当たっているかどうかでVelocityを調整
