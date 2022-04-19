@@ -15,7 +15,7 @@ namespace SugarBreak
         {
             StreamWriter writer;
             var json = JsonUtility.ToJson(data);
-            writer = new StreamWriter(Application.dataPath + "/" + file, false);
+            writer = new StreamWriter(Application.persistentDataPath + "/" + file, false);
             writer.Write(json);
             writer.Flush();
             writer.Close();
@@ -26,7 +26,7 @@ namespace SugarBreak
             string datastr;
             StreamReader reader;
 
-            reader = new StreamReader(Application.dataPath + "/" + file);
+            reader = new StreamReader(Application.persistentDataPath + "/" + file);
             datastr = reader.ReadToEnd();
             reader.Close();
 

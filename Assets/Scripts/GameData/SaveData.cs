@@ -6,6 +6,5 @@ public class SaveData
     public class GameData
     {
         public PlayerData Player;
-
     }
 }
