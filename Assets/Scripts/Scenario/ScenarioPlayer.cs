@@ -12,7 +12,7 @@ public class ScenarioPlayer : MonoBehaviour
 
     [Tooltip("テキストの再生速度")]
     [SerializeField]
-    float m_textSpeed = 2.0f;
+    float m_textSpeed = 0.02f;
 
     [Tooltip("次の文を表示するまでの時間")]
     [SerializeField]
@@ -40,19 +40,43 @@ public class ScenarioPlayer : MonoBehaviour
     {
         if (m_playOnAwake)
         {
-            PlayScenario(m_scenarioData);
+            StartCoroutine(PlayScenario(m_scenarioData));
         }
     }
 
+    /// <summary>
+    /// シナリオを再生する
+    /// </summary>
+    /// <param name="data"> シナリオのデータ </param>
+    /// <returns></returns>
     IEnumerator PlayScenario(ScenarioData data)
     {
         while (_currentDialogIndex < data.DialogData.Length)
         {
-            m_scenarioText.text = "";
+            for (int i = 0; i < data.DialogData[_currentDialogIndex].Messages.Length; i++)
+            {
+                m_scenarioText.text = "";
 
-            yield return new WaitForSeconds(m_flowTime);
+                //テキストを一文字ずつ表示
+                foreach (var t in data.DialogData[_currentDialogIndex].Messages[i])
+                {
+                    m_scenarioText.text += t;
+                    yield return new WaitForSeconds(m_textSpeed);
+                }
+
+                yield return new WaitForSeconds(m_flowTime);    //次のメッセージに切り替わるまでの時間を待機
+            }
+
+            m_scenarioText.text = "";
             _currentDialogIndex++;
-            BackgroundController.Instance.OnNextBackground();
+            bool isSwitched = false;
+            
+            BackgroundController.Instance.OnNextBackground(() => 
+            {
+                isSwitched = true;
+            });
+
+            yield return new WaitUntil(() => isSwitched);　//背景が切り替わるまで待機
         }
     }
 }
