@@ -10,12 +10,15 @@ using DG.Tweening;
 /// </summary>
 public class BackgroundController : MonoBehaviour
 {
+    [Tooltip("背景をセットするImages")]
     [SerializeField]
     Image[] m_backGroundImages = default;
 
+    [Tooltip("背景の画像")]
     [SerializeField]
     Sprite[] m_backGrounds = default;
 
+    [Tooltip("切り替わるまでの時間")]
     [SerializeField]
     float m_switchTime = 1.0f;
 
@@ -32,14 +35,9 @@ public class BackgroundController : MonoBehaviour
         BackgroundSetup();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            OnNextBackground();
-        }
-    }
-
+    /// <summary>
+    /// 実行時に背景をセットする
+    /// </summary>
     void BackgroundSetup()
     {
         m_backGroundImages[0].enabled = true;
@@ -47,9 +45,12 @@ public class BackgroundController : MonoBehaviour
         m_backGroundImages[0].sprite = m_backGrounds[0];
         m_backGroundImages[1].DOFade(0, 0);
         _backgroundIndex++;
-        Debug.Log("set");
     }
 
+    /// <summary>
+    /// 次の背景を表示する
+    /// </summary>
+    /// <param name="callback"> 背景切り替え完了時に実行されるAction </param>
     public void OnNextBackground(Action callback = null)
     {
         if (_backgroundIndex > m_backGrounds.Length - 1)
