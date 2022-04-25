@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
 public class ScenarioPlayer : MonoBehaviour
 {
@@ -25,6 +25,10 @@ public class ScenarioPlayer : MonoBehaviour
     [Tooltip("シナリオを表示するText")]
     [SerializeField]
     TextMeshProUGUI m_scenarioText = default;
+
+    [Tooltip("シナリオ終了時に実行するUnityEvent")]
+    [SerializeField]
+    UnityEvent m_finishScenarioEvent = new UnityEvent();
 
     /// <summary> 現在表示中のTextの指数 </summary>
     int _currentDialogIndex = 0;
@@ -78,5 +82,6 @@ public class ScenarioPlayer : MonoBehaviour
 
             yield return new WaitUntil(() => isSwitched);　//背景が切り替わるまで待機
         }
+        m_finishScenarioEvent?.Invoke(); //シナリオを全て再生したら終了時Eventを実行
     }
 }
