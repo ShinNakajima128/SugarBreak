@@ -26,6 +26,9 @@ public class OperationUIManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI[] m_OperationTexts = default;
 
+    [SerializeField]
+    GameObject m_operationPanel = default;
+
     OperationUIState m_currentState = OperationUIState.Keyboard;
     bool m_isOperated = true;
     bool m_isDisplayed = false;
@@ -36,6 +39,8 @@ public class OperationUIManager : MonoBehaviour
         m_originPos = m_OperationTexts[0].transform.localPosition;
         GuideTextChange();
         OperationDescriptionChange(OperationUIState.Hidden);
+        EventManager.ListenEvents(Events.OnHUD, OnOperationPanel);
+        EventManager.ListenEvents(Events.OffHUD, OffOperationPanel);
     }
 
     void Update()
@@ -210,5 +215,21 @@ public class OperationUIManager : MonoBehaviour
                     break;
             }
         }
+    }
+
+    /// <summary>
+    /// 操作説明のテキスト画面を表示する
+    /// </summary>
+    void OnOperationPanel()
+    {
+        m_operationPanel.SetActive(true);
+    }
+
+    /// <summary>
+    /// 操作説明のテキスト画面を非表示にする
+    /// </summary>
+    void OffOperationPanel()
+    {
+        m_operationPanel.SetActive(false);
     }
 }

@@ -216,6 +216,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 296b6172ad95f4b40bee7cd3f9a96cc5, type: 2}
   - {fileID: 11400000, guid: 663822aa8425e134087d101ef57c97be, type: 2}
   m_weaponListFileName: /WeaponList.json
+  m_weaponListPanel: {fileID: 463066663639256259}
 --- !u!1 &463066663639256259
 GameObject:
   m_ObjectHideFlags: 0

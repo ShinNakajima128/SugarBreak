@@ -72,6 +72,9 @@ public class WeaponListControl : MonoBehaviour
     [SerializeField]
     string m_weaponListFileName = "WeaponList";
 
+    [SerializeField]
+    GameObject m_weaponListPanel = default;
+
     Dictionary<WeaponListTypes, GameObject> m_weaponListDic = new Dictionary<WeaponListTypes, GameObject>();
     Dictionary<WeaponListTypes, WeaponData> m_weaponDataDic = new Dictionary<WeaponListTypes, WeaponData>();
     Dictionary<WeaponListTypes, Image> m_weaponIconsDic = new Dictionary<WeaponListTypes, Image>();
@@ -88,11 +91,6 @@ public class WeaponListControl : MonoBehaviour
     public WeaponData MainWeaponData { get => m_currentEquipWeapons.MainWeapon; }
     public WeaponListTypes CurrentEquipWeapon { get => m_currentWeapon; }
 
-    private void Awake()
-    {
-        Instance = this;
-    }
-
     void OnEnable()
     {
         if (!m_init)
@@ -101,6 +99,27 @@ public class WeaponListControl : MonoBehaviour
             m_init = true;
         }
         m_isChanged = false;
+    }
+
+    void Awake()
+    {
+        Instance = this;
+    }
+
+    void Start()
+    {
+        EventManager.ListenEvents(Events.OnHUD, OnWeaponListPanel);
+        EventManager.ListenEvents(Events.OffHUD, OffWeaponListPanel);
+    }
+
+    void OnWeaponListPanel()
+    {
+        m_weaponListPanel.SetActive(true);
+    }
+
+    void OffWeaponListPanel()
+    {
+        m_weaponListPanel.SetActive(false);
     }
 
     void Setup()

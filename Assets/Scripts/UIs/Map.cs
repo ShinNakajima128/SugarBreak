@@ -25,10 +25,16 @@ public class Map : MonoBehaviour
 
     public bool PauseFlag => pauseFlag;
 
-    private void Awake()
+    void Awake()
     {
         Instance = this;
         m_volume.profile.TryGet(out m_depthOfField);
+    }
+
+    void Start()
+    {
+        EventManager.ListenEvents(Events.OnHUD, OffMap);
+        EventManager.ListenEvents(Events.OffHUD, OnMap);
     }
 
     void Update()
@@ -42,23 +48,39 @@ public class Map : MonoBehaviour
 
                 if (pauseFlag)
                 {
-                    m_mapUI.SetActive(true);
-                    m_mainPanelUI.SetActive(false);
-                    m_depthOfField.gaussianStart.value = 0;
-                    m_depthOfField.gaussianEnd.value = 0;
+                    EventManager.OnEvent(Events.OffHUD);
                     PlayerStatesManager.Instance.OffOperation();
                     Time.timeScale = 0;
                 }
                 else
                 {
-                    m_mapUI.SetActive(false);
-                    m_mainPanelUI.SetActive(true);
-                    m_depthOfField.gaussianStart.value = 25.5f;
-                    m_depthOfField.gaussianEnd.value = 86;
+                    EventManager.OnEvent(Events.OnHUD);
                     Time.timeScale = 1;
                     PlayerStatesManager.Instance.OnOperation();
                 }
             }          
         }
+    }
+
+    /// <summary>
+    /// マップを表示する
+    /// </summary>
+    void OnMap()
+    {
+        m_mapUI.SetActive(true);
+        m_mainPanelUI.SetActive(false);
+        m_depthOfField.gaussianStart.value = 0;
+        m_depthOfField.gaussianEnd.value = 0;
+    }
+
+    /// <summary>
+    /// マップを非表示にする
+    /// </summary>
+    void OffMap()
+    {
+        m_mapUI.SetActive(false);
+        m_mainPanelUI.SetActive(true);
+        m_depthOfField.gaussianStart.value = 25.5f;
+        m_depthOfField.gaussianEnd.value = 86;
     }
 }

@@ -15,7 +15,9 @@ public enum Events
     GetKonpeitou,
     BossBattleStart,
     BossBattleEnd,
-    RebindWeaponAnimation
+    RebindWeaponAnimation,
+    OnHUD,
+    OffHUD
 }
 
 /// <summary>
