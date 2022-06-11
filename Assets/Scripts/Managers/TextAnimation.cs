@@ -72,5 +72,6 @@ public class TextAnimation : MonoBehaviour
     public void FinishAnim()
     {
         if (seq != null) seq.Kill();
+        m_isPlaying = false;
     }
 }
