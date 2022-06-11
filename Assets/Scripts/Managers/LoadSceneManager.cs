@@ -103,6 +103,10 @@ public class LoadSceneManager : MonoBehaviour
     {
         yield return new WaitForSeconds(m_loadTime);
 
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
         Application.Quit();
+#endif
     }
 }
