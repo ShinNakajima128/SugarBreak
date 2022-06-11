@@ -20,6 +20,13 @@ public class Map : MonoBehaviour
     [SerializeField]
     Volume m_volume = default;
 
+    [SerializeField]
+    RectTransform m_iconTrans = default;
+
+    Transform _playerTrans;
+    Vector3 _currentPlayerPos;
+    Vector3 _currentIconPos;
+    
     DepthOfField m_depthOfField;
     bool pauseFlag = false;
 
@@ -35,6 +42,9 @@ public class Map : MonoBehaviour
     {
         EventManager.ListenEvents(Events.OnHUD, OffMap);
         EventManager.ListenEvents(Events.OffHUD, OnMap);
+        _playerTrans = GameObject.FindGameObjectWithTag("Player").transform;
+        _currentPlayerPos = _playerTrans.position;
+        _currentIconPos = m_iconTrans.localPosition;
     }
 
     void Update()
@@ -50,12 +60,12 @@ public class Map : MonoBehaviour
                 {
                     EventManager.OnEvent(Events.OffHUD);
                     PlayerStatesManager.Instance.OffOperation();
-                    Time.timeScale = 0;
+                    //Time.timeScale = 0;
                 }
                 else
                 {
                     EventManager.OnEvent(Events.OnHUD);
-                    Time.timeScale = 1;
+                    //Time.timeScale = 1;
                     PlayerStatesManager.Instance.OnOperation();
                 }
             }          
@@ -71,6 +81,9 @@ public class Map : MonoBehaviour
         m_mainPanelUI.SetActive(false);
         m_depthOfField.gaussianStart.value = 0;
         m_depthOfField.gaussianEnd.value = 0;
+
+        var pos = _playerTrans.position - _currentPlayerPos;
+        m_iconTrans.localPosition += new Vector3(pos.x, pos.z, 0) * 2;
     }
 
     /// <summary>
@@ -82,5 +95,8 @@ public class Map : MonoBehaviour
         m_mainPanelUI.SetActive(true);
         m_depthOfField.gaussianStart.value = 25.5f;
         m_depthOfField.gaussianEnd.value = 86;
+
+        _currentPlayerPos = _playerTrans.position;
+        _currentIconPos = m_iconTrans.localPosition;
     }
 }
