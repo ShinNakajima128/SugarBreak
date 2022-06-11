@@ -9,47 +9,53 @@ using UnityEngine.Rendering.Universal;
 /// </summary>
 public class Map : MonoBehaviour
 {
-    public static Map Instance { get; private set; }
-
+    [Tooltip("マップUIオブジェクト")]
     [SerializeField]
     GameObject m_mapUI;
 
+    [Tooltip("体力や武器アイコンを表示するメインPanel")]
     [SerializeField]
     GameObject m_mainPanelUI = default;
 
     [SerializeField]
-    Volume m_volume = default;
-
-    [SerializeField]
     RectTransform m_iconTrans = default;
 
-    Transform _playerTrans;
-    Vector3 _currentPlayerPos;
-    Vector3 _currentIconPos;
-    
-    DepthOfField m_depthOfField;
+    Transform _currentplayerTrans;
+    Vector3 _beforePlayerPos; 
     bool pauseFlag = false;
+    Animator _anim;
+
+    public static Map Instance { get; private set; }
 
     public bool PauseFlag => pauseFlag;
 
     void Awake()
     {
         Instance = this;
-        m_volume.profile.TryGet(out m_depthOfField);
     }
 
     void Start()
     {
         EventManager.ListenEvents(Events.OnHUD, OffMap);
         EventManager.ListenEvents(Events.OffHUD, OnMap);
-        _playerTrans = GameObject.FindGameObjectWithTag("Player").transform;
-        _currentPlayerPos = _playerTrans.position;
-        _currentIconPos = m_iconTrans.localPosition;
+        _currentplayerTrans = GameObject.FindGameObjectWithTag("Player").transform;
+        _beforePlayerPos = _currentplayerTrans.position;
+        _anim = m_iconTrans.gameObject.GetComponent<Animator>();
+
+        if (_anim)
+        {
+            _anim.updateMode = AnimatorUpdateMode.UnscaledTime; //Time.timeScaleの影響を受けないように変更
+        }
+
+        //メインPanelがセットされていなかったら
+        if (m_mainPanelUI == null)
+        {
+            Debug.LogError("メインPanelをInspectorに設定してください");
+        }
     }
 
     void Update()
     {
-
         if (MenuManager.Instance.MenuStates == MenuState.Close && !GameManager.Instance.IsPlayingMovie)     //プレイヤーが操作できる時且つメニューが開かれていない状態なら
         {
             if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown("joystick button 3"))   //キーボードのMかゲームパッドのYボタンが押されたら
@@ -60,12 +66,12 @@ public class Map : MonoBehaviour
                 {
                     EventManager.OnEvent(Events.OffHUD);
                     PlayerStatesManager.Instance.OffOperation();
-                    //Time.timeScale = 0;
+                    Time.timeScale = 0;
                 }
                 else
                 {
                     EventManager.OnEvent(Events.OnHUD);
-                    //Time.timeScale = 1;
+                    Time.timeScale = 1;
                     PlayerStatesManager.Instance.OnOperation();
                 }
             }          
@@ -79,11 +85,9 @@ public class Map : MonoBehaviour
     {
         m_mapUI.SetActive(true);
         m_mainPanelUI.SetActive(false);
-        m_depthOfField.gaussianStart.value = 0;
-        m_depthOfField.gaussianEnd.value = 0;
 
-        var pos = _playerTrans.position - _currentPlayerPos;
-        m_iconTrans.localPosition += new Vector3(pos.x, pos.z, 0) * 2;
+        var pos = _currentplayerTrans.position - _beforePlayerPos; //前にマップを開いた位置と現在の位置の差分を計算
+        m_iconTrans.localPosition += new Vector3(pos.x, pos.z, 0) * 2; //マップ上のアイコンに差分を反映し位置を調整
     }
 
     /// <summary>
@@ -93,10 +97,7 @@ public class Map : MonoBehaviour
     {
         m_mapUI.SetActive(false);
         m_mainPanelUI.SetActive(true);
-        m_depthOfField.gaussianStart.value = 25.5f;
-        m_depthOfField.gaussianEnd.value = 86;
-
-        _currentPlayerPos = _playerTrans.position;
-        _currentIconPos = m_iconTrans.localPosition;
+        
+        _beforePlayerPos = _currentplayerTrans.position;
     }
 }
