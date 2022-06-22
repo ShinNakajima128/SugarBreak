@@ -383,8 +383,7 @@ public class PlayerController : MonoBehaviour
                 CurrentWeaponAction.WeaponAction2(m_anim, m_rb);
             }
         }
-
-        if (Input.GetButtonDown("Fire2"))
+        else if (Input.GetButtonDown("Fire2"))
         {
             if (IsGrounded())
             {
