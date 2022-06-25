@@ -187,6 +187,7 @@ public class BaseUI : MonoBehaviour
 
                 SaveSelectButton();
                 
+                //武器メニュー画面から戻る場合は画面フェードを入れる
                 if (m_baseUI == BaseUIState.WeaponMenu)
                 {
                     LoadSceneManager.Instance.FadeIn(callback: () =>
