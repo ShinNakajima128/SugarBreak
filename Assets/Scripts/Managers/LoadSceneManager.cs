@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,6 +13,10 @@ public class LoadSceneManager : MonoBehaviour
     /// <summary> フェードさせるパネル </summary>
     [SerializeField] 
     Fade fade = default;
+
+    /// <summary> ロードにかける時間 </summary>
+    [SerializeField]
+    float m_fadeTime = 1.0f;
 
     /// <summary> ロードにかける時間 </summary>
     [SerializeField] 
@@ -41,19 +46,41 @@ public class LoadSceneManager : MonoBehaviour
     {
         m_loadAnim.SetActive(false);
 
-        fade.FadeOut(0.7f);
+        fade.FadeOut(m_fadeTime);
     }
 
-    public void FadeIn(Texture mask)
+    public void FadeIn(Texture mask = null, Action callback = null)
     {
-        fadeImage.UpdateMaskTexture(mask);
-        fade.FadeIn(0.7f);
+        if (mask != null)
+        {
+            fadeImage.UpdateMaskTexture(mask);
+        }
+        else
+        {
+            fadeImage.UpdateMaskTexture(m_masks[2]);
+        }
+
+        fade.FadeIn(m_fadeTime, () => 
+        {
+            callback?.Invoke();
+        });
     }
 
-    public void FadeOut(Texture mask)
+    public void FadeOut(Texture mask = null, Action callback = null)
     {
-        fadeImage.UpdateMaskTexture(mask);
-        fade.FadeOut(0.7f);
+        if (mask != null)
+        {
+            fadeImage.UpdateMaskTexture(mask);
+        }
+        else
+        {
+            fadeImage.UpdateMaskTexture(m_masks[1]);
+        }
+
+        fade.FadeOut(m_fadeTime, () => 
+        {
+            callback?.Invoke();
+        });
     }
     /// <summary>
     /// 指定したSceneに遷移する
@@ -62,7 +89,7 @@ public class LoadSceneManager : MonoBehaviour
     public void AnyLoadScene(string name)
     {
         fadeImage.UpdateMaskTexture(m_masks[2]);
-        fade.FadeIn(1.0f, () =>
+        fade.FadeIn(m_fadeTime, () =>
         {
             StartCoroutine(Load(name, 2.0f));
         });

@@ -1,8 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 using UnityEngine.EventSystems;
 
 /// <summary>
@@ -14,6 +14,7 @@ public enum BaseUIState
     StageSelect,
     ItemMake,
     Weapon,
+    WeaponMenu,
     Option,
     Collection,
     Exit
@@ -46,7 +47,7 @@ public class BaseUI : MonoBehaviour
 
     public static Action OnButtonScaleReset = default;
 
-    Button m_currentButton = default;
+    Button _currentButton = default;
 
     void Awake()
     {
@@ -72,7 +73,7 @@ public class BaseUI : MonoBehaviour
         if (m_baseUI != BaseUIState.Main)
         {
             //OnButtonScaleReset?.Invoke();
-            m_currentButton.Select();
+            _currentButton.Select();
         }
 
         ChangeUIPanel(BaseUIState.Main);
@@ -110,6 +111,14 @@ public class BaseUI : MonoBehaviour
     public void OnWeapon()
     {
         ChangeUIPanel(BaseUIState.Weapon);
+    }
+
+    /// <summary>
+    /// 装備のメニュー画面を表示する
+    /// </summary>
+    public void OnWeaponMenu()
+    {
+        ChangeUIPanel(BaseUIState.WeaponMenu);
     }
 
     /// <summary>
@@ -180,6 +189,14 @@ public class BaseUI : MonoBehaviour
                 SaveSelectButton();
                 PanelChange(3);
                 break;
+            case BaseUIState.WeaponMenu:
+                SaveSelectButton();
+                LoadSceneManager.Instance.FadeIn(callback:() => 
+                {
+                    PanelChange(6);
+                    LoadSceneManager.Instance.FadeOut();
+                });
+                break;
             case BaseUIState.Option:
                 SaveSelectButton();
                 PanelChange(4);
@@ -203,7 +220,15 @@ public class BaseUI : MonoBehaviour
             if (i == index)
             {
                 m_menuPanels[i]?.SetActive(true);
-                m_menuButtons[i].Select();
+                try
+                {
+                    m_menuButtons[i].Select();
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError(e);
+                    throw;
+                }
             }
             else
             {
@@ -218,6 +243,6 @@ public class BaseUI : MonoBehaviour
 
     void SaveSelectButton()
     {
-        m_currentButton = EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
+        _currentButton = EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
     }
 }

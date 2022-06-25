@@ -239,6 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fade: {fileID: 2003259596525900640}
+  m_fadeTime: 0.7
   m_loadTime: 1
   m_loadAnim: {fileID: 1462793453}
   fadeImage: {fileID: 2003259596525899390}
