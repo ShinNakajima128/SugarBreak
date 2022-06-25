@@ -108,7 +108,7 @@ public class BaseUI : MonoBehaviour
     /// <summary>
     /// 装備画面を表示する
     /// </summary>
-    public void OnWeapon()
+    public void OnEquipment()
     {
         ChangeUIPanel(BaseUIState.Weapon);
     }
@@ -169,9 +169,7 @@ public class BaseUI : MonoBehaviour
     /// <param name="state"></param>
     void ChangeUIPanel(BaseUIState state)
     {
-        m_baseUI = state;
-
-        switch (m_baseUI)
+        switch (state)
         {
             case BaseUIState.Main:
                 PanelChange(0);
@@ -186,8 +184,21 @@ public class BaseUI : MonoBehaviour
                 PanelChange(2);
                 break;
             case BaseUIState.Weapon:
+
                 SaveSelectButton();
-                PanelChange(3);
+                
+                if (m_baseUI == BaseUIState.WeaponMenu)
+                {
+                    LoadSceneManager.Instance.FadeIn(callback: () =>
+                    {
+                        PanelChange(3);
+                        LoadSceneManager.Instance.FadeOut();
+                    });
+                }
+                else
+                {
+                    PanelChange(3);
+                }
                 break;
             case BaseUIState.WeaponMenu:
                 SaveSelectButton();
@@ -211,6 +222,7 @@ public class BaseUI : MonoBehaviour
                 m_menuButtons[6].Select();
                 break;
         }
+        m_baseUI = state;
     }
 
     void PanelChange(int index)
