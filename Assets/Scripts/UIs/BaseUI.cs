@@ -48,7 +48,7 @@ public class BaseUI : MonoBehaviour
 
     Button m_currentButton = default;
 
-    private void Awake()
+    void Awake()
     {
         if (OnButtonScaleReset != null) OnButtonScaleReset = null;
     }
