@@ -162,8 +162,8 @@ public class WeaponListControl : MonoBehaviour
     /// <param name="type"> 武器リストの種類 </param>
     public void ChangeWeapon(WeaponListTypes type, Action action = null)
     {
-        //既に装備中、または一定時間経過していなければ何もしない
-        if (m_currentWeapon == type || m_isChanged)
+        //武器を装備していないボタンを押す、既に装備中、変更後一定時間経過していなければ何もしない
+        if (m_currentWeapon == type || m_isChanged || m_weaponDataDic[type].WeaponType == WeaponTypes.None)
         {
             Debug.Log($"武器変更不可。現在の武器:{m_currentWeapon}, {m_isChanged}");
             return;

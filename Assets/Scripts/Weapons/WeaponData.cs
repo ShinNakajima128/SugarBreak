@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public enum WeaponTypes
 {
+    None,
     MainWeapon,
     CandyBeat,
     PopLauncher,

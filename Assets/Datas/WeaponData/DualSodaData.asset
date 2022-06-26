@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fe7e8f42cae2c4397c83a098161f25, type: 3}
   m_Name: DualSodaData
   m_EditorClassIdentifier: 
-  m_weaponType: 3
+  m_weaponType: 4
   m_activeWeaponImage: {fileID: 21300000, guid: 33d434e33b55f5944acb335edd4769db,
     type: 3}
   m_deactiveWeaponImage: {fileID: 21300000, guid: 2fcc42d56390ac24096db7206a6236f0,
