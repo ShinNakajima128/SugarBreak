@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fe7e8f42cae2c4397c83a098161f25, type: 3}
   m_Name: MainWeaponData
   m_EditorClassIdentifier: 
+  m_weaponName: "\u30A2\u30DA\u30C6\u30A3\u30FC\u30C8"
+  m_description: 
   m_weaponType: 1
+  m_isEquiped: 1
   m_activeWeaponImage: {fileID: 21300000, guid: f0cb5a0c6df406d4f9b580c0f6a18a1d,
     type: 3}
   m_deactiveWeaponImage: {fileID: 21300000, guid: d38eedaf82f0b9148a1e60f6e43f4b7c,

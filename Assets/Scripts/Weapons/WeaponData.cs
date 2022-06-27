@@ -17,9 +17,22 @@ public enum WeaponTypes
 [CreateAssetMenu(menuName = "MyScriptable/Create WeaponData")]
 public class WeaponData : ScriptableObject
 {
+    [Header("武器の名前")]
+    [SerializeField]
+    string m_weaponName = "";
+
+    [Header("武器の説明文")]
+    [TextArea(1, 10)]
+    [SerializeField]
+    string m_description = "";
+
     [Header("武器の種類")]
     [SerializeField]
     WeaponTypes m_weaponType = default;
+
+    [Header("武器を装備しているか")]
+    [SerializeField]
+    bool m_isEquiped = false;
 
     [Header("使用している時の画像")]
     [SerializeField]
@@ -32,10 +45,15 @@ public class WeaponData : ScriptableObject
     [SerializeField]
     GameObject m_WeaponObject = default;
 
-    public WeaponTypes WeaponType { get => m_weaponType; }
+    public string WeaponName => m_weaponName;
 
-    public Sprite ActiveWeaponImage { get => m_activeWeaponImage; }
+    public string Description => m_description;
 
-    public Sprite DeactiveWeaponImage { get => m_deactiveWeaponImage; }
-    public GameObject WeaponObject { get => m_WeaponObject; }
+    public WeaponTypes WeaponType => m_weaponType; 
+    public Sprite ActiveWeaponImage => m_activeWeaponImage;
+
+    public Sprite DeactiveWeaponImage => m_deactiveWeaponImage;
+    public GameObject WeaponObject => m_WeaponObject;
+    
+    public bool IsEquipped { get => m_isEquiped; set => m_isEquiped = value; } 
 }
