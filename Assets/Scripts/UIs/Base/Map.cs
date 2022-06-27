@@ -37,7 +37,7 @@ public class Map : MonoBehaviour
     void Start()
     {
         EventManager.ListenEvents(Events.OnHUD, OffMap);
-        EventManager.ListenEvents(Events.OffHUD, OnMap);
+        EventManager.ListenEvents(Events.OnMap, OnMap);
         _currentplayerTrans = GameObject.FindGameObjectWithTag("Player").transform;
         _beforePlayerPos = _currentplayerTrans.position;
         _anim = m_iconTrans.gameObject.GetComponent<Animator>();
@@ -64,6 +64,7 @@ public class Map : MonoBehaviour
 
                 if (pauseFlag)
                 {
+                    EventManager.OnEvent(Events.OnMap);
                     EventManager.OnEvent(Events.OffHUD);
                     PlayerStatesManager.Instance.OffOperation();
                     Time.timeScale = 0;

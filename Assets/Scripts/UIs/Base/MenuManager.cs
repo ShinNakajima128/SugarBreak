@@ -92,12 +92,14 @@ public class MenuManager : MonoBehaviour
                         ActiveMenu(0);
                         state = MenuState.Open;
                         PlayerStatesManager.Instance.OffOperation();
+                        EventManager.OnEvent(Events.OffHUD);
 
                         MenuSelectButton();
                     }
                     else if (state != MenuState.Close)  //メニューを閉じる
                     {
                         CloseMenu();
+                        EventManager.OnEvent(Events.OnHUD);
                     }
                 }
                 else if (Input.GetButtonDown("Cancel"))

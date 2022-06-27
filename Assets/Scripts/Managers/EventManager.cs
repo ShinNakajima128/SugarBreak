@@ -17,7 +17,8 @@ public enum Events
     BossBattleEnd,
     RebindWeaponAnimation,
     OnHUD,
-    OffHUD
+    OffHUD,
+    OnMap
 }
 
 /// <summary>
