@@ -43,62 +43,71 @@ public class WeaponListControl : MonoBehaviour
 {
     [Tooltip("武器切り替え可能になるまでの時間")]
     [SerializeField]
-    float m_interval = 1.0f;
+    float _interval = 1.0f;
 
     [Tooltip("武器オブジェクト。生成用")]
     [SerializeField]
-    GameObject[] m_weaponObjects = default;
+    GameObject[] _weaponObjects = default;
 
     [Tooltip("武器アイコンリスト")]
     [SerializeField]
-    Image[] m_weaponIcons = default;
+    Image[] _weaponIcons = default;
 
     [Header("デバッグ用")]
     [SerializeField]
-    bool isDebug = false;
+    bool _isDebug = false;
 
     [Tooltip("現在の武器リスト")]
     [SerializeField]
-    WeaponList m_currentEquipWeapons = default;
+    WeaponList _currentEquipWeapons = default;
 
     [Tooltip("現在アクティブの武器")]
     [SerializeField]
-    WeaponListTypes m_currentWeapon = default;
+    WeaponListTypes _currentWeapon = default;
 
     [Tooltip("武器のデータ(確認用)")]
     [SerializeField]
-    WeaponData[] m_debugWeaponDatas = default;
+    WeaponData[] _debugWeaponDatas = default;
+
+    [Tooltip("プレイヤーデータ")]
+    [SerializeField]
+    PlayerData _data = default;
 
     [SerializeField]
-    string m_weaponListFileName = "WeaponList";
+    string _weaponListFileName = "WeaponList";
 
+    [Header("UIObjects")]
     [SerializeField]
-    GameObject m_weaponListPanel = default;
+    GameObject _weaponListPanel = default;
 
-    Dictionary<WeaponListTypes, GameObject> m_weaponListDic = new Dictionary<WeaponListTypes, GameObject>();
-    Dictionary<WeaponListTypes, WeaponData> m_weaponDataDic = new Dictionary<WeaponListTypes, WeaponData>();
-    Dictionary<WeaponListTypes, Image> m_weaponIconsDic = new Dictionary<WeaponListTypes, Image>();
+    #region private
+    Dictionary<WeaponListTypes, GameObject> _weaponListDic = new Dictionary<WeaponListTypes, GameObject>();
+    Dictionary<WeaponListTypes, WeaponData> _weaponDataDic = new Dictionary<WeaponListTypes, WeaponData>();
+    Dictionary<WeaponListTypes, Image> _weaponIconsDic = new Dictionary<WeaponListTypes, Image>();
 
-    Transform m_weaponListTrans = default;
-    bool m_isChanged = false;
-    bool m_init = false;
+    Transform _weaponListTrans = default;
+    bool _isChanged = false;
+    bool _init = false;
+    #endregion
 
+    #region property
     public static WeaponListControl Instance { get; private set; }
 
-    public WeaponData CurrentWeapon1Data { get => m_currentEquipWeapons.Weapon1; }
-    public WeaponData CurrentWeapon2Data { get => m_currentEquipWeapons.Weapon2; }
-    public WeaponData CurrentWeapon3Data { get => m_currentEquipWeapons.Weapon3; }
-    public WeaponData MainWeaponData { get => m_currentEquipWeapons.MainWeapon; }
-    public WeaponListTypes CurrentEquipWeapon { get => m_currentWeapon; }
+    public WeaponData CurrentWeapon1Data { get => _currentEquipWeapons.Weapon1; }
+    public WeaponData CurrentWeapon2Data { get => _currentEquipWeapons.Weapon2; }
+    public WeaponData CurrentWeapon3Data { get => _currentEquipWeapons.Weapon3; }
+    public WeaponData MainWeaponData { get => _currentEquipWeapons.MainWeapon; }
+    public WeaponListTypes CurrentEquipWeapon { get => _currentWeapon; }
+    #endregion
 
     void OnEnable()
     {
-        if (!m_init)
+        if (!_init)
         {
             StartCoroutine(SetUpCoroutine());
-            m_init = true;
+            _init = true;
         }
-        m_isChanged = false;
+        _isChanged = false;
     }
 
     void Awake()
@@ -112,48 +121,57 @@ public class WeaponListControl : MonoBehaviour
         EventManager.ListenEvents(Events.OffHUD, OffWeaponListPanel);
     }
 
+    /// <summary>
+    /// 武器リストを表示する
+    /// </summary>
     void OnWeaponListPanel()
     {
-        m_weaponListPanel.SetActive(true);
+        _weaponListPanel.SetActive(true);
     }
 
+    /// <summary>
+    /// 武器リストを非表示にする
+    /// </summary>
     void OffWeaponListPanel()
     {
-        m_weaponListPanel.SetActive(false);
+        _weaponListPanel.SetActive(false);
     }
 
+    /// <summary>
+    /// 武器データのセットアップ
+    /// </summary>
     void Setup()
     {
         //武器オブジェクトの登録
         //生成したオブジェクトとアニメーションのオブジェクト名と一致させるために(clone)を削除する処理を行う
         //var g1 = m_weaponObjects.FirstOrDefault(o => o.name == m_currentEquipWeapons.Weapon1.WeaponType.ToString());
-        var g1 = m_currentEquipWeapons.Weapon1.WeaponObject;
-        m_weaponListDic[WeaponListTypes.Equip1] = Instantiate(g1, m_weaponListTrans);
-        m_weaponListDic[WeaponListTypes.Equip1].name = g1.name;
+        var g1 = _currentEquipWeapons.Weapon1.WeaponObject;
+        _weaponListDic[WeaponListTypes.Equip1] = Instantiate(g1, _weaponListTrans);
+        _weaponListDic[WeaponListTypes.Equip1].name = g1.name;
 
-        var g2 = m_currentEquipWeapons.Weapon2.WeaponObject;
-        m_weaponListDic[WeaponListTypes.Equip2] = Instantiate(g2, m_weaponListTrans);
-        m_weaponListDic[WeaponListTypes.Equip2].name = g2.name;
+        var g2 = _currentEquipWeapons.Weapon2.WeaponObject;
+        _weaponListDic[WeaponListTypes.Equip2] = Instantiate(g2, _weaponListTrans);
+        _weaponListDic[WeaponListTypes.Equip2].name = g2.name;
 
-        var g3 = m_currentEquipWeapons.Weapon3.WeaponObject;
-        m_weaponListDic[WeaponListTypes.Equip3] = Instantiate(g3, m_weaponListTrans);
-        m_weaponListDic[WeaponListTypes.Equip3].name = g3.name;
+        var g3 = _currentEquipWeapons.Weapon3.WeaponObject;
+        _weaponListDic[WeaponListTypes.Equip3] = Instantiate(g3, _weaponListTrans);
+        _weaponListDic[WeaponListTypes.Equip3].name = g3.name;
 
-        var g4 = m_currentEquipWeapons.MainWeapon.WeaponObject;
-        m_weaponListDic[WeaponListTypes.MainWeapon] = Instantiate(g4, m_weaponListTrans);
-        m_weaponListDic[WeaponListTypes.MainWeapon].name = g4.name;
+        var g4 = _currentEquipWeapons.MainWeapon.WeaponObject;
+        _weaponListDic[WeaponListTypes.MainWeapon] = Instantiate(g4, _weaponListTrans);
+        _weaponListDic[WeaponListTypes.MainWeapon].name = g4.name;
 
         //武器データの登録
-        m_weaponDataDic[WeaponListTypes.Equip1] = CurrentWeapon1Data;
-        m_weaponDataDic[WeaponListTypes.Equip2] = CurrentWeapon2Data;
-        m_weaponDataDic[WeaponListTypes.Equip3] = CurrentWeapon3Data;
-        m_weaponDataDic[WeaponListTypes.MainWeapon] = MainWeaponData;
+        _weaponDataDic[WeaponListTypes.Equip1] = CurrentWeapon1Data;
+        _weaponDataDic[WeaponListTypes.Equip2] = CurrentWeapon2Data;
+        _weaponDataDic[WeaponListTypes.Equip3] = CurrentWeapon3Data;
+        _weaponDataDic[WeaponListTypes.MainWeapon] = MainWeaponData;
 
         //武器アイコンの登録
-        m_weaponIconsDic[WeaponListTypes.Equip1] = m_weaponIcons[0];
-        m_weaponIconsDic[WeaponListTypes.Equip2] = m_weaponIcons[1];
-        m_weaponIconsDic[WeaponListTypes.Equip3] = m_weaponIcons[2];
-        m_weaponIconsDic[WeaponListTypes.MainWeapon] = m_weaponIcons[3];
+        _weaponIconsDic[WeaponListTypes.Equip1] = _weaponIcons[0];
+        _weaponIconsDic[WeaponListTypes.Equip2] = _weaponIcons[1];
+        _weaponIconsDic[WeaponListTypes.Equip3] = _weaponIcons[2];
+        _weaponIconsDic[WeaponListTypes.MainWeapon] = _weaponIcons[3];
     }
 
     /// <summary>
@@ -163,32 +181,32 @@ public class WeaponListControl : MonoBehaviour
     public void ChangeWeapon(WeaponListTypes type, Action action = null)
     {
         //武器を装備していないボタンを押す、既に装備中、変更後一定時間経過していなければ何もしない
-        if (m_currentWeapon == type || m_isChanged || m_weaponDataDic[type].WeaponType == WeaponTypes.None)
+        if (_currentWeapon == type || _isChanged || _weaponDataDic[type].WeaponType == WeaponTypes.None)
         {
-            Debug.Log($"武器変更不可。現在の武器:{m_currentWeapon}, {m_isChanged}");
+            Debug.Log($"武器変更不可。現在の武器:{_currentWeapon}, {_isChanged}");
             return;
         }
 
         //現在の装備状況を更新する
-        m_currentWeapon = type;
+        _currentWeapon = type;
 
-        m_isChanged = true;
+        _isChanged = true;
         StartCoroutine(ChangeInterval());
 
         action?.Invoke();
 
-        foreach (var w in m_weaponListDic)
+        foreach (var w in _weaponListDic)
         {
-            if (w.Key == m_currentWeapon)
+            if (w.Key == _currentWeapon)
             {
                 w.Value.SetActive(true); //武器オブジェクトをアクティブにする
                 PlayerController.Instance.CurrentWeaponAction = w.Value.GetComponent<IWeapon>(); //装備中の武器の機能を登録
-                m_weaponIconsDic[w.Key].sprite = m_weaponDataDic[w.Key].ActiveWeaponImage; //武器アイコンをアクティブの画像に差し替える
+                _weaponIconsDic[w.Key].sprite = _weaponDataDic[w.Key].ActiveWeaponImage; //武器アイコンをアクティブの画像に差し替える
             }
             else
             {
                 w.Value.SetActive(false); //武器オブジェクトを非アクティブにする
-                m_weaponIconsDic[w.Key].sprite = m_weaponDataDic[w.Key].DeactiveWeaponImage; //武器アイコンを非アクティブの画像に差し替える
+                _weaponIconsDic[w.Key].sprite = _weaponDataDic[w.Key].DeactiveWeaponImage; //武器アイコンを非アクティブの画像に差し替える
             }
         }
     }
@@ -199,21 +217,21 @@ public class WeaponListControl : MonoBehaviour
     IEnumerator SetUpCoroutine()
     {
         //各武器を子オブジェクトとして管理するオブジェクトを取得
-        m_weaponListTrans = GameObject.FindGameObjectWithTag("WeaponList").transform;
+        _weaponListTrans = GameObject.FindGameObjectWithTag("WeaponList").transform;
 
-        if (!isDebug)
+        if (!_isDebug)
         {
-            if (PlayerPrefs.HasKey(m_weaponListFileName))
+            if (PlayerPrefs.HasKey(_weaponListFileName))
             {
-                m_currentEquipWeapons = JsonUtility.FromJson<WeaponList>(PlayerPrefs.GetString(m_weaponListFileName));
+                _currentEquipWeapons = JsonUtility.FromJson<WeaponList>(PlayerPrefs.GetString(_weaponListFileName));
                 Debug.Log("武器リストのデータを読み込みました");
             }   
         }
         else
         {
-            m_currentEquipWeapons = new WeaponList(m_debugWeaponDatas[0], m_debugWeaponDatas[1], m_debugWeaponDatas[2], m_debugWeaponDatas[3]);
-            var debugJson = JsonUtility.ToJson(m_currentEquipWeapons);
-            PlayerPrefs.SetString(m_weaponListFileName, debugJson);
+            _currentEquipWeapons = new WeaponList(_debugWeaponDatas[0], _debugWeaponDatas[1], _debugWeaponDatas[2], _debugWeaponDatas[3]);
+            var debugJson = JsonUtility.ToJson(_currentEquipWeapons);
+            PlayerPrefs.SetString(_weaponListFileName, debugJson);
             Debug.Log("武器リストのデータを作成しました");
         }
         Setup();
@@ -229,13 +247,13 @@ public class WeaponListControl : MonoBehaviour
     {
         float timer = 0;
 
-        while (timer <= m_interval)
+        while (timer <= _interval)
         {
             timer += Time.deltaTime;
             Debug.Log("インターバル中");
             yield return null;
         }
         Debug.Log("武器変更可能");
-        m_isChanged = false;
+        _isChanged = false;
     }
 }

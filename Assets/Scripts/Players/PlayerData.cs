@@ -6,24 +6,28 @@ using UnityEngine;
 public class PlayerData : ScriptableObject
 {
     [SerializeField] 
-    int m_maxHp = 8;
+    int _maxHp = 8;
 
     [SerializeField] 
-    int m_hp = 8;
+    int _hp = 8;
 
     [SerializeField] 
-    int m_totalKonpeitou = 0;
+    int _totalKonpeitou = 0;
 
+    [SerializeField]
+    WeaponList _weaponList = default;
+
+    #region property
     public int MaxHp
     {
-        get { return m_maxHp; }
+        get { return _maxHp; }
         set 
         { 
-            if (m_maxHp <= 10) m_maxHp = value;
+            if (_maxHp <= 10) _maxHp = value;
             
-            if (m_maxHp > 10)
+            if (_maxHp > 10)
             {
-                m_maxHp = 10;
+                _maxHp = 10;
             }
         }
     }
@@ -32,23 +36,23 @@ public class PlayerData : ScriptableObject
     {
         get 
         { 
-            return m_hp; 
+            return _hp; 
         }
         set 
         { 
-            if (m_hp <= m_maxHp) 
+            if (_hp <= _maxHp) 
             {
-                m_hp = value;
+                _hp = value;
             }
 
-            if (m_hp > m_maxHp)
+            if (_hp > _maxHp)
             {
-                m_hp = m_maxHp;
+                _hp = _maxHp;
             }
 
-            if (m_hp <= 0)
+            if (_hp <= 0)
             {
-                m_hp = 0;
+                _hp = 0;
             }
         }
     }
@@ -58,18 +62,24 @@ public class PlayerData : ScriptableObject
     /// </summary>
     public int TotalKonpeitou
     {
-        get { return m_totalKonpeitou; }
+        get { return _totalKonpeitou; }
         set 
         { 
-            m_totalKonpeitou = value;
+            _totalKonpeitou = value;
             //所持数を更新
             EventManager.OnEvent(Events.GetKonpeitou);
         }
     }
 
+    /// <summary>
+    /// 現在装備している武器リスト
+    /// </summary>
+    public WeaponList CurrentWeaponList { get => _weaponList; set => _weaponList = value; }
+    #endregion
+
     public void SetStartHp(int hp)
     {
-        m_maxHp = hp;
-        m_hp = hp;
+        _maxHp = hp;
+        _hp = hp;
     }
 }

@@ -9,11 +9,15 @@ public abstract class ButtonBase : MonoBehaviour, IPointerEnterHandler, IPointer
 {
     [Tooltip("ボタン選択時のScaleの値")]
     [SerializeField]
-    float m_selectScaleValue = 1.1f;
+    float _selectScaleValue = 1.1f;
 
     [Tooltip("アニメーションの速度")]
     [SerializeField]
-    float m_animSpeed = 0.25f;
+    float _animSpeed = 0.25f;
+
+    [Tooltip("カーソルのターゲット")]
+    [SerializeField]
+    Transform _cursorTarget = default;
 
     Image _buttonImage;
     Vector3 _originScale;
@@ -31,12 +35,12 @@ public abstract class ButtonBase : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        transform.DOScale(new Vector2(m_selectScaleValue, m_selectScaleValue), m_animSpeed);
+        transform.DOScale(new Vector2(_selectScaleValue, _selectScaleValue), _animSpeed);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        transform.DOScale(_originScale, m_animSpeed);
+        transform.DOScale(_originScale, _animSpeed);
     }
 
 }

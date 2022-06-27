@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8943c24ddbf1c85489f7510cc2c1bb24, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  m_maxHp: 8
-  m_hp: 8
-  m_totalKonpeitou: 0
+  _maxHp: 8
+  _hp: 8
+  _totalKonpeitou: 0
+  _weaponList:
+    Weapon1: {fileID: 11400000, guid: 890a06cc7714a4746b62602ecb0fdffd, type: 2}
+    Weapon2: {fileID: 11400000, guid: 890a06cc7714a4746b62602ecb0fdffd, type: 2}
+    Weapon3: {fileID: 11400000, guid: 890a06cc7714a4746b62602ecb0fdffd, type: 2}
+    MainWeapon: {fileID: 11400000, guid: 663822aa8425e134087d101ef57c97be, type: 2}

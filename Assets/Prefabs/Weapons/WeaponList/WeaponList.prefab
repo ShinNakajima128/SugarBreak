@@ -192,31 +192,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 112468b995186bf4aac5d5c3271e6bf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_interval: 0.01
-  m_weaponObjects:
+  _interval: 1
+  _weaponObjects:
   - {fileID: 3112526520418750150, guid: 93cbbe06349b9044b96fd5055a1b58d2, type: 3}
   - {fileID: 2928823494383996833, guid: 7ff5798c5e8d7954b95563be2e716c63, type: 3}
   - {fileID: 4494997931039413512, guid: ebf2df27337645847b4cc473f08f36c8, type: 3}
   - {fileID: 6354401066101765767, guid: b9462a12cd0dc5546a8788ff41fa9bb5, type: 3}
-  m_weaponIcons:
+  - {fileID: 4764382679095897135, guid: 3b69b39e64035d341b9d04794a82ad7d, type: 3}
+  _weaponIcons:
   - {fileID: 463066663885729273}
   - {fileID: 463066663473115594}
   - {fileID: 463066663804703369}
   - {fileID: 463066662143960648}
-  isDebug: 1
-  m_currentEquipWeapons:
-    Weapon1: {fileID: 0}
-    Weapon2: {fileID: 0}
-    Weapon3: {fileID: 0}
-    MainWeapon: {fileID: 0}
-  m_currentWeapon: 0
-  m_debugWeaponDatas:
-  - {fileID: 11400000, guid: e06ce5e3c497d3a47ba248670e0a52ce, type: 2}
-  - {fileID: 11400000, guid: 78f7ba48bf2deca4c94f08a53400aa7f, type: 2}
-  - {fileID: 11400000, guid: 296b6172ad95f4b40bee7cd3f9a96cc5, type: 2}
+  _isDebug: 1
+  _currentEquipWeapons:
+    Weapon1: {fileID: 11400000, guid: 890a06cc7714a4746b62602ecb0fdffd, type: 2}
+    Weapon2: {fileID: 11400000, guid: 890a06cc7714a4746b62602ecb0fdffd, type: 2}
+    Weapon3: {fileID: 11400000, guid: 890a06cc7714a4746b62602ecb0fdffd, type: 2}
+    MainWeapon: {fileID: 11400000, guid: 663822aa8425e134087d101ef57c97be, type: 2}
+  _currentWeapon: 0
+  _debugWeaponDatas:
+  - {fileID: 11400000, guid: 890a06cc7714a4746b62602ecb0fdffd, type: 2}
+  - {fileID: 11400000, guid: 890a06cc7714a4746b62602ecb0fdffd, type: 2}
+  - {fileID: 11400000, guid: 890a06cc7714a4746b62602ecb0fdffd, type: 2}
   - {fileID: 11400000, guid: 663822aa8425e134087d101ef57c97be, type: 2}
-  m_weaponListFileName: /WeaponList.json
-  m_weaponListPanel: {fileID: 463066663639256259}
+  _data: {fileID: 11400000, guid: 52bd08bdf19a4d34bb14dc824323524f, type: 2}
+  _weaponListFileName: WeaponList
+  _weaponListPanel: {fileID: 0}
 --- !u!1 &463066663639256259
 GameObject:
   m_ObjectHideFlags: 0

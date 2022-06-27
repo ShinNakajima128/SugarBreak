@@ -10,24 +10,33 @@ using TMPro;
 /// </summary>
 public class WeaponMenuManager : MonoBehaviour
 {
+    #region serialize field
     [SerializeField]
-    PlayerData m_data = default;
+    PlayerData _data = default;
 
+    [Header("UIオブジェクト")]
     [Tooltip("拠点のUIを管理するクラス")]
     [SerializeField]
-    BaseUI m_baseUI = default;
+    BaseUI _baseUI = default;
 
     [Tooltip("金平糖の数を表示するText")]
     [SerializeField]
-    TextMeshProUGUI m_sugarPlumText = default;
+    TextMeshProUGUI _sugarPlumText = default;
+    #endregion
 
+    #region private
     /// <summary> 現在の金平糖の数 </summary>
     int _currentSugarPlumNum = 0;
+    #endregion
 
+    #region public
     /// <summary> モデルの回転処理をまとめたAction </summary>
     public Action<RotateType> OnRotateAction = default;
+    #endregion
 
+    #region property
     public static WeaponMenuManager Instance { get; private set; }
+    #endregion
 
     void Awake()
     {
@@ -35,8 +44,8 @@ public class WeaponMenuManager : MonoBehaviour
     }
     void Start()
     {
-        _currentSugarPlumNum = m_data.TotalKonpeitou;
-        m_sugarPlumText.text = _currentSugarPlumNum.ToString();
+        _currentSugarPlumNum = _data.TotalKonpeitou;
+        _sugarPlumText.text = _currentSugarPlumNum.ToString();
     }
 
     void Update()
@@ -56,6 +65,6 @@ public class WeaponMenuManager : MonoBehaviour
     /// </summary>
     public void BackEquipmentPanel()
     {
-        m_baseUI.OnEquipment();
+        _baseUI.OnEquipment();
     }
 }

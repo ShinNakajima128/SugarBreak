@@ -18,7 +18,7 @@ public class UICharacterController : MonoBehaviour
 {
     [Tooltip("モデルの回転角度")]
     [SerializeField]
-    float m_rotateAngle = 30f;
+    float _rotateAngle = 30f;
 
     Transform _characterTrans;
     bool _init = false;
@@ -52,10 +52,10 @@ public class UICharacterController : MonoBehaviour
         switch (type)
         {
             case RotateType.Left:
-                _characterTrans.Rotate(new Vector3(0, m_rotateAngle, 0) * Time.deltaTime);
+                _characterTrans.Rotate(new Vector3(0, _rotateAngle, 0) * Time.deltaTime);
                 break;
             case RotateType.Right:
-                _characterTrans.Rotate(new Vector3(0, -m_rotateAngle, 0) * Time.deltaTime);
+                _characterTrans.Rotate(new Vector3(0, -_rotateAngle, 0) * Time.deltaTime);
                 break;
         }
     }
