@@ -2,34 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DataManager : SingletonMonoBehaviour<DataManager>
+public class DataManager : MonoBehaviour
 {
-    /// <summary>
-    /// ゲームデータをセーブする
-    /// </summary>
-    //public static void SaveData()
-    //{
-    //    SaveData data = SaveManager.GetData();
-    //    GameDataObject gameData = FindObjectOfType<GameDataObject>();
+    [SerializeField]
+    PlayerData _playerData = default;
 
-    //    ISave saveIf = gameData.GetComponent<ISave>();
-    //    saveIf.Save(data.CurrentGameData);
-    //    Debug.Log(data.CurrentGameData);
-    //    SaveManager.Save();
-    //}
+    [SerializeField]
+    WeaponData[] _allWeaponDatas = default;
 
-    ///// <summary>
-    ///// ゲームデータをロードする
-    ///// </summary>
-    //public static void LoadData()
-    //{
-    //    SaveManager.Load();
-    //    SaveData data = SaveManager.GetData();
+    public WeaponData[] AllWeaponDatas => _allWeaponDatas;
 
-    //    var gameData = FindObjectOfType<GameDataObject>();
+    public static DataManager Instance { get; private set; }
 
-    //    ISave saveIf = gameData.GetComponent<ISave>();
-    //    saveIf.Load(data.CurrentGameData);
-    //    Debug.Log(data);
-    //}
+    void Awake()
+    {
+        Instance = this;
+    }
 }

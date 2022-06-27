@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 
-public abstract class ButtonBase : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public abstract class ButtonBase : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Tooltip("ボタン選択時のScaleの値")]
     [SerializeField]
@@ -19,28 +20,28 @@ public abstract class ButtonBase : MonoBehaviour, IPointerEnterHandler, IPointer
     [SerializeField]
     Transform _cursorTarget = default;
 
-    Image _buttonImage;
     Vector3 _originScale;
+    protected Action Enter;
+    protected Action Click;
+    protected Action Exit;
 
     void Start()
     {
-        _buttonImage = GetComponent<Image>();
         _originScale = transform.localScale;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        Click?.Invoke();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        transform.DOScale(new Vector2(_selectScaleValue, _selectScaleValue), _animSpeed);
+        Enter?.Invoke();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        transform.DOScale(_originScale, _animSpeed);
+        Exit?.Invoke();
     }
-
 }

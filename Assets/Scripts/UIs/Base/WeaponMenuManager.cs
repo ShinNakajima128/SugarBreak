@@ -11,6 +11,7 @@ using TMPro;
 public class WeaponMenuManager : MonoBehaviour
 {
     #region serialize field
+    [Tooltip("プレイヤーデータ")]
     [SerializeField]
     PlayerData _data = default;
 
@@ -19,9 +20,17 @@ public class WeaponMenuManager : MonoBehaviour
     [SerializeField]
     BaseUI _baseUI = default;
 
+    [Tooltip("武器リストのボタンの親オブジェクト")]
+    [SerializeField]
+    Transform _weaponListButtonParent = default;
+
     [Tooltip("金平糖の数を表示するText")]
     [SerializeField]
     TextMeshProUGUI _sugarPlumText = default;
+
+    [Tooltip("武器リストのButton")]
+    [SerializeField]
+    WeaponListButton _weaponListButtonPrefab = default;
     #endregion
 
     #region private
@@ -57,6 +66,17 @@ public class WeaponMenuManager : MonoBehaviour
         else if (Input.GetKey(KeyCode.E))
         {
             OnRotateAction(RotateType.Right); //右回転
+        }
+    }
+
+    void ListSetup()
+    {
+        var weaponLists = DataManager.Instance.AllWeaponDatas;
+        
+        for (int i = 0; i < weaponLists.Length; i++)
+        {
+            var b = Instantiate(_weaponListButtonPrefab, _weaponListButtonParent);
+            b.WeaponButtonData = weaponLists[i];
         }
     }
 
