@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: MainWeaponData
   m_EditorClassIdentifier: 
   m_weaponName: "\u30A2\u30DA\u30C6\u30A3\u30FC\u30C8"
-  m_description: 
+  m_description: "\u30B7\u30E7\u30FC\u30C8\u5BB6\u306B\u4EE3\u3005\u4F1D\u308F\u308B\u30D5\u30A9\u30FC\u30AF\u578B\u306E\u6B66\u5668\u3002"
   m_weaponType: 1
   m_isEquiped: 1
+  m_isUnlocked: 1
   m_activeWeaponImage: {fileID: 21300000, guid: f0cb5a0c6df406d4f9b580c0f6a18a1d,
     type: 3}
   m_deactiveWeaponImage: {fileID: 21300000, guid: d38eedaf82f0b9148a1e60f6e43f4b7c,
