@@ -238,7 +238,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 620.8, y: 77}
+  m_AnchoredPosition: {x: 620.8, y: 115}
   m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &974765947
@@ -268,7 +268,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u30D9\u30A4\u30AF\u30EB\u30D0\u30EC\u30FC\u306E\u30DC\u30B9\u3001\u30D3\u30BF\u30FC\u30B4\u30FC\u30EC\u30E0\u304C\u304A\u3068\u3057\u305F\u30CF\u30FC\u30C8\u5F62\u306E\u30AD\u30E3\u30F3\u30C7\u30A3\u3092\u30C7\u30B3\u30EC\u30FC\u30B7\u30E7\u30F3\u3057\u305F\u6B66\u5668\u3002\n\u30AB\u30EF\u30A4\u30A4\u5916\u898B\u304B\u3089\u60F3\u50CF\u3082\u3064\u304B\u306A\u3044\u91CD\u3044\u653B\u6483\u306B\u306F\n\u601D\u308F\u305A\u30CF\u30FC\u30C8\u304C\u30C9\u30AD\u30C9\u30AD\u3057\u3066\u3057\u307E\u3046\u3002"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4ebdada254c67f243a71c46343fb8384, type: 2}
   m_sharedMaterial: {fileID: -625256431176189337, guid: 4ebdada254c67f243a71c46343fb8384,
@@ -304,7 +304,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -439,7 +439,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u30AD\u30E3\u30F3\u30C7\u30A3\u30D3\u30FC\u30C8\u2605\u2605"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4ebdada254c67f243a71c46343fb8384, type: 2}
   m_sharedMaterial: {fileID: -625256431176189337, guid: 4ebdada254c67f243a71c46343fb8384,
@@ -951,6 +951,9 @@ MonoBehaviour:
   _sugarPlumText: {fileID: 3560965540412641890}
   _weaponListButtonPrefab: {fileID: 2020207479, guid: 0afa6791b649cd848be0215486b94a86,
     type: 3}
+  _weaponNameText: {fileID: 1734226857}
+  _descriptionText: {fileID: 974765946}
+  _weaponMenuButtonPanel: {fileID: 3560965540786975804}
 --- !u!1 &3560965539438806343
 GameObject:
   m_ObjectHideFlags: 0
@@ -3194,7 +3197,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3560965540786975805}
   m_Layer: 5
-  m_Name: Buttons
+  m_Name: Buttons_WeaponMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

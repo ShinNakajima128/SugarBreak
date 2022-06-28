@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using SugarBreak;
 
 /// <summary>
 /// 武器メニュー画面の機能を管理するクラス
@@ -15,7 +16,7 @@ public class WeaponMenuManager : MonoBehaviour
     [SerializeField]
     PlayerData _data = default;
 
-    [Header("UIオブジェクト")]
+    [Header("UIObjects")]
     [Tooltip("拠点のUIを管理するクラス")]
     [SerializeField]
     BaseUI _baseUI = default;
@@ -31,11 +32,24 @@ public class WeaponMenuManager : MonoBehaviour
     [Tooltip("武器リストのButton")]
     [SerializeField]
     WeaponListButton _weaponListButtonPrefab = default;
+
+    [Tooltip("武器名を表示するText")]
+    [SerializeField]
+    TextMeshProUGUI _weaponNameText = default;
+
+    [Tooltip("武器の説明文を表示するText")]
+    [SerializeField]
+    TextMeshProUGUI _descriptionText = default;
+
+    [Tooltip("武器メニューのボタンをまとめたObject")]
+    [SerializeField]
+    GameObject _weaponMenuButtonPanel = default;
     #endregion
 
     #region private
     /// <summary> 現在の金平糖の数 </summary>
     int _currentSugarPlumNum = 0;
+    List<WeaponListButton> _weaponDataList = new List<WeaponListButton>();
     #endregion
 
     #region public
@@ -55,6 +69,8 @@ public class WeaponMenuManager : MonoBehaviour
     {
         _currentSugarPlumNum = _data.TotalKonpeitou;
         _sugarPlumText.text = _currentSugarPlumNum.ToString();
+        StartCoroutine(ListSetup());
+        _weaponMenuButtonPanel.SetActive(false);
     }
 
     void Update()
@@ -69,14 +85,32 @@ public class WeaponMenuManager : MonoBehaviour
         }
     }
 
-    void ListSetup()
+    /// <summary>
+    /// 武器リストのセットアップ
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator ListSetup()
     {
         var weaponLists = DataManager.Instance.AllWeaponDatas;
         
         for (int i = 0; i < weaponLists.Length; i++)
         {
             var b = Instantiate(_weaponListButtonPrefab, _weaponListButtonParent);
-            b.WeaponButtonData = weaponLists[i];
+            
+            yield return null;
+
+            b.SetData(weaponLists[i]);
+
+            //b.Enter += (() => 
+            //{
+            //    MenuCursor.CursorMove(b.CursorTarget.position);
+            //});
+
+            b.Click += (() => 
+            {
+                ViewData(b.WeaponButtonData);
+            });
+            _weaponDataList.Add(b);
         }
     }
 
@@ -86,5 +120,34 @@ public class WeaponMenuManager : MonoBehaviour
     public void BackEquipmentPanel()
     {
         _baseUI.OnEquipment();
+        //MenuCursor.OffCursor();
+    }
+
+    /// <summary>
+    /// 武器データをUIに表示する
+    /// </summary>
+    /// <param name="data"></param>
+    void ViewData(WeaponData data)
+    {
+        if (data.IsUnrocked)
+        {
+            _weaponNameText.text = data.WeaponName;
+            _descriptionText.text = data.Description;
+
+            if (!_weaponMenuButtonPanel.activeSelf)
+            {
+                _weaponMenuButtonPanel.SetActive(true);
+            }
+        }
+        else
+        {
+            _weaponNameText.text = "？？？";
+            _descriptionText.text = "まだ解放されていません";
+
+            if (_weaponMenuButtonPanel.activeSelf)
+            {
+                _weaponMenuButtonPanel.SetActive(false);
+            }
+        }
     }
 }

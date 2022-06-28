@@ -8,11 +8,31 @@ using UnityEngine.UI;
 /// </summary>
 public class WeaponListButton : ButtonBase
 {
-    Image _buttonImage;
-    public WeaponData WeaponButtonData { get; set; }
+    WeaponData _weaponData;
 
-    public void ButtonSet()
+    public WeaponData WeaponButtonData => _weaponData;
+
+    protected override void Start()
     {
+        base.Start();
+    }
+
+    /// <summary>
+    /// ボタン生成時にデータをセットする
+    /// </summary>
+    /// <param name="data"></param>
+    public void SetData(WeaponData data)
+    {
+        _weaponData = data;
         
+        //武器が解放済みの場合
+        if (data.IsUnrocked)
+        {
+            _buttonImage.sprite = _weaponData.ActiveWeaponImage;
+        }
+        else
+        {
+            _buttonImage.sprite = _weaponData.DeactiveWeaponImage;
+        }
     }
 }

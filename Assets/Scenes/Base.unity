@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1594,6 +1594,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WeaponMenuUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560965539423011752, guid: 021cd0331102ac048a4622c537e8e4ee,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3560965539423011753, guid: 021cd0331102ac048a4622c537e8e4ee,
         type: 3}
@@ -19207,7 +19212,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -852, y: 146}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2050730494
@@ -19222,6 +19227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c58318466ec4f41b71017735e9c211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveSpeed: 0.1
 --- !u!114 &2050730495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19229,14 +19235,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2050730492}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
