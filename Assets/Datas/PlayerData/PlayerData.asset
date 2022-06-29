@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHp: 8
   _hp: 8
-  _totalKonpeitou: 0
+  _totalKonpeitou: 38
   _weaponList:
     Weapon1: {fileID: 11400000, guid: 890a06cc7714a4746b62602ecb0fdffd, type: 2}
     Weapon2: {fileID: 11400000, guid: 890a06cc7714a4746b62602ecb0fdffd, type: 2}

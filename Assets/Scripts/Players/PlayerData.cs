@@ -17,7 +17,7 @@ public class PlayerData : ScriptableObject
     [SerializeField]
     WeaponList _weaponList = default;
 
-    #region property
+#region property
     public int MaxHp
     {
         get { return _maxHp; }
@@ -75,7 +75,7 @@ public class PlayerData : ScriptableObject
     /// 現在装備している武器リスト
     /// </summary>
     public WeaponList CurrentWeaponList { get => _weaponList; set => _weaponList = value; }
-    #endregion
+#endregion
 
     public void SetStartHp(int hp)
     {
