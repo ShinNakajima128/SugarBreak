@@ -19,6 +19,10 @@ public abstract class ButtonBase : MonoBehaviour, IPointerClickHandler, IPointer
     [SerializeField]
     Transform _cursorTarget = default;
 
+    [Tooltip("ボタンがアニメーションするか")]
+    [SerializeField]
+    bool _isAnimation = true;
+
     protected Image _buttonImage;
     Vector3 _originScale;
     public Action Enter;
@@ -31,11 +35,6 @@ public abstract class ButtonBase : MonoBehaviour, IPointerClickHandler, IPointer
     {
         _buttonImage = GetComponent<Image>();
         _originScale = transform.localScale;
-        
-        //Enter += (() => 
-        //{
-        //    MenuCursor.CursorMove(CursorTarget.position);
-        //});
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -46,12 +45,18 @@ public abstract class ButtonBase : MonoBehaviour, IPointerClickHandler, IPointer
     public void OnPointerEnter(PointerEventData eventData)
     {
         Enter?.Invoke();
-        transform.DOScale(new Vector3(_selectScaleValue, _selectScaleValue, 1), _animSpeed);
+        if (_isAnimation)
+        {
+            transform.DOScale(new Vector3(_selectScaleValue, _selectScaleValue, 1), _animSpeed);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         Exit?.Invoke();
-        transform.DOScale(_originScale, _animSpeed);
+        if (_isAnimation)
+        {
+            transform.DOScale(_originScale, _animSpeed);
+        }
     }
 }

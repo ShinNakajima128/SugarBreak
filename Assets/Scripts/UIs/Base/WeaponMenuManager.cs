@@ -41,6 +41,18 @@ public class WeaponMenuManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI _descriptionText = default;
 
+    [Tooltip("装備ボタン")]
+    [SerializeField]
+    WeaponMenuButton _equipButton = default;
+
+    [Tooltip("強化ボタン")]
+    [SerializeField]
+    WeaponMenuButton _enhanceButton = default;
+
+    [Tooltip("武器配置画面")]
+    [SerializeField]
+    GameObject _weaponsPlacementPanel = default;
+
     [Tooltip("武器メニューのボタンをまとめたObject")]
     [SerializeField]
     GameObject _weaponMenuButtonPanel = default;
@@ -75,6 +87,7 @@ public class WeaponMenuManager : MonoBehaviour
 
     void Update()
     {
+        //キャラクターを回転させる
         if (Input.GetKey(KeyCode.Q))
         {
             OnRotateAction(RotateType.Left); //左回転
@@ -101,27 +114,37 @@ public class WeaponMenuManager : MonoBehaviour
 
             b.SetData(weaponLists[i]);
 
-            //b.Enter += (() => 
-            //{
-            //    MenuCursor.CursorMove(b.CursorTarget.position);
-            //});
-
             b.Click += (() => 
             {
                 ViewData(b.WeaponButtonData);
+                _equipButton.OnEquipButton(b.WeaponButtonData);
             });
             _weaponDataList.Add(b);
         }
     }
+    #region button actions
+    /// <summary>
+    /// 武器を配置する画面を表示する
+    /// </summary>
+    public void Equip()
+    {
+        _weaponsPlacementPanel.SetActive(true);
+    }
+    /// <summary>
+    /// 武器を強化する
+    /// </summary>
+    public void Enhance()
+    {
 
+    }
     /// <summary>
     /// 装備画面に戻る
     /// </summary>
     public void BackEquipmentPanel()
     {
         _baseUI.OnEquipment();
-        //MenuCursor.OffCursor();
     }
+    #endregion
 
     /// <summary>
     /// 武器データをUIに表示する
@@ -129,25 +152,30 @@ public class WeaponMenuManager : MonoBehaviour
     /// <param name="data"></param>
     void ViewData(WeaponData data)
     {
-        if (data.IsUnrocked)
-        {
-            _weaponNameText.text = data.WeaponName;
-            _descriptionText.text = data.Description;
-
-            if (!_weaponMenuButtonPanel.activeSelf)
-            {
-                _weaponMenuButtonPanel.SetActive(true);
-            }
-        }
-        else
+        if (!data.IsUnrocked)
         {
             _weaponNameText.text = "？？？";
             _descriptionText.text = "まだ解放されていません";
+
 
             if (_weaponMenuButtonPanel.activeSelf)
             {
                 _weaponMenuButtonPanel.SetActive(false);
             }
+            return;
+        }
+
+        _weaponNameText.text = data.WeaponName;
+        _descriptionText.text = data.Description;
+
+        if (!_weaponMenuButtonPanel.activeSelf)
+        {
+            _weaponMenuButtonPanel.SetActive(true);
+        }
+
+        if (data.IsEquipped)
+        {
+
         }
     }
 }

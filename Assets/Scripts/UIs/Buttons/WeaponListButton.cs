@@ -8,6 +8,9 @@ using UnityEngine.UI;
 /// </summary>
 public class WeaponListButton : ButtonBase
 {
+    [SerializeField]
+    Image _equippedImage = default;
+
     WeaponData _weaponData;
 
     public WeaponData WeaponButtonData => _weaponData;
@@ -33,6 +36,16 @@ public class WeaponListButton : ButtonBase
         else
         {
             _buttonImage.sprite = _weaponData.DeactiveWeaponImage;
+        }
+
+        //武器が装備済の場合
+        if (data.IsEquipped)
+        {
+            _equippedImage.enabled = true;
+        }
+        else
+        {
+            _equippedImage.enabled = false;
         }
     }
 }

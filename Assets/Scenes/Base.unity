@@ -1590,15 +1590,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 571823886, guid: 021cd0331102ac048a4622c537e8e4ee, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3560965539423011752, guid: 021cd0331102ac048a4622c537e8e4ee,
         type: 3}
       propertyPath: m_Name
       value: WeaponMenuUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 3560965539423011752, guid: 021cd0331102ac048a4622c537e8e4ee,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3560965539423011753, guid: 021cd0331102ac048a4622c537e8e4ee,
         type: 3}
@@ -7022,7 +7021,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &746460554
 GameObject:
@@ -7507,7 +7506,7 @@ PrefabInstance:
     - target: {fileID: 2528109058790377649, guid: a9c984ed24975804486c542008831431,
         type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2528109058790377649, guid: a9c984ed24975804486c542008831431,
         type: 3}
@@ -10040,7 +10039,7 @@ Transform:
   m_Children:
   - {fileID: 1623942793}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: -0.9, y: -138.68, z: 0}
 --- !u!1 &1146187615
 GameObject:
