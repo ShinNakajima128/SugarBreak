@@ -62,16 +62,29 @@ public class WeaponMenuManager : MonoBehaviour
     /// <summary> 現在の金平糖の数 </summary>
     int _currentSugarPlumNum = 0;
     List<WeaponListButton> _weaponDataList = new List<WeaponListButton>();
+    bool _isSetup = false;
+    Quaternion _originRotation;
     #endregion
 
     #region public
     /// <summary> モデルの回転処理をまとめたAction </summary>
     public Action<RotateType> OnRotateAction = default;
+    
+    /// <summary> アクティブ時に実行する処理をまとめたAction </summary>
+    public Action OnActiveAction = default;
     #endregion
 
     #region property
     public static WeaponMenuManager Instance { get; private set; }
     #endregion
+
+    void OnEnable()
+    {
+        if (_isSetup)
+        {
+            OnActiveAction?.Invoke();
+        }
+    }
 
     void Awake()
     {
@@ -83,6 +96,7 @@ public class WeaponMenuManager : MonoBehaviour
         _sugarPlumText.text = _currentSugarPlumNum.ToString();
         StartCoroutine(ListSetup());
         _weaponMenuButtonPanel.SetActive(false);
+        _isSetup = true;
     }
 
     void Update()

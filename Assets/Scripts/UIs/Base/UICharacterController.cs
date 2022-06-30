@@ -12,6 +12,14 @@ public enum RotateType
 }
 
 /// <summary>
+/// アニメーションの種類
+/// </summary>
+public enum AnimationType
+{
+
+}
+
+/// <summary>
 /// 武器メニュー画面のキャラクター
 /// </summary>
 public class UICharacterController : MonoBehaviour
@@ -20,8 +28,12 @@ public class UICharacterController : MonoBehaviour
     [SerializeField]
     float _rotateAngle = 30f;
 
+    #region private
     Transform _characterTrans;
+    Animator _animator;
     bool _init = false;
+    Quaternion _originRotation;
+    #endregion
 
     void OnEnable()
     {
@@ -39,14 +51,21 @@ public class UICharacterController : MonoBehaviour
     void Start()
     {
         _characterTrans = GetComponent<Transform>();
+        _animator = GetComponent<Animator>();
+        _originRotation = transform.localRotation;
 
         if (!_init)
         {
             WeaponMenuManager.Instance.OnRotateAction += CharacterRotate;
+            WeaponMenuManager.Instance.OnActiveAction += ResetCharacterRotation;
             _init = true;
         }
     }
 
+    /// <summary>
+    /// 装備メニューのキャラクターを回転させる
+    /// </summary>
+    /// <param name="type"> 回転方向 </param>
     void CharacterRotate(RotateType type)
     {
         switch (type)
@@ -58,5 +77,13 @@ public class UICharacterController : MonoBehaviour
                 _characterTrans.Rotate(new Vector3(0, -_rotateAngle, 0) * Time.deltaTime);
                 break;
         }
+    }
+
+    /// <summary>
+    /// キャラクターモデルの回転状況をリセットする
+    /// </summary>
+    void ResetCharacterRotation()
+    {
+        transform.localRotation = _originRotation;
     }
 }
