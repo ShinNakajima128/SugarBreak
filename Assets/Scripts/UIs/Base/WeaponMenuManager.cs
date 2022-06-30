@@ -72,6 +72,9 @@ public class WeaponMenuManager : MonoBehaviour
     
     /// <summary> アクティブ時に実行する処理をまとめたAction </summary>
     public Action OnActiveAction = default;
+
+    /// <summary> 非アクティブになる時実行する処理をまとめたAction </summary>
+    public Action OnDeactiveAction = default;
     #endregion
 
     #region property
@@ -84,6 +87,11 @@ public class WeaponMenuManager : MonoBehaviour
         {
             OnActiveAction?.Invoke();
         }
+    }
+
+    void OnDisable()
+    {
+        OnDeactiveAction?.Invoke();
     }
 
     void Awake()

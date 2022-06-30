@@ -1590,19 +1590,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 571823886, guid: 021cd0331102ac048a4622c537e8e4ee, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3560965539423011752, guid: 021cd0331102ac048a4622c537e8e4ee,
         type: 3}
       propertyPath: m_Name
       value: WeaponMenuUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 3560965539423011752, guid: 021cd0331102ac048a4622c537e8e4ee,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3560965539423011753, guid: 021cd0331102ac048a4622c537e8e4ee,
         type: 3}
@@ -1659,12 +1650,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4147725740132945044, guid: 021cd0331102ac048a4622c537e8e4ee,
-        type: 3}
-      propertyPath: _playerData
-      value: 
-      objectReference: {fileID: 11400000, guid: 52bd08bdf19a4d34bb14dc824323524f,
-        type: 2}
     - target: {fileID: 7064773864004236166, guid: 021cd0331102ac048a4622c537e8e4ee,
         type: 3}
       propertyPath: _baseUI
