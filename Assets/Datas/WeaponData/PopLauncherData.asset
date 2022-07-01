@@ -16,7 +16,7 @@ MonoBehaviour:
   m_description: "\u30C8\u30A6\u30E2\u30ED\u30B3\u30B7\u578B\u306E\u5F3E\u3092\u767A\u5C04\u3059\u308B\u30B0\u30EC\u30CD\u30FC\u30C9\u30E9\u30F3\u30C1\u30E3\u30FC\u3002\u7740\u5F3E\u6642\u306B\u5F3E\u304C\u6025\u901F\u306B\u52A0\u71B1\u3055\u308C\u7121\u6570\u306E\u30DD\u30C3\u30D7\u30B3\u30FC\u30F3\u304C\u5F3E\u3051\u98DB\u3076\u3002"
   m_weaponType: 3
   m_isEquiped: 0
-  m_isUnlocked: 1
+  m_isUnlocked: 0
   m_activeWeaponImage: {fileID: 21300000, guid: 5e3336947198d48419296b119dcd711b,
     type: 3}
   m_deactiveWeaponImage: {fileID: 21300000, guid: e2766d7baf817b1489231b6120434227,
