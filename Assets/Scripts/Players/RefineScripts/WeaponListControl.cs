@@ -93,10 +93,10 @@ public class WeaponListControl : MonoBehaviour
     #region property
     public static WeaponListControl Instance { get; private set; }
 
-    public WeaponData CurrentWeapon1Data { get => _currentEquipWeapons.Weapon1; }
-    public WeaponData CurrentWeapon2Data { get => _currentEquipWeapons.Weapon2; }
-    public WeaponData CurrentWeapon3Data { get => _currentEquipWeapons.Weapon3; }
-    public WeaponData MainWeaponData { get => _currentEquipWeapons.MainWeapon; }
+    public WeaponData CurrentWeapon1Data { get => _data.CurrentWeaponList.Weapon1; }
+    public WeaponData CurrentWeapon2Data { get => _data.CurrentWeaponList.Weapon2; }
+    public WeaponData CurrentWeapon3Data { get => _data.CurrentWeaponList.Weapon3; }
+    public WeaponData MainWeaponData { get => _data.CurrentWeaponList.MainWeapon; }
     public WeaponListTypes CurrentEquipWeapon { get => _currentWeapon; }
     #endregion
 
@@ -229,9 +229,10 @@ public class WeaponListControl : MonoBehaviour
         }
         else
         {
-            _currentEquipWeapons = new WeaponList(_debugWeaponDatas[0], _debugWeaponDatas[1], _debugWeaponDatas[2], _debugWeaponDatas[3]);
-            var debugJson = JsonUtility.ToJson(_currentEquipWeapons);
-            PlayerPrefs.SetString(_weaponListFileName, debugJson);
+            _currentEquipWeapons = _data.CurrentWeaponList;
+            //_currentEquipWeapons = new WeaponList(_debugWeaponDatas[0], _debugWeaponDatas[1], _debugWeaponDatas[2], _debugWeaponDatas[3]);
+            //var debugJson = JsonUtility.ToJson(_currentEquipWeapons);
+            //PlayerPrefs.SetString(_weaponListFileName, debugJson);
             Debug.Log("武器リストのデータを作成しました");
         }
         Setup();
