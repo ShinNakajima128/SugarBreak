@@ -48,7 +48,7 @@ public class WeaponData : ScriptableObject
 
     [Header("未開放時に表示する画像")]
     [SerializeField]
-    Sprite m_unlockWeaponImage = default;
+    Sprite m_lockWeaponImage = default;
 
     [SerializeField]
     GameObject m_WeaponObject = default;
@@ -61,6 +61,7 @@ public class WeaponData : ScriptableObject
     public Sprite ActiveWeaponImage => m_activeWeaponImage;
 
     public Sprite DeactiveWeaponImage => m_deactiveWeaponImage;
+    public Sprite LockWeaponImage => m_lockWeaponImage;
     public GameObject WeaponObject => m_WeaponObject;
     
     public bool IsEquipped { get => m_isEquiped; set => m_isEquiped = value; } 
