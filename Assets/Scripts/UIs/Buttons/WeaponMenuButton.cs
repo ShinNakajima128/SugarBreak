@@ -4,13 +4,41 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+public enum MenuButtonType
+{
+    None,
+    Equip,
+    Enhance
+}
+
 public class WeaponMenuButton : ButtonBase
 {
+    [SerializeField]
+    MenuButtonType _buttonType = default;
+
     [Tooltip("ボタン内に表示するText")]
     [SerializeField]
     TextMeshProUGUI _buttonText = default;
 
     Button _menuButton;
+
+    void OnEnable()
+    {
+        //ボタンが装備ボタンの場合
+        if (_buttonType == MenuButtonType.Equip)
+        {
+            WeaponsPlacement.OnSetCompleteAction += OnEquipButton;
+        }
+    }
+
+    void OnDisable()
+    {
+        //ボタンが装備ボタンの場合
+        if (_buttonType == MenuButtonType.Equip)
+        {
+            WeaponsPlacement.OnSetCompleteAction -= OnEquipButton;
+        }
+    }
 
     protected override void Start()
     {
@@ -41,13 +69,19 @@ public class WeaponMenuButton : ButtonBase
         //装備済みの場合
         if (data.IsEquipped)
         {
-            _menuButton.interactable = false;
-            _buttonText.text = "装備済み";
+            _buttonText.text = "外す";
+            _menuButton.onClick.RemoveAllListeners();
+            _menuButton.onClick.AddListener(() => 
+            {
+                WeaponMenuManager.Instance.Remove();
+                StartCoroutine(ButtonSetup(data));
+            });
         }
         else
         {
-            _menuButton.interactable = true;
             _buttonText.text = "装備する";
+            _menuButton.onClick.RemoveAllListeners();
+            _menuButton.onClick.AddListener(WeaponMenuManager.Instance.Equip);
         }
     }
 }

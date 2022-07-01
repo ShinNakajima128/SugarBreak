@@ -12,8 +12,22 @@ public class WeaponListButton : ButtonBase
     Image _equippedImage = default;
 
     WeaponData _weaponData;
+    bool _isSet = false;
 
     public WeaponData WeaponButtonData => _weaponData;
+
+    void OnEnable()
+    {
+        if (_isSet)
+        {
+            _weaponData.OnEquipAction += SwitchEquipImageView;
+        }
+    }
+
+    void OnDisable()
+    {
+        _weaponData.OnEquipAction -= SwitchEquipImageView;
+    }
 
     protected override void Start()
     {
@@ -27,7 +41,13 @@ public class WeaponListButton : ButtonBase
     public void SetData(WeaponData data)
     {
         _weaponData = data;
-        
+
+        if (!_isSet)
+        {
+            _weaponData.OnEquipAction += SwitchEquipImageView;
+            _isSet = true;
+        }
+
         //武器が解放済みの場合
         if (data.IsUnrocked)
         {
@@ -40,6 +60,17 @@ public class WeaponListButton : ButtonBase
 
         //武器が装備済の場合
         if (data.IsEquipped)
+        {
+            _equippedImage.enabled = true;
+        }
+        else
+        {
+            _equippedImage.enabled = false;
+        }
+    }
+    void SwitchEquipImageView(bool value)
+    {
+        if (value)
         {
             _equippedImage.enabled = true;
         }

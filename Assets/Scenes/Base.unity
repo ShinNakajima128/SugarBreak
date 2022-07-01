@@ -1590,19 +1590,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 571823886, guid: 021cd0331102ac048a4622c537e8e4ee, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 329026548, guid: 021cd0331102ac048a4622c537e8e4ee, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 789188537, guid: 021cd0331102ac048a4622c537e8e4ee, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3560965539423011752, guid: 021cd0331102ac048a4622c537e8e4ee,
         type: 3}
       propertyPath: m_Name
       value: WeaponMenuUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 3560965539423011752, guid: 021cd0331102ac048a4622c537e8e4ee,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3560965539423011753, guid: 021cd0331102ac048a4622c537e8e4ee,
         type: 3}
@@ -1659,16 +1658,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3560965540786975804, guid: 021cd0331102ac048a4622c537e8e4ee,
+    - target: {fileID: 4147725740132945044, guid: 021cd0331102ac048a4622c537e8e4ee,
         type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4852203267039847080, guid: 021cd0331102ac048a4622c537e8e4ee,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: _emptyData
+      value: 
+      objectReference: {fileID: 11400000, guid: 890a06cc7714a4746b62602ecb0fdffd,
+        type: 2}
     - target: {fileID: 7064773864004236166, guid: 021cd0331102ac048a4622c537e8e4ee,
         type: 3}
       propertyPath: _baseUI
@@ -18838,20 +18833,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1945599934}
-  m_CullTransparentMesh: 0
---- !u!1 &1961104029 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4852203267039847080, guid: 021cd0331102ac048a4622c537e8e4ee,
-    type: 3}
-  m_PrefabInstance: {fileID: 144315462}
-  m_PrefabAsset: {fileID: 0}
---- !u!222 &1961104031
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1961104029}
   m_CullTransparentMesh: 0
 --- !u!114 &1976557548 stripped
 MonoBehaviour:

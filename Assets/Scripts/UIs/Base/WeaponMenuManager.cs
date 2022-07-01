@@ -67,7 +67,6 @@ public class WeaponMenuManager : MonoBehaviour
     int _currentSugarPlumNum = 0;
     List<WeaponListButton> _weaponDataList = new List<WeaponListButton>();
     bool _isSetup = false;
-    Quaternion _originRotation;
     #endregion
 
     #region public
@@ -80,8 +79,14 @@ public class WeaponMenuManager : MonoBehaviour
     /// <summary> 非アクティブになる時実行する処理をまとめたAction </summary>
     public Action OnDeactiveAction = default;
 
-    /// <summary> 武器リスト時実行する処理をまとめたAction </summary>
+    /// <summary> 武器リストのボタンを押した時に実行する処理をまとめたAction </summary>
     public Action<WeaponData> OnWeaponButtonClickAction = default;
+
+    /// <summary> 装備ボタンを押した時に実行する処理をまとめたAction </summary>
+    public Action OnEquipButtonClickAction = default;
+
+    /// <summary> 外すボタンを押した時に実行する処理をまとめたAction </summary>
+    public Action OnRemoveButtonClickAction = default;
     #endregion
 
     #region property
@@ -159,7 +164,14 @@ public class WeaponMenuManager : MonoBehaviour
     public void Equip()
     {
         _weaponsPlacementPanel.SetActive(true);
+        OnEquipButtonClickAction?.Invoke();
     }
+
+    public void Remove()
+    {
+        OnRemoveButtonClickAction?.Invoke();
+    }
+
     /// <summary>
     /// 武器を強化する
     /// </summary>
