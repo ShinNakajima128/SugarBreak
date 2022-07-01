@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 /// <summary>
@@ -53,17 +52,27 @@ public class WeaponData : ScriptableObject
     [SerializeField]
     GameObject m_WeaponObject = default;
 
+    public Action<bool> OnEquipAction = default;
+
     public string WeaponName => m_weaponName;
 
     public string Description => m_description;
 
-    public WeaponTypes WeaponType => m_weaponType; 
+    public WeaponTypes WeaponType => m_weaponType;
     public Sprite ActiveWeaponImage => m_activeWeaponImage;
 
     public Sprite DeactiveWeaponImage => m_deactiveWeaponImage;
     public Sprite LockWeaponImage => m_lockWeaponImage;
     public GameObject WeaponObject => m_WeaponObject;
-    
-    public bool IsEquipped { get => m_isEquiped; set => m_isEquiped = value; } 
+
+    public bool IsEquipped
+    {
+        get => m_isEquiped;
+        set
+        {
+            m_isEquiped = value;
+            OnEquipAction?.Invoke(m_isEquiped); //装備しているか否かに応じた処理をセット時に実行
+        }
+    }
     public bool IsUnrocked { get => m_isUnlocked; set => m_isUnlocked = value; }
 }
