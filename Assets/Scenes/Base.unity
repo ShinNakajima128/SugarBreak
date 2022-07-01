@@ -1599,6 +1599,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WeaponMenuUI
       objectReference: {fileID: 0}
+    - target: {fileID: 3560965539423011752, guid: 021cd0331102ac048a4622c537e8e4ee,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3560965539423011753, guid: 021cd0331102ac048a4622c537e8e4ee,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1653,6 +1658,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560965540267617504, guid: 021cd0331102ac048a4622c537e8e4ee,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560965540267617507, guid: 021cd0331102ac048a4622c537e8e4ee,
+        type: 3}
+      propertyPath: orthographic size
+      value: 1.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560965540267617507, guid: 021cd0331102ac048a4622c537e8e4ee,
+        type: 3}
+      propertyPath: near clip plane
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560965541077057702, guid: 021cd0331102ac048a4622c537e8e4ee,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560965541077057702, guid: 021cd0331102ac048a4622c537e8e4ee,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1100
       objectReference: {fileID: 0}
     - target: {fileID: 7064773864004236166, guid: 021cd0331102ac048a4622c537e8e4ee,
         type: 3}
