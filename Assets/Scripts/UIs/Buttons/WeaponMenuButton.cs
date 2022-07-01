@@ -66,10 +66,23 @@ public class WeaponMenuButton : ButtonBase
     {
         yield return null; //初アクティブ時にGetConponentの処理を待つ
 
+        
+        if (!_menuButton.interactable)
+        {
+            _menuButton.interactable = true;
+        }
+
         //装備済みの場合
         if (data.IsEquipped)
         {
             _buttonText.text = "外す";
+
+            if (data.WeaponType == WeaponTypes.MainWeapon)
+            {
+                _menuButton.interactable = false;
+                yield break;
+            }
+
             _menuButton.onClick.RemoveAllListeners();
             _menuButton.onClick.AddListener(() => 
             {

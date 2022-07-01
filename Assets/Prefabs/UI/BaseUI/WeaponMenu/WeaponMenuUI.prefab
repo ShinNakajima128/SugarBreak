@@ -1352,7 +1352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerData: {fileID: 11400000, guid: 52bd08bdf19a4d34bb14dc824323524f, type: 2}
-  _emptyData: {fileID: 0}
+  _emptyData: {fileID: 11400000, guid: 890a06cc7714a4746b62602ecb0fdffd, type: 2}
   _placementPanel: {fileID: 4852203267039847080}
   _placementButtonImages:
   - {fileID: 327322335}
@@ -1360,6 +1360,7 @@ MonoBehaviour:
   - {fileID: 942460299}
   - {fileID: 1639852888}
   _askText: {fileID: 502510917}
+  _cancelButton: {fileID: 1214495448}
 --- !u!1 &580607973
 GameObject:
   m_ObjectHideFlags: 0
@@ -1955,18 +1956,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 789188538}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7064773864004236166}
-        m_MethodName: Equip
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1516657113
 MonoBehaviour:
   m_ObjectHideFlags: 0

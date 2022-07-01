@@ -31,6 +31,10 @@ public class WeaponsPlacement : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI _askText = default;
 
+    [Tooltip("武器セットをキャンセルするボタン")]
+    [SerializeField]
+    Button _cancelButton = default;
+
     #region private
     WeaponData _currentSelectWeaponData;
     bool _isDirection = false;
@@ -104,13 +108,15 @@ public class WeaponsPlacement : MonoBehaviour
         
         //セットした武器をセット済みにしてImageを更新
         _currentSelectWeaponData.IsEquipped = true;
+        _cancelButton.interactable = false; //キャンセルボタンは一時的に使用不可にしてバグ防止
+
         _askText.text = "武器をセットしました";
         SetImage();
         OnSetCompleteAction?.Invoke(_currentSelectWeaponData);
-
         yield return new WaitForSeconds(1.0f);
 
         _isDirection = false;
+        _cancelButton.interactable = true;
         _placementPanel.SetActive(false);
         _askText.text = "セット先を選択してください"; //文章を元に戻す
     }
