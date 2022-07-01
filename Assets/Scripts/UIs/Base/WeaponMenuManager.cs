@@ -49,6 +49,10 @@ public class WeaponMenuManager : MonoBehaviour
     [SerializeField]
     WeaponMenuButton _enhanceButton = default;
 
+    [Tooltip("武器作成ボタン")]
+    [SerializeField]
+    Button _createButton = default;
+
     [Tooltip("武器配置画面")]
     [SerializeField]
     GameObject _weaponsPlacementPanel = default;
@@ -75,6 +79,9 @@ public class WeaponMenuManager : MonoBehaviour
 
     /// <summary> 非アクティブになる時実行する処理をまとめたAction </summary>
     public Action OnDeactiveAction = default;
+
+    /// <summary> 武器リスト時実行する処理をまとめたAction </summary>
+    public Action<WeaponData> OnWeaponButtonClickAction = default;
     #endregion
 
     #region property
@@ -140,6 +147,7 @@ public class WeaponMenuManager : MonoBehaviour
             {
                 ViewData(b.WeaponButtonData);
                 _equipButton.OnEquipButton(b.WeaponButtonData);
+                OnWeaponButtonClickAction?.Invoke(b.WeaponButtonData);
             });
             _weaponDataList.Add(b);
         }
@@ -178,13 +186,23 @@ public class WeaponMenuManager : MonoBehaviour
         {
             _weaponNameText.text = "？？？";
             _descriptionText.text = "まだ解放されていません";
+            _createButton.gameObject.SetActive(true);
 
+            //素材が足りていたらボタンをONにする処理を今後記述予定。現状は押せないようにしておく
+            _createButton.interactable = false;
+            
 
             if (_weaponMenuButtonPanel.activeSelf)
             {
                 _weaponMenuButtonPanel.SetActive(false);
             }
             return;
+        }
+
+        //武器作成ボタンがアクティブの場合は非表示にする
+        if (_createButton.gameObject.activeSelf)
+        {
+            _createButton.gameObject.SetActive(false);
         }
 
         _weaponNameText.text = data.WeaponName;

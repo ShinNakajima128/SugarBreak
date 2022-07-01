@@ -28,11 +28,16 @@ public class UICharacterController : MonoBehaviour
     [SerializeField]
     float _rotateAngle = 30f;
 
+    [Header("WeaponObjects")]
+    [SerializeField]
+    GameObject[] _weaponObjects = default;
+
     #region private
     Transform _characterTrans;
     Animator _animator;
     bool _init = false;
     Quaternion _originRotation;
+    Dictionary<WeaponTypes, GameObject> _weaponObjectDic = new Dictionary<WeaponTypes, GameObject>();
     #endregion
 
     void OnEnable()
@@ -58,7 +63,15 @@ public class UICharacterController : MonoBehaviour
         {
             WeaponMenuManager.Instance.OnRotateAction += CharacterRotate;
             WeaponMenuManager.Instance.OnActiveAction += ResetCharacterRotation;
+            WeaponMenuManager.Instance.OnWeaponButtonClickAction += WeaponActivation;
             _init = true;
+        }
+
+        //武器オブジェクトをDictionaryに登録
+        for (int i = 0; i < _weaponObjects.Length; i++)
+        {
+            WeaponTypes type = (WeaponTypes)(i + 1);
+            _weaponObjectDic.Add(type, _weaponObjects[i]);
         }
     }
 
@@ -85,5 +98,24 @@ public class UICharacterController : MonoBehaviour
     void ResetCharacterRotation()
     {
         transform.localRotation = _originRotation;
+    }
+
+    /// <summary>
+    /// キャラクターの武器をアクティブにする
+    /// </summary>
+    /// <param name="weapon"> 武器のデータ </param>
+    void WeaponActivation(WeaponData weapon)
+    {
+        //一度すべて非アクティブにする
+        foreach (var wo in _weaponObjects)
+        {
+            wo.SetActive(false);
+        }
+
+        //指定された武器が開放されている場合はアクティブにする
+        if (weapon.IsUnrocked)
+        {
+            _weaponObjectDic[weapon.WeaponType].SetActive(true);
+        }
     }
 }

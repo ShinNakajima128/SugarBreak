@@ -35,7 +35,7 @@ public class WeaponListButton : ButtonBase
         }
         else
         {
-            _buttonImage.sprite = _weaponData.DeactiveWeaponImage;
+            _buttonImage.sprite = _weaponData.LockWeaponImage;
         }
 
         //武器が装備済の場合
