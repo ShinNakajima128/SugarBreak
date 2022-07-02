@@ -112,6 +112,7 @@ public class WeaponsPlacement : MonoBehaviour
 
         _askText.text = "武器をセットしました";
         SetImage();
+        SaveManager.Save(DataTypes.Player);
         OnSetCompleteAction?.Invoke(_currentSelectWeaponData);
         yield return new WaitForSeconds(1.0f);
 

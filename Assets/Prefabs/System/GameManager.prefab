@@ -73,7 +73,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 780, y: 508}
+  m_AnchoredPosition: {x: 11, y: 508}
   m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6231713993398555578
@@ -244,7 +244,7 @@ MonoBehaviour:
   isGlaseSnowFieldCleared: 0
   m_stageBossData:
   - {fileID: 11400000, guid: 2f05cac5dfd73a446be2956f6264406a, type: 2}
-  m_debugMode: 0
+  m_debugMode: 1
   m_debugObject: {fileID: 50541638795743162}
 --- !u!114 &8076402509999354912
 MonoBehaviour:
@@ -439,7 +439,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 756, y: -54}
+  m_AnchoredPosition: {x: -736, y: 53}
   m_SizeDelta: {x: 372.36365, y: 410}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4982410046743290067
@@ -513,7 +513,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 921, y: 69}
+  m_AnchoredPosition: {x: -571, y: 176}
   m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6468731499418352176

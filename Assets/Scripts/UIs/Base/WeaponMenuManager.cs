@@ -153,6 +153,7 @@ public class WeaponMenuManager : MonoBehaviour
                 ViewData(b.WeaponButtonData);
                 _equipButton.OnEquipButton(b.WeaponButtonData);
                 OnWeaponButtonClickAction?.Invoke(b.WeaponButtonData);
+                //MenuCursor.CursorMove(b.CursorTarget.position);
             });
             _weaponDataList.Add(b);
         }
@@ -170,6 +171,7 @@ public class WeaponMenuManager : MonoBehaviour
     public void Remove()
     {
         OnRemoveButtonClickAction?.Invoke();
+        SaveManager.Save(DataTypes.Player);
     }
 
     /// <summary>

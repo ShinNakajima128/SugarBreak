@@ -10,8 +10,7 @@ using Cinemachine;
 public class Stage
 {
     public bool IsStageCleared = false;
-
-    public bool[] IsDungeonCleared = default;
+    //public bool[] IsDungeonCleared = default;
 }
 
 /// <summary>
@@ -99,6 +98,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
         else if (sceneName == "Base")
         {
+            SaveManager.Save(DataTypes.All);
         }
         else if (sceneName == "BakedValley")
         {

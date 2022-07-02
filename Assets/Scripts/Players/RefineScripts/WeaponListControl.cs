@@ -223,16 +223,17 @@ public class WeaponListControl : MonoBehaviour
         {
             if (PlayerPrefs.HasKey(_weaponListFileName))
             {
-                _currentEquipWeapons = JsonUtility.FromJson<WeaponList>(PlayerPrefs.GetString(_weaponListFileName));
+                //_currentEquipWeapons = JsonUtility.FromJson<WeaponList>(PlayerPrefs.GetString(_weaponListFileName));
+                _currentEquipWeapons = _data.CurrentWeaponList;
                 Debug.Log("武器リストのデータを読み込みました");
             }   
         }
         else
         {
             _currentEquipWeapons = _data.CurrentWeaponList;
-            //_currentEquipWeapons = new WeaponList(_debugWeaponDatas[0], _debugWeaponDatas[1], _debugWeaponDatas[2], _debugWeaponDatas[3]);
-            //var debugJson = JsonUtility.ToJson(_currentEquipWeapons);
-            //PlayerPrefs.SetString(_weaponListFileName, debugJson);
+            _currentEquipWeapons = new WeaponList(_debugWeaponDatas[0], _debugWeaponDatas[1], _debugWeaponDatas[2], _debugWeaponDatas[3]);
+            var debugJson = JsonUtility.ToJson(_currentEquipWeapons);
+            PlayerPrefs.SetString(_weaponListFileName, debugJson);
             Debug.Log("武器リストのデータを作成しました");
         }
         Setup();

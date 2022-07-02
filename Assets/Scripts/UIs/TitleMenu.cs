@@ -169,6 +169,9 @@ public class TitleMenu : MonoBehaviour
     public void PlayGame()
     {
         SoundManager.Instance.PlaySeByName("Load");
+        
+        SaveManager.Load();
+        
         if (!GameManager.Instance.GameStarted)
         {
             ///あらすじのSceneができたらここの引数を書き換える
