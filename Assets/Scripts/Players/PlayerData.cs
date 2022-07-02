@@ -17,7 +17,10 @@ public class PlayerData : ScriptableObject
     [SerializeField]
     WeaponList _weaponList = default;
 
-#region property
+    [SerializeField]
+    Stage[] _stages = default;
+
+    #region property
     public int MaxHp
     {
         get { return _maxHp; }
@@ -75,11 +78,20 @@ public class PlayerData : ScriptableObject
     /// 現在装備している武器リスト
     /// </summary>
     public WeaponList CurrentWeaponList { get => _weaponList; set => _weaponList = value; }
+
+    public Stage[] StageData { get => _stages; set => _stages = value; }
 #endregion
 
     public void SetStartHp(int hp)
     {
         _maxHp = hp;
         _hp = hp;
+    }
+    public void SetData(GameData data)
+    {
+        _maxHp = data.PlayerData.MaxHp;
+        _totalKonpeitou = data.PlayerData.TotalKonpeitou;
+        _weaponList = data.PlayerData.CurrentWeaponList;
+        _stages = data.PlayerData.Stages;
     }
 }

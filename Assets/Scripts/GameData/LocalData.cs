@@ -15,29 +15,40 @@ namespace SugarBreak
         {
             StreamWriter writer;
             var json = JsonUtility.ToJson(data);
-            writer = new StreamWriter(Application.persistentDataPath + "/" + file, false);
-            writer.Write(json);
-            writer.Flush();
-            writer.Close();
+            using (writer = new StreamWriter(Application.dataPath + "/" + file, false))
+            {
+                writer.Write(json);
+                writer.Flush();
+                writer.Close();
+            }   
         }
 
         public static T Load<T>(string file)
         {
             string datastr;
             StreamReader reader;
-
-            reader = new StreamReader(Application.persistentDataPath + "/" + file);
-            datastr = reader.ReadToEnd();
-            reader.Close();
-
-            var gameData = JsonUtility.FromJson<T>(datastr); // ロードしたデータで上書き
-
-            if (gameData != null)
+            try
             {
-                Debug.Log(gameData + "のデータをロードしました");
-                return gameData;
+                using (reader = new StreamReader(Application.dataPath + "/" + file))
+                {
+                    datastr = reader.ReadToEnd();
+                    reader.Close();
+                }
+
+                var gameData = JsonUtility.FromJson<T>(datastr); // ロードしたデータで上書き
+
+                if (gameData != null)
+                {
+                    Debug.Log(gameData + "のデータをロードしました");
+
+                    return gameData;
+                }
+                else
+                {
+                    return default;
+                }
             }
-            else
+            catch
             {
                 return default;
             }
