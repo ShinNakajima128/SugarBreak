@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -84,7 +85,7 @@ public class TitleMenu : MonoBehaviour
     bool isStarted = false;
     bool isChanged = false;
 
-    void Start()
+    IEnumerator Start()
     {
         VolumeSetup();
         isStarted = false;
@@ -92,6 +93,10 @@ public class TitleMenu : MonoBehaviour
         m_loadingAnim.SetActive(false);
         m_mainMenuBG.SetActive(false);
         m_confirmPanel.SetActive(false);
+
+        SaveManager.Load();
+        yield return new WaitForSeconds(0.5f);
+        SoundManager.Instance.SetVolume(DataManager.Instance.GetOptionData.SoundOptionData);
     }
 
     void Update()
@@ -169,14 +174,13 @@ public class TitleMenu : MonoBehaviour
     public void PlayGame()
     {
         SoundManager.Instance.PlaySeByName("Load");
-        
-        SaveManager.Load();
-        
-        if (!GameManager.Instance.GameStarted)
+                
+        //初プレイ時の場合
+        if (!DataManager.Instance.GetPlayerData.IsFirstPlay)
         {
             ///あらすじのSceneができたらここの引数を書き換える
             LoadSceneManager.Instance.AnyLoadScene("Base");
-            GameManager.Instance.GameStarted = true;
+            DataManager.Instance.GetPlayerData.IsFirstPlay = true;
         }
         else
         {
@@ -256,7 +260,7 @@ public class TitleMenu : MonoBehaviour
 
     void TextChange()
     {
-        if (!GameManager.Instance.GameStarted)
+        if (!DataManager.Instance.GetPlayerData.IsFirstPlay)
         {
             m_playButtonText.text = "はじめから";
         }

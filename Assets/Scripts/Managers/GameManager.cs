@@ -109,8 +109,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
         EventManager.ListenEvents(Events.CameraShake, CameraShake);
         CurrentBossData = m_stageBossData[0];
-
-        //m_debugObject.SetActive(m_debugMode ? true : false);
     }
 
     void Update()

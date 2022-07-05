@@ -20,6 +20,9 @@ public class PlayerData : ScriptableObject
     [SerializeField]
     Stage[] _stages = default;
 
+    [SerializeField]
+    bool _isFirstPlay = false;
+
     #region property
     public int MaxHp
     {
@@ -80,6 +83,7 @@ public class PlayerData : ScriptableObject
     public WeaponList CurrentWeaponList { get => _weaponList; set => _weaponList = value; }
 
     public Stage[] StageData { get => _stages; set => _stages = value; }
+    public bool IsFirstPlay { get => _isFirstPlay; set => _isFirstPlay = value; }
 #endregion
 
     public void SetStartHp(int hp)

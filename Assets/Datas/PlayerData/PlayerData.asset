@@ -26,3 +26,4 @@ MonoBehaviour:
   - IsStageCleared: 0
   - IsStageCleared: 0
   - IsStageCleared: 0
+  _isFirstPlay: 0

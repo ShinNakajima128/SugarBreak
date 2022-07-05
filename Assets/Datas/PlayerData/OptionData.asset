@@ -12,3 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dfba1c5ff4bf9a459dd02ebf1c7cfca, type: 3}
   m_Name: OptionData
   m_EditorClassIdentifier: 
+  soundOption:
+    MasterVolume: 1
+    BgmVolume: 0.3
+    SeVolume: 1
+    VoiceVolume: 1
+    IsMasterMute: 0
+    IsBgmMute: 0
+    IsSeMute: 0
+    IsVoiceMute: 0

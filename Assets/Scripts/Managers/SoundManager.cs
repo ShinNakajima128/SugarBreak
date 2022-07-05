@@ -110,8 +110,6 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         {
             PlayBgmByName("BakeleValley2");
         }
-
-        currentVol = m_bgmAudioSource.volume;
     }
 
     /// <summary>
@@ -133,6 +131,20 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
                 SwitchBGM("Base");
                 break;
         }
+        currentVol = m_bgmAudioSource.volume;
+    }
+
+    /// <summary>
+    /// 各音量をセットする
+    /// </summary>
+    /// <param name="data"> サウンドデータ </param>
+    public void SetVolume(SoundOption data)
+    {
+        m_masterVolume = data.MasterVolume;
+        m_bgmVolume = data.BgmVolume;
+        m_seVolume = data.SeVolume;
+        m_voiceVolume = data.VoiceVolume;
+        currentVol = m_bgmAudioSource.volume;
     }
 
     void Update()

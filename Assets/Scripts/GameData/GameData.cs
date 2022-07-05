@@ -15,10 +15,9 @@ public class GameData
         OptionData = new Option();
 
         var player = DataManager.Instance.GetPlayerData;
-        var option = DataManager.Instance.GetOptionData;
 
         PlayerData.Init(player.CurrentWeaponList, player.StageData);
-        OptionData.UpdateData(option);
+        OptionData.Init();
     }
     public void Apply()
     {
@@ -40,6 +39,7 @@ public class Player
     public int TotalKonpeitou;
     public WeaponList CurrentWeaponList; 
     public Stage[] Stages;
+    public bool IsFirstPlay;
 
     public void Init(WeaponList list, Stage[] stages)
     {
@@ -47,6 +47,7 @@ public class Player
         TotalKonpeitou = 0;
         CurrentWeaponList = list;
         Stages = stages;
+        IsFirstPlay = false;
     }
 
     /// <summary>
@@ -59,6 +60,7 @@ public class Player
         TotalKonpeitou = data.TotalKonpeitou;
         CurrentWeaponList = data.CurrentWeaponList;
         Stages = data.StageData;
+        IsFirstPlay = data.IsFirstPlay;
     }
 
     public void ApplyData(PlayerData data)
@@ -67,6 +69,7 @@ public class Player
         data.TotalKonpeitou = TotalKonpeitou;
         data.CurrentWeaponList = CurrentWeaponList;
         data.StageData = Stages;
+        data.IsFirstPlay = IsFirstPlay;
     }
 }
 
@@ -81,6 +84,9 @@ public class Option
 
     public void Init()
     {
+        Volumes = new SoundParameters();
+
+        Debug.Log("サウンドオプション初期化");
         Volumes.MasterVolume = 1.0f;
         Volumes.BgmVolume = 0.3f;
         Volumes.SeVolume = 1.0f;
@@ -92,7 +98,7 @@ public class Option
     }
 
     /// <summary>
-    /// データを更新する
+    /// セーブデータを更新する
     /// </summary>
     /// <param name="data"> 新しいデータ </param>
     public void UpdateData(OptionData data)
@@ -107,6 +113,10 @@ public class Option
         Volumes.IsVoiceMute = data.SoundOptionData.IsVoiceMute;
     }
 
+    /// <summary>
+    /// セーブデータをゲーム中に扱うデータに反映させる
+    /// </summary>
+    /// <param name="data"> セーブデータ </param>
     public void ApplyData(OptionData data)
     {
         data.SoundOptionData.MasterVolume = Volumes.MasterVolume;
@@ -131,6 +141,7 @@ public struct GraphicParameters
 /// <summary>
 /// オプションのサウンドの各パラメーター
 /// </summary>
+[Serializable]
 public struct SoundParameters
 {
     public float MasterVolume;

@@ -29,16 +29,17 @@ public class SaveManager
         {
             Instance.Data = new GameData();
             Instance.Data.Initialize();
-            await Instance.WaitProcess();
+            Instance.Data.Apply();
             Save(DataTypes.All);
             DataManager.Instance.LoadData(Instance.Data);
+            Debug.Log(JsonUtility.ToJson(Instance.Data.OptionData));
         }
         else
         {
             Instance.Data.Apply();
-            Debug.Log(JsonUtility.ToJson(Instance.Data));
             await Instance.WaitProcess();
             Save(DataTypes.All);
+            Debug.Log(JsonUtility.ToJson(Instance.Data.OptionData));
         }
     }
 
@@ -81,7 +82,6 @@ public class SaveManager
     }
     async UniTask WaitProcess()
     {
-        await UniTask.Delay(500);
-        
+        await UniTask.Delay(100);
     }
 }
