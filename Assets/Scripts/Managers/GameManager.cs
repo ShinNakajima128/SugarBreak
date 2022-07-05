@@ -151,6 +151,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 {
                     GameEnd = null;
                 }
+                SaveManager.Save(DataTypes.All);
                 break;
         }
         EventManager.ListenEvents(Events.CameraShake, CameraShake);

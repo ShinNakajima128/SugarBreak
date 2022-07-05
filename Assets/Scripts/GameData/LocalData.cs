@@ -20,7 +20,7 @@ namespace SugarBreak
                 writer.Write(json);
                 writer.Flush();
                 writer.Close();
-            }   
+            }
         }
 
         public static T Load<T>(string file)
@@ -50,6 +50,9 @@ namespace SugarBreak
             }
             catch
             {
+                Debug.Log("データを取得できませんでした。フォルダを作成します");
+                string folderPath = Path.Combine(Application.dataPath, @"SaveData");
+                Directory.CreateDirectory(folderPath);
                 return default;
             }
         }
