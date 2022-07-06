@@ -14,6 +14,23 @@ public class Stage
 }
 
 /// <summary>
+/// ステージの種類
+/// </summary>
+public enum StageTypes
+{
+    BakeleValley,
+    RaindyClouds,
+    DesertResort,
+    GlaseSnowField,
+}
+
+public enum ClearTypes
+{
+    Stage,
+    Dungion
+}
+
+/// <summary>
 /// ゲーム全体を管理するクラス
 /// </summary>
 public class GameManager : SingletonMonoBehaviour<GameManager>

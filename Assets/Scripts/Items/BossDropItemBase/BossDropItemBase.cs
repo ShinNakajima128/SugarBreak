@@ -7,6 +7,15 @@ using UnityEngine;
 /// </summary>
 public class BossDropItemBase : MonoBehaviour
 {
+    [Tooltip("ステージの種類")]
+    [SerializeField]
+    protected StageTypes _stageType;
+
+    [Tooltip("クリアした種類")]
+    [SerializeField]
+    protected ClearTypes _clearType;
+
+    [Tooltip("回転の値")]
     [SerializeField]
     protected Vector3 m_rotateValue = new Vector3(0, 0.01f, 0);
 
@@ -32,6 +41,7 @@ public class BossDropItemBase : MonoBehaviour
             GameManager.Instance.OnGameEnd();
             GameManager.Instance.IsBakeleValleyCleared = true;
             GameManager.Instance.IsStageUpdated = true;
+            DataManager.Instance.UpdateStageData(_stageType);
             Destroy(gameObject);
         }
     }
