@@ -13,12 +13,16 @@ public class DataManager : MonoBehaviour
     [SerializeField]
     WeaponData[] _allWeaponDatas = default;
 
+    [SerializeField]
+    WeaponData _emptyData = default;
+
     /// <summary>
     /// プレイヤーデータを取得
     /// </summary>
     public PlayerData GetPlayerData => _playerData;
     public OptionData GetOptionData => _optionData;
     public WeaponData[] AllWeaponDatas => _allWeaponDatas;
+    public WeaponData GetEmptyData => _emptyData;
 
     public static DataManager Instance { get; private set; }
 
@@ -35,5 +39,10 @@ public class DataManager : MonoBehaviour
     {
         _playerData.SetData(data);
         _optionData.SoundOptionData.SetData(data);
+    }
+
+    public void UpdateStageData(StageTypes type)
+    {
+        _playerData.SetData(type);
     }
 }

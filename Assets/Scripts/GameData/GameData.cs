@@ -9,12 +9,16 @@ public class GameData
 {
     public Player PlayerData;
     public Option OptionData;
+    public AllWeapon AllWeaponData;
+
     public void Initialize()
     {
         PlayerData = new Player();
         OptionData = new Option();
+        AllWeaponData = new AllWeapon();
 
         var player = DataManager.Instance.GetPlayerData;
+        var weapons = DataManager.Instance.AllWeaponDatas;
 
         PlayerData.Init(player.CurrentWeaponList, player.StageData);
         OptionData.Init();
@@ -127,6 +131,20 @@ public class Option
         data.SoundOptionData.IsBgmMute = Volumes.IsBgmMute;
         data.SoundOptionData.IsSeMute = Volumes.IsSeMute;
         data.SoundOptionData.IsVoiceMute = Volumes.IsVoiceMute;
+    }
+}
+
+/// <summary>
+/// 
+/// </summary>
+[Serializable]
+public class AllWeapon
+{
+    public WeaponData[] WeaponsData;
+
+    public void Init()
+    {
+        
     }
 }
 

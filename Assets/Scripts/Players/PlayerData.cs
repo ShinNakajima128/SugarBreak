@@ -98,4 +98,24 @@ public class PlayerData : ScriptableObject
         _weaponList = data.PlayerData.CurrentWeaponList;
         _stages = data.PlayerData.Stages;
     }
+    public void SetData(StageTypes type)
+    {
+        switch (type)
+        {
+            case StageTypes.BakeleValley:
+                _stages[0].IsStageCleared = true;
+                break;
+            case StageTypes.RaindyClouds:
+                _stages[1].IsStageCleared = true;
+                break;
+            case StageTypes.DesertResort:
+                _stages[2].IsStageCleared = true;
+                break;
+            case StageTypes.GlaseSnowField:
+                _stages[3].IsStageCleared = true;
+                break;
+            default:
+                break;
+        }
+    }
 }
