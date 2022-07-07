@@ -17,6 +17,8 @@ MonoBehaviour:
   m_weaponType: 2
   m_isEquiped: 0
   m_isUnlocked: 0
+  m_isGetWeaponmaterial: 1
+  m_requireCreateKonpeitoNum: 10
   m_activeWeaponImage: {fileID: 21300000, guid: cf6209def3565b142a868dc544905e7c,
     type: 3}
   m_deactiveWeaponImage: {fileID: 21300000, guid: 881a47089aae36648bb7caa55888d855,

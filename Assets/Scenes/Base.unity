@@ -1594,6 +1594,10 @@ PrefabInstance:
       propertyPath: m_Colors.m_DisabledColor.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1276747262, guid: 021cd0331102ac048a4622c537e8e4ee, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Create
+      objectReference: {fileID: 0}
     - target: {fileID: 3560965539423011752, guid: 021cd0331102ac048a4622c537e8e4ee,
         type: 3}
       propertyPath: m_Name

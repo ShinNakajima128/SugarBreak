@@ -37,6 +37,14 @@ public class WeaponData : ScriptableObject
     [SerializeField]
     bool m_isUnlocked = false;
 
+    [Header("武器のベース素材を獲得しているか")]
+    [SerializeField]
+    bool m_isGetWeaponmaterial = false;
+
+    [Header("作成に必要な金平糖の数")]
+    [SerializeField]
+    int m_requireCreateKonpeitoNum = 0;
+
     [Header("使用している時の画像")]
     [SerializeField]
     Sprite m_activeWeaponImage = default;
@@ -75,4 +83,21 @@ public class WeaponData : ScriptableObject
         }
     }
     public bool IsUnrocked { get => m_isUnlocked; set => m_isUnlocked = value; }
+    
+    /// <summary>
+    /// 武器のベース素材を獲得しているか確認する
+    /// </summary>
+    public bool IsGetWeaponMaterial { get => m_isGetWeaponmaterial; set => m_isGetWeaponmaterial = value; }
+    public int GetRequireCreateKonpeitoNum => m_requireCreateKonpeitoNum;
+
+    /// <summary>
+    /// 作成可能かどうかを確認する
+    /// </summary>
+    public bool IsCreating
+    {
+        get
+        {
+            return m_requireCreateKonpeitoNum <= DataManager.Instance.GetPlayerData.TotalKonpeitou;
+        }
+    }
 }

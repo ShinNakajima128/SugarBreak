@@ -22,14 +22,17 @@ public class GameData
 
         PlayerData.Init(player.CurrentWeaponList, player.StageData);
         OptionData.Init();
+        AllWeaponData.Init(weapons);
     }
     public void Apply()
     {
         var player = DataManager.Instance.GetPlayerData;
         var option = DataManager.Instance.GetOptionData;
+        var weapon = DataManager.Instance.AllWeaponDatas;
 
         PlayerData.ApplyData(player);
         OptionData.ApplyData(option);
+        AllWeaponData.ApplyData(weapon);
     }
 }
 
@@ -48,7 +51,7 @@ public class Player
     public void Init(WeaponList list, Stage[] stages)
     {
         MaxHp = 8;
-        TotalKonpeitou = 0;
+        TotalKonpeitou = 100;
         CurrentWeaponList = list;
         Stages = stages;
         IsFirstPlay = false;
@@ -142,9 +145,40 @@ public class AllWeapon
 {
     public WeaponData[] WeaponsData;
 
-    public void Init()
+    public void Init(WeaponData[] data)
     {
-        
+        WeaponsData = data;
+
+        //各武器の情報をリセット
+        foreach (var wd in WeaponsData)
+        {
+            wd.IsUnrocked = false;
+            wd.IsEquipped = false;
+            wd.IsGetWeaponMaterial = false;
+        }
+
+        //メイン武器のみ解放&装備状態に設定
+        WeaponsData[0].IsEquipped = true;
+        WeaponsData[0].IsUnrocked = true;
+
+        //メイン武器のみ解放&装備状態に設定
+        //WeaponsData[1].IsEquipped = true;
+        //WeaponsData[1].IsUnrocked = true;
+        //WeaponsData[1].IsGetWeaponMaterial = true;
+    }
+    /// <summary>
+    /// データを更新する
+    /// </summary>
+    /// <param name="data"> 新しいデータ </param>
+    public void UpdateData(WeaponData[] data)
+    {
+        WeaponsData = data;
+    }
+
+    public void ApplyData(WeaponData[] data)
+    {
+        data = WeaponsData;
+        Debug.Log("武器データ更新");
     }
 }
 

@@ -15,6 +15,10 @@ public class BossDropItemBase : MonoBehaviour
     [SerializeField]
     protected ClearTypes _clearType;
 
+    [Tooltip("作成できる武器")]
+    [SerializeField]
+    protected WeaponTypes _weaponType;
+
     [Tooltip("回転の値")]
     [SerializeField]
     protected Vector3 m_rotateValue = new Vector3(0, 0.01f, 0);
@@ -42,6 +46,7 @@ public class BossDropItemBase : MonoBehaviour
             GameManager.Instance.IsBakeleValleyCleared = true;
             GameManager.Instance.IsStageUpdated = true;
             DataManager.Instance.UpdateStageData(_stageType);
+            DataManager.Instance.UnlockWeapon(_weaponType);
             Destroy(gameObject);
         }
     }

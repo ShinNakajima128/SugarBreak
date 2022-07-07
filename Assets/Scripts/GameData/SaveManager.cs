@@ -11,6 +11,7 @@ public enum DataTypes
     All,
     Player,
     Option,
+    Weapon,
 }
 
 public class SaveManager
@@ -69,6 +70,8 @@ public class SaveManager
                 Instance.Data.PlayerData.UpdateData(p);
                 var o = DataManager.Instance.GetOptionData;
                 Instance.Data.OptionData.UpdateData(o);
+                var w = DataManager.Instance.AllWeaponDatas;
+                Instance.Data.AllWeaponData.UpdateData(w);
                 break;
             case DataTypes.Player:
                 var playerData = DataManager.Instance.GetPlayerData;
@@ -77,6 +80,10 @@ public class SaveManager
             case DataTypes.Option:
                 var optionData = DataManager.Instance.GetOptionData;
                 Instance.Data.OptionData.UpdateData(optionData);
+                break;
+            case DataTypes.Weapon:
+                var weaponsData = DataManager.Instance.AllWeaponDatas;
+                Instance.Data.AllWeaponData.UpdateData(weaponsData);
                 break;
         }
     }

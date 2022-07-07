@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 using SugarBreak;
 
 /// <summary>
@@ -64,6 +65,7 @@ public class WeaponMenuManager : MonoBehaviour
 
     #region private
     /// <summary> 現在の金平糖の数 </summary>
+    WeaponData _currentSelectWeaponData;
     int _currentSugarPlumNum = 0;
     List<WeaponListButton> _weaponDataList = new List<WeaponListButton>();
     bool _isSetup = false;
@@ -72,7 +74,7 @@ public class WeaponMenuManager : MonoBehaviour
     #region public
     /// <summary> モデルの回転処理をまとめたAction </summary>
     public Action<RotateType> OnRotateAction = default;
-    
+
     /// <summary> アクティブ時に実行する処理をまとめたAction </summary>
     public Action OnActiveAction = default;
 
@@ -139,20 +141,21 @@ public class WeaponMenuManager : MonoBehaviour
     IEnumerator ListSetup()
     {
         var weaponLists = DataManager.Instance.AllWeaponDatas;
-        
+
         for (int i = 0; i < weaponLists.Length; i++)
         {
             var b = Instantiate(_weaponListButtonPrefab, _weaponListButtonParent);
-            
+
             yield return null;
 
             b.SetData(weaponLists[i]);
 
-            b.Click += (() => 
+            b.Click += (() =>
             {
                 ViewData(b.WeaponButtonData);
                 _equipButton.OnEquipButton(b.WeaponButtonData);
                 OnWeaponButtonClickAction?.Invoke(b.WeaponButtonData);
+                _currentSelectWeaponData = b.WeaponButtonData;
                 //MenuCursor.CursorMove(b.CursorTarget.position);
             });
             _weaponDataList.Add(b);
@@ -172,6 +175,28 @@ public class WeaponMenuManager : MonoBehaviour
     {
         OnRemoveButtonClickAction?.Invoke();
         SaveManager.Save(DataTypes.Player);
+        SaveManager.Save(DataTypes.Weapon);
+    }
+
+    public void Create()
+    {
+        _currentSelectWeaponData.IsUnrocked = true;
+
+        foreach (var w in _weaponDataList)
+        {
+            //現在選択している武器データと開放するデータが同じ場合
+            if (w.WeaponButtonData.WeaponType == _currentSelectWeaponData.WeaponType)
+            {
+                WeaponCreate(w.WeaponButtonData.GetRequireCreateKonpeitoNum, () => 
+                {
+                    w.SetData(_currentSelectWeaponData);
+                    ViewData(w.WeaponButtonData);
+                    OnWeaponButtonClickAction?.Invoke(w.WeaponButtonData);
+                    _equipButton.OnEquipButton(w.WeaponButtonData);
+                });
+                return;
+            }
+        }
     }
 
     /// <summary>
@@ -202,9 +227,15 @@ public class WeaponMenuManager : MonoBehaviour
             _descriptionText.text = "まだ解放されていません";
             _createButton.gameObject.SetActive(true);
 
-            //素材が足りていたらボタンをONにする処理を今後記述予定。現状は押せないようにしておく
-            _createButton.interactable = false;
-            
+            //武器素材を獲得している且つ、素材が足りていたらボタンをONにする
+            if (data.IsCreating && data.IsGetWeaponMaterial)
+            {
+                _createButton.interactable = true;
+            }
+            else
+            {
+                _createButton.interactable = false;
+            }
 
             if (_weaponMenuButtonPanel.activeSelf)
             {
@@ -231,5 +262,29 @@ public class WeaponMenuManager : MonoBehaviour
         {
 
         }
+    }
+
+    void UpdateWeaponButton()
+    {
+
+    }
+
+    void WeaponCreate(int consumeNum, Action action = null)
+    {
+        int resultNum = _currentSugarPlumNum - consumeNum;
+
+        DOTween.To(() => _currentSugarPlumNum,
+            (n) => _currentSugarPlumNum = n,
+            resultNum,
+            1.0f)
+            .OnUpdate(() => 
+            {
+                _sugarPlumText.text = _currentSugarPlumNum.ToString();
+            })
+            .OnComplete(() => 
+            {
+                _data.TotalKonpeitou = _currentSugarPlumNum;
+                action?.Invoke();
+            });
     }
 }

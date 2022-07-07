@@ -45,4 +45,15 @@ public class DataManager : MonoBehaviour
     {
         _playerData.SetData(type);
     }
+
+    public void UnlockWeapon(WeaponTypes type)
+    {
+        foreach (var w in _allWeaponDatas)
+        {
+            if (w.WeaponType == type)
+            {
+                w.IsGetWeaponMaterial = true;
+            }
+        }
+    }
 }

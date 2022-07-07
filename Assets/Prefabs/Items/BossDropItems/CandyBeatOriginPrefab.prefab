@@ -45,6 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b73563589d733c47831133c951d4e4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _stageType: 0
+  _clearType: 0
+  _weaponType: 2
   m_rotateValue: {x: 0, y: 2, z: 0}
 --- !u!135 &256530458341218052
 SphereCollider:
