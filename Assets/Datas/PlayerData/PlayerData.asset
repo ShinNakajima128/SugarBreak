@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHp: 8
   _hp: 8
-  _totalKonpeitou: 0
+  _totalKonpeitou: 90
   _weaponList:
     Weapon1: {fileID: 11400000, guid: 890a06cc7714a4746b62602ecb0fdffd, type: 2}
     Weapon2: {fileID: 11400000, guid: 890a06cc7714a4746b62602ecb0fdffd, type: 2}
     Weapon3: {fileID: 11400000, guid: 890a06cc7714a4746b62602ecb0fdffd, type: 2}
     MainWeapon: {fileID: 11400000, guid: 663822aa8425e134087d101ef57c97be, type: 2}
   _stages:
+  - IsStageCleared: 1
   - IsStageCleared: 0
   - IsStageCleared: 0
   - IsStageCleared: 0
   - IsStageCleared: 0
-  - IsStageCleared: 0
-  _isFirstPlay: 0
+  _isFirstPlay: 1
