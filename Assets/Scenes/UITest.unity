@@ -448,6 +448,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WeaponMenuUI
       objectReference: {fileID: 0}
+    - target: {fileID: 3560965539423011752, guid: 021cd0331102ac048a4622c537e8e4ee,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3560965539423011753, guid: 021cd0331102ac048a4622c537e8e4ee,
         type: 3}
       propertyPath: m_LocalPosition.x
