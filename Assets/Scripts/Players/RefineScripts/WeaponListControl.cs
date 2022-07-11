@@ -221,12 +221,8 @@ public class WeaponListControl : MonoBehaviour
 
         if (!_isDebug)
         {
-            if (PlayerPrefs.HasKey(_weaponListFileName))
-            {
-                //_currentEquipWeapons = JsonUtility.FromJson<WeaponList>(PlayerPrefs.GetString(_weaponListFileName));
-                _currentEquipWeapons = _data.CurrentWeaponList;
-                Debug.Log("武器リストのデータを読み込みました");
-            }   
+            _currentEquipWeapons = _data.CurrentWeaponList;
+            Debug.Log("武器リストのデータを読み込みました");
         }
         else
         {
