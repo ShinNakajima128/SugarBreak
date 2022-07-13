@@ -51,7 +51,7 @@ public class Player
     public void Init(WeaponList list, Stage[] stages)
     {
         MaxHp = 8;
-        TotalKonpeitou = 100;
+        TotalKonpeitou = 0;
         CurrentWeaponList = list;
         Stages = stages;
         IsFirstPlay = false;
@@ -160,11 +160,6 @@ public class AllWeapon
         //メイン武器のみ解放&装備状態に設定
         WeaponsData[0].IsEquipped = true;
         WeaponsData[0].IsUnrocked = true;
-
-        //メイン武器のみ解放&装備状態に設定
-        //WeaponsData[1].IsEquipped = true;
-        //WeaponsData[1].IsUnrocked = true;
-        //WeaponsData[1].IsGetWeaponMaterial = true;
     }
     /// <summary>
     /// データを更新する
