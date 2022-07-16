@@ -9,7 +9,9 @@ using Cinemachine;
 [Serializable]
 public class Stage
 {
+    public string StageName = "";
     public bool IsStageCleared = false;
+    public bool ConfirmStageUnlocked = false;
     //public bool[] IsDungeonCleared = default;
 }
 
@@ -40,18 +42,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     bool isStageUpdated = false;
 
     [SerializeField]
-    bool isBakeleValleyCleared = false;
-
-    [SerializeField]
-    bool isRaindyCloudsCleared = false;
-
-    [SerializeField]
-    bool isDesertResortCleared = false;
-
-    [SerializeField]
-    bool isGlaseSnowFieldCleared = false;
-
-    [SerializeField]
     EnemyData[] m_stageBossData = default;
 
     [Header("デバッグ用")]
@@ -69,6 +59,11 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public static Action GameEnd;
 
     /// <summary>
+    /// 現在のステージ
+    /// </summary>
+    public Stage CurrentStage { get; set; }
+
+    /// <summary>
     /// ゲームを開始フラグ
     /// </summary>
     public bool GameStarted { get; set; }
@@ -77,17 +72,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     /// ステージの更新がある時のフラグ
     /// </summary>
     public bool IsStageUpdated { get => isStageUpdated; set => isStageUpdated = value; }
-
-    /// <summary>
-    /// ベイクルバレーのクリアフラグ
-    /// </summary>
-    public bool IsBakeleValleyCleared { get => isBakeleValleyCleared; set => isBakeleValleyCleared = value; }
-
-    public bool IsRaindyCloudsCleared { get => isRaindyCloudsCleared; set=> isRaindyCloudsCleared = value; }
-
-    public bool IsDesertResortCleared { get => isDesertResortCleared; set => isDesertResortCleared = value; }
-
-    public bool IsGlaseSnowFieldCleared { get => isGlaseSnowFieldCleared; set => isGlaseSnowFieldCleared = value; }
 
     public bool IsPlayingMovie { get; set; } = false;
 

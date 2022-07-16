@@ -30,17 +30,17 @@ public class StageSelect : MonoBehaviour
     [SerializeField]
     GameObject[] m_updateIcons = default;
 
-    static bool IsStage2Updated = false;
-
-    static bool IsStage3Updated = false;
-
-    static bool IsStage4Updated = false;
-
-    static bool IsStage5Updated = false;
+    PlayerData m_currentPlayerData;
+    bool m_init = false;
 
     private void OnEnable()
     {
         Debug.Log("ステージ選択");
+        if (!m_init)
+        {
+            m_currentPlayerData = DataManager.Instance.GetPlayerData;
+            m_init = true;
+        }
         StageNameUpdate();
     }
 
@@ -54,51 +54,71 @@ public class StageSelect : MonoBehaviour
         }
     }
 
-    public void OnBakedValley()
+    /// <summary>
+    /// 開放状況に応じてステージUIを表示する
+    /// </summary>
+    /// <param name="type"> 表示するステージの種類 </param>
+    public void OnStage(int type)
     {
-        ChangeUIPanel(StageSelectState.BakedValley);
-    }
+        var stage = (StageSelectState)type;
 
-    public void OnRaindyClouds()
-    {
-        if (!GameManager.Instance.IsBakeleValleyCleared) return;
-
-        ChangeUIPanel(StageSelectState.RaindyClouds);
-        m_updateIcons[0].SetActive(false);
-        GameManager.Instance.IsStageUpdated = false; 
-        IsStage2Updated = true;
-    }
-
-    public void OnDesertResort()
-    {
-        if (!GameManager.Instance.IsRaindyCloudsCleared) return;
-
-        ChangeUIPanel(StageSelectState.DessertResort);
-        m_updateIcons[1].SetActive(false);
         GameManager.Instance.IsStageUpdated = false;
-        IsStage3Updated = true;
+        GameManager.Instance.CurrentStage = m_currentPlayerData.StageData[type - 1];
+        switch (stage)
+        {
+            case StageSelectState.None:
+                Debug.LogError("値が不正です。ボタンに設定している値を再確認してください");
+                break;
+            case StageSelectState.BakedValley:
+                ChangeUIPanel(StageSelectState.BakedValley);
+                break;
+            case StageSelectState.RaindyClouds:
+                if (!m_currentPlayerData.StageData[0].IsStageCleared)
+                {
+                    return;
+                }
+
+                ChangeUIPanel(StageSelectState.RaindyClouds);
+                m_updateIcons[0].SetActive(false);
+                m_currentPlayerData.StageData[1].ConfirmStageUnlocked = true;
+                break;
+            case StageSelectState.DessertResort:
+                if (!m_currentPlayerData.StageData[1].IsStageCleared)
+                {
+                    return;
+                }
+
+                ChangeUIPanel(StageSelectState.DessertResort);
+                m_updateIcons[1].SetActive(false);
+                GameManager.Instance.IsStageUpdated = false;
+                m_currentPlayerData.StageData[2].ConfirmStageUnlocked = true; 
+                break;
+            case StageSelectState.GlaseSnowField:
+                if (!m_currentPlayerData.StageData[2].IsStageCleared)
+                {
+                    return;
+                }
+                ChangeUIPanel(StageSelectState.GlaseSnowField);
+                m_updateIcons[2].SetActive(false);
+                m_currentPlayerData.StageData[3].ConfirmStageUnlocked = true;
+                break;
+            case StageSelectState.GanacheVolcano:
+                if (!m_currentPlayerData.StageData[3].IsStageCleared) 
+                {
+                    return; 
+                }
+
+                ChangeUIPanel(StageSelectState.GanacheVolcano);
+                m_updateIcons[3].SetActive(false);
+                m_currentPlayerData.StageData[4].ConfirmStageUnlocked = true;
+                break;
+        }
     }
 
-    public void OnGlaseSnowField()
-    {
-        if (!GameManager.Instance.IsDesertResortCleared) return;
-
-        ChangeUIPanel(StageSelectState.GlaseSnowField);
-        m_updateIcons[2].SetActive(false);
-        GameManager.Instance.IsStageUpdated = false;
-        IsStage4Updated = true;
-    }
-
-    public void OnGanacheVolcano()
-    {
-        if (!GameManager.Instance.IsGlaseSnowFieldCleared) return;
-
-        ChangeUIPanel(StageSelectState.GanacheVolcano);
-        m_updateIcons[3].SetActive(false);
-        GameManager.Instance.IsStageUpdated = false;
-        IsStage5Updated = true;
-    }
-
+    /// <summary>
+    /// UIの画面を変更する
+    /// </summary>
+    /// <param name="state"> 表示するステージ </param>
     void ChangeUIPanel(StageSelectState state)
     {
         m_stageSelectState = state;
@@ -150,72 +170,25 @@ public class StageSelect : MonoBehaviour
             }
         }  
     }
+
+    /// <summary>
+    /// ステージ名の表示を更新
+    /// </summary>
     void StageNameUpdate()
     {
         for (int i = 0; i < m_StageNames.Length; i++)
         {
-            if (i == 0)
+            if (m_currentPlayerData.StageData[i].IsStageCleared)
             {
-                if (GameManager.Instance.IsBakeleValleyCleared)
+                m_StageNames[i].text = m_currentPlayerData.StageData[i + 1].StageName;
+                if (!m_currentPlayerData.StageData[i + 1].ConfirmStageUnlocked)
                 {
-                    m_StageNames[i].text = "レインディ雲海";
-                    if (!IsStage2Updated)
-                    {
-                        m_updateIcons[i].SetActive(true);
-                    }
-                }
-                else
-                {
-                    m_StageNames[i].text = "？？？？？";
+                    m_updateIcons[i].SetActive(true);
                 }
             }
-
-            if (i == 1)
+            else
             {
-                if (GameManager.Instance.IsRaindyCloudsCleared)
-                {
-                    m_StageNames[i].text = "デザートリゾート";
-                    if (!IsStage3Updated)
-                    {
-                        m_updateIcons[i].SetActive(true);
-                    }
-                }
-                else
-                {
-                    m_StageNames[i].text = "？？？？？";
-                }
-            }
-
-            if (i == 2)
-            {
-                if (GameManager.Instance.IsDesertResortCleared)
-                {
-                    m_StageNames[i].text = "グラース雪原";
-                    if (!IsStage4Updated)
-                    {
-                        m_updateIcons[i].SetActive(true);
-                    }
-                }
-                else
-                {
-                    m_StageNames[i].text = "？？？？？";
-                }
-            }
-
-            if (i == 3)
-            {
-                if (GameManager.Instance.IsGlaseSnowFieldCleared)
-                {
-                    m_StageNames[i].text = "ガナッシュ火山";
-                    if (!IsStage5Updated)
-                    {
-                        m_updateIcons[i].SetActive(true);
-                    }
-                }
-                else
-                {
-                    m_StageNames[i].text = "？？？？？";
-                }
+                m_StageNames[i].text = "？？？？？";
             }
         }
     }
