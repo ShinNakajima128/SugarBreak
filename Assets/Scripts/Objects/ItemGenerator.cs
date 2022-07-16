@@ -69,7 +69,7 @@ public class ItemGenerator : MonoBehaviour
     public void GenerateChocoEgg(Transform tfm)
     {
         var egg = Instantiate(m_chocoEgg, tfm.position, tfm.rotation);
-        egg.GetComponentInChildren<ChocoEgg>().BossTypes = BossType.Dragon;
+        egg.GetComponentInChildren<ChocoEgg>().BossTypes = BossType.BetterGolem;
     }
 
     IEnumerator GenerateInterval(int num, Vector3 pos, float power)

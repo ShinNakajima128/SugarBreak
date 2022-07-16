@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum BossType
 {
-    Dragon,
+    BetterGolem,
     CottonCandy
 }
 
@@ -17,13 +17,16 @@ public class ChocoEgg : MonoBehaviour, IDamagable
     int m_maxHp = 10;
 
     [SerializeField]
-    BossType m_bossType = BossType.Dragon;
+    BossType m_bossType = BossType.BetterGolem;
 
     [SerializeField]
     BoxCollider m_talkTrigger = default;
 
     [SerializeField]
     bool isDebug = false;
+
+    [SerializeField]
+    PlayerData m_playerData = default;
 
     int m_currentHp;
     CapsuleCollider m_collider;
@@ -61,18 +64,24 @@ public class ChocoEgg : MonoBehaviour, IDamagable
         }
     }
 
+    /// <summary>
+    /// アイテムを生成する
+    /// </summary>
+    /// <param name="type"> 倒したボスの種類 </param>
     void GenerateItem(BossType type)
     {
+        var boss = GameManager.Instance.CurrentBossData;
+
         switch (type)
         {
-            case BossType.Dragon:
-                if (!GameManager.Instance.IsBakeleValleyCleared)
+            case BossType.BetterGolem:
+                if (!m_playerData.StageData[0].IsStageCleared)
                 {
                     Instantiate(m_dropItems[0], transform.position, m_dropItems[0].transform.rotation);
                 }
                 else
                 {
-                    ItemGenerator.Instance.GenerateKonpeitou(30, transform.position);
+                    ItemGenerator.Instance.GenerateKonpeitou(boss.konpeitou, transform.position);
                     GameManager.Instance.OnGameEndClearedStage();
                 }
                 break;

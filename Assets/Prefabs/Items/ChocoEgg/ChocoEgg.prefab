@@ -114,6 +114,7 @@ MonoBehaviour:
   m_bossType: 0
   m_talkTrigger: {fileID: 4990948404245195451}
   isDebug: 1
+  m_playerData: {fileID: 11400000, guid: 52bd08bdf19a4d34bb14dc824323524f, type: 2}
 --- !u!1001 &5403389026249761170
 PrefabInstance:
   m_ObjectHideFlags: 0

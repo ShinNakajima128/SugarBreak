@@ -7,22 +7,24 @@ using Cinemachine;
 public class TalkTrigger : MonoBehaviour
 {
     [Header("フローチャート")]
-    [SerializeField] 
+    [SerializeField]
     Flowchart m_flowchart = default;
 
     [Header("呼び出すフローチャートのキーワード")]
-    [SerializeField] 
+    [SerializeField]
     string m_TalkChart = default;
 
     [Header("注目する時用のカメラ")]
-    [SerializeField] 
+    [SerializeField]
     CinemachineFreeLook freeLook = default;
 
     /// <summary> 表示のフラグ </summary>
-    bool isActivated = false;
+    bool _isActivated = false;
 
     [SerializeField]
-    bool ChocoEgg = false;
+    bool _chocoEgg = false;
+
+    PlayerData _playerData;
 
     private void Awake()
     {
@@ -30,22 +32,27 @@ public class TalkTrigger : MonoBehaviour
         {
             m_flowchart = GameObject.FindGameObjectWithTag("FlowChart").GetComponent<Flowchart>();
         }
+        _playerData = DataManager.Instance.GetPlayerData;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (GameManager.Instance.IsBakeleValleyCleared) return;
+        //現在のステージをクリアしていたらチュートリアルを表示しない
+        if (GameManager.Instance.CurrentStage.IsStageCleared) 
+        { 
+            return; 
+        }
 
         ///プレイヤーが来たらフローチャートを再生する
-        if (other.gameObject.CompareTag("Player") && !isActivated)
+        if (other.gameObject.CompareTag("Player") && !_isActivated)
         {
-            if (ChocoEgg)
+            if (_chocoEgg)
             {
                 ActiveCamera();
                 StartCoroutine(FinishChart());
             }
             m_flowchart.SendFungusMessage(m_TalkChart);
-            isActivated = true;
+            _isActivated = true;
         }
     }
 
