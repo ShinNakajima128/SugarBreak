@@ -21,9 +21,19 @@ MonoBehaviour:
     Weapon3: {fileID: 11400000, guid: 890a06cc7714a4746b62602ecb0fdffd, type: 2}
     MainWeapon: {fileID: 11400000, guid: 663822aa8425e134087d101ef57c97be, type: 2}
   _stages:
-  - IsStageCleared: 1
-  - IsStageCleared: 0
-  - IsStageCleared: 0
-  - IsStageCleared: 0
-  - IsStageCleared: 0
+  - StageName: "\u30D9\u30A4\u30AF\u30EB\u30D0\u30EC\u30FC"
+    IsStageCleared: 0
+    ConfirmStageUnlocked: 0
+  - StageName: "\u30EC\u30A4\u30F3\u30C7\u30A3\u96F2\u6D77"
+    IsStageCleared: 0
+    ConfirmStageUnlocked: 0
+  - StageName: "\u30C7\u30B6\u30FC\u30C8\u30EA\u30BE\u30FC\u30C8"
+    IsStageCleared: 0
+    ConfirmStageUnlocked: 0
+  - StageName: "\u30B0\u30E9\u30FC\u30B9\u96EA\u539F"
+    IsStageCleared: 0
+    ConfirmStageUnlocked: 0
+  - StageName: "\u30AC\u30CA\u30C3\u30B7\u30E5\u706B\u5C71"
+    IsStageCleared: 0
+    ConfirmStageUnlocked: 0
   _isFirstPlay: 0
