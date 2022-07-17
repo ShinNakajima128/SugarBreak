@@ -42,13 +42,14 @@ public enum BGMType
 }
 public enum SEType
 {
-
     /// <summary> UI:選択音 </summary>
     UI_Select,
     /// <summary> UI:キャンセル音 </summary>
     UI_Cancel,
     /// <summary> UI:ロード音 </summary>
     UI_Load,
+    /// <summary> UI:カーソル移動 </summary>
+    UI_CursolMove,
     /// <summary> UI:画面遷移音 </summary>
     UI_Transition,
     /// <summary> プレイヤー:足音 </summary>
@@ -65,6 +66,8 @@ public enum SEType
     Weapon_Change,
     /// <summary> 武器:突き </summary>
     Weapon_Thrust,
+    /// <summary> 武器:お菓子破棄 </summary>
+    Weapon_Discard,
     /// <summary> 武器:振り回し </summary>
     Weapon_Wield,
     /// <summary> 武器:叩きつけ </summary>
@@ -77,6 +80,8 @@ public enum SEType
     Weapon_Combo,
     /// <summary> 武器:コンボのフィニッシュ </summary>
     Weapon_Finish,
+    /// <summary> 敵全般:被弾 </summary>
+    Enemy_Damage,
     /// <summary> 敵全般:消滅 </summary>
     Enemy_Vanish,
     /// <summary> デコリー:移動 </summary>
@@ -85,6 +90,10 @@ public enum SEType
     Decolly_Attack,
     /// <summary> ビターゴーレム:足音 </summary>
     BetterGolem_FootStep,
+    /// <summary> ビターゴーレム:登場 </summary>
+    BetterGolem_Flap,
+    /// <summary> ビターゴーレム:吠える </summary>
+    BetterGolem_Roar,
     /// <summary> ビターゴーレム:攻撃 </summary>
     BetterGolem_Attack,
     /// <summary> ビターゴーレム:ダメージ </summary>
@@ -98,7 +107,9 @@ public enum SEType
     /// <summary> フィールドオブジェクト:壊れる音 </summary>
     FieldObject_Break,
     /// <summary> アイテム:チョコエッグを壊す </summary>
-    Item_GetChocoEgg
+    Item_GetChocoEgg,
+    /// <summary> 武器:アイテム装着 </summary>
+    Weapon_Attach
 }
 public enum VOICEType
 {
@@ -223,7 +234,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
     /// BGMを再生
     /// </summary>
     /// <param name="type"> BGMの種類 </param>
-    public static void PlayBGM(BGMType type)
+    public static void PlayBGM(BGMType type, bool loopType = true)
     {
         var bgm = GetBGM(type);
 
@@ -232,7 +243,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
             if (Instance._bgmSource.clip == null)
             {
                 Instance._bgmSource.clip = bgm.Clip;
-                Instance._bgmSource.loop = true;
+                Instance._bgmSource.loop = loopType;
                 Instance._bgmSource.volume = Instance._bgmVolume * Instance._masterVolume;
                 Instance._bgmSource.Play();
                 Debug.Log($"{bgm.BGMName}を再生");
@@ -292,10 +303,10 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
                 if (!s.isPlaying)
                 {
                     s.PlayOneShot(voice.Clip, Instance._voiceVolume * Instance._masterVolume);
-                    break;
+                    Debug.Log($"{voice.VOICEName}を再生");
+                    return;
                 }
             }
-            Debug.Log($"{voice.VOICEName}を再生");
         }
         else
         {
@@ -308,7 +319,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
     /// <summary>
     /// 再生中のBGMを停止する
     /// </summary>
-    public void StopBGM()
+    public static void StopBGM()
     {
         Instance._bgmSource.Stop();
         Instance._bgmSource.clip = null;
@@ -377,12 +388,12 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
     /// 各音量をセットする
     /// </summary>
     /// <param name="data"> サウンドデータ </param>
-    public void SetVolume(SoundOption data)
+    public static void SetVolume(SoundOption data)
     {
-        _masterVolume = data.MasterVolume;
-        _bgmVolume = data.BgmVolume;
-        _seVolume = data.SeVolume;
-        _voiceVolume = data.VoiceVolume;
+        Instance._masterVolume = data.MasterVolume;
+        Instance._bgmVolume = data.BgmVolume;
+        Instance._seVolume = data.SeVolume;
+        Instance._voiceVolume = data.VoiceVolume;
     }
 
     /// <summary>

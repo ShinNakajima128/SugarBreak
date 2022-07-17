@@ -65,17 +65,17 @@ public class DualSoda : WeaponBase, IWeapon
         switch (comboNum)
         {
             case 1:
-                SoundManager.Instance.PlaySeByName("DualSodaAttack");
-                SoundManager.Instance.PlayVoiceByName("univ1254");
+                AudioManager.PlaySE(SEType.Weapon_Combo);
+                AudioManager.PlayVOICE(VOICEType.Attack_Combo_First);
                 break;
             case 2:
-                SoundManager.Instance.PlaySeByName("DualSodaAttack");
-                SoundManager.Instance.PlayVoiceByName("univ1255");
+                AudioManager.PlaySE(SEType.Weapon_Combo);
+                AudioManager.PlayVOICE(VOICEType.Attack_Combo_Second);
                 break;
             case 3:
                 m_collider.size = new Vector3(2f, 2f, 2f);
-                SoundManager.Instance.PlaySeByName("DualSodaFinish");
-                SoundManager.Instance.PlayVoiceByName("univ1256");
+                AudioManager.PlaySE(SEType.Weapon_Finish);
+                AudioManager.PlayVOICE(VOICEType.Attack_Finish);
         break;
             default:
                 break;

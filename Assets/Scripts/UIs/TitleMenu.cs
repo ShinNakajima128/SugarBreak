@@ -87,7 +87,6 @@ public class TitleMenu : MonoBehaviour
 
     IEnumerator Start()
     {
-        VolumeSetup();
         isStarted = false;
         SwitchingMenu(0);
         m_loadingAnim.SetActive(false);
@@ -96,7 +95,7 @@ public class TitleMenu : MonoBehaviour
 
         SaveManager.Load();
         yield return new WaitForSeconds(0.5f);
-        SoundManager.Instance.SetVolume(DataManager.Instance.GetOptionData.SoundOptionData);
+        AudioManager.SetVolume(DataManager.Instance.GetOptionData.SoundOptionData);
     }
 
     void Update()
@@ -106,7 +105,7 @@ public class TitleMenu : MonoBehaviour
             if (Input.anyKeyDown)
             {
                 TextAnimation.Instance.FinishAnim();
-                SoundManager.Instance.PlaySeByName("Select");
+                AudioManager.PlaySE(SEType.UI_Select);
                 SwitchTitleState(TitleMenuState.MainMenu);
                 isStarted = true;
             }
@@ -115,14 +114,12 @@ public class TitleMenu : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                SoundManager.Instance.PlaySeByName("Cancel");
+                AudioManager.PlaySE(SEType.UI_Cancel);
                 SwitchTitleState(TitleMenuState.Begin);
                 isStarted = false;
                 StartCoroutine(Restart());
             }
         }
-
-        
     }
 
     void SwitchTitleState(TitleMenuState state)
@@ -150,17 +147,6 @@ public class TitleMenu : MonoBehaviour
         }
     }
 
-    void VolumeSetup()
-    {
-        if (m_masterVolume) m_masterVolume.value = SoundManager.Instance.GetMasterVolume;
-
-        if (m_bgmVolume) m_bgmVolume.value = SoundManager.Instance.GetBgmVolume;
-
-        if (m_seVolume) m_seVolume.value = SoundManager.Instance.GetSeVolume;
-
-        if (m_voiceVolume) m_voiceVolume.value = SoundManager.Instance.GetVoiceVolume;
-    }
-
     public void OnChangeColor(Text text)
     {
         text.color = new Color(0.99f, 1.0f, 0.71f);
@@ -173,7 +159,7 @@ public class TitleMenu : MonoBehaviour
 
     public void PlayGame()
     {
-        SoundManager.Instance.PlaySeByName("Load");
+        AudioManager.PlaySE(SEType.UI_Load);
                 
         //初プレイ時の場合
         if (!DataManager.Instance.GetPlayerData.IsFirstPlay)
@@ -193,7 +179,7 @@ public class TitleMenu : MonoBehaviour
     /// </summary>
     public void MainMenuSelect()
     {
-        SoundManager.Instance.PlaySeByName("Select");
+        AudioManager.PlaySE(SEType.UI_Select);
         SwitchTitleState(TitleMenuState.MainMenu);
     }
 
@@ -202,19 +188,19 @@ public class TitleMenu : MonoBehaviour
     /// </summary>
     public void OptionSelect()
     {
-        SoundManager.Instance.PlaySeByName("Select");
+        AudioManager.PlaySE(SEType.UI_Select);
         SwitchTitleState(TitleMenuState.Option);
     }
 
     public void AudioSelect()
     {
-        SoundManager.Instance.PlaySeByName("Select");
+        AudioManager.PlaySE(SEType.UI_Select);
         SwitchTitleState(TitleMenuState.Audio);
     }
 
     public void ExtraSelect()
     {
-        SoundManager.Instance.PlaySeByName("Select");
+        AudioManager.PlaySE(SEType.UI_Select);
         SwitchTitleState(TitleMenuState.Extra);
     }
 
@@ -240,22 +226,18 @@ public class TitleMenu : MonoBehaviour
 
     public void MasterChange()
     {
-        SoundManager.Instance.MasterVolChange(m_masterVolume.value);
     }
 
     public void BgmChange()
     {
-        SoundManager.Instance.BgmVolChange(m_bgmVolume.value);
     }
 
     public void SeChange()
     {
-        SoundManager.Instance.SeVolChange(m_seVolume.value);
     }
 
     public void VoiceChange()
     {
-        SoundManager.Instance.VoiceVolChange(m_voiceVolume.value);
     }
 
     void TextChange()

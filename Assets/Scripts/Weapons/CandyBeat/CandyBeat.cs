@@ -92,7 +92,7 @@ public class CandyBeat : WeaponBase, IWeapon
     /// <param name="rb"></param>
     public void WeaponAction3(Animator anim, Rigidbody rb)
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     /// <summary>
@@ -101,15 +101,16 @@ public class CandyBeat : WeaponBase, IWeapon
     void OnCollider()
     {
         m_collider.enabled = true;
+
         if (!m_isJumpAttacked)
         {
-            SoundManager.Instance.PlaySeByName("LightAttack");
-            SoundManager.Instance.PlayVoiceByName("univ0002");
+            AudioManager.PlaySE(SEType.Weapon_Wield);
+            AudioManager.PlayVOICE(VOICEType.Attack_Normal);
         }
         else
         {
-            SoundManager.Instance.PlaySeByName("JumpAttack");
-            SoundManager.Instance.PlayVoiceByName("univ1257");
+            AudioManager.PlaySE(SEType.Weapon_Strike);
+            AudioManager.PlayVOICE(VOICEType.Attack_Strike);
         }        
     }
 

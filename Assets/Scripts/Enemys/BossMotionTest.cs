@@ -220,7 +220,7 @@ public class BossMotionTest : MonoBehaviour, IDamagable
     public void Walk()
     {
         EventManager.OnEvent(Events.CameraShake); //カメラを揺らす
-        SoundManager.Instance.PlaySeByName("怪獣の足音");
+        AudioManager.PlaySE(SEType.BetterGolem_FootStep);
         //EffectManager.PlayEffect(EffectType.Landing, m_walkEffectPos.position);
     }
 
@@ -230,7 +230,7 @@ public class BossMotionTest : MonoBehaviour, IDamagable
     public void Attack1()
     {
         EventManager.OnEvent(Events.CameraShake); //カメラを揺らす
-        SoundManager.Instance.PlaySeByName("全力で踏み込む");
+        AudioManager.PlaySE(SEType.BetterGolem_Attack);
         if (m_attackEffectPos)
         {
             EffectManager.PlayEffect(EffectType.Landing, m_attackEffectPos.position);
@@ -268,7 +268,7 @@ public class BossMotionTest : MonoBehaviour, IDamagable
         m_currentHp -= attackPower;
         Debug.Log($"残りHP:{m_currentHp}");
         BossUIManager.Instance.DamageHandle(attackPower);
-        SoundManager.Instance.PlaySeByName("BossDamage1");
+        AudioManager.PlaySE(SEType.BetterGolem_Damage);
 
         if (m_currentHp <= 0)
         {

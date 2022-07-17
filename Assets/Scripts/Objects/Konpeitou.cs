@@ -63,7 +63,7 @@ public class Konpeitou : MonoBehaviour
         if (period <= 0f)
         {
             playerData.TotalKonpeitou++;
-            SoundManager.Instance.PlaySeByName("Gain");
+            AudioManager.PlaySE(SEType.Player_GetItem);
             this.gameObject.SetActive(false);
         }
         velocity += acceleration * Time.deltaTime;

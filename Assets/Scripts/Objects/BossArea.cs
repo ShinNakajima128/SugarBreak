@@ -42,9 +42,23 @@ public class BossArea : MonoBehaviour
                 EventManager.OnEvent(Events.BossBattleStart);
             }
             
-            SoundManager.Instance.SwitchBGM("BossBattle2");
-            isBattle = true;
-            m_bossAreaEffect?.SetActive(true);
+            
+            switch (GameManager.Instance.CurrentStage.StageType)
+            {
+                case StageTypes.BakeleValley:
+                    AudioManager.PlayBGM(BGMType.BakeleValley_Boss);
+                    isBattle = true;
+                    m_bossAreaEffect.SetActive(true);
+                    break;
+                case StageTypes.RaindyClouds:
+                    break;
+                case StageTypes.DesertResort:
+                    break;
+                case StageTypes.GlaseSnowField:
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -57,12 +71,22 @@ public class BossArea : MonoBehaviour
 
         if (other.gameObject.CompareTag("Player") && PlayerStatesManager.Instance.IsDying)
         {
-            if (SceneManager.GetActiveScene().name == "BakedValley")
+            switch (GameManager.Instance.CurrentStage.StageType)
             {
-                SoundManager.Instance.SwitchBGM("BakeleValley1");
-                isBattle = false;
-                m_bossAreaEffect?.SetActive(false);
-            }
+                case StageTypes.BakeleValley:
+                    AudioManager.PlayBGM(BGMType.BakeleValley_Main);
+                    isBattle = false;
+                    m_bossAreaEffect.SetActive(false);
+                    break;
+                case StageTypes.RaindyClouds:
+                    break;
+                case StageTypes.DesertResort:
+                    break;
+                case StageTypes.GlaseSnowField:
+                    break;
+                default:
+                    break;
+            }       
         }
     }
 }

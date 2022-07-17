@@ -71,31 +71,29 @@ public class SignaleManager : MonoBehaviour
 
     public void GrowlSe()
     {
-        SoundManager.Instance.PlaySeByName("Growl");
         var rb = m_ActingBoss.gameObject.GetComponent<Rigidbody>();
         rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezeAll;
     }
     public void SwingSe()
     {
-        SoundManager.Instance.PlaySeByName("Swing");
     }
 
     public void OnLandingEffect()
     {
         EffectManager.PlayEffect(EffectType.Landing, m_ActingBoss.transform.position);
         EventManager.OnEvent(Events.CameraShake);
-        SoundManager.Instance.PlaySeByName("DragonFrap");
+        AudioManager.PlaySE(SEType.BetterGolem_Flap);
     }
 
     public void SwitchBossBgm()
     {
-        SoundManager.Instance.SwitchBGM("BossBattle2");
+        AudioManager.PlayBGM(BGMType.BakeleValley_Boss);
     }
 
     public void OnZoomBlur()
     {
-        SoundManager.Instance.PlaySeByName("DragonRoar");
+        AudioManager.PlaySE(SEType.BetterGolem_Roar);
         coroutine = StartCoroutine(IncreaseParameter(m_bossZoomBlueValue));
     }
 
@@ -111,7 +109,7 @@ public class SignaleManager : MonoBehaviour
 
     public void PlayClearBGM()
     {
-        SoundManager.Instance.PlayBgmByName("ClearJingle");
+        AudioManager.PlayBGM(BGMType.ClearJingle);
     }
 
     public void OnClearBlur()

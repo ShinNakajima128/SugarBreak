@@ -236,7 +236,7 @@ public class Decolly : EnemyBase
     {
         currentHp -= attackPower;
         m_HpSlider.value = currentHp;
-        SoundManager.Instance.PlaySeByName("Damage3");
+        AudioManager.PlaySE(SEType.Enemy_Damage);
 
         hitRb.AddForce(blowUpDir * blowUpPower, ForceMode.Impulse);
         Debug.Log($"吹き飛ばす力：{blowUpPower}");

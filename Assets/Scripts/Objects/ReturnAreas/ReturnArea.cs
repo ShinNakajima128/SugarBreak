@@ -37,7 +37,7 @@ public class ReturnArea : MonoBehaviour
             PlayerStatesManager.Instance.OffOperation();
             LoadSceneManager.Instance.FadeIn(LoadSceneManager.Instance.Masks[3]);
             ReturnComebackPoint();
-            SoundManager.Instance.PlayVoiceByName("univ1093");
+            AudioManager.PlayVOICE(VOICEType.FallOffStage);
         }
     }
 
@@ -58,9 +58,13 @@ public class ReturnArea : MonoBehaviour
         
         if (LoadSceneManager.Instance.LoadAnim.activeSelf) LoadSceneManager.Instance.LoadAnim.SetActive(false);
         LoadSceneManager.Instance.FadeOut(LoadSceneManager.Instance.Masks[4]);
-        SoundManager.Instance.PlaySeByName("Transition2");
+        AudioManager.PlaySE(SEType.UI_Transition);
         PlayerStatesManager.Instance.OnOperation();
         CameraManager.Instance.CameraReset();
-        if (UIManager.Instance.BossUI.activeSelf) UIManager.Instance.BossUI.SetActive(false);
+        
+        if (UIManager.Instance.BossUI.activeSelf)
+        {
+            UIManager.Instance.BossUI.SetActive(false);
+        }
     }
 }

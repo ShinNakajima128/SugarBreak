@@ -55,7 +55,7 @@ public class BaseUI : MonoBehaviour
     }
     void Start()
     {
-        m_updateIcon?.SetActive(false);
+        m_updateIcon.SetActive(false);
         OnMain();
 
         if (Cursor.lockState != CursorLockMode.None)
@@ -80,7 +80,7 @@ public class BaseUI : MonoBehaviour
 
         if (!m_updateIcon.activeSelf && GameManager.Instance.IsStageUpdated)
         {
-            m_updateIcon?.SetActive(true);
+            m_updateIcon.SetActive(true);
         }
     }
 
@@ -93,7 +93,7 @@ public class BaseUI : MonoBehaviour
 
         if (m_updateIcon.activeSelf)
         {
-            m_updateIcon?.SetActive(false);
+            m_updateIcon.SetActive(false);
         }
     }
 
@@ -147,12 +147,12 @@ public class BaseUI : MonoBehaviour
 
     public void CancelSE()
     {
-        SoundManager.Instance.PlaySeByName("Cancel");
+        AudioManager.PlaySE(SEType.UI_Cancel);
     }
 
     public void PlaySE()
     {
-        SoundManager.Instance.PlaySeByName("CursolMove");
+        AudioManager.PlaySE(SEType.UI_CursolMove);
     }
     /// <summary>
     /// タイトルSceneに遷移する
@@ -232,7 +232,7 @@ public class BaseUI : MonoBehaviour
         {
             if (i == index)
             {
-                m_menuPanels[i]?.SetActive(true);
+                m_menuPanels[i].SetActive(true);
                 try
                 {
                     m_menuButtons[i].Select();
@@ -245,13 +245,13 @@ public class BaseUI : MonoBehaviour
             }
             else
             {
-                m_menuPanels[i]?.SetActive(false);
+                m_menuPanels[i].SetActive(false);
             }
         }
     }
     void OnConfirmPanel()
     {
-        m_confirmPanel?.SetActive(true);
+        m_confirmPanel.SetActive(true);
     }
 
     void SaveSelectButton()

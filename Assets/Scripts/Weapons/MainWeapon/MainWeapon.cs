@@ -140,8 +140,8 @@ public class MainWeapon : WeaponBase, IWeapon
             m_collider.size = m_originColliderSize;
         }
         
-        SoundManager.Instance.PlaySeByName("Damage2");
-        SoundManager.Instance.PlayVoiceByName("univ1257");
+        AudioManager.PlaySE(SEType.Weapon_Discard);
+        AudioManager.PlaySE(SEType.Weapon_Strike);
         EffectManager.PlayEffect(EffectType.Slam, m_attachObjectParent.position);
     }
 
@@ -151,15 +151,15 @@ public class MainWeapon : WeaponBase, IWeapon
     void OnCollider()
     {
         m_collider.enabled = true;
-        SoundManager.Instance.PlaySeByName("LightAttack");
+        AudioManager.PlaySE(SEType.Weapon_Thrust);
+
         switch (m_mainWeaponState)
         {
             case MainWeaponState.None:   
-                SoundManager.Instance.PlayVoiceByName("univ0002");
+                AudioManager.PlayVOICE(VOICEType.Attack_Normal);
                 break;
             case MainWeaponState.Attach:
-                break;
-            default:
+                //AudioManager.PlayVOICE(VOICEType.Attack_Strike);
                 break;
         }
     }
@@ -185,7 +185,7 @@ public class MainWeapon : WeaponBase, IWeapon
     /// </summary>
     void OnDerivationAttack()
     {
-        SoundManager.Instance.PlayVoiceByName("univ1256");
+        AudioManager.PlayVOICE(VOICEType.Attack_Finish);
     }
 
     void OnTriggerEnter(Collider other)
@@ -232,7 +232,7 @@ public class MainWeapon : WeaponBase, IWeapon
                         other.transform.localPosition = new Vector3(0, 0, 0);
                         other.GetComponent<Collider>().enabled = false;
                         m_mainWeaponState = MainWeaponState.Attach;     //メイン武器のステータスを強化状態に変更
-                        SoundManager.Instance.PlaySeByName("Attach");
+                        AudioManager.PlaySE(SEType.Weapon_Attach);
 
                         other.TryGetComponent<FieldSweets>(out var fs); //取り付けたお菓子のデータを取得
                         if (fs != null)
@@ -245,7 +245,6 @@ public class MainWeapon : WeaponBase, IWeapon
                             m_currentSweetsEnduranceCount = fs.EnduranceCount;
                             Debug.Log($"{other.gameObject.name}の金平糖数：{m_currentSweetsKonpeitouNum}");
                             Debug.Log($"{other.gameObject.name}の耐久力：{m_currentSweetsEnduranceCount}");
-                            //StartCoroutine(ColliderSizeChange(fs.AttackPower, fs.ColliderSize));
                         }
                         break;
                     case MainWeaponState.Attach:
@@ -275,21 +274,5 @@ public class MainWeapon : WeaponBase, IWeapon
         WeaponActionManager.ListenAction(ActionType.WeaponEffect, OnEffect);
         WeaponActionManager.ListenAction(ActionType.Action2, OnDerivationAttack);
         WeaponActionManager.ListenAction(ActionType.SpecialAction, DisCard);
-    }
-    /// <summary>
-    ///
-    /// </summary>
-    /// <param name="afterPower"></param>
-    /// <param name="afterSize"></param>
-    /// <returns></returns>
-    IEnumerator ColliderSizeChange(int afterPower, Vector3 afterSize)
-    {
-        m_collider.enabled = true;
-        yield return null;
-        
-        Debug.Log($"現在の攻撃力：{attackDamage}");
-        Debug.Log($"現在のColliderSize：{m_collider.size}");
-        yield return null;
-        m_collider.enabled = false;
     }
 }

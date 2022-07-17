@@ -10,6 +10,7 @@ using Cinemachine;
 public class Stage
 {
     public string StageName = "";
+    public StageTypes StageType = default;
     public bool IsStageCleared = false;
     public bool ConfirmStageUnlocked = false;
     //public bool[] IsDungeonCleared = default;
@@ -37,7 +38,6 @@ public enum ClearTypes
 /// </summary>
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
-
     [SerializeField]
     bool isStageUpdated = false;
 
@@ -94,22 +94,32 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
         var sceneName = SceneManager.GetActiveScene().name;
 
-        if (sceneName == "Title")
+        switch (sceneName)
         {
-        }
-        else if (sceneName == "Base")
-        {
-            SaveManager.Save(DataTypes.All);
-        }
-        else if (sceneName == "BakedValley")
-        {
-        }
-        else if (sceneName == "CookieDungeon")
-        {
-            MenuManager.Instance.WhetherOpenMenu = true;
+            case "Title":
+                if (GameEnd != null)
+                {
+                    GameEnd = null;
+                }
+                AudioManager.PlayBGM(BGMType.Title);
+                break;
+            case "Base":
+                if (GameEnd != null)
+                {
+                    GameEnd = null;
+                }
+                SaveManager.Save(DataTypes.All);
+                AudioManager.PlayBGM(BGMType.Base_Main);
+                break;
+            case "BakedValley":
+                AudioManager.PlayBGM(BGMType.BakeleValley_Main);
+                CurrentBossData = m_stageBossData[0];
+                break;
+            case "CookieDungeon":
+                MenuManager.Instance.WhetherOpenMenu = true;
+                break;
         }
         EventManager.ListenEvents(Events.CameraShake, CameraShake);
-        CurrentBossData = m_stageBossData[0];
     }
 
     void Update()
@@ -142,8 +152,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 {
                     GameEnd = null;
                 }
-                break;
-            case "BakedValley":
+                AudioManager.PlayBGM(BGMType.Title);
                 break;
             case "Base":
                 if (GameEnd != null)
@@ -151,6 +160,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                     GameEnd = null;
                 }
                 SaveManager.Save(DataTypes.All);
+                AudioManager.PlayBGM(BGMType.Base_Main);
+                break;
+            case "BakedValley":
+                AudioManager.PlayBGM(BGMType.BakeleValley_Main);
                 break;
         }
         EventManager.ListenEvents(Events.CameraShake, CameraShake);
@@ -170,7 +183,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     IEnumerator LoadBase()
     {
         Debug.Log("ロード開始");
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(2.0f);
 
         GameEnd?.Invoke();
     }

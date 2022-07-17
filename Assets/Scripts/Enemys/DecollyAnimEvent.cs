@@ -23,7 +23,7 @@ public class DecollyAnimEvent : MonoBehaviour
     
     public void AttackStart()
     {
-        SoundManager.Instance.PlaySeByName("DecollyAttack");
+        AudioManager.PlaySE(SEType.Decolly_Attack);
         m_boxCollider.enabled = true;
     }
 

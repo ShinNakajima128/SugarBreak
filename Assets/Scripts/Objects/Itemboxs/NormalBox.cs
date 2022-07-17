@@ -32,7 +32,7 @@ public class NormalBox : ItemboxBase
             EffectManager.PlayEffect(EffectType.EnemyDead, transform.position);
             if (m_playSeCount < 3)
             {
-                SoundManager.Instance.PlaySeByName("Break");
+                AudioManager.PlaySE(SEType.FieldObject_Break);
                 m_playSeCount++;
             }
             ItemGenerator.Instance.GenerateKonpeitou(m_konpeitouNum, transform.position);

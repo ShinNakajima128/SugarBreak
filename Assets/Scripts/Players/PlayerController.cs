@@ -135,6 +135,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 回避行動
+    /// </summary>
     void DodgeMove()
     {
         if (IsGrounded() && !IsAimed)
@@ -150,7 +153,7 @@ public class PlayerController : MonoBehaviour
                 {
                     StartCoroutine(Dodge());
                     m_isDodged = true;
-                    SoundManager.Instance.PlayVoiceByName("univ0005");
+                    AudioManager.PlayVOICE(VOICEType.Avoid);
                 }
             }  
         }
@@ -359,7 +362,7 @@ public class PlayerController : MonoBehaviour
             {
                 JumpMotion();
                 m_anim.SetBool("Jump", true);
-                SoundManager.Instance.PlayVoiceByName("univ0001");
+                AudioManager.PlayVOICE(VOICEType.Jump);
             }
         }
     }
@@ -398,7 +401,7 @@ public class PlayerController : MonoBehaviour
     void WeaponChangeAction()
     {
         EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
-        SoundManager.Instance.PlaySeByName("Change");
+        AudioManager.PlaySE(SEType.Weapon_Change);
     }
 
     /// <summary>

@@ -48,6 +48,7 @@ public abstract class ButtonBase : MonoBehaviour, IPointerClickHandler, IPointer
         if (_isAnimation)
         {
             transform.DOScale(new Vector3(_selectScaleValue, _selectScaleValue, 1), _animSpeed);
+            AudioManager.PlaySE(SEType.UI_CursolMove);
         }
     }
 

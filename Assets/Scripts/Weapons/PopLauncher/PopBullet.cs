@@ -18,7 +18,7 @@ public class PopBullet : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         EffectManager.PlayEffect(EffectType.Explosion, this.transform.position);
-        SoundManager.Instance.PlaySeByName("Explosion");
+        AudioManager.PlaySE(SEType.Weapon_Explosion);
         EventManager.OnEvent(Events.CameraShake); //カメラを揺らす
         Destroy(this.gameObject);
     }

@@ -13,7 +13,7 @@ public class JumpMat : MonoBehaviour
             var player = collision.gameObject.GetComponent<Rigidbody>();
             collision.gameObject.GetComponent<PlayerController>().JumpMotion();
             player.AddForce(player.transform.up * m_jumpPower, ForceMode.Impulse);
-            SoundManager.Instance.PlaySeByName("JumpMat");
+            AudioManager.PlaySE(SEType.FieldObject_JumpMat);
         }
     }
 }

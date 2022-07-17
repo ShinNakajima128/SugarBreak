@@ -96,7 +96,7 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
         }
         else
         {
-            SoundManager.Instance.PlaySeByName("Damage3");
+            AudioManager.PlayVOICE(VOICEType.Damage);
             m_anim.SetTrigger("isDamaged");
             StartCoroutine(Damage());
         }
@@ -155,9 +155,9 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
         m_anim.SetFloat("Move", 0f);
         m_rb.velocity = Vector3.zero;
         m_anim.Play("Dying");
-        SoundManager.Instance.StopBgm();
-        SoundManager.Instance.PlaySeByName("Gameover");
-        SoundManager.Instance.PlayVoiceByName("univ1077");
+        AudioManager.StopBGM();
+        AudioManager.PlayBGM(BGMType.Gameover, false);
+        AudioManager.PlayVOICE(VOICEType.Gameover);
         yield return new WaitForSeconds(2.8f);
 
         LoadSceneManager.Instance.FadeIn(LoadSceneManager.Instance.Masks[3]);　//フェード開始
@@ -169,7 +169,7 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
         LoadSceneManager.Instance.LoadAnim.SetActive(true); //ロード画面
         
         yield return new WaitForSeconds(2.0f);
-        SoundManager.Instance.PlayBgmByName("BakeleValley1");
+        AudioManager.PlayBGM(BGMType.BakeleValley_Main);
         ReturnArea.Instance.ReturnComebackPoint(); //復帰地点に戻る
         m_freeLook.m_XAxis.m_InputAxisName = "Camera X";
         m_freeLook.m_YAxis.m_InputAxisName = "Camera Y";
