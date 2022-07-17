@@ -40,6 +40,7 @@ public abstract class ButtonBase : MonoBehaviour, IPointerClickHandler, IPointer
     public void OnPointerClick(PointerEventData eventData)
     {
         Click?.Invoke();
+        AudioManager.PlaySE(SEType.UI_ButtonSelect);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

@@ -109,7 +109,9 @@ public enum SEType
     /// <summary> アイテム:チョコエッグを壊す </summary>
     Item_GetChocoEgg,
     /// <summary> 武器:アイテム装着 </summary>
-    Weapon_Attach
+    Weapon_Attach,
+    /// <summary> UI:ボタン選択 </summary>
+    UI_ButtonSelect,
 }
 public enum VOICEType
 {

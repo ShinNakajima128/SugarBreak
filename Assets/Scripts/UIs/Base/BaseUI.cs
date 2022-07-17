@@ -48,6 +48,7 @@ public class BaseUI : MonoBehaviour
     public static Action OnButtonScaleReset = default;
 
     Button _currentButton = default;
+    bool _init = false;
 
     void Awake()
     {
@@ -152,6 +153,11 @@ public class BaseUI : MonoBehaviour
 
     public void PlaySE()
     {
+        if (!_init)
+        {
+            _init = true;
+            return;
+        }
         AudioManager.PlaySE(SEType.UI_CursolMove);
     }
     /// <summary>

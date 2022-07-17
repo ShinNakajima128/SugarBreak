@@ -204,6 +204,9 @@ MonoBehaviour:
   - SEName: "\u6B66\u5668:\u30A2\u30A4\u30C6\u30E0\u88C5\u7740"
     SEType: 33
     Clip: {fileID: 8300000, guid: 6fb3694aae8a514478fa3cb76faab323, type: 3}
+  - SEName: "UI:\u30DC\u30BF\u30F3\u9078\u629E"
+    SEType: 34
+    Clip: {fileID: 8300000, guid: 08e9cf3b866e7024a81dc0577c53b04a, type: 3}
   _voiceList:
   - VOICEName: "\u901A\u5E38\u653B\u6483"
     VOICEType: 0
