@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public enum BGMType
 {
@@ -41,51 +42,116 @@ public enum BGMType
 }
 public enum SEType
 {
-    
-    /// <summary> 選択音 </summary>
+
+    /// <summary> UI:選択音 </summary>
     UI_Select,
-    /// <summary> キャンセル音 </summary>
+    /// <summary> UI:キャンセル音 </summary>
     UI_Cancel,
-    /// <summary> ロード音 </summary>
+    /// <summary> UI:ロード音 </summary>
     UI_Load,
-    /// <summary> 画面遷移音 </summary>
+    /// <summary> UI:画面遷移音 </summary>
     UI_Transition,
-    /// <summary> 足音 </summary>
+    /// <summary> プレイヤー:足音 </summary>
     Player_FootStep,
-    /// <summary> ジャンプ </summary>
+    /// <summary> プレイヤー:ジャンプ </summary>
     Player_Jump,
-    /// <summary> 回復音 </summary>
+    /// <summary> プレイヤー:ダメージ </summary>
+    Player_Damage,
+    /// <summary> プレイヤー:回復音 </summary>
     Player_Heal,
-    /// <summary> 武器変更 </summary>
+    /// <summary> プレイヤー:金平糖を獲得 </summary>
+    Player_GetItem,
+    /// <summary> 武器:武器変更 </summary>
     Weapon_Change,
-    /// <summary> 突き </summary>
+    /// <summary> 武器:突き </summary>
     Weapon_Thrust,
-    /// <summary> 振り回し </summary>
+    /// <summary> 武器:振り回し </summary>
     Weapon_Wield,
-    /// <summary> 叩きつけ </summary>
+    /// <summary> 武器:叩きつけ </summary>
     Weapon_Strike,
-    /// <summary> 射撃 </summary>
+    /// <summary> 武器:射撃 </summary>
     Weapon_Shoot,
-    /// <summary> 爆発 </summary>
+    /// <summary> 武器:爆発 </summary>
     Weapon_Explosion,
-    /// <summary> コンボ攻撃 </summary>
+    /// <summary> 武器:コンボ攻撃 </summary>
     Weapon_Combo,
-    /// <summary> コンボのフィニッシュ </summary>
+    /// <summary> 武器:コンボのフィニッシュ </summary>
     Weapon_Finish,
-    /// <summary> ジャンプマット </summary>
+    /// <summary> 敵全般:消滅 </summary>
+    Enemy_Vanish,
+    /// <summary> デコリー:移動 </summary>
+    Decolly_Move,
+    /// <summary> デコリー:攻撃 </summary>
+    Decolly_Attack,
+    /// <summary> ビターゴーレム:足音 </summary>
+    BetterGolem_FootStep,
+    /// <summary> ビターゴーレム:攻撃 </summary>
+    BetterGolem_Attack,
+    /// <summary> ビターゴーレム:ダメージ </summary>
+    BetterGolem_Damage,
+    /// <summary> ビターゴーレム:ダウン </summary>
+    BetterGolem_Down,
+    /// <summary> ビターゴーレム:爆散 </summary>
+    BetterGolem_Dead,
+    /// <summary> フィールドオブジェクト:ジャンプマット </summary>
     FieldObject_JumpMat,
-    /// <summary> 壊れる音 </summary>
-    FieldObject_Break
+    /// <summary> フィールドオブジェクト:壊れる音 </summary>
+    FieldObject_Break,
+    /// <summary> アイテム:チョコエッグを壊す </summary>
+    Item_GetChocoEgg
 }
 public enum VOICEType
 {
-
+    /// <summary> 通常攻撃 </summary>
+    Attack_Normal,
+    /// <summary> 叩きつけ攻撃 </summary>
+    Attack_Strike,
+    /// <summary> コンボ1段目 </summary>
+    Attack_Combo_First,
+    /// <summary> コンボ2段目 </summary>
+    Attack_Combo_Second,
+    /// <summary> コンボフィニッシュ </summary>
+    Attack_Finish,
+    /// <summary> 回避 </summary>
+    Avoid,
+    /// <summary> ステージ外へ落下 </summary>
+    FallOffStage,
+    /// <summary> 復帰 </summary>
+    CameBack,
+    /// <summary> ジャンプ </summary>
+    Jump,
+    /// <summary> ダメージ </summary>
+    Damage,
+    /// <summary> ゲームオーバー </summary>
+    Gameover
 }
 /// <summary>
 /// オーディオ機能を管理するコンポーネント
 /// </summary>
 public class AudioManager : SingletonMonoBehaviour<AudioManager>
 {
+    [Header("各音量")]
+    [SerializeField, Range(0f, 1f)]
+    float _masterVolume = 1.0f;
+
+    [SerializeField, Range(0f, 1f)]
+    float _bgmVolume = 0.3f;
+
+    [SerializeField, Range(0f, 1f)]
+    float _seVolume = 1.0f;
+
+    [SerializeField, Range(0f, 1f)]
+    float _voiceVolume = 1.0f;
+
+    [Header("AudioSourceの生成数")]
+    [Tooltip("SEのAudioSourceの生成数")]
+    [SerializeField]
+    int _seAudioSourceNum = 5;
+
+    [Tooltip("SEのAudioSourceの生成数")]
+    [SerializeField]
+    int _voiceAudioSourceNum = 5;
+
     [Header("各音源リスト")]
     [SerializeField]
     List<BGM> _bgmList = new List<BGM>();
@@ -96,20 +162,26 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
     [SerializeField]
     List<VOICE> _voiceList = new List<VOICE>();
 
-    [Header("使用するコンポーネント")]
+    [Header("使用する各オブジェクト")]
     [Tooltip("BGM用のAudioSource")]
     [SerializeField]
     AudioSource _bgmSource = default;
 
-    [Tooltip("SE用のAudioSource")]
+    [Tooltip("SE用のAudioSourceをまとめるオブジェクト")]
     [SerializeField]
-    AudioSource _seSource = default;
+    Transform _seSourcesParent = default;
 
-    [Tooltip("ボイス用のAudioSource")]
+    [Tooltip("ボイス用のAudioSourceをまとめるオブジェクト")]
     [SerializeField]
-    AudioSource _voiceSource = default;
+    Transform _voiceSourcesParent = default;
 
-    
+    [Tooltip("AudioMixer")]
+    [SerializeField]
+    AudioMixerGroup _mixer = default;
+
+    List<AudioSource> _seAudioSourceList = new List<AudioSource>();
+    List<AudioSource> _voiceAudioSourceList = new List<AudioSource>();
+
     void Awake()
     {
         if (this != Instance)
@@ -118,41 +190,86 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
             return;
         }
         DontDestroyOnLoad(gameObject);
+
+        //指定した数のSE用AudioSourceを生成
+        for (int i = 0; i < _seAudioSourceNum; i++)
+        {
+            //SEAudioSourceのオブジェクトを生成し、親オブジェクトにセット
+            var obj = new GameObject($"SESource{i + 1}");
+            obj.transform.SetParent(_seSourcesParent);
+
+            //生成したオブジェクトにAudioSourceを追加
+            var source = obj.AddComponent<AudioSource>();
+            
+            _seAudioSourceList.Add(source);
+        }
+
+        //指定した数のボイス用AudioSourceを生成
+        for (int i = 0; i < _voiceAudioSourceNum; i++)
+        {
+            //VOICEAudioSourceのオブジェクトを生成し、親オブジェクトにセット
+            var obj = new GameObject($"VOICESource{i + 1}");
+            obj.transform.SetParent(_voiceSourcesParent);
+
+            //生成したオブジェクトにAudioSourceを追加
+            var source = obj.AddComponent<AudioSource>();
+
+            _voiceAudioSourceList.Add(source);
+        }
     }
 
+    #region play method
     /// <summary>
     /// BGMを再生
     /// </summary>
     /// <param name="type"> BGMの種類 </param>
     public static void PlayBGM(BGMType type)
     {
-        var bgm = Instance._bgmList.FirstOrDefault(b => b.BGMType == type);
+        var bgm = GetBGM(type);
 
         if (bgm != null)
         {
-            Instance._bgmSource.clip = bgm.Clip;
-            Instance._bgmSource.loop = true;
-            //m_bgmAudioSource.volume = m_bgmVolume * m_masterVolume;
-            Instance._bgmSource.Play();
-            Debug.Log($"{bgm.BGMName}を再生");
+            if (Instance._bgmSource.clip == null)
+            {
+                Instance._bgmSource.clip = bgm.Clip;
+                Instance._bgmSource.loop = true;
+                Instance._bgmSource.volume = Instance._bgmVolume * Instance._masterVolume;
+                Instance._bgmSource.Play();
+                Debug.Log($"{bgm.BGMName}を再生");
+
+            }
+            else
+            {
+                Instance.StartCoroutine(Instance.SwitchingBgm(bgm));
+            }
+
         }
         else
         {
             Debug.LogError($"BGM:{type}を再生できませんでした");
         }
+
     }
 
+    /// <summary>
+    /// SEを再生
+    /// </summary>
+    /// <param name="type"> SEの種類 </param>
     public static void PlaySE(SEType type)
     {
-        var se = Instance._seList.FirstOrDefault(s => s.SEType == type);
+        var se = GetSE(type);
 
         if (se != null)
         {
-            Instance._seSource.clip = se.Clip;
-            Instance._seSource.loop = true;
-            //m_bgmAudioSource.volume = m_bgmVolume * m_masterVolume;
-            Instance._seSource.Play();
-            Debug.Log($"{se.SEName}を再生");
+            foreach (var s in Instance._seAudioSourceList)
+            {
+                if (!s.isPlaying)
+                {
+                    s.PlayOneShot(se.Clip, Instance._seVolume * Instance._masterVolume);
+                    Debug.Log($"{se.SEName}を再生");
+                    return;
+                }
+            }
         }
         else
         {
@@ -166,14 +283,18 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
     /// <param name="type"> ボイスの種類 </param>
     public static void PlayVOICE(VOICEType type)
     {
-        var voice = Instance._voiceList.FirstOrDefault(v => v.VOICEType == type);
+        var voice = GetVOICE(type);
 
         if (voice != null)
         {
-            Instance._voiceSource.clip = voice.Clip;
-            Instance._voiceSource.loop = true;
-            //m_bgmAudioSource.volume = m_bgmVolume * m_masterVolume;
-            Instance._voiceSource.Play();
+            foreach (var s in Instance._voiceAudioSourceList)
+            {
+                if (!s.isPlaying)
+                {
+                    s.PlayOneShot(voice.Clip, Instance._voiceVolume * Instance._masterVolume);
+                    break;
+                }
+            }
             Debug.Log($"{voice.VOICEName}を再生");
         }
         else
@@ -181,6 +302,148 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
             Debug.LogError($"VOICE:{type}を再生できませんでした");
         }
     }
+    #endregion
+
+    #region stop method
+    /// <summary>
+    /// 再生中のBGMを停止する
+    /// </summary>
+    public void StopBGM()
+    {
+        Instance._bgmSource.Stop();
+        Instance._bgmSource.clip = null;
+    }
+    /// <summary>
+    /// 再生中のSEを停止する
+    /// </summary>
+    public static void StopSE()
+    {
+        foreach (var s in Instance._seAudioSourceList)
+        {
+            s.Stop();
+            s.clip = null;
+        }
+    }
+    /// <summary>
+    /// 再生中のボイスを停止する
+    /// </summary>
+    public void StopVOICE()
+    {
+        foreach (var s in Instance._voiceAudioSourceList)
+        {
+            s.Stop();
+            s.clip = null;
+        }
+    }
+    #endregion
+    #region volume Method
+    /// <summary>
+    /// マスター音量を変更する
+    /// </summary>
+    /// <param name="masterValue"> 音量 </param>
+    public void MasterVolChange(float masterValue)
+    {
+        _masterVolume = masterValue;
+    }
+
+    /// <summary>
+    /// BGM音量を変更する
+    /// </summary>
+    /// <param name="bgmValue"> 音量 </param>
+    public void BgmVolChange(float bgmValue)
+    {
+        _bgmVolume = bgmValue;
+    }
+
+    /// <summary>
+    /// SE音量を変更する
+    /// </summary>
+    /// <param name="seValue"> 音量 </param>
+    public void SeVolChange(float seValue)
+    {
+        _seVolume = seValue;
+    }
+
+    /// <summary>
+    /// ボイス音量を変更する
+    /// </summary>
+    /// <param name="voiceValue"> 音量 </param>
+    public void VoiceVolChange(float voiceValue)
+    {
+        _voiceVolume = voiceValue;
+    }
+
+    /// <summary>
+    /// 各音量をセットする
+    /// </summary>
+    /// <param name="data"> サウンドデータ </param>
+    public void SetVolume(SoundOption data)
+    {
+        _masterVolume = data.MasterVolume;
+        _bgmVolume = data.BgmVolume;
+        _seVolume = data.SeVolume;
+        _voiceVolume = data.VoiceVolume;
+    }
+
+    /// <summary>
+    /// BGMを徐々に変更する
+    /// </summary>
+    /// <param name="afterBgm"> 変更後のBGM </param>
+    IEnumerator SwitchingBgm(BGM afterBgm)
+    {
+        float currentVol = _bgmSource.volume;
+
+        while (_bgmSource.volume > 0)　//現在の音量を0にする
+        {
+            _bgmSource.volume -= 0.01f * 0.5f;
+            yield return null;
+        }
+
+        _bgmSource.clip = afterBgm.Clip;　//BGMの入れ替え
+        _bgmSource.Play();
+
+        while (_bgmSource.volume < currentVol)　//音量を元に戻す
+        {
+            _bgmSource.volume += 0.01f * 0.5f;
+            yield return null;
+        }
+        _bgmSource.volume = currentVol;
+
+    }
+    #endregion
+
+    #region get method
+    /// <summary>
+    /// BGMを取得
+    /// </summary>
+    /// <param name="type"> BGMの種類 </param>
+    /// <returns> 指定したBGM </returns>
+    static BGM GetBGM(BGMType type)
+    {
+        var bgm = Instance._bgmList.FirstOrDefault(b => b.BGMType == type);
+        return bgm;
+    }
+    /// <summary>
+    /// SEを取得
+    /// </summary>
+    /// <param name="type"> SEの種類 </param>
+    /// <returns> 指定したSE </returns>
+    static SE GetSE(SEType type)
+    {
+        var se = Instance._seList.FirstOrDefault(s => s.SEType == type);
+        return se;
+    }
+    /// <summary>
+    /// ボイスを取得
+    /// </summary>
+    /// <param name="type"> ボイスの種類 </param>
+    /// <returns> 指定したボイス </returns>
+    static VOICE GetVOICE(VOICEType type)
+    {
+        var voice = Instance._voiceList.FirstOrDefault(v => v.VOICEType == type);
+        return voice;
+    }
+    #endregion
 }
 
 [Serializable]
