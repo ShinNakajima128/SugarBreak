@@ -40,7 +40,6 @@ public class TextAnimation : MonoBehaviour
     /// <summary>
     /// ループアニメーション
     /// </summary>
-    /// <returns></returns>
     IEnumerator LoopAnimation()
     {
         yield return new WaitForSeconds(0.3f);
