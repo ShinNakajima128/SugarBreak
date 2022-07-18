@@ -24,7 +24,6 @@ public class TalkTrigger : MonoBehaviour
     [SerializeField]
     bool _chocoEgg = false;
 
-    PlayerData _playerData;
 
     private void Awake()
     {
@@ -32,7 +31,6 @@ public class TalkTrigger : MonoBehaviour
         {
             m_flowchart = GameObject.FindGameObjectWithTag("FlowChart").GetComponent<Flowchart>();
         }
-        _playerData = DataManager.Instance.GetPlayerData;
     }
 
     private void OnTriggerEnter(Collider other)
