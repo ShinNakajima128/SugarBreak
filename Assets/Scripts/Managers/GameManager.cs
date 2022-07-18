@@ -90,6 +90,11 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     }
     private void Start()
     {
+        if (m_debugMode)
+        {
+            CurrentStage = DataManager.Instance.GetPlayerData.StageData[0];
+        }
+
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         var sceneName = SceneManager.GetActiveScene().name;
