@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10ca3742fec31914cbd02b1db4bc0cfb, type: 3}
   m_Name: DecollyData
   m_EditorClassIdentifier: 
-  enemyName: Decolly
+  enemyName: "\u30C7\u30B3\u30EA\u30FC"
   maxHp: 2
   atk: 1
   konpeitou: 5
