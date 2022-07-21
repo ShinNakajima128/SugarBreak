@@ -23,5 +23,14 @@ public class TitleManager : MonoBehaviour
     void Start()
     {
         AudioManager.PlayBGM(BGMType.Title);
+        switch (_titleMode)
+        {
+            case TitleMode.Normal:
+                _titleMenuCtrl.OnMenuPanel(MenuType.MainMenu);
+                break;
+            case TitleMode.TGS:
+                _titleMenuCtrl.OnMenuPanel(MenuType.TGSMenu);
+                break;
+        }
     }
 }

@@ -7,11 +7,31 @@ using UnityEngine.EventSystems;
 using DG.Tweening;
 using TMPro;
 
+public enum ButtonType
+{
+    /// <summary> はじめから </summary>
+    NewGame,
+    /// <summary> つづきから </summary>
+    Continue,
+    /// <summary> クレジット </summary>
+    Crefit,
+    /// <summary> 探検モード </summary>
+    Explore,
+    /// <summary> ボス戦モード </summary>
+    BossBattle,
+    /// <summary> ゲーム終了 </summary>
+    GameEnd
+}
+
 public class TitleMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
 {
     [Tooltip("ボタンが押せるかどうか")]
     [SerializeField]
     bool _intaractable = true;
+
+    [Tooltip("ボタンの種類")]
+    [SerializeField]
+    ButtonType _buttonType = default;
 
     [Tooltip("アニメーションの速度")]
     [SerializeField]
@@ -49,6 +69,10 @@ public class TitleMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerClic
     Vector3 _originPos;
     Vector3 _enteredPos;
 
+    public Button MenuButton => _menuButton;
+
+    public ButtonType ButtonType => _buttonType;
+    
     void Start()
     {
         _originPos = transform.localPosition;
