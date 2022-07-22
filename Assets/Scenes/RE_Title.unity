@@ -2522,7 +2522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b6e8b6c58e2824d8e12e4da0b08bf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _titleMode: 1
+  _titleMode: 0
   _titleMenuCtrl: {fileID: 752467676}
 --- !u!1 &1803303117
 GameObject:
