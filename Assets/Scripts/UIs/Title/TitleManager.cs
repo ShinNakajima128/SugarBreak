@@ -23,6 +23,7 @@ public class TitleManager : MonoBehaviour
     void Start()
     {
         AudioManager.PlayBGM(BGMType.Title);
+        
         switch (_titleMode)
         {
             case TitleMode.Normal:

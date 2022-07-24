@@ -25,6 +25,31 @@ public class TitleMenuController : MonoBehaviour
 
         panel.MenuPanel.SetActive(true);
     }
+
+    #region button method
+    public void OnButtonClick(int type)
+    {
+        var t = (ButtonType)type;
+
+        switch (t)
+        {
+            case ButtonType.NewGame:
+                break;
+            case ButtonType.Continue:
+                break;
+            case ButtonType.Crefit:
+                break;
+            case ButtonType.Explore:
+                break;
+            case ButtonType.BossBattle:
+                break;
+            case ButtonType.GameEnd:
+                break;
+            default:
+                break;
+        }
+    }
+    #endregion
 }
 
 [Serializable]
@@ -37,6 +62,7 @@ public class Menu
 
 public enum MenuType
 {
+    Start,
     MainMenu,
     Continue,
     Crefit,
