@@ -22,7 +22,7 @@ public class MenuButtonAnimation : MonoBehaviour, IPointerEnterHandler, IPointer
     Image m_unselectIcon = default;
 
     [SerializeField]
-    Image m_buttonBackground = default;
+    GameObject m_buttonBackground = default;
 
     [SerializeField]
     Text _buttonText = default;
@@ -40,24 +40,37 @@ public class MenuButtonAnimation : MonoBehaviour, IPointerEnterHandler, IPointer
         m_originScale = transform.localScale;
         BaseUI.OnButtonScaleReset += OffSelectButton;
         _buttonText.color = m_unselectColor;
-        m_buttonBackground.enabled = false;
+        m_buttonBackground.SetActive(false);
+        var button = GetComponent<Button>();
+
+        button.onClick.AddListener(OffSelectButton);
     }
 
     public void OnSelectButton()
     {
         transform.DOScale(new Vector3(m_changeScaleValue, m_changeScaleValue, 1), m_animasionSpeed);
-        m_selectIcon.enabled = true;
-        m_unselectIcon.enabled = false;
-        m_buttonBackground.enabled = true;
+        
+        if (m_selectIcon != null)
+        {
+            m_selectIcon.enabled = true;
+            m_unselectIcon.enabled = false;
+        }
+
+        m_buttonBackground.SetActive(true);
         _buttonText.color = m_selectColor;
     }
 
     public void OffSelectButton()
     {
         transform.DOScale(m_originScale, m_animasionSpeed);
-        m_selectIcon.enabled = false;
-        m_unselectIcon.enabled = true;
-        m_buttonBackground.enabled = false;
+        
+        if (m_selectIcon != null)
+        {
+            m_selectIcon.enabled = false;
+            m_unselectIcon.enabled = true;
+        }
+
+        m_buttonBackground.SetActive(false);
         _buttonText.color = m_unselectColor;
     }
 

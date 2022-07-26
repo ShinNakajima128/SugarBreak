@@ -74,7 +74,7 @@ public class BaseUI : MonoBehaviour
         if (m_baseUI != BaseUIState.Main)
         {
             //OnButtonScaleReset?.Invoke();
-            _currentButton.Select();
+            //_currentButton.Select();
         }
 
         ChangeUIPanel(BaseUIState.Main);
@@ -226,7 +226,7 @@ public class BaseUI : MonoBehaviour
             case BaseUIState.Exit:
                 SaveSelectButton();
                 OnConfirmPanel();
-                m_menuButtons[6].Select();
+                //m_menuButtons[6].Select();
                 break;
         }
         m_baseUI = state;
@@ -234,6 +234,16 @@ public class BaseUI : MonoBehaviour
 
     void PanelChange(int index)
     {
+        //if (_currentButton != null)
+        //{
+        //    _currentButton.gameObject.TryGetComponent<MenuButtonAnimation>(out var button);
+
+        //    if (button != null)
+        //    {
+        //        button.OffSelectButton();
+        //    }
+        //}
+
         for (int i = 0; i < m_menuPanels.Length; i++)
         {
             if (i == index)
@@ -241,7 +251,7 @@ public class BaseUI : MonoBehaviour
                 m_menuPanels[i].SetActive(true);
                 try
                 {
-                    m_menuButtons[i].Select();
+                   //m_menuButtons[i].Select();
                 }
                 catch (Exception e)
                 {
@@ -262,6 +272,6 @@ public class BaseUI : MonoBehaviour
 
     void SaveSelectButton()
     {
-        _currentButton = EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
+        //_currentButton = EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
     }
 }
