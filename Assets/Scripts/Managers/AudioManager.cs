@@ -261,7 +261,6 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         {
             Debug.LogError($"BGM:{type}を再生できませんでした");
         }
-
     }
 
     /// <summary>

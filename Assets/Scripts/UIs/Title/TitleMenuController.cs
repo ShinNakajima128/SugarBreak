@@ -9,6 +9,10 @@ public class TitleMenuController : MonoBehaviour
     [SerializeField]
     List<Menu> _titleMenus = new List<Menu>();
 
+    MenuType _currentMenuType;
+
+    public MenuType CurrentMenuType => _currentMenuType;
+
     /// <summary>
     /// メニューのパネルを表示する
     /// </summary>
@@ -24,9 +28,14 @@ public class TitleMenuController : MonoBehaviour
         var panel = _titleMenus.FirstOrDefault(m => m.MenuType == type);
 
         panel.MenuPanel.SetActive(true);
+        _currentMenuType = type;
     }
 
     #region button method
+    /// <summary>
+    /// 指定したボタンの処理を実行する
+    /// </summary>
+    /// <param name="type"> ボタンの種類 </param>
     public void OnButtonClick(int type)
     {
         var t = (ButtonType)type;
@@ -34,8 +43,12 @@ public class TitleMenuController : MonoBehaviour
         switch (t)
         {
             case ButtonType.NewGame:
+                LoadSceneManager.Instance.AnyLoadScene("Base");
+                AudioManager.PlaySE(SEType.UI_Load);
                 break;
             case ButtonType.Continue:
+                LoadSceneManager.Instance.AnyLoadScene("Base");
+                AudioManager.PlaySE(SEType.UI_Load);
                 break;
             case ButtonType.Crefit:
                 break;
@@ -44,6 +57,8 @@ public class TitleMenuController : MonoBehaviour
             case ButtonType.BossBattle:
                 break;
             case ButtonType.GameEnd:
+                OnMenuPanel(MenuType.GameEnd);
+                AudioManager.PlaySE(SEType.UI_ButtonSelect);
                 break;
             default:
                 break;
