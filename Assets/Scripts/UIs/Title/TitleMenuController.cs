@@ -51,16 +51,38 @@ public class TitleMenuController : MonoBehaviour
                 AudioManager.PlaySE(SEType.UI_Load);
                 break;
             case ButtonType.Crefit:
+                OnMenuPanel(MenuType.Crefit);
+                AudioManager.PlaySE(SEType.UI_ButtonSelect);
                 break;
             case ButtonType.Explore:
+                LoadSceneManager.Instance.AnyLoadScene("Base");
+                AudioManager.PlaySE(SEType.UI_Load);
                 break;
             case ButtonType.BossBattle:
+                LoadSceneManager.Instance.AnyLoadScene("Base");
+                AudioManager.PlaySE(SEType.UI_Load);
                 break;
             case ButtonType.GameEnd:
                 OnMenuPanel(MenuType.GameEnd);
                 AudioManager.PlaySE(SEType.UI_ButtonSelect);
                 break;
             default:
+                break;
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public void OnMainMenuPanel()
+    {
+        switch (TitleManager.Instance.TitleMode)
+        {
+            case TitleMode.Normal:
+                OnMenuPanel(MenuType.MainMenu);
+                break;
+            case TitleMode.TGS:
+                OnMenuPanel(MenuType.TGSMenu);
                 break;
         }
     }

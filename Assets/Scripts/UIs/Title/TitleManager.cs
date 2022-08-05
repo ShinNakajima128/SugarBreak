@@ -20,7 +20,16 @@ public class TitleManager : MonoBehaviour
     [SerializeField]
     TitleMenuController _titleMenuCtrl = default;
 
-    void Start()
+    public static TitleManager Instance { get; private set; }
+
+    public TitleMode TitleMode => _titleMode;
+
+    void Awake()
+    {
+        Instance = this;
+    }
+
+    IEnumerator Start()
     {
         AudioManager.PlayBGM(BGMType.Title);
 
@@ -30,7 +39,7 @@ public class TitleManager : MonoBehaviour
             .Where(_ => Input.anyKeyDown && _titleMenuCtrl.CurrentMenuType == MenuType.Start)
             .Subscribe(_ => 
             {
-                OnMainMenuPanel();
+                _titleMenuCtrl.OnMainMenuPanel();
                 AudioManager.PlaySE(SEType.UI_Select);
             });
 
@@ -41,6 +50,9 @@ public class TitleManager : MonoBehaviour
                 _titleMenuCtrl.OnMenuPanel(MenuType.Start);
                 AudioManager.PlaySE(SEType.UI_Cancel);
             });
+        SaveManager.Load();
+        yield return new WaitForSeconds(0.5f);
+        AudioManager.SetVolume(DataManager.Instance.GetOptionData.SoundOptionData);
     }
 
     #region button method
@@ -59,16 +71,4 @@ public class TitleManager : MonoBehaviour
         _titleMenuCtrl.OnMenuPanel(MenuType.MainMenu);
     }
     #endregion
-    void OnMainMenuPanel()
-    {
-        switch (_titleMode)
-        {
-            case TitleMode.Normal:
-                _titleMenuCtrl.OnMenuPanel(MenuType.MainMenu);
-                break;
-            case TitleMode.TGS:
-                _titleMenuCtrl.OnMenuPanel(MenuType.TGSMenu);
-                break;
-        }
-    }
 }
