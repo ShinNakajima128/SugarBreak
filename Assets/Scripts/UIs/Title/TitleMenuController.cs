@@ -55,11 +55,11 @@ public class TitleMenuController : MonoBehaviour
                 AudioManager.PlaySE(SEType.UI_ButtonSelect);
                 break;
             case ButtonType.Explore:
-                LoadSceneManager.Instance.AnyLoadScene("Base");
+                LoadSceneManager.Instance.AnyLoadScene("BakedValley");
                 AudioManager.PlaySE(SEType.UI_Load);
                 break;
             case ButtonType.BossBattle:
-                LoadSceneManager.Instance.AnyLoadScene("Base");
+                LoadSceneManager.Instance.AnyLoadScene("BossBattle");
                 AudioManager.PlaySE(SEType.UI_Load);
                 break;
             case ButtonType.GameEnd:
@@ -85,6 +85,10 @@ public class TitleMenuController : MonoBehaviour
                 OnMenuPanel(MenuType.TGSMenu);
                 break;
         }
+    }
+    public void ClickSE()
+    {
+        AudioManager.PlaySE(SEType.UI_ButtonSelect);
     }
     #endregion
 }
