@@ -68,7 +68,7 @@ public class TitleManager : MonoBehaviour
     /// </summary>
     public void OnCancel()
     {
-        _titleMenuCtrl.OnMenuPanel(MenuType.MainMenu);
+        _titleMenuCtrl.OnMainMenuPanel();
     }
     #endregion
 }
