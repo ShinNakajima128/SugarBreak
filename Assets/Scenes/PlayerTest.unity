@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -229,7 +229,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 522774027}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 1, z: 8.23}
+  m_LocalPosition: {x: 2.3, y: 2.9, z: 10.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -756,6 +756,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WeaponList
       objectReference: {fileID: 0}
+    - target: {fileID: 463066663636862018, guid: dd7a06196b63e6b4c8b94b5d68ded2d6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 463066663636862044, guid: dd7a06196b63e6b4c8b94b5d68ded2d6,
         type: 3}
       propertyPath: isDebug
@@ -972,6 +977,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player_Lena
+      objectReference: {fileID: 0}
+    - target: {fileID: 5212369741777446300, guid: 91562e7d451f025459c99ace36cdddbc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7796331337253420809, guid: 91562e7d451f025459c99ace36cdddbc,
         type: 3}
