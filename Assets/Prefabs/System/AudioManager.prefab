@@ -50,7 +50,7 @@ MonoBehaviour:
   _bgmVolume: 0.3
   _seVolume: 1
   _voiceVolume: 1
-  _seAudioSourceNum: 5
+  _seAudioSourceNum: 10
   _voiceAudioSourceNum: 5
   _bgmList:
   - BGMName: "\u30BF\u30A4\u30C8\u30EB\u753B\u9762"
@@ -212,28 +212,28 @@ MonoBehaviour:
     VOICEType: 0
     Clip: {fileID: 8300000, guid: 0bcf363c116234b2eb593bac01a170d4, type: 3}
   - VOICEName: "\u56DE\u907F"
-    VOICEType: 1
+    VOICEType: 5
     Clip: {fileID: 8300000, guid: 687990b2a12cc4b6db34fdeceb9b8636, type: 3}
   - VOICEName: "\u30B9\u30C6\u30FC\u30B8\u5916\u843D\u4E0B"
-    VOICEType: 2
+    VOICEType: 6
     Clip: {fileID: 8300000, guid: 14442038946004af3aaf906b64944b5f, type: 3}
   - VOICEName: "\u5FA9\u5E30"
-    VOICEType: 3
+    VOICEType: 7
     Clip: {fileID: 8300000, guid: e92ffffa558284658aca79f7b72b7e58, type: 3}
   - VOICEName: "\u30B8\u30E3\u30F3\u30D7"
-    VOICEType: 4
+    VOICEType: 8
     Clip: {fileID: 8300000, guid: eed2451bbd4264da8b6c27c92df62faf, type: 3}
   - VOICEName: "\u30C0\u30E1\u30FC\u30B8"
-    VOICEType: 0
+    VOICEType: 9
     Clip: {fileID: 8300000, guid: 1fea949ca16274adb8e4a6a9b673d938, type: 3}
   - VOICEName: "\u30B3\u30F3\u30DC:1\u6BB5\u76EE"
     VOICEType: 2
     Clip: {fileID: 8300000, guid: 9a5a9cad2e3d14feba240cb5c8449361, type: 3}
   - VOICEName: "\u30B3\u30F3\u30DC:2\u6BB5\u76EE"
-    VOICEType: 0
+    VOICEType: 3
     Clip: {fileID: 8300000, guid: 01272370b6a6c46efa539424d1295436, type: 3}
   - VOICEName: "\u30B3\u30F3\u30DC:\u30D5\u30A3\u30CB\u30C3\u30B7\u30E5"
-    VOICEType: 0
+    VOICEType: 4
     Clip: {fileID: 8300000, guid: d4192b1c6089a4194ba8d1b217951774, type: 3}
   - VOICEName: "\u53E9\u304D\u3064\u3051\u653B\u6483"
     VOICEType: 1
