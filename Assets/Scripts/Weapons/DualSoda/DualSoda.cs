@@ -111,7 +111,11 @@ public class DualSoda : WeaponBase, IWeapon
     /// <param name="rb"> プレイヤーのRigidbody </param>
     public void WeaponAction1(Animator anim, Rigidbody rb)
     {
-        if (comboNum == 3 || !PlayerStatesManager.Instance.IsOperation) return;
+        if (comboNum == 3 || !PlayerStatesManager.Instance.IsOperation)
+        {
+            Debug.Log("入力受付外");
+            return;
+        }
 
         if (comboCoroutine != null)
         {
@@ -120,6 +124,7 @@ public class DualSoda : WeaponBase, IWeapon
         }
 
         rb.velocity = new Vector3(0, rb.velocity.y, 0);
+
         if (comboNum == 0)
         {
             attackDamage = 2;
@@ -156,7 +161,7 @@ public class DualSoda : WeaponBase, IWeapon
             PlayerStatesManager.Instance.IsOperation = false;
             StartCoroutine(PlayerController.Instance.AttackMotionTimer(1.0f));
             comboNum = 3;
-            comboCoroutine = StartCoroutine(PlayerController.Instance.AttackMotionTimer(0.5f, () =>
+            comboCoroutine = StartCoroutine(PlayerController.Instance.AttackMotionTimer(0.2f, () =>
             {
                 anim.SetBool("SwordAttack1", false);
                 anim.SetBool("SwordAttack2", false);

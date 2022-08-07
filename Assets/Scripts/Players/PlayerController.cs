@@ -57,7 +57,8 @@ public class PlayerController : MonoBehaviour
     bool m_isAimMoved = false;
     bool m_isJumped = false;
     float actualPushPower;
-    float m_gravity = 0;
+
+    const float GRAVITY = -9.8f;
 
     public PlayerState State
     {
@@ -173,7 +174,6 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
         {
             m_anim.SetBool("isGround", true);
-            m_gravity = 0;
         }
         else
         {
@@ -226,14 +226,14 @@ public class PlayerController : MonoBehaviour
                 if (IsAimed)
                 {
                     Vector3 velo = dir.normalized * m_walkSpeed; // 入力した方向に移動する
-                    velo.y = WallHit && !m_isJumped ? -9.8f : WallHit && m_isJumped ? 5 : m_rb.velocity.y;  // 壁に当たっているかどうかでVelocityを調整
+                    velo.y = WallHit && !m_isJumped ? GRAVITY : WallHit && m_isJumped ? 5 : m_rb.velocity.y;  // 壁に当たっているかどうかでVelocityを調整
                     m_rb.velocity = velo;
                     state = PlayerState.Walk;
                 }
                 else
                 {
                     Vector3 velo = dir.normalized * m_runSpeed; // 入力した方向に移動する
-                    velo.y = WallHit && !m_isJumped ? -9.8f : WallHit && m_isJumped ? 5 : m_rb.velocity.y;   // 壁に当たっているかどうかでVelocityを調整
+                    velo.y = WallHit && !m_isJumped ? GRAVITY : WallHit && m_isJumped ? 5 : m_rb.velocity.y;   // 壁に当たっているかどうかでVelocityを調整
 
                     m_rb.velocity = velo;   // 計算した速度ベクトルをセットする
                     state = PlayerState.Run;
@@ -315,30 +315,22 @@ public class PlayerController : MonoBehaviour
         //キーボードの「1」かゲームパッドの十字キー「左」を押したら「装備1」に変更
         if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetAxisRaw("D Pad Hori") == 1)
         {
-            WeaponListControl.Instance.ChangeWeapon(WeaponListTypes.Equip1, WeaponChangeAction);
-            EventManager.OnEvent(Events.RebindWeaponAnimation);
-            AimRotation.Instance.ResetWeaponListRotation();
+            ChangeAction(WeaponListTypes.Equip1);
         }
         //キーボードの「2」かゲームパッドの十字キー「上」を押したら「装備2」に変更
         else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetAxisRaw("D Pad Ver") == 1)
         {
-            WeaponListControl.Instance.ChangeWeapon(WeaponListTypes.Equip2, WeaponChangeAction);
-            EventManager.OnEvent(Events.RebindWeaponAnimation);
-            AimRotation.Instance.ResetWeaponListRotation();
+            ChangeAction(WeaponListTypes.Equip2);
         }
         //キーボードの「3」かゲームパッドの十字キー「右」を押したら「装備3」に変更
         else if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetAxisRaw("D Pad Hori") == -1)
         {
-            WeaponListControl.Instance.ChangeWeapon(WeaponListTypes.Equip3, WeaponChangeAction);
-            EventManager.OnEvent(Events.RebindWeaponAnimation);
-            AimRotation.Instance.ResetWeaponListRotation();
+            ChangeAction(WeaponListTypes.Equip3);
         }
         //キーボードの「4」かゲームパッドの十字キー「下」を押したら「メイン武器」に変更
         else if (Input.GetKeyDown(KeyCode.Alpha4) || Input.GetAxisRaw("D Pad Ver") == -1)
         {
-            WeaponListControl.Instance.ChangeWeapon(WeaponListTypes.MainWeapon, WeaponChangeAction);
-            EventManager.OnEvent(Events.RebindWeaponAnimation);
-            AimRotation.Instance.ResetWeaponListRotation();
+            ChangeAction(WeaponListTypes.MainWeapon);
         }   
     }
 
@@ -395,14 +387,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 武器種を変更した時のエフェクト表示やサウンド再生などのアクションを実行する
-    /// </summary>
-    void WeaponChangeAction()
-    {
-        EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
-        AudioManager.PlaySE(SEType.Weapon_Change);
-    }
 
     /// <summary>
     /// 武器切り替え時に各武器のアニメーションにオブジェクトを再設定する
@@ -410,6 +394,18 @@ public class PlayerController : MonoBehaviour
     void RebindAnimation()
     {
         m_anim.Rebind();
+    }
+
+    /// <summary>
+    /// 武器種を変更した時のエフェクト表示やサウンド再生などのアクションを実行する
+    /// </summary>
+    void ChangeAction(WeaponListTypes type)
+    {
+        WeaponListControl.Instance.ChangeWeapon(type);
+        EventManager.OnEvent(Events.RebindWeaponAnimation);
+        AimRotation.Instance.ResetWeaponListRotation();
+        EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
+        AudioManager.PlaySE(SEType.Weapon_Change);
     }
 
     /// <summary>
@@ -424,7 +420,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(time);
         PlayerStatesManager.Instance.IsOperation = true;
         m_rb.isKinematic = m_rb.isKinematic && false;
-        yield return new WaitForSeconds(time + 0.5f);
+        yield return new WaitForSeconds(time + 0.3f);
 
         comboResetCallBack?.Invoke();
         m_isAttackMotioned = false;
