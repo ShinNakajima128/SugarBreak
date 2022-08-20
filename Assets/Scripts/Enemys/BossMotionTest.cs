@@ -12,6 +12,7 @@ public enum BossState
     Move,
     Attack,
     Angry,
+    Jump,
     dead
 }
 
@@ -176,6 +177,7 @@ public class BossMotionTest : MonoBehaviour, IDamagable
     void SetHp()
     {
         m_currentHp = m_enemyData.maxHp;
+        ResetStatus();
     }
 
     /// <summary>
@@ -305,18 +307,19 @@ public class BossMotionTest : MonoBehaviour, IDamagable
             StartCoroutine(ChangeState(BossState.dead));
             return;
         }
-        //DamageEffect();
+        DamageEffect();
     }
     IEnumerator AngryBehavior()
     {
         yield return new WaitForSeconds(0.7f);
+
         SignaleManager.Instance.OnZoomBlur();
         EventManager.OnEvent(Events.CameraShake); //カメラを揺らす
         Debug.Log("怒り移行");
-        yield return new WaitForSeconds(1.5f);
+
+        yield return new WaitForSeconds(2.0f);
         SignaleManager.Instance.OffClearBlur();
 
-        yield return new WaitForSeconds(0.5f);
         m_anim.speed = 1.2f;
     }
 
@@ -325,19 +328,20 @@ public class BossMotionTest : MonoBehaviour, IDamagable
         m_isInvincibled = false;
         StartCoroutine(ChangeState(BossState.Idle));
     }
+
+    public void ResetStatus()
+    {
+        m_anim.speed = 1.0f;
+        m_isAngryStated = false;
+    }
     void DamageEffect()
     {
         Debug.Log("ダメージエフェクト");
         var seq = DOTween.Sequence();
 
-        seq.Append(m_bossSkin.material.DOColor(Color.red, 0.25f))
-           .Append(m_bossSkin.material.DOColor(Color.white, 0.25f))
+        seq.Append(m_bossSkin.material.DOColor(Color.red, 0.15f))
+           .Append(m_bossSkin.material.DOColor(Color.white, 0.15f))
            .SetLoops(3)
            .Play();
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log(collision.gameObject.name);
     }
 }

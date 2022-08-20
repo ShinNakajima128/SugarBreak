@@ -48,7 +48,7 @@ public class BossArea : MonoBehaviour
                 case StageTypes.BakeleValley:
                     AudioManager.PlayBGM(BGMType.BakeleValley_Boss);
                     isBattle = true;
-                    m_bossAreaEffect.SetActive(true);
+                    StartCoroutine(DelayActiveArea());
                     break;
                 case StageTypes.RaindyClouds:
                     break;
@@ -88,5 +88,12 @@ public class BossArea : MonoBehaviour
                     break;
             }       
         }
+    }
+
+    IEnumerator DelayActiveArea()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        m_bossAreaEffect.SetActive(true);
     }
 }
