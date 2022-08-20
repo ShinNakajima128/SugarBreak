@@ -36,10 +36,17 @@ public class SignaleManager : MonoBehaviour
     ZoomBlur zoomBlur;
     Coroutine coroutine;
     Transform m_playerTrans = default;
+    public static SignaleManager Instance { get; private set; }
 
     void Awake()
     {
-        if(m_ActingBoss) m_ActingBoss.SetActive(false);
+        Instance = this;
+
+        if (m_ActingBoss)
+        {
+            m_ActingBoss.SetActive(false);
+        }
+
         m_volume.profile.TryGet(out zoomBlur);
     }
 

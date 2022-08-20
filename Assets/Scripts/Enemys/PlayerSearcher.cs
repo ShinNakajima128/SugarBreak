@@ -42,7 +42,7 @@ public class PlayerSearcher : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (m_enemy.CurrentState == EnemyState.dead) return;
+        if (m_enemy.CurrentState == BossState.dead) return;
 
         if (other.gameObject.tag == "Player")
         {

@@ -1,15 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 /// <summary>
 /// ボスのステータス
 /// </summary>
-public enum EnemyState
+public enum BossState
 {
     Idle,
     Move,
     Attack,
+    Angry,
     dead
 }
 
@@ -57,11 +59,18 @@ public class BossMotionTest : MonoBehaviour, IDamagable
     GameObject m_deadModel = default;
 
     [SerializeField]
+    Renderer m_bossSkin = default;
+
+    [SerializeField]
     bool m_debugMode = false;
 
     int m_currentHp;
+    /// <summary> 怒り状態か </summary>
+    bool m_isAngryStated = false;
+    bool m_isInvincibled = false;
+
     /// <summary> 敵のステータス </summary>
-    EnemyState m_states = EnemyState.Idle;
+    BossState m_states = BossState.Idle;
     /// <summary> 敵を動かすためのコンポーネント </summary>
     CharacterController m_cc = default;
     /// <summary> アニメーションのコンポーネント </summary>
@@ -79,15 +88,15 @@ public class BossMotionTest : MonoBehaviour, IDamagable
     public float WaitStatesTime { get; set; } = 3.0f;
 
     /// <summary> 現在の敵のステータス </summary>
-    public EnemyState CurrentState { get => m_states; set => m_states = value; }
-        
+    public BossState CurrentState { get => m_states; set => m_states = value; }
+
     void Start()
     {
         m_cc = GetComponent<CharacterController>();
         m_anim = GetComponent<Animator>();
         m_ps = GetComponentInChildren<PlayerSearcher>();
-        StartCoroutine(ChangeState(EnemyState.Idle));
-        EventManager.ListenEvents(Events.BossBattleStart,SetHp);
+        StartCoroutine(ChangeState(BossState.Idle));
+        EventManager.ListenEvents(Events.BossBattleStart, SetHp);
         StartCoroutine(StartBattle());
     }
 
@@ -115,19 +124,19 @@ public class BossMotionTest : MonoBehaviour, IDamagable
         {
             switch (m_states)
             {
-                case EnemyState.Idle:
+                case BossState.Idle:
                     if (m_ps.IsWithinRange)
                     {
-                        StartCoroutine(ChangeState(EnemyState.Move));
+                        StartCoroutine(ChangeState(BossState.Move));
                     }
                     break;
-                case EnemyState.Move:
+                case BossState.Move:
                     MoveAction();
                     break;
-                case EnemyState.Attack:
-                    StartCoroutine(ChangeState(EnemyState.Idle));
+                case BossState.Attack:
+                    StartCoroutine(ChangeState(BossState.Idle));
                     break;
-                case EnemyState.dead:
+                case BossState.dead:
                     break;
             }
         }
@@ -140,7 +149,7 @@ public class BossMotionTest : MonoBehaviour, IDamagable
 
         Quaternion targetRotation = Quaternion.LookRotation(m_direction.normalized);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, m_turnSpeed * Time.deltaTime);
-        m_velocity = m_direction.normalized * m_moveSpeed;
+        m_velocity = m_direction.normalized * m_moveSpeed * m_anim.speed;
 
         if (m_cc.enabled)
         {
@@ -159,7 +168,7 @@ public class BossMotionTest : MonoBehaviour, IDamagable
         //　攻撃する距離だったら攻撃
         if (Vector3.Distance(transform.position, m_ps.PlayerPosition) < m_distanceToPlayer && m_ps.IsFind)
         {
-            StartCoroutine(ChangeState(EnemyState.Attack, 3.4f));
+            StartCoroutine(ChangeState(BossState.Attack, 3.4f / m_anim.speed));
             Debug.Log("攻撃");
         }
     }
@@ -173,7 +182,7 @@ public class BossMotionTest : MonoBehaviour, IDamagable
     /// ステータスを変更する
     /// </summary>
     /// <param name="state"> 変更するステータス </param>
-    IEnumerator ChangeState(EnemyState state, float waitTime = 0.02f)
+    IEnumerator ChangeState(BossState state, float waitTime = 0.02f)
     {
         //以前のステータスを保持
         var prev = m_states;
@@ -187,16 +196,19 @@ public class BossMotionTest : MonoBehaviour, IDamagable
         //ステータスが変更された時に1度だけ処理を行う
         switch (m_states)
         {
-            case EnemyState.Idle:
+            case BossState.Idle:
                 m_anim.Play("Idle");
                 break;
-            case EnemyState.Move:
+            case BossState.Move:
                 m_anim.CrossFadeInFixedTime("Move", 0.1f);
                 break;
-            case EnemyState.Attack:
+            case BossState.Attack:
                 m_anim.CrossFadeInFixedTime("Attack", 0.1f);
                 break;
-            case EnemyState.dead:
+            case BossState.Angry:
+                m_anim.CrossFadeInFixedTime("Angry", 0.1f);
+                break;
+            case BossState.dead:
                 if (m_deadModel)
                 {
                     Instantiate(m_deadModel, transform.position, transform.rotation);
@@ -242,6 +254,11 @@ public class BossMotionTest : MonoBehaviour, IDamagable
         }
     }
 
+    public void AngryAction()
+    {
+        StartCoroutine(AngryBehavior());
+    }
+
     /// <summary>
     /// 攻撃1の当たり判定をONにする
     /// </summary>
@@ -265,14 +282,62 @@ public class BossMotionTest : MonoBehaviour, IDamagable
 
     public void Damage(int attackPower, Rigidbody hitRb = null, Vector3 blowUpDir = default, float blowUpPower = 1)
     {
+        //無敵所帯の時は処理を行わない
+        if (m_isInvincibled)
+        {
+            return;
+        }
+
         m_currentHp -= attackPower;
         Debug.Log($"残りHP:{m_currentHp}");
         BossUIManager.Instance.DamageHandle(attackPower);
         AudioManager.PlaySE(SEType.BetterGolem_Damage);
 
+        if (m_currentHp <= m_enemyData.maxHp / 2 && !m_isAngryStated)
+        {
+            StartCoroutine(ChangeState(BossState.Angry, 2.7f));
+            m_isInvincibled = true;
+            m_isAngryStated = true;
+        }
+
         if (m_currentHp <= 0)
         {
-            StartCoroutine(ChangeState(EnemyState.dead));
+            StartCoroutine(ChangeState(BossState.dead));
+            return;
         }
+        //DamageEffect();
+    }
+    IEnumerator AngryBehavior()
+    {
+        yield return new WaitForSeconds(0.7f);
+        SignaleManager.Instance.OnZoomBlur();
+        EventManager.OnEvent(Events.CameraShake); //カメラを揺らす
+        Debug.Log("怒り移行");
+        yield return new WaitForSeconds(1.5f);
+        SignaleManager.Instance.OffClearBlur();
+
+        yield return new WaitForSeconds(0.5f);
+        m_anim.speed = 1.2f;
+    }
+
+    public void InvincibleEnd()
+    {
+        m_isInvincibled = false;
+        StartCoroutine(ChangeState(BossState.Idle));
+    }
+    void DamageEffect()
+    {
+        Debug.Log("ダメージエフェクト");
+        var seq = DOTween.Sequence();
+
+        seq.Append(m_bossSkin.material.DOColor(Color.red, 0.25f))
+           .Append(m_bossSkin.material.DOColor(Color.white, 0.25f))
+           .SetLoops(3)
+           .Play();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision.gameObject.name);
     }
 }
