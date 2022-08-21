@@ -93,9 +93,12 @@ public class SignaleManager : MonoBehaviour
 
     public void OnLandingEffect()
     {
-        EffectManager.PlayEffect(EffectType.Landing, m_ActingBoss.transform.position);
-        EventManager.OnEvent(Events.CameraShake);
-        AudioManager.PlaySE(SEType.BetterGolem_Flap);
+        if (!SkipMovieController.IsPlayed)
+        {
+            EffectManager.PlayEffect(EffectType.Landing, m_ActingBoss.transform.position);
+            EventManager.OnEvent(Events.CameraShake);
+            AudioManager.PlaySE(SEType.BetterGolem_Flap);
+        }
     }
 
     public void SwitchBossBgm()
@@ -105,7 +108,6 @@ public class SignaleManager : MonoBehaviour
 
     public void OnZoomBlur()
     {
-        AudioManager.PlaySE(SEType.BetterGolem_Roar);
         coroutine = StartCoroutine(IncreaseParameter(m_bossZoomBlueValue));
     }
 

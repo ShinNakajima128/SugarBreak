@@ -13,7 +13,8 @@ public class SkipMovieController : MonoBehaviour
     bool m_playOnAwake = false;
 
     PlayableDirector m_director = default;
-    bool isPlayed = false;
+    static bool isPlayed = false;
+    public static bool IsPlayed => isPlayed;
 
     void Start()
     {
@@ -39,6 +40,7 @@ public class SkipMovieController : MonoBehaviour
     {
         if (m_director == director)
         {
+            isPlayed = false;
             StartCoroutine(SkipCol());
         }   
     }
@@ -50,6 +52,7 @@ public class SkipMovieController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 7"))
             {
                 StartCoroutine(SkipMovie());
+                AudioManager.StopSE();
                 yield break;
             }
             yield return null;
@@ -71,7 +74,7 @@ public class SkipMovieController : MonoBehaviour
     /// <param name="director"></param>
     void MovieFinished(PlayableDirector director)
     {
-        isPlayed = true;
+        //isPlayed = true;
     }
 
     void CanNotOpenMenu(PlayableDirector director)
