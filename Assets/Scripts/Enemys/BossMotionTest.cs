@@ -128,7 +128,14 @@ public class BossMotionTest : MonoBehaviour, IDamagable
                 case BossState.Idle:
                     if (m_ps.IsWithinRange)
                     {
-                        StartCoroutine(ChangeState(BossState.Move));
+                        if (m_isAngryStated)
+                        {
+                            StartCoroutine(ChangeState(BossState.Jump, 5.5f));
+                        }
+                        else
+                        {
+                            StartCoroutine(ChangeState(BossState.Move));
+                        }
                     }
                     break;
                 case BossState.Move:
@@ -210,6 +217,9 @@ public class BossMotionTest : MonoBehaviour, IDamagable
             case BossState.Angry:
                 m_anim.CrossFadeInFixedTime("Angry", 0.1f);
                 break;
+            case BossState.Jump:
+                m_anim.CrossFadeInFixedTime("Jump", 0.1f);
+                break;
             case BossState.dead:
                 if (m_deadModel)
                 {
@@ -258,7 +268,12 @@ public class BossMotionTest : MonoBehaviour, IDamagable
 
     public void AngryAction()
     {
-        StartCoroutine(AngryBehavior());
+        StartCoroutine(AngryBehaviour());
+    }
+
+    public void JumpAction()
+    {
+        StartCoroutine(JumpBehaviour(m_ps.PlayerPosition));
     }
 
     /// <summary>
@@ -309,7 +324,7 @@ public class BossMotionTest : MonoBehaviour, IDamagable
         }
         DamageEffect();
     }
-    IEnumerator AngryBehavior()
+    IEnumerator AngryBehaviour()
     {
         yield return new WaitForSeconds(0.7f);
 
@@ -323,12 +338,37 @@ public class BossMotionTest : MonoBehaviour, IDamagable
         m_anim.speed = 1.2f;
     }
 
+    IEnumerator JumpBehaviour(Vector3 playerPos)
+    {
+        m_isInvincibled = true;
+        gameObject.transform.DOLookAt(m_ps.PlayerPosition, 0.5f);
+        
+        yield return new WaitForSeconds(0.8f);
+        
+        gameObject.transform.DOMove(playerPos, 1.5f)
+                            .OnComplete(() => 
+                            {
+                                Debug.Log("ボス着地");
+                            });
+
+        yield return new WaitForSeconds(3.5f);
+        
+        StartCoroutine(ChangeState(BossState.Idle));
+    }
+
     public void InvincibleEnd()
     {
         m_isInvincibled = false;
         StartCoroutine(ChangeState(BossState.Idle));
     }
 
+    public void OnJumpEvent()
+    {
+        AudioManager.PlaySE(SEType.BetterGolem_Attack);
+        EventManager.OnEvent(Events.CameraShake);
+        EffectManager.PlayEffect(EffectType.Landing, gameObject.transform.position);
+        m_isInvincibled = false;
+    }
     public void ResetStatus()
     {
         m_anim.speed = 1.0f;
