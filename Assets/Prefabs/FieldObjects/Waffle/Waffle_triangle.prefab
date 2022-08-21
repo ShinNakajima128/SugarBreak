@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7842543444912880484}
   - component: {fileID: 143965807816210795}
   - component: {fileID: 55943638588208697}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Waffle_triangle_cream
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 4279271340283273233}
   - component: {fileID: 8707489081333365985}
   - component: {fileID: 5006185453532213230}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Waffle_triangle2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 8777329514260528400}
   - component: {fileID: 400394606211721588}
   - component: {fileID: 4635117078899352843}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Waffle_triangle
   m_TagString: Stickable
   m_Icon: {fileID: 0}

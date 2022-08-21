@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1089282995384113146}
   - component: {fileID: 1946337705009444486}
   - component: {fileID: 1434057545278763433}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Waffle_half2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 4527625430996017050}
   - component: {fileID: 972295784720551114}
   - component: {fileID: 4014892669234247237}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Waffle_half
   m_TagString: Stickable
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 7326349693777419626}
   - component: {fileID: 5083908741301905390}
   - component: {fileID: 3499983488225822429}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Waffle_half_cream
   m_TagString: Untagged
   m_Icon: {fileID: 0}

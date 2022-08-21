@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7148354644312703174}
   - component: {fileID: 3024739744442156110}
   - component: {fileID: 1025671199401349346}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Marshmallow
   m_TagString: Stickable
   m_Icon: {fileID: 0}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7217048620844203136}
   - component: {fileID: 3542657406700723444}
   - component: {fileID: 2802250083579656055}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Strawberry_Singleunit03
   m_TagString: Stickable
   m_Icon: {fileID: 0}
