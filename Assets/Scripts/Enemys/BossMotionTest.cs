@@ -130,7 +130,15 @@ public class BossMotionTest : MonoBehaviour, IDamagable
                     {
                         if (m_isAngryStated)
                         {
-                            StartCoroutine(ChangeState(BossState.Jump, 5.5f));
+                            var r = Random.Range(0, 3);
+                            if (r == 0)
+                            {
+                                StartCoroutine(ChangeState(BossState.Jump, 5.5f));
+                            }
+                            else
+                            {
+                                StartCoroutine(ChangeState(BossState.Move));
+                            }
                         }
                         else
                         {
@@ -176,7 +184,7 @@ public class BossMotionTest : MonoBehaviour, IDamagable
         //　攻撃する距離だったら攻撃
         if (Vector3.Distance(transform.position, m_ps.PlayerPosition) < m_distanceToPlayer && m_ps.IsFind)
         {
-            StartCoroutine(ChangeState(BossState.Attack, 3.4f / m_anim.speed));
+            StartCoroutine(ChangeState(BossState.Attack, 3.4f));
             Debug.Log("攻撃");
         }
     }
@@ -377,6 +385,10 @@ public class BossMotionTest : MonoBehaviour, IDamagable
     {
         m_anim.speed = 1.0f;
         m_isAngryStated = false;
+    }
+    public void RoarSE()
+    {
+        AudioManager.PlaySE(SEType.BetterGolem_Roar);
     }
     void DamageEffect()
     {
