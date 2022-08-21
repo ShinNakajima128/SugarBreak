@@ -92,7 +92,7 @@ public class BossArea : MonoBehaviour
 
     IEnumerator DelayActiveArea()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.1f);
 
         m_bossAreaEffect.SetActive(true);
     }

@@ -188,10 +188,10 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: fed8e9139405bef4d84971f28a30f5d5, type: 3}
   - SEName: "\u30D3\u30BF\u30FC\u30B4\u30FC\u30EC\u30E0:\u5420\u3048\u308B"
     SEType: 25
-    Clip: {fileID: 8300000, guid: b00c6fc9d1d41cc4d8a0f14f985ecc7a, type: 3}
+    Clip: {fileID: 8300000, guid: ad4468efb51a1a841b7a8011632c502f, type: 3}
   - SEName: "\u30D3\u30BF\u30FC\u30B4\u30FC\u30EC\u30E0:\u767B\u5834"
     SEType: 24
-    Clip: {fileID: 8300000, guid: b00c6fc9d1d41cc4d8a0f14f985ecc7a, type: 3}
+    Clip: {fileID: 8300000, guid: d540e1290b724474ba1077bbe13b4600, type: 3}
   - SEName: "\u30AB\u30FC\u30BD\u30EB\u79FB\u52D5"
     SEType: 3
     Clip: {fileID: 8300000, guid: 2eab1611f18380d4d84ed847c8e5ff20, type: 3}
@@ -238,6 +238,9 @@ MonoBehaviour:
   - VOICEName: "\u53E9\u304D\u3064\u3051\u653B\u6483"
     VOICEType: 1
     Clip: {fileID: 8300000, guid: 0bcf363c116234b2eb593bac01a170d4, type: 3}
+  - VOICEName: "\u30B2\u30FC\u30E0\u30AA\u30FC\u30D0\u30FC"
+    VOICEType: 10
+    Clip: {fileID: 8300000, guid: a547a21a0c17440fca7b13c6ebda770d, type: 3}
   _bgmSource: {fileID: 4439329403823700182}
   _seSourcesParent: {fileID: 4439329403388742032}
   _voiceSourcesParent: {fileID: 4439329403703288498}

@@ -112,6 +112,8 @@ public enum SEType
     Weapon_Attach,
     /// <summary> UI:ボタン選択 </summary>
     UI_ButtonSelect,
+    /// <summary> ビターゴーレム:登場 </summary>
+    BetterGolem_Entry
 }
 public enum VOICEType
 {

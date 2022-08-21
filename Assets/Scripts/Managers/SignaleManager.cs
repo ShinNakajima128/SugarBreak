@@ -86,6 +86,11 @@ public class SignaleManager : MonoBehaviour
     {
     }
 
+    public void EntrySE()
+    {
+        AudioManager.PlaySE(SEType.BetterGolem_Entry);
+    }
+
     public void OnLandingEffect()
     {
         EffectManager.PlayEffect(EffectType.Landing, m_ActingBoss.transform.position);
