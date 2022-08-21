@@ -341,6 +341,9 @@ public class BossMotionTest : MonoBehaviour, IDamagable
     IEnumerator JumpBehaviour(Vector3 playerPos)
     {
         m_isInvincibled = true;
+        var power = m_hd.AttackDamage;
+
+        m_hd.AttackDamage = 4;
         gameObject.transform.DOLookAt(m_ps.PlayerPosition, 0.5f);
         
         yield return new WaitForSeconds(0.8f);
@@ -352,7 +355,8 @@ public class BossMotionTest : MonoBehaviour, IDamagable
                             });
 
         yield return new WaitForSeconds(3.5f);
-        
+
+        m_hd.AttackDamage = power;
         StartCoroutine(ChangeState(BossState.Idle));
     }
 
