@@ -200,7 +200,7 @@ public class Decolly : EnemyBase
         m_anim.SetBool("Dead", true);
         m_anim.Play("Die");
         characterController.enabled = false;
-        //KonpeitouGenerator.Instance.GenerateKonpeitou(enemyData.konpeitou, this.transform.position);
+
         StartCoroutine(Vanish(EffectType.EnemyDead, m_vanishTime));
     }
 
@@ -236,14 +236,19 @@ public class Decolly : EnemyBase
     {
         currentHp -= attackPower;
         m_HpSlider.value = currentHp;
-        AudioManager.PlaySE(SEType.Enemy_Damage);
+        //AudioManager.PlaySE(SEType.Enemy_Damage);
 
         hitRb.AddForce(blowUpDir * blowUpPower, ForceMode.Impulse);
         Debug.Log($"吹き飛ばす力：{blowUpPower}");
 
-        if (currentHp > 0) m_anim.SetTrigger("Damage");
+        hitRb.AddForce((blowUpDir + Vector3.up) * 5, ForceMode.Impulse);
+        Debug.Log(blowUpDir + Vector3.up);
 
-        if (currentHp <= 0 && !isdead)
+        if (currentHp > 0)
+        {
+            m_anim.SetTrigger("Damage");
+        }
+        else if (currentHp <= 0 && !isdead)
         {
             isdead = true;
             SetState(DecollyState.Dead);

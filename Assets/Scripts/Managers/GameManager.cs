@@ -123,6 +123,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             case "CookieDungeon":
                 MenuManager.Instance.WhetherOpenMenu = true;
                 break;
+            case "BossBattle":
+                AudioManager.PlayBGM(BGMType.BakeleValley_Boss);
+                CurrentBossData = m_stageBossData[0];
+                break;
         }
         EventManager.ListenEvents(Events.CameraShake, CameraShake);
     }
@@ -173,6 +177,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 break;
             case "BossBattle":
                 AudioManager.PlayBGM(BGMType.BakeleValley_Boss);
+                CurrentBossData = m_stageBossData[0];
                 break;
         }
         EventManager.ListenEvents(Events.CameraShake, CameraShake);

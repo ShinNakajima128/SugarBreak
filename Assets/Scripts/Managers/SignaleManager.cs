@@ -108,6 +108,10 @@ public class SignaleManager : MonoBehaviour
 
     public void OnZoomBlur()
     {
+        if (!SkipMovieController.IsPlayed)
+        {
+            AudioManager.PlaySE(SEType.BetterGolem_Roar);
+        }
         coroutine = StartCoroutine(IncreaseParameter(m_bossZoomBlueValue));
     }
 
