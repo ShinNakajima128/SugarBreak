@@ -34,6 +34,10 @@ public class LoadSceneManager : MonoBehaviour
     [SerializeField] 
     Texture[] m_masks = default;
 
+    /// <summary> ロード中のフィルター </summary>
+    [SerializeField]
+    GameObject m_filter = default;
+
     public Texture[] Masks { get => m_masks; }
 
     public GameObject LoadAnim { get => m_loadAnim; set => m_loadAnim = value; }
@@ -89,6 +93,7 @@ public class LoadSceneManager : MonoBehaviour
     public void AnyLoadScene(string name)
     {
         fadeImage.UpdateMaskTexture(m_masks[2]);
+        m_filter.SetActive(true);
         fade.FadeIn(m_fadeTime, () =>
         {
             StartCoroutine(Load(name, 2.0f));
@@ -119,6 +124,7 @@ public class LoadSceneManager : MonoBehaviour
 
         yield return new WaitForSeconds(loadTime);
 
+        m_filter.SetActive(false);
         SceneManager.LoadScene(name);
     }
     
