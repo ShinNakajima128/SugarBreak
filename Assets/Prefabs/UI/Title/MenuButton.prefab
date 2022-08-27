@@ -270,7 +270,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _intaractable: 1
   _buttonType: 0
-  _animSpeed: 0.15
+  _animSpeed: 0.1
   _selectButtonScale: 1.1
   _selectAnimPosValue: -35
   _defaultColor: {r: 0.8396226, g: 0.29703632, b: 0.29703632, a: 1}

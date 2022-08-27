@@ -48,17 +48,15 @@ public class ButtonUIController : MonoBehaviour
 
     public void OnCurrentPanelFirstButton(int index)
     {
-		if (usingDesktopCursor)
+        if (usingDesktopCursor)
         {
-			return;
+            return;
         }
         StartCoroutine(OnButtonSelect(index));
 	}
 	IEnumerator OnButtonSelect(int index)
     {
-		Debug.Log("call");
-		yield return new WaitForSeconds(0.08f);
-		
+		yield return null;		
 		{
 			for (int i = 0; i < _panelList.Count; i++)
 			{

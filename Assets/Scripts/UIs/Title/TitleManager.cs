@@ -45,7 +45,8 @@ public class TitleManager : MonoBehaviour
             });
 
         this.UpdateAsObservable()
-            .Where(_ => Input.GetKeyDown(KeyCode.Escape) && _titleMenuCtrl.CurrentMenuType != MenuType.Start)
+            .Where(_ => Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Jump"))
+            .Where(_ => _titleMenuCtrl.CurrentMenuType == MenuType.MainMenu || _titleMenuCtrl.CurrentMenuType == MenuType.TGSMenu)
             .Subscribe(_ =>
             {
                 _titleMenuCtrl.OnMenuPanel(MenuType.Start);
