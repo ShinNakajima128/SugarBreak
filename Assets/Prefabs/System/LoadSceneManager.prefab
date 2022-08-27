@@ -250,7 +250,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: db9c14a57b367fa409217fcce666a9a1, type: 3}
   - {fileID: 2800000, guid: 86d3e0a77cc69904d951493a7c057440, type: 3}
   - {fileID: 2800000, guid: b66fa73d7fc75a44292586444f6cfc69, type: 3}
-  m_filter: {fileID: 0}
+  m_filter: {fileID: 2799005858021683432}
 --- !u!1 &2304927788766954197
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,7 +465,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: c08cd46eaf9a0d34eb221ba2978cc476, type: 2}
     - target: {fileID: 11486218, guid: 53c22e1773be7f84aad8ed8b7b58fa6e, type: 3}
       propertyPath: m_RaycastTarget
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22333946, guid: 53c22e1773be7f84aad8ed8b7b58fa6e, type: 3}
       propertyPath: m_SortingOrder
