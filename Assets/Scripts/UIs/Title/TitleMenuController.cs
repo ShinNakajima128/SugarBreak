@@ -55,7 +55,7 @@ public class TitleMenuController : MonoBehaviour
                 AudioManager.PlaySE(SEType.UI_ButtonSelect);
                 break;
             case ButtonType.Explore:
-                LoadSceneManager.Instance.AnyLoadScene("BakedValley");
+                LoadSceneManager.Instance.AnyLoadScene("Explore");
                 AudioManager.PlaySE(SEType.UI_Load);
                 break;
             case ButtonType.BossBattle:

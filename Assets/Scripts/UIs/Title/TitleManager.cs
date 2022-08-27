@@ -40,6 +40,7 @@ public class TitleManager : MonoBehaviour
             .Subscribe(_ => 
             {
                 _titleMenuCtrl.OnMainMenuPanel();
+                ButtonUIController.Instance.OnCurrentPanelFirstButton(1);
                 AudioManager.PlaySE(SEType.UI_Select);
             });
 

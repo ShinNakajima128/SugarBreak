@@ -84,7 +84,7 @@ public class TitleMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerClic
         _menuButton.interactable = _intaractable;
     }
 
-    void OnEnterAnim()
+    public void OnEnterAnim()
     {
         transform.DOScale(_selectButtonScale, _animSpeed);
         transform.DOLocalMove(_enteredPos, _animSpeed);
@@ -92,7 +92,7 @@ public class TitleMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerClic
         _animImageObject.SetActive(true);
     }
 
-    void OnExitAnim()
+    public void OnExitAnim()
     {
         transform.DOScale(Vector3.one, _animSpeed);
         transform.DOLocalMove(_originPos, _animSpeed);
@@ -100,7 +100,7 @@ public class TitleMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerClic
         _animImageObject.SetActive(false);
     }
 
-    void StatusReset()
+    public void StatusReset()
     {
         transform.DOScale(Vector3.one, _animSpeed);
         transform.localPosition = _originPos;
