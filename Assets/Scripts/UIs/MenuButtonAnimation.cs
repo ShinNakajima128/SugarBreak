@@ -33,7 +33,11 @@ public class MenuButtonAnimation : MonoBehaviour, IPointerEnterHandler, IPointer
     [SerializeField]
     Color m_unselectColor = default;
 
+    [SerializeField]
+    Image _lockImage = default;
+
     Vector3 m_originScale = default;
+    Button _button;
 
     private void Start()
     {
@@ -41,9 +45,17 @@ public class MenuButtonAnimation : MonoBehaviour, IPointerEnterHandler, IPointer
         BaseUI.OnButtonScaleReset += OffSelectButton;
         _buttonText.color = m_unselectColor;
         m_buttonBackground.SetActive(false);
-        var button = GetComponent<Button>();
+        _button = GetComponent<Button>();
 
-        button.onClick.AddListener(OffSelectButton);
+        _button.onClick.AddListener(OffSelectButton);
+
+        if (_lockImage != null)
+        {
+            if (!_button.interactable)
+            {
+                _lockImage.enabled = true;
+            }
+        }    
     }
 
     public void OnSelectButton()
@@ -76,11 +88,17 @@ public class MenuButtonAnimation : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        OnSelectButton();
+        if (_button.interactable)
+        {
+            OnSelectButton();
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        OffSelectButton();
+        if (_button.interactable)
+        {
+            OffSelectButton();
+        }
     }
 }
