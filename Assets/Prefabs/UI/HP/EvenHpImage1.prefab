@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 144893733470950806}
   - component: {fileID: 144893733470950807}
   m_Layer: 0
-  m_Name: EvenHpImage
+  m_Name: EvenHpImage1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +64,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a234d49c5b0058149ab83d750bba5f29, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5466d3f63f3d93e4f8e8c2e523bac63e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
