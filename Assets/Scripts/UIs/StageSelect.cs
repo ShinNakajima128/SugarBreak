@@ -25,7 +25,10 @@ public class StageSelect : MonoBehaviour
     StageSelectState m_stageSelectState = default;
 
     [SerializeField]
-    Text[] m_StageNames = default;
+    Text[] m_stageNames = default;
+
+    [SerializeField]
+    Button[] m_stageButtons = default;
 
     [SerializeField]
     GameObject[] m_updateIcons = default;
@@ -146,7 +149,7 @@ public class StageSelect : MonoBehaviour
         }
     }
 
-    void PanelChange(int index)
+    public void PanelChange(int index)
     {
         if(index >= 5)
         {
@@ -176,11 +179,11 @@ public class StageSelect : MonoBehaviour
     /// </summary>
     void StageNameUpdate()
     {
-        for (int i = 0; i < m_StageNames.Length; i++)
+        for (int i = 0; i < m_stageNames.Length; i++)
         {
             if (m_currentPlayerData.StageData[i].IsStageCleared)
             {
-                m_StageNames[i].text = m_currentPlayerData.StageData[i + 1].StageName;
+                m_stageNames[i].text = m_currentPlayerData.StageData[i + 1].StageName;
                 if (!m_currentPlayerData.StageData[i + 1].ConfirmStageUnlocked)
                 {
                     m_updateIcons[i].SetActive(true);
@@ -188,7 +191,8 @@ public class StageSelect : MonoBehaviour
             }
             else
             {
-                m_StageNames[i].text = "？？？？？";
+                m_stageButtons[i].interactable = false;
+                m_stageNames[i].text = "？？？？？";
             }
         }
     }
