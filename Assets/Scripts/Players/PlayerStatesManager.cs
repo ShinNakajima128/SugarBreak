@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Cinemachine;
 using TMPro;
+using DG.Tweening;
 
 public class PlayerStatesManager : MonoBehaviour, IDamagable
 {
@@ -27,6 +28,7 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
 
     bool isDying = false;
     bool m_debugMode = false;
+    Vector2 m_originTmpPos;
 
     public static PlayerStatesManager Instance { get; private set; }
     public bool IsOperation { get; set; } = true;
@@ -49,6 +51,7 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
         GameManager.GameEnd += OffOperation;
         EventManager.ListenEvents(Events.GetKonpeitou, UpdateCount);
         m_totalKonpeitouTmp.text = m_playerData.TotalKonpeitou.ToString();
+        m_originTmpPos = m_totalKonpeitouTmp.gameObject.transform.localPosition;
         if (GameManager.Instance.DebugMode)
         {
             m_debugMode = true;
@@ -197,5 +200,12 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     void UpdateCount()
     {
         m_totalKonpeitouTmp.text = m_playerData.TotalKonpeitou.ToString();
+        m_totalKonpeitouTmp.gameObject.transform.DOShakePosition(0.1f);
+        m_totalKonpeitouTmp.gameObject.transform.DOScale(1.4f, 0.05f)
+                                                .OnComplete(() =>
+                                                {
+                                                    m_totalKonpeitouTmp.gameObject.transform.DOScale(1.0f, 0.05f);
+                                                    m_totalKonpeitouTmp.gameObject.transform.localPosition = m_originTmpPos;
+                                                });                         
     }
 }
