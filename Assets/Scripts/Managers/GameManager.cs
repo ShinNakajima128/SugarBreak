@@ -116,12 +116,24 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 SaveManager.Save(DataTypes.All);
                 AudioManager.PlayBGM(BGMType.Base_Main);
                 break;
+            case "Base_TGS":
+                if (GameEnd != null)
+                {
+                    GameEnd = null;
+                }
+                SaveManager.Save(DataTypes.All);
+                AudioManager.PlayBGM(BGMType.Base_Main);
+                break;
             case "BakedValley":
                 AudioManager.PlayBGM(BGMType.BakeleValley_Main);
                 CurrentBossData = m_stageBossData[0];
                 break;
             case "CookieDungeon":
                 MenuManager.Instance.WhetherOpenMenu = true;
+                break;
+            case "Explore":
+                AudioManager.PlayBGM(BGMType.BakeleValley_Main);
+                CurrentBossData = m_stageBossData[0];
                 break;
             case "BossBattle":
                 AudioManager.PlayBGM(BGMType.BakeleValley_Boss);
@@ -171,7 +183,19 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 SaveManager.Save(DataTypes.All);
                 AudioManager.PlayBGM(BGMType.Base_Main);
                 break;
+            case "Base_TGS":
+                if (GameEnd != null)
+                {
+                    GameEnd = null;
+                }
+                SaveManager.Save(DataTypes.All);
+                AudioManager.PlayBGM(BGMType.Base_Main);
+                break;
             case "BakedValley":
+                AudioManager.PlayBGM(BGMType.BakeleValley_Main);
+                CurrentBossData = m_stageBossData[0];
+                break;
+            case "Explore":
                 AudioManager.PlayBGM(BGMType.BakeleValley_Main);
                 CurrentBossData = m_stageBossData[0];
                 break;

@@ -55,7 +55,7 @@ public class TitleMenuController : MonoBehaviour
                 AudioManager.PlaySE(SEType.UI_ButtonSelect);
                 break;
             case ButtonType.Explore:
-                LoadSceneManager.Instance.AnyLoadScene("Explore");
+                LoadSceneManager.Instance.AnyLoadScene("Base_TGS");
                 AudioManager.PlaySE(SEType.UI_Load);
                 break;
             case ButtonType.BossBattle:
