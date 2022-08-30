@@ -139,6 +139,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 AudioManager.PlayBGM(BGMType.BakeleValley_Boss);
                 CurrentBossData = m_stageBossData[0];
                 break;
+            case "Clear":
+                AudioManager.PlayBGM(BGMType.Base_Main);
+                break;
         }
         EventManager.ListenEvents(Events.CameraShake, CameraShake);
     }
@@ -202,6 +205,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             case "BossBattle":
                 AudioManager.PlayBGM(BGMType.BakeleValley_Boss);
                 CurrentBossData = m_stageBossData[0];
+                break;
+            case "Clear":
+                AudioManager.PlayBGM(BGMType.Base_Main);
                 break;
         }
         EventManager.ListenEvents(Events.CameraShake, CameraShake);

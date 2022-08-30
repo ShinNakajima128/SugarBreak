@@ -38,7 +38,9 @@ public enum BGMType
     /// <summary> ステージクリア </summary>
     ClearJingle,
     /// <summary> ゲームオーバー </summary>
-    Gameover
+    Gameover,
+    /// <summary> クリアシーン </summary>
+    Clear
 }
 public enum SEType
 {
@@ -113,7 +115,9 @@ public enum SEType
     /// <summary> UI:ボタン選択 </summary>
     UI_ButtonSelect,
     /// <summary> ビターゴーレム:登場 </summary>
-    BetterGolem_Entry
+    BetterGolem_Entry,
+    /// <summary> ウィンク </summary>
+    UI_Wink
 }
 public enum VOICEType
 {

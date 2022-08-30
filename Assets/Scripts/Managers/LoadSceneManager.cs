@@ -100,6 +100,11 @@ public class LoadSceneManager : MonoBehaviour
         });
     }
 
+    public void LoadTitle()
+    {
+        StartCoroutine(Load("RE_Title", 1.5f));
+    }
+
     /// <summary>
     /// ゲームを終了する
     /// </summary>
