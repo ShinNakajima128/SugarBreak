@@ -117,7 +117,11 @@ public enum SEType
     /// <summary> ビターゴーレム:登場 </summary>
     BetterGolem_Entry,
     /// <summary> ウィンク </summary>
-    UI_Wink
+    UI_Wink,
+    /// <summary> プレイヤー:またね </summary>
+    Player_Seeyou,
+    /// <summary> クリア画面のジングル </summary>
+    ClearJingle
 }
 public enum VOICEType
 {

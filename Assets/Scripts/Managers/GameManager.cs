@@ -140,7 +140,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 CurrentBossData = m_stageBossData[0];
                 break;
             case "Clear":
-                AudioManager.PlayBGM(BGMType.Base_Main);
+                AudioManager.StopBGM();
+                //AudioManager.PlayBGM(BGMType.Base_Main);
+                //AudioManager.PlaySE(SEType.ClearJingle);
                 break;
         }
         EventManager.ListenEvents(Events.CameraShake, CameraShake);
@@ -207,7 +209,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 CurrentBossData = m_stageBossData[0];
                 break;
             case "Clear":
-                AudioManager.PlayBGM(BGMType.Base_Main);
+                AudioManager.StopBGM();
+                //AudioManager.PlayBGM(BGMType.Base_Main);
+                //AudioManager.PlaySE(SEType.ClearJingle);
                 break;
         }
         EventManager.ListenEvents(Events.CameraShake, CameraShake);

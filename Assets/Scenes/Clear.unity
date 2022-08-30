@@ -482,11 +482,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
-    - target: {fileID: 4439329402619745730, guid: b9680b2ee54e8f642aafa8d7c45226ba,
-        type: 3}
-      propertyPath: _seList.Array.data[36].Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 21fe699fd98327545a5e11f17c3c2d4f, type: 3}
     - target: {fileID: 4439329402619745731, guid: b9680b2ee54e8f642aafa8d7c45226ba,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -883,6 +878,7 @@ GameObject:
   - component: {fileID: 1546915871}
   - component: {fileID: 1546915873}
   - component: {fileID: 1546915872}
+  - component: {fileID: 1546915874}
   m_Layer: 5
   m_Name: Image_Chara
   m_TagString: Untagged
@@ -946,6 +942,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1546915870}
   m_CullTransparentMesh: 0
+--- !u!95 &1546915874
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546915870}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e3d7b5b66d2d6f4478751b98a37394e8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1593272337
 GameObject:
   m_ObjectHideFlags: 0
@@ -1214,13 +1229,15 @@ MonoBehaviour:
   _fade: {fileID: 1482002149}
   _circleAnimSpeed: 0.5
   _charaAnimSpeed: 0.8
-  _textAnimSpeed: 1
+  _textAnimSpeed: 0.6
   _lastTextWaitTime: 0.5
   _thankyouImage: {fileID: 1593272339}
   _circleImage: {fileID: 2018635462}
   _charaImage: {fileID: 1546915872}
   _developersImage: {fileID: 1716713627}
+  _charaAnim: {fileID: 1546915874}
   _winkImage: {fileID: 21300000, guid: ab6771054708d274783c82623a1ed650, type: 3}
+  _finishImage: {fileID: 21300000, guid: e8931c04bc09eb64cac708d43a4c0d35, type: 3}
 --- !u!1 &2006897237
 GameObject:
   m_ObjectHideFlags: 0

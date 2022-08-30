@@ -36,7 +36,13 @@ public class ClearSceneManager : MonoBehaviour
     Image _developersImage = default;
 
     [SerializeField]
+    Animator _charaAnim = default;
+
+    [SerializeField]
     Sprite _winkImage = default;
+
+    [SerializeField]
+    Sprite _finishImage = default;
 
     Coroutine _fadeCol;
 
@@ -51,6 +57,8 @@ public class ClearSceneManager : MonoBehaviour
 
         yield return new WaitUntil(() => Input.anyKeyDown);
 
+        AudioManager.PlaySE(SEType.Player_Seeyou);
+        _charaAnim.Play("LipSynch");
         _fadeCol = _fade.FadeIn(1.5f);
 
         yield return new WaitForSeconds(0.8f);
@@ -59,18 +67,19 @@ public class ClearSceneManager : MonoBehaviour
         _fadeCol = null;
 
         yield return new WaitForSeconds(0.5f);
+        _charaAnim.enabled = false;
 
-        Sprite originCharaImage = _charaImage.sprite;
+        //Sprite originCharaImage = _charaImage.sprite;
         _charaImage.sprite = _winkImage;
         AudioManager.PlaySE(SEType.UI_Wink);
 
         yield return new WaitForSeconds(0.2f);
 
-        _charaImage.sprite = originCharaImage;
+        _charaImage.sprite = _finishImage;
 
         yield return new WaitForSeconds(1.0f);
 
-        _fadeCol = _fade.FadeIn(0.5f, () =>
+        _fade.FadeIn(0.5f, () =>
         {
             LoadSceneManager.Instance.LoadTitle();
         });
@@ -78,6 +87,8 @@ public class ClearSceneManager : MonoBehaviour
     IEnumerator ClearAnimation()
     {
         yield return new WaitForSeconds(1.0f);
+
+        AudioManager.PlaySE(SEType.ClearJingle);
         _circleImage.gameObject.transform
                                .DOScale(Vector3.one, _circleAnimSpeed)
                                .OnComplete(() =>
