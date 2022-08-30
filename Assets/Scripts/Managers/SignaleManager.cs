@@ -33,6 +33,23 @@ public class SignaleManager : MonoBehaviour
     [SerializeField]
     float m_blurSpeed = 0.8f;
 
+    [Header("クリア演出用")]
+    [SerializeField]
+    GameObject m_clearPanel = default;
+
+    [SerializeField]
+    RenderTexture m_clearTexture = default;
+
+    [SerializeField]
+    Camera m_camera = default;
+
+    [SerializeField]
+    Color m_cameraBackgroundColor = default;
+
+    [SerializeField]
+    GameObject m_playerObj = default;
+
+
     ZoomBlur zoomBlur;
     Coroutine coroutine;
     Transform m_playerTrans = default;
@@ -154,6 +171,23 @@ public class SignaleManager : MonoBehaviour
     {
         m_playerTrans.position = new Vector3(0, 0, 0);
         Debug.Log(m_playerTrans.position);
+    }
+
+    public void CameraDirection()
+    {
+        m_clearPanel.SetActive(true);
+        m_camera.targetTexture = m_clearTexture;
+        
+        m_playerObj.SetLayerRecursively(15);
+
+        //参考：https://qiita.com/ptkyoku/items/5602733ba9cff0ccd54d
+        m_camera.cullingMask = 1 << 15;
+
+        var uac = m_camera.gameObject.GetComponent<UniversalAdditionalCameraData>();
+        uac.renderPostProcessing = false;
+
+        m_camera.clearFlags = CameraClearFlags.SolidColor;
+        m_camera.backgroundColor = m_cameraBackgroundColor;
     }
 
     IEnumerator IncreaseParameter(float value)
