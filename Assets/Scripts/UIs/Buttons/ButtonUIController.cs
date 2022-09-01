@@ -23,6 +23,9 @@ public class ButtonUIController : MonoBehaviour
 	[SerializeField]
 	List<Button> _firstButtonList = new List<Button>();
 
+	[SerializeField]
+	bool _isActived = true;
+
 	///<summary> PCマウスカーソル表示制御用 </summary>
 	private bool usingDesktopCursor = true;
 	enum InputState
@@ -34,6 +37,8 @@ public class ButtonUIController : MonoBehaviour
     InputState _InputState = InputState.MouseKeyboard;
 
 	public static ButtonUIController Instance { get; private set; }
+	public List<Button> FirstButtonList { get => _firstButtonList; set => _firstButtonList = value; }
+	public bool IsActived { get => _isActived; set => _isActived = value; }
 
     private void Awake()
     {
@@ -56,7 +61,13 @@ public class ButtonUIController : MonoBehaviour
 	}
 	IEnumerator OnButtonSelect(int index)
     {
+		if (!_isActived)
+        {
+			yield break;
+        }
+
 		yield return null;		
+
 		{
 			for (int i = 0; i < _panelList.Count; i++)
 			{
