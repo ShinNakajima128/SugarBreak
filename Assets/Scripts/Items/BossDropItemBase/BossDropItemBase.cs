@@ -43,9 +43,9 @@ public class BossDropItemBase : MonoBehaviour
         {
             Debug.Log(gameObject.name + "を獲得した");
             GameManager.Instance.OnGameEnd();
-            GameManager.Instance.IsStageUpdated = true;
-            DataManager.Instance.UpdateStageData(_stageType);
-            DataManager.Instance.UnlockWeapon(_weaponType);
+            //GameManager.Instance.IsStageUpdated = true;
+            //DataManager.Instance.UpdateStageData(_stageType);
+            //DataManager.Instance.UnlockWeapon(_weaponType);
             Destroy(gameObject);
         }
     }

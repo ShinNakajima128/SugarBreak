@@ -17,6 +17,9 @@ public class SignaleManager : MonoBehaviour
     [SerializeField] 
     GameObject m_ActingBoss = default;
 
+    [SerializeField]
+    GameObject m_actingEffect = default;
+
     [Header("戦闘するボス")]
     [SerializeField] 
     GameObject m_mainBoss = default;
@@ -188,6 +191,11 @@ public class SignaleManager : MonoBehaviour
 
         m_camera.clearFlags = CameraClearFlags.SolidColor;
         m_camera.backgroundColor = m_cameraBackgroundColor;
+    }
+
+    public void OffEffect()
+    {
+        m_actingEffect.SetActive(false);
     }
 
     IEnumerator IncreaseParameter(float value)

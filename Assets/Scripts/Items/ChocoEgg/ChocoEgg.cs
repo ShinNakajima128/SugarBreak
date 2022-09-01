@@ -82,7 +82,7 @@ public class ChocoEgg : MonoBehaviour, IDamagable
                 else
                 {
                     ItemGenerator.Instance.GenerateKonpeitou(boss.konpeitou, transform.position);
-                    GameManager.Instance.OnGameEndClearedStage();
+                    //GameManager.Instance.OnGameEndClearedStage();
                 }
                 break;
             case BossType.CottonCandy:
