@@ -94,25 +94,26 @@ public class MenuManager : MonoBehaviour
                         PlayerStatesManager.Instance.OffOperation();
                         EventManager.OnEvent(Events.OffHUD);
 
-                        MenuSelectButton();
+                        //MenuSelectButton();
+                        ButtonUIController.Instance.IsActived = true;
+                        ButtonUIController.Instance.OnCurrentPanelFirstButton(0);
                     }
                     else if (state != MenuState.Close)  //メニューを閉じる
                     {
-                        CloseMenu();
-                        EventManager.OnEvent(Events.OnHUD);
+                        //CloseMenu();
                     }
                 }
-                else if (Input.GetButtonDown("Cancel"))
-                {
-                    if (m_confirmPanel.activeSelf)
-                    {
-                        ActiveMenu(0);
-                    }
-                    else if (m_rootMenuPanel.activeSelf)
-                    {
-                        CloseMenu();
-                    }
-                }
+                //else if (Input.GetButtonDown("Cancel"))
+                //{
+                //    if (m_confirmPanel.activeSelf)
+                //    {
+                //        ActiveMenu(0);
+                //    }
+                //    else if (m_rootMenuPanel.activeSelf)
+                //    {
+                //        CloseMenu();
+                //    }
+                //}
             }          
         }
     }
@@ -173,7 +174,7 @@ public class MenuManager : MonoBehaviour
         LoadSceneManager.Instance.AnyLoadScene(baseName);
     }
 
-    void CloseMenu()
+    public void CloseMenu()
     {
         Time.timeScale = 1f;
         m_rootMenuPanel.SetActive(false);
@@ -183,17 +184,13 @@ public class MenuManager : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         PlayerStatesManager.Instance.OnOperation();
+
+        EventManager.OnEvent(Events.OnHUD);
+        ButtonUIController.Instance.IsActived = false;
     }
 
-    int GetMenu(MenuState menu)
+    public void PlayMenuSelectSE()
     {
-        if (menuIndex.ContainsKey(menu))
-        {
-            return menuIndex[menu];
-        }
-        else
-        {
-            return 0;
-        }
+        AudioManager.PlaySE(SEType.UI_CursolMove);
     }
 }

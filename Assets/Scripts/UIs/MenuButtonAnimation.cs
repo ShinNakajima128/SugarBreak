@@ -62,11 +62,23 @@ public class MenuButtonAnimation : MonoBehaviour, IPointerEnterHandler, IPointer
     {
         transform.DOScale(new Vector3(m_changeScaleValue, m_changeScaleValue, 1), m_animasionSpeed);
         
+        //if (m_selectIcon != null && _button.interactable)
+        //{
+        //    m_selectIcon.enabled = true;
+        //    m_unselectIcon.enabled = false;
+        //}
+
         if (m_selectIcon != null)
         {
             m_selectIcon.enabled = true;
             m_unselectIcon.enabled = false;
         }
+
+        //if (_button.interactable)
+        //{
+        //    m_buttonBackground.SetActive(true);
+        //    _buttonText.color = m_selectColor;
+        //}
 
         m_buttonBackground.SetActive(true);
         _buttonText.color = m_selectColor;
@@ -75,12 +87,24 @@ public class MenuButtonAnimation : MonoBehaviour, IPointerEnterHandler, IPointer
     public void OffSelectButton()
     {
         transform.DOScale(m_originScale, m_animasionSpeed);
-        
+
+        //if (m_selectIcon != null && _button.interactable)
+        //{
+        //    m_selectIcon.enabled = false;
+        //    m_unselectIcon.enabled = true;
+        //}
+
         if (m_selectIcon != null)
         {
             m_selectIcon.enabled = false;
             m_unselectIcon.enabled = true;
         }
+        
+        //if (_button.interactable)
+        //{
+        //    m_buttonBackground.SetActive(false);
+        //    _buttonText.color = m_unselectColor;
+        //}
 
         m_buttonBackground.SetActive(false);
         _buttonText.color = m_unselectColor;
