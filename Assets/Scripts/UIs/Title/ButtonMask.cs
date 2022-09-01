@@ -43,6 +43,7 @@ public class ButtonMask : MonoBehaviour
                transform.position = _originPos;
            })
            .SetLoops(-1)
+           .SetUpdate(true)
            .Play();
     }
 
