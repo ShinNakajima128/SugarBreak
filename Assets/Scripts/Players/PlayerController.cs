@@ -401,11 +401,14 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void ChangeAction(WeaponListTypes type)
     {
-        WeaponListControl.Instance.ChangeWeapon(type);
+        WeaponListControl.Instance.ChangeWeapon(type, () => 
+        {
+            EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
+            AudioManager.PlaySE(SEType.Weapon_Change);
+        });
         EventManager.OnEvent(Events.RebindWeaponAnimation);
         AimRotation.Instance.ResetWeaponListRotation();
-        EffectManager.PlayEffect(EffectType.ChangeWeapon, m_effectPos.position);
-        AudioManager.PlaySE(SEType.Weapon_Change);
+        
     }
 
     /// <summary>
