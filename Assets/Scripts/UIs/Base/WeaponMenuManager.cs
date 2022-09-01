@@ -124,11 +124,11 @@ public class WeaponMenuManager : MonoBehaviour
     void Update()
     {
         //キャラクターを回転させる
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(KeyCode.Q)|| Input.GetAxis("Trigger") < 0)
         {
             OnRotateAction(RotateType.Left); //左回転
         }
-        else if (Input.GetKey(KeyCode.E))
+        else if (Input.GetKey(KeyCode.E) || Input.GetAxis("Trigger") > 0)
         {
             OnRotateAction(RotateType.Right); //右回転
         }
