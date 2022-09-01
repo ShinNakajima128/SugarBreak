@@ -42,11 +42,18 @@ public class BossUIManager : MonoBehaviour
         OffUI();
         EventManager.ListenEvents(Events.BossBattleStart, OnUI);
         EventManager.ListenEvents(Events.BossBattleEnd, OffUI);
+        EventManager.ListenEvents(Events.OnHUD, OnBossUI);
+        EventManager.ListenEvents(Events.OffHUD, OffUI);
     }
 
     void OnUI()
     {
         StartCoroutine(SetUp());
+    }
+
+    void OnBossUI()
+    {
+        m_bossUIPanel.SetActive(true);
     }
 
     void OffUI()
