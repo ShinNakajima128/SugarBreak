@@ -53,7 +53,10 @@ public class BossUIManager : MonoBehaviour
 
     void OnBossUI()
     {
-        m_bossUIPanel.SetActive(true);
+        if (BossArea.isBattle)
+        {
+            m_bossUIPanel.SetActive(true);
+        }
     }
 
     void OffUI()
