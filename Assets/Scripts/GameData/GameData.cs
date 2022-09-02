@@ -158,10 +158,15 @@ public class AllWeapon
         }
 
         //メイン武器のみ解放&装備状態に設定
-        WeaponsData[0].IsEquipped = true;
-        WeaponsData[0].IsUnrocked = true;
+        //WeaponsData[0].IsEquipped = true;
+        //WeaponsData[0].IsUnrocked = true;
 
-        WeaponsData[1].IsGetWeaponMaterial = true;
+        foreach (var w in WeaponsData)
+        {
+            w.IsEquipped = true;
+            w.IsUnrocked = true;
+        }
+        //WeaponsData[1].IsGetWeaponMaterial = true;
     }
     /// <summary>
     /// データを更新する
