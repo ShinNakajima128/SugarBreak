@@ -63,6 +63,9 @@ public class BossMotionTest : MonoBehaviour, IDamagable
     Renderer m_bossSkin = default;
 
     [SerializeField]
+    Material m_angryMaterial = default;
+
+    [SerializeField]
     bool m_debugMode = false;
 
     int m_currentHp;
@@ -130,7 +133,7 @@ public class BossMotionTest : MonoBehaviour, IDamagable
                     {
                         if (m_isAngryStated)
                         {
-                            var r = Random.Range(0, 3);
+                            var r = Random.Range(0, 2);
                             if (r == 0)
                             {
                                 StartCoroutine(ChangeState(BossState.Jump, 5.5f));
@@ -339,6 +342,7 @@ public class BossMotionTest : MonoBehaviour, IDamagable
         SignaleManager.Instance.OnZoomBlur();
         EventManager.OnEvent(Events.CameraShake); //カメラを揺らす
         Debug.Log("怒り移行");
+        m_bossSkin.material = m_angryMaterial;
 
         yield return new WaitForSeconds(2.0f);
         SignaleManager.Instance.OffClearBlur();
@@ -352,11 +356,12 @@ public class BossMotionTest : MonoBehaviour, IDamagable
         var power = m_hd.AttackDamage;
 
         m_hd.AttackDamage = 4;
-        gameObject.transform.DOLookAt(m_ps.PlayerPosition, 0.5f);
+        Vector3 lookAtPos = new Vector3(m_ps.PlayerPosition.x, transform.position.y, m_ps.PlayerPosition.z);
+        gameObject.transform.DOLookAt(lookAtPos, 0.5f);
         
         yield return new WaitForSeconds(0.8f);
         
-        gameObject.transform.DOMove(playerPos, 1.5f)
+        gameObject.transform.DOMove(lookAtPos, 1.5f)
                             .OnComplete(() => 
                             {
                                 Debug.Log("ボス着地");
