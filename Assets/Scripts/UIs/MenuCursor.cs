@@ -38,7 +38,7 @@ namespace SugarBreak
         {
             if (!Instance.IsActive)
             {
-                OnCursor();
+                //OnCursor();
             }
             Instance.transform.DOMove(pos, Instance._moveSpeed);
         }
