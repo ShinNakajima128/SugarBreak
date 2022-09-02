@@ -206,13 +206,13 @@ GameObject:
   - component: {fileID: 1447362504647234100}
   - component: {fileID: 3825562765748378591}
   - component: {fileID: 4564174762903302931}
-  m_Layer: 9
+  m_Layer: 16
   m_Name: BitterGolem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1413191278321645021
 Transform:
   m_ObjectHideFlags: 0
@@ -276,6 +276,7 @@ MonoBehaviour:
   m_deadModel: {fileID: 5375803697451851743, guid: 1d96fca49543dbf4c838607f7e0580d8,
     type: 3}
   m_bossSkin: {fileID: 2923793460986002056}
+  m_angryMaterial: {fileID: 2100000, guid: cdf57da97b667e34b8918ea127eded0c, type: 2}
   m_debugMode: 0
 --- !u!143 &4564174762903302931
 CharacterController:
