@@ -29,7 +29,7 @@ public class OperationUIManager : MonoBehaviour
     [SerializeField]
     GameObject m_operationPanel = default;
 
-    OperationUIState m_currentState = OperationUIState.Keyboard;
+    OperationUIState m_currentState = OperationUIState.Gamepad;
     bool m_isOperated = true;
     bool m_isDisplayed = false;
     Vector3 m_originPos = default;
