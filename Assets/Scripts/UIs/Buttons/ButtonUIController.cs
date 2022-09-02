@@ -143,8 +143,8 @@ public class ButtonUIController : MonoBehaviour
 			return true;
 		}
 
-		if (Mathf.Abs(Input.GetAxis("Camera X")) > Mathf.Epsilon ||
-			Mathf.Abs(Input.GetAxis("Camera Y")) > Mathf.Epsilon)
+		if (Mathf.Abs(Input.GetAxis("MouseX")) > Mathf.Epsilon ||
+			Mathf.Abs(Input.GetAxis("MouseY")) > Mathf.Epsilon)
 		{
 			return true;
 		}
