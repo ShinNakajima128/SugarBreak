@@ -71,6 +71,7 @@ public class TitleManager : MonoBehaviour
     public void OnCancel()
     {
         _titleMenuCtrl.OnMainMenuPanel();
+        AudioManager.PlaySE(SEType.UI_Cancel);
     }
     #endregion
 }

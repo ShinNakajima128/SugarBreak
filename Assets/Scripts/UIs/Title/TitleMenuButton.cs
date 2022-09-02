@@ -98,6 +98,7 @@ public class TitleMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerClic
         transform.DOLocalMove(_originPos, _animSpeed);
         _buttonText.color = _defaultColor;
         _animImageObject.SetActive(false);
+        AudioManager.PlaySE(SEType.UI_CursolMove);
     }
 
     public void StatusReset()
@@ -114,7 +115,6 @@ public class TitleMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerClic
         {
             Enter?.Invoke();
             OnEnterAnim();
-            AudioManager.PlaySE(SEType.UI_CursolMove);
         }
     }
     public void OnPointerClick(PointerEventData eventData)

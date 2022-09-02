@@ -156,7 +156,6 @@ public class WeaponMenuManager : MonoBehaviour
                 _equipButton.OnEquipButton(b.WeaponButtonData);
                 OnWeaponButtonClickAction?.Invoke(b.WeaponButtonData);
                 _currentSelectWeaponData = b.WeaponButtonData;
-                //MenuCursor.CursorMove(b.CursorTarget.position);
             });
             _weaponDataList.Add(b);
         }

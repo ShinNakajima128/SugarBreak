@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using SugarBreak;
 
 /// <summary>
 /// 拠点のUIのステータス
@@ -160,6 +161,15 @@ public class BaseUI : MonoBehaviour
         }
         AudioManager.PlaySE(SEType.UI_CursolMove);
     }
+    public void TransitionSE()
+    {
+        AudioManager.PlaySE(SEType.UI_Transition);
+    }
+
+    public void LoadSE()
+    {
+        AudioManager.PlaySE(SEType.UI_Load);
+    }
     /// <summary>
     /// タイトルSceneに遷移する
     /// </summary>
@@ -196,16 +206,18 @@ public class BaseUI : MonoBehaviour
                 //武器メニュー画面から戻る場合は画面フェードを入れる
                 if (m_baseUI == BaseUIState.WeaponMenu)
                 {
+                    MenuCursor.OffCursor();
                     LoadSceneManager.Instance.FadeIn(callback: () =>
                     {
                         PanelChange(3);
                         LoadSceneManager.Instance.FadeOut();
-                        StartCoroutine(WeaponButtonSelect());
+                        ButtonUIController.Instance.OnCurrentPanelFirstButton(3);
                     });
                 }
                 else
                 {
                     PanelChange(3);
+                    ButtonUIController.Instance.OnCurrentPanelFirstButton(8);
                 }
                 break;
             case BaseUIState.WeaponMenu:
@@ -213,7 +225,9 @@ public class BaseUI : MonoBehaviour
                 LoadSceneManager.Instance.FadeIn(callback:() => 
                 {
                     PanelChange(6);
+                    MenuCursor.OnCursor();
                     LoadSceneManager.Instance.FadeOut();
+                    StartCoroutine(WeaponButtonSelect());
                 });
                 break;
             case BaseUIState.Option:
@@ -278,8 +292,9 @@ public class BaseUI : MonoBehaviour
 
     IEnumerator WeaponButtonSelect()
     {
-        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForSeconds(0.2f);
 
+        Debug.Log("装備ボタンON");
         ButtonUIController.Instance.OnCurrentPanelFirstButton(8);
     }
 }

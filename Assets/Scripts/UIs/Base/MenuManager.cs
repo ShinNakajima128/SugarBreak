@@ -173,6 +173,7 @@ public class MenuManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         LoadSceneManager.Instance.AnyLoadScene(baseName);
+        AudioManager.PlaySE(SEType.UI_Load);
     }
 
     public void CloseMenu()

@@ -121,7 +121,9 @@ public enum SEType
     /// <summary> プレイヤー:またね </summary>
     Player_Seeyou,
     /// <summary> クリア画面のジングル </summary>
-    ClearJingle
+    ClearJingle,
+    /// <summary> クリームに当たった時の音 </summary>
+    Cream
 }
 public enum VOICEType
 {

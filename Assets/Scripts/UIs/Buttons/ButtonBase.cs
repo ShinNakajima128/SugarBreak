@@ -46,20 +46,13 @@ public abstract class ButtonBase : MonoBehaviour, IPointerClickHandler, IPointer
     public void OnPointerEnter(PointerEventData eventData)
     {
         Enter?.Invoke();
-        if (_isAnimation)
-        {
-            transform.DOScale(new Vector3(_selectScaleValue, _selectScaleValue, 1), _animSpeed);
-            AudioManager.PlaySE(SEType.UI_CursolMove);
-        }
+        OnSelectButton();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         Exit?.Invoke();
-        if (_isAnimation)
-        {
-            transform.DOScale(_originScale, _animSpeed);
-        }
+        OnDeselectButton();
     }
 
     public void OnSelectButton()
@@ -67,8 +60,9 @@ public abstract class ButtonBase : MonoBehaviour, IPointerClickHandler, IPointer
         if (_isAnimation)
         {
             transform.DOScale(new Vector3(_selectScaleValue, _selectScaleValue, 1), _animSpeed);
-            AudioManager.PlaySE(SEType.UI_CursolMove);
         }
+        AudioManager.PlaySE(SEType.UI_CursolMove);
+        MenuCursor.CursorMove(CursorTarget.position);
     }
 
     public void OnDeselectButton()
