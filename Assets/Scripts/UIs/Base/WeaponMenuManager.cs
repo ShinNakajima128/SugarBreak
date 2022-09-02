@@ -160,6 +160,7 @@ public class WeaponMenuManager : MonoBehaviour
             });
             _weaponDataList.Add(b);
         }
+        ButtonUIController.Instance.FirstButtonList[8] = _weaponDataList[0].GetComponent<Button>();
     }
     #region button actions
     /// <summary>

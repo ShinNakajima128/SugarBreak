@@ -200,6 +200,7 @@ public class BaseUI : MonoBehaviour
                     {
                         PanelChange(3);
                         LoadSceneManager.Instance.FadeOut();
+                        StartCoroutine(WeaponButtonSelect());
                     });
                 }
                 else
@@ -273,5 +274,12 @@ public class BaseUI : MonoBehaviour
     void SaveSelectButton()
     {
         //_currentButton = EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
+    }
+
+    IEnumerator WeaponButtonSelect()
+    {
+        yield return new WaitForSeconds(0.15f);
+
+        ButtonUIController.Instance.OnCurrentPanelFirstButton(8);
     }
 }

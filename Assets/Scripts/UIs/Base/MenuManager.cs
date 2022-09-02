@@ -84,6 +84,7 @@ public class MenuManager : MonoBehaviour
                 {
                     if (state == MenuState.Close)   //メニューを開く
                     {
+                        AudioManager.PlaySE(SEType.UI_Select);
                         m_rootMenuPanel.SetActive(true);
                         m_hudPanel.SetActive(false);
                         Cursor.visible = true;

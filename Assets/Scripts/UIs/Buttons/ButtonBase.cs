@@ -78,4 +78,10 @@ public abstract class ButtonBase : MonoBehaviour, IPointerClickHandler, IPointer
             transform.DOScale(_originScale, _animSpeed);
         }
     }
+
+    public void OnClickButton()
+    {
+        Click?.Invoke();
+        AudioManager.PlaySE(SEType.UI_ButtonSelect);
+    }
 }
