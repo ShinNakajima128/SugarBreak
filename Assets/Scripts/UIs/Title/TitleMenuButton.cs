@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using TMPro;
+using SugarBreak;
 
 public enum ButtonType
 {
@@ -20,7 +19,9 @@ public enum ButtonType
     /// <summary> ボス戦モード </summary>
     BossBattle,
     /// <summary> ゲーム終了 </summary>
-    GameEnd
+    GameEnd,
+    /// <summary> オプション </summary>
+    Option
 }
 
 public class TitleMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
@@ -60,6 +61,9 @@ public class TitleMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerClic
     [Tooltip("ボタンのText")]
     [SerializeField]
     TextMeshProUGUI _buttonText = default;
+
+    [SerializeField]
+    Transform m_cursorTrans = default;
 
     public Action Enter;
     public Action Click;
@@ -107,6 +111,14 @@ public class TitleMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerClic
         transform.localPosition = _originPos;
         _buttonText.color = _defaultColor;
         _animImageObject.SetActive(false);
+    }
+
+    public void CursorMove()
+    {
+        if (m_cursorTrans != null)
+        {
+            MenuCursor.CursorMove(m_cursorTrans.position);
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)

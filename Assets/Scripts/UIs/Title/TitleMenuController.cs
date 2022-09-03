@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SugarBreak;
 
 public class TitleMenuController : MonoBehaviour
 {
@@ -66,6 +67,11 @@ public class TitleMenuController : MonoBehaviour
                 OnMenuPanel(MenuType.GameEnd);
                 AudioManager.PlaySE(SEType.UI_ButtonSelect);
                 break;
+            case ButtonType.Option:
+                OnMenuPanel(MenuType.Option);
+                AudioManager.PlaySE(SEType.UI_ButtonSelect);
+                MenuCursor.OnCursor();
+                break;
             default:
                 break;
         }
@@ -85,6 +91,7 @@ public class TitleMenuController : MonoBehaviour
                 OnMenuPanel(MenuType.TGSMenu);
                 break;
         }
+        MenuCursor.OffCursor();
     }
     public void ClickSE()
     {
@@ -110,5 +117,6 @@ public enum MenuType
     Explore,
     BossBattle,
     GameEnd,
-    TGSMenu
+    TGSMenu,
+    Option
 }
