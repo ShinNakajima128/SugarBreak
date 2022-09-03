@@ -365,36 +365,46 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
     /// マスター音量を変更する
     /// </summary>
     /// <param name="masterValue"> 音量 </param>
-    public void MasterVolChange(float masterValue)
+    public static void MasterVolChange(float masterValue)
     {
-        _masterVolume = masterValue;
+        Instance._masterVolume = masterValue;
+        Instance._bgmSource.volume = Instance._bgmVolume * Instance._masterVolume;
     }
 
     /// <summary>
     /// BGM音量を変更する
     /// </summary>
     /// <param name="bgmValue"> 音量 </param>
-    public void BgmVolChange(float bgmValue)
+    public static void BgmVolChange(float bgmValue)
     {
-        _bgmVolume = bgmValue;
+        Instance._bgmVolume = bgmValue;
+        Instance._bgmSource.volume = Instance._bgmVolume * Instance._masterVolume;
     }
 
     /// <summary>
     /// SE音量を変更する
     /// </summary>
     /// <param name="seValue"> 音量 </param>
-    public void SeVolChange(float seValue)
+    public static void SeVolChange(float seValue)
     {
-        _seVolume = seValue;
+        Instance._seVolume = seValue;
+        foreach (var s in Instance._seAudioSourceList)
+        {
+            s.volume = Instance._seVolume;
+        }
     }
 
     /// <summary>
     /// ボイス音量を変更する
     /// </summary>
     /// <param name="voiceValue"> 音量 </param>
-    public void VoiceVolChange(float voiceValue)
+    public static void VoiceVolChange(float voiceValue)
     {
-        _voiceVolume = voiceValue;
+        Instance._voiceVolume = voiceValue;
+        foreach (var v in Instance._voiceAudioSourceList)
+        {
+            v.volume = Instance._voiceVolume;
+        }
     }
 
     /// <summary>
