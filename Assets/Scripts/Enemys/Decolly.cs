@@ -236,13 +236,16 @@ public class Decolly : EnemyBase
     {
         currentHp -= attackPower;
         m_HpSlider.value = currentHp;
-        //AudioManager.PlaySE(SEType.Enemy_Damage);
+        AudioManager.PlaySE(SEType.Enemy_Damage);
+        
+        if (hitRb != null)
+        {
+            hitRb.AddForce(blowUpDir * blowUpPower, ForceMode.Impulse);
+            Debug.Log($"吹き飛ばす力：{blowUpPower}");
 
-        hitRb.AddForce(blowUpDir * blowUpPower, ForceMode.Impulse);
-        Debug.Log($"吹き飛ばす力：{blowUpPower}");
-
-        hitRb.AddForce((blowUpDir + Vector3.up) * 5, ForceMode.Impulse);
-        Debug.Log(blowUpDir + Vector3.up);
+            hitRb.AddForce((blowUpDir + Vector3.up) * 5, ForceMode.Impulse);
+            Debug.Log(blowUpDir + Vector3.up);
+        }
 
         if (currentHp > 0)
         {
