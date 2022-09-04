@@ -289,7 +289,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
             {
                 if (!s.isPlaying)
                 {
-                    s.PlayOneShot(se.Clip, Instance._seVolume * Instance._masterVolume);
+                    s.PlayOneShot(se.Clip, Instance._seVolume * Instance._masterVolume * se.Volume);
                     Debug.Log($"{se.SEName}を再生");
                     return;
                 }
@@ -315,7 +315,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
             {
                 if (!s.isPlaying)
                 {
-                    s.PlayOneShot(voice.Clip, Instance._voiceVolume * Instance._masterVolume);
+                    s.PlayOneShot(voice.Clip, Instance._voiceVolume * Instance._masterVolume * voice.Volume);
                     Debug.Log($"{voice.VOICEName}を再生");
                     return;
                 }
@@ -493,6 +493,8 @@ public class SE
     public string SEName;
     public SEType SEType;
     public AudioClip Clip;
+    [Range(0,1)]
+    public float Volume = 1f;
 }
 [Serializable]
 public class VOICE
@@ -500,4 +502,6 @@ public class VOICE
     public string VOICEName;
     public VOICEType VOICEType;
     public AudioClip Clip;
+    [Range(0, 1)]
+    public float Volume = 1f;
 }
