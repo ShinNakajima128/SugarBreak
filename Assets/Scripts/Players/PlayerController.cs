@@ -365,7 +365,7 @@ public class PlayerController : MonoBehaviour
     void AttackMove()
     {
         //通常攻撃ボタンを押したら
-        if (Input.GetButtonDown("Fire1") || Input.GetAxis("Trigger") > 0)
+        if (Input.GetButtonDown("Fire1"))
         {
             //地上にいる時の攻撃
             if (IsGrounded())
