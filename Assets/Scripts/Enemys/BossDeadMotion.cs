@@ -36,9 +36,10 @@ public class BossDeadMotion : MonoBehaviour
             //m_rbs[i].WakeUp();
             m_rbs[i].isKinematic = false;
         }
-        EffectManager.PlayEffect(EffectType.BossDead, transform.position);
-        ItemGenerator.Instance.GenerateChocoEgg(transform);
-        EventManager.OnEvent(Events.BossBattleEnd);
+        //EffectManager.PlayEffect(EffectType.BossDead, transform.position);
+        //ItemGenerator.Instance.GenerateChocoEgg(transform);
+        
+        BossArea.isBattle = false;
         AudioManager.PlaySE(SEType.BetterGolem_Dead);
 
         foreach (var m in m_meshs)
@@ -59,6 +60,11 @@ public class BossDeadMotion : MonoBehaviour
             a -= m_disappearTime * Time.deltaTime;
             yield return null;
         }
+
+        yield return new WaitForSeconds(1.0f);
+
+        GameManager.Instance.OnGameEnd();
+        EventManager.OnEvent(Events.BossBattleEnd);
         Destroy(mesh.gameObject);
     }
 }
