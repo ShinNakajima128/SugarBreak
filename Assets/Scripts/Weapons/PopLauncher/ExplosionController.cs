@@ -24,6 +24,8 @@ public class ExplosionController : WeaponBase
             foreach (var t in targets)
             {
                 t.Damage(m_damage);
+                EffectManager.PlayEffect(EffectType.Damage, t.EffectTarget.position);
+                Debug.Log(t.ToString());
             }
         }
         else

@@ -174,11 +174,11 @@ public class DualSoda : WeaponBase, IWeapon
 
     public void WeaponAction2(Animator anim, Rigidbody rb)
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public void WeaponAction3(Animator anim, Rigidbody rb)
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 }
