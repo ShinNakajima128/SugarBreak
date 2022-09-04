@@ -60,16 +60,16 @@ public class FieldSweetsData : ScriptableObject
                 size = default;
                 break;
             case FieldSweetsSize.Small:
-                size = new Vector3(2, 2, 2);
-                break;
-            case FieldSweetsSize.Medium:
                 size = new Vector3(2.5f, 2.5f, 2.5f);
                 break;
+            case FieldSweetsSize.Medium:
+                size = new Vector3(3f, 3f, 3f);
+                break;
             case FieldSweetsSize.Large:
-                size = new Vector3(3, 3, 3);
+                size = new Vector3(3.5f, 3.5f, 3.5f);
                 break;
             case FieldSweetsSize.ExtraLarge:
-                size = new Vector3(3.5f, 3.5f, 3.5f);
+                size = new Vector3(4f, 4f, 4f);
                 break;
         }
         return size;
