@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using SugarBreak;
 
 public enum MenuState
 {
@@ -186,7 +187,7 @@ public class MenuManager : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         PlayerStatesManager.Instance.OnOperation();
-
+        
         EventManager.OnEvent(Events.OnHUD);
         ButtonUIController.Instance.IsActived = false;
     }
@@ -194,5 +195,15 @@ public class MenuManager : MonoBehaviour
     public void PlayMenuSelectSE()
     {
         AudioManager.PlaySE(SEType.UI_CursolMove);
+    }
+
+    public void OnCursor()
+    {
+        MenuCursor.OnCursor();
+    }
+
+    public void OffCursor()
+    {
+        MenuCursor.OffCursor();
     }
 }
