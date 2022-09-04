@@ -33,6 +33,7 @@ public class ChocoEgg : MonoBehaviour, IDamagable
 
 
     public BossType BossTypes { get; set; }
+    public Transform EffectTarget { get => transform; }
 
     void Start()
     {

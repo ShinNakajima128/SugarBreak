@@ -12,6 +12,9 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     [SerializeField] 
     PlayerData m_playerData = default;
 
+    [SerializeField]
+    float m_knockbackTime = 0.5f;
+
     /// <summary> 金平糖の所持数を表示するテキスト </summary>
     TextMeshProUGUI m_totalKonpeitouTmp = default;
 
@@ -33,6 +36,7 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     public static PlayerStatesManager Instance { get; private set; }
     public bool IsOperation { get; set; } = true;
     public bool IsDying => isDying;
+    public Transform EffectTarget { get => transform; }
 
     void Awake()
     {
@@ -189,7 +193,7 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     {
         IsOperation = false;
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(m_knockbackTime);
 
         IsOperation = true;
     }

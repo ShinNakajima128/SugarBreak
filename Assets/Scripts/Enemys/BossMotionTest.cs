@@ -93,6 +93,7 @@ public class BossMotionTest : MonoBehaviour, IDamagable
 
     /// <summary> 現在の敵のステータス </summary>
     public BossState CurrentState { get => m_states; set => m_states = value; }
+    public Transform EffectTarget { get => transform; }
 
     void Start()
     {

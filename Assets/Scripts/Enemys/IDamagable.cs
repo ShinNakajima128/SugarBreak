@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 public interface IDamagable
 {
+    Transform EffectTarget { get; }
     /// <summary>
     /// ダメージ処理
     /// </summary>

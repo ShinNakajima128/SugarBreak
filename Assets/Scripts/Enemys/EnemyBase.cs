@@ -20,6 +20,8 @@ public class EnemyBase : MonoBehaviour, IDamagable
     protected int currentHp;
     protected bool isdead = false;
 
+    public Transform EffectTarget { get => m_effectPos; }
+
     void Awake()
     {
         m_HpSlider.maxValue = enemyData.maxHp;
@@ -44,6 +46,7 @@ public class EnemyBase : MonoBehaviour, IDamagable
     protected IEnumerator Vanish(EffectType effectType, float vanishTime)
     {
         yield return new WaitForSeconds(vanishTime);
+        AudioManager.PlaySE(SEType.Enemy_Vanish);
         ItemGenerator.Instance.GenerateKonpeitou(m_dropNum, this.transform.position);
         EffectManager.PlayEffect(effectType, m_effectPos.position);
         Destroy(this.gameObject);

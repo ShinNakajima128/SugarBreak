@@ -14,6 +14,8 @@ public class ItemboxBase : MonoBehaviour, IDamagable
     protected int m_currentHp;
     protected int m_konpeitouNum;
 
+    public Transform EffectTarget { get => transform; }
+
     void Start()
     {
         if (itemboxData)
