@@ -46,6 +46,7 @@ public class VolumeController : MonoBehaviour
 
         if (Input.GetAxis("UIHorizontal") > 0)
         {
+            Debug.Log(Input.GetAxis("UIHorizontal"));
             StartCoroutine(VolumeChange(_currentVolumeType, 0.05f));
         }
         else if (Input.GetAxis("UIHorizontal") < 0)
@@ -149,7 +150,7 @@ public class VolumeController : MonoBehaviour
             default:
                 break;
         }
-        yield return new WaitForSeconds(_changeInterval);
+        yield return new WaitForSecondsRealtime(_changeInterval);
 
         _isWaiting = false;
         Debug.Log("変更可");
