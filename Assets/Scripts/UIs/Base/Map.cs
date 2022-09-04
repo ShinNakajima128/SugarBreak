@@ -58,7 +58,7 @@ public class Map : MonoBehaviour
     {
         if (MenuManager.Instance.MenuStates == MenuState.Close && !GameManager.Instance.IsPlayingMovie)     //プレイヤーが操作できる時且つメニューが開かれていない状態なら
         {
-            if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown("joystick button 3"))   //キーボードのMかゲームパッドのYボタンが押されたら
+            if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown("joystick button 9"))   //キーボードのMかゲームパッドのYボタンが押されたら
             {
                 pauseFlag = !pauseFlag;
 
