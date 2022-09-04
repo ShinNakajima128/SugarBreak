@@ -11,13 +11,22 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Title.unity
     guid: ff79e5b6e396f004cb11bde8084227b8
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Base.unity
-    guid: d59800b9a75fe724b80c89a10ccd605d
+    guid: bd4959990bcea2c479b817a9afa5b9dc
   - enabled: 1
+    path: Assets/Scenes/Base_TGS.unity
+    guid: de9afcb78d2278642aad873841055b47
+  - enabled: 0
     path: Assets/Scenes/BakedValley.unity
     guid: 44350be8fad9eb448ae2d332a56bed74
   - enabled: 1
+    path: Assets/Scenes/Explore.unity
+    guid: ac40cff4372cc4c42bf2f479760f8ae3
+  - enabled: 1
     path: Assets/Scenes/BossBattle.unity
     guid: 685d4cbb9f0c26c4dad878b8301c8fdc
+  - enabled: 1
+    path: Assets/Scenes/Clear.unity
+    guid: 07aa12273076ca145bd6f018c1f02387
   m_configObjects: {}
