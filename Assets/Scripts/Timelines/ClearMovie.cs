@@ -9,14 +9,19 @@ using UnityEngine.Playables;
 public class ClearMovie : MonoBehaviour
 {
     PlayableDirector director;
-   
-    void Start()
+
+    void OnEnable()
     {
         director = GetComponent<PlayableDirector>();
         GameManager.GameEnd += PlayMovie;
         GameManager.GameEnd += CanNotOpenMenu;
     }
-        
+    void OnDisable()
+    {
+        GameManager.GameEnd -= PlayMovie;
+        GameManager.GameEnd -= CanNotOpenMenu;
+    }
+
     /// <summary>
     /// クリアムービーを再生する
     /// </summary>
