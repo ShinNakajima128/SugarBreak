@@ -132,6 +132,7 @@ public class SignaleManager : MonoBehaviour
         {
             AudioManager.PlaySE(SEType.BetterGolem_Roar);
         }
+        VibrationController.OnVibration(Strength.Low, 0.5f);
         coroutine = StartCoroutine(IncreaseParameter(m_bossZoomBlueValue));
     }
 
@@ -196,6 +197,20 @@ public class SignaleManager : MonoBehaviour
     public void OffEffect()
     {
         m_actingEffect.SetActive(false);
+    }
+
+    public void OnVibration()
+    {
+        VibrationController.OnVibration(Strength.Low, 9f);
+    }
+    public void OffVibration()
+    {
+        VibrationController.OffVibration();
+    }
+
+    public void ShortVibration()
+    {
+        VibrationController.OnVibration(Strength.Middle, 0.5f);
     }
 
     IEnumerator IncreaseParameter(float value)

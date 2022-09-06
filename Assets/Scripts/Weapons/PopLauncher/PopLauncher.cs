@@ -62,6 +62,7 @@ public class PopLauncher : WeaponBase, IWeapon
         m_rb.AddForce(bullet.transform.forward * m_shootPower, ForceMode.Impulse);
         m_playerRb.AddForce(-m_playerRb.transform.forward * m_recoilPower, ForceMode.Impulse);
         AudioManager.PlaySE(SEType.Weapon_Shoot);
+        VibrationController.OnVibration(Strength.Low, 0.1f);
     }
 
     /// <summary>

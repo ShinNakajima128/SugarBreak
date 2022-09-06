@@ -121,6 +121,7 @@ public class MainWeapon : WeaponBase, IWeapon
             return;
         }
         rb.velocity = Vector3.zero;
+        attackDamage *= 2; 
         anim.SetTrigger("Discard");
         StartCoroutine(PlayerController.Instance.AttackMotionTimer(2.0f));
     }
@@ -141,7 +142,7 @@ public class MainWeapon : WeaponBase, IWeapon
         }
         
         AudioManager.PlaySE(SEType.Weapon_Discard);
-        AudioManager.PlaySE(SEType.Weapon_Strike);
+        AudioManager.PlayVOICE(VOICEType.Attack_Strike);
         EffectManager.PlayEffect(EffectType.Slam, m_attachObjectParent.position);
     }
 
@@ -198,9 +199,11 @@ public class MainWeapon : WeaponBase, IWeapon
             {
                 case MainWeaponState.None:
                     target.Damage(attackDamage, rb, PlayerController.Instance.gameObject.transform.forward, attackDamage);
+                    VibrationController.OnVibration(Strength.Low, 0.3f);
                     break;
                 case MainWeaponState.Attach:
                     target.Damage(attackDamage, rb, PlayerController.Instance.gameObject.transform.forward, attackDamage);
+                    VibrationController.OnVibration(Strength.Middle, 0.3f);
                     m_currentSweetsEnduranceCount--;
                     if (m_currentSweetsEnduranceCount <= 0)
                     {
@@ -233,6 +236,7 @@ public class MainWeapon : WeaponBase, IWeapon
                         other.GetComponent<Collider>().enabled = false;
                         m_mainWeaponState = MainWeaponState.Attach;     //メイン武器のステータスを強化状態に変更
                         AudioManager.PlaySE(SEType.Weapon_Attach);
+                        VibrationController.OnVibration(Strength.Low,  0.2f);
 
                         other.TryGetComponent<FieldSweets>(out var fs); //取り付けたお菓子のデータを取得
                         if (fs != null)

@@ -19,6 +19,7 @@ public class PopBullet : MonoBehaviour
     {
         EffectManager.PlayEffect(EffectType.Explosion, this.transform.position);
         AudioManager.PlaySE(SEType.Weapon_Explosion);
+        VibrationController.OnVibration(Strength.High, 0.3f);
         EventManager.OnEvent(Events.CameraShake); //カメラを揺らす
         Destroy(this.gameObject);
     }

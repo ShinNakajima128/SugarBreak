@@ -46,6 +46,7 @@ public class DualSoda : WeaponBase, IWeapon
         {
             target.Damage(attackDamage, rb, PlayerController.Instance.gameObject.transform.forward, 3);
             EffectManager.PlayEffect(EffectType.Damage, other.gameObject.transform.position);
+            VibrationController.OnVibration(Strength.Low, 0.2f);
 
             if (coroutine == null)
             {
@@ -130,7 +131,7 @@ public class DualSoda : WeaponBase, IWeapon
             attackDamage = 2;
             anim.SetTrigger("SwordAttack1");
             comboNum = 1;
-            comboCoroutine = StartCoroutine(PlayerController.Instance.AttackMotionTimer(0.4f, () =>
+            comboCoroutine = StartCoroutine(PlayerController.Instance.AttackMotionTimer(0.25f, () =>
             {
                 anim.SetBool("SwordAttack1", false);
                 anim.SetBool("SwordAttack2", false);
@@ -144,7 +145,7 @@ public class DualSoda : WeaponBase, IWeapon
             attackDamage = 4;
             anim.SetTrigger("SwordAttack2");
             comboNum = 2;
-            comboCoroutine = StartCoroutine(PlayerController.Instance.AttackMotionTimer(0.4f, () =>
+            comboCoroutine = StartCoroutine(PlayerController.Instance.AttackMotionTimer(0.3f, () =>
             {
                 anim.SetBool("SwordAttack1", false);
                 anim.SetBool("SwordAttack2", false);

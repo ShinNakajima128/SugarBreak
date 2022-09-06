@@ -107,6 +107,7 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
             m_anim.SetTrigger("isDamaged");
             StartCoroutine(Damage());
         }
+        VibrationController.OnVibration(Strength.Low, 0.3f);
     }
 
     /// <summary>

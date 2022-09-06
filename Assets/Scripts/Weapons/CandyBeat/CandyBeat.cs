@@ -138,6 +138,7 @@ public class CandyBeat : WeaponBase, IWeapon
         if (target != null)
         {
             target.Damage(attackDamage, rb, PlayerController.Instance.gameObject.transform.forward, 10);
+            VibrationController.OnVibration(Strength.Middle, 0.3f);
 
             if (coroutine == null)
             {
