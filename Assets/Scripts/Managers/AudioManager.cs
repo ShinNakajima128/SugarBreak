@@ -123,7 +123,9 @@ public enum SEType
     /// <summary> クリア画面のジングル </summary>
     ClearJingle,
     /// <summary> クリームに当たった時の音 </summary>
-    Cream
+    Cream,
+    /// <summary> 無敵中に攻撃が当たった時の音 </summary>
+    Invincible
 }
 public enum VOICEType
 {
