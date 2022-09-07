@@ -85,6 +85,8 @@ public class BossMotionTest : MonoBehaviour, IDamagable
     Vector3 m_direction = default;
     /// <summary> 速度 </summary>
     Vector3 m_velocity = default;
+    /// <summary> 元のマテリアル </summary>
+    Material m_originMaterial;
 
     public EnemyData BossData { get => m_enemyData; }
     public bool IsWaited { get; private set; }
@@ -100,8 +102,10 @@ public class BossMotionTest : MonoBehaviour, IDamagable
         m_cc = GetComponent<CharacterController>();
         m_anim = GetComponent<Animator>();
         m_ps = GetComponentInChildren<PlayerSearcher>();
+        m_originMaterial = m_bossSkin.material;
         StartCoroutine(ChangeState(BossState.Idle));
         EventManager.ListenEvents(Events.BossBattleStart, SetHp);
+        EventManager.ListenEvents(Events.ResetBossState, ResetStatus);
         StartCoroutine(StartBattle());
     }
 
@@ -266,7 +270,11 @@ public class BossMotionTest : MonoBehaviour, IDamagable
     public void Attack1()
     {
         EventManager.OnEvent(Events.CameraShake); //カメラを揺らす
-        AudioManager.PlaySE(SEType.BetterGolem_Attack);
+        if (!SkipMovieController.IsPlayed)
+        {
+            AudioManager.PlaySE(SEType.BetterGolem_Attack);
+        }
+        
         if (m_attackEffectPos)
         {
             EffectManager.PlayEffect(EffectType.Landing, m_attackEffectPos.position);
@@ -391,6 +399,7 @@ public class BossMotionTest : MonoBehaviour, IDamagable
     {
         m_anim.speed = 1.0f;
         m_isAngryStated = false;
+        m_bossSkin.material = m_originMaterial;
     }
     public void RoarSE()
     {
