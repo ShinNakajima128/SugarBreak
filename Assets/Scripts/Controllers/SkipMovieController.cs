@@ -66,6 +66,8 @@ public class SkipMovieController : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         LoadSceneManager.Instance.FadeOut(LoadSceneManager.Instance.Masks[1]);
         m_director.playableGraph.GetRootPlayable(0).SetSpeed(500);
+        yield return new WaitForSeconds(1.0f);
+        isPlayed = false;
     }
 
     /// <summary>

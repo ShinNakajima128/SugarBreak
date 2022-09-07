@@ -47,6 +47,11 @@ public class BossDeadMotion : MonoBehaviour
             StartCoroutine(Disappear(m));
             yield return null;
         }
+
+        yield return new WaitForSeconds(3.0f);
+
+        GameManager.Instance.OnGameEnd();
+        EventManager.OnEvent(Events.BossBattleEnd);
     }
 
     IEnumerator Disappear(MeshRenderer mesh)
@@ -60,11 +65,6 @@ public class BossDeadMotion : MonoBehaviour
             a -= m_disappearTime * Time.deltaTime;
             yield return null;
         }
-
-        yield return new WaitForSeconds(1.0f);
-
-        GameManager.Instance.OnGameEnd();
-        EventManager.OnEvent(Events.BossBattleEnd);
         Destroy(mesh.gameObject);
     }
 }
