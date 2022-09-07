@@ -29,6 +29,7 @@ public class Cream : MonoBehaviour
         {
             CreamController.Instance.OnCreamAnimation();
             CreamAnimation();
+            VibrationController.OnVibration(Strength.Low, 0.2f);
         }
     }
 

@@ -299,7 +299,6 @@ public class PlayerController : MonoBehaviour
     public void JumpMotion()
     {
         StartCoroutine(Jump());
-        VibrationController.OnVibration(Strength.Low, 0.2f);
     }
 
     /// <summary>

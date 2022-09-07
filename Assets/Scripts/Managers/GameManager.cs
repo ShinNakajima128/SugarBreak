@@ -101,12 +101,12 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
         switch (sceneName)
         {
-            case "Title":
+            case "RE_Title":
                 if (GameEnd != null)
                 {
                     GameEnd = null;
                 }
-                AudioManager.PlayBGM(BGMType.Title);
+                //AudioManager.PlayBGM(BGMType.Title);
                 break;
             case "Base":
                 if (GameEnd != null)
@@ -146,6 +146,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 break;
         }
         EventManager.ListenEvents(Events.CameraShake, CameraShake);
+        VibrationController.OffVibration();
     }
 
     void Update()
@@ -178,7 +179,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 {
                     GameEnd = null;
                 }
-                AudioManager.PlayBGM(BGMType.Title);
+                
                 break;
             case "Base":
                 if (GameEnd != null)
@@ -215,6 +216,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 break;
         }
         EventManager.ListenEvents(Events.CameraShake, CameraShake);
+        VibrationController.OffVibration();
     }
 
     /// <summary>
