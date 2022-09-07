@@ -142,7 +142,7 @@ public class DualSoda : WeaponBase, IWeapon
         }
         else if (comboNum == 1)
         {
-            attackDamage = 4;
+            attackDamage = 3;
             anim.SetTrigger("SwordAttack2");
             comboNum = 2;
             comboCoroutine = StartCoroutine(PlayerController.Instance.AttackMotionTimer(0.3f, () =>
@@ -156,7 +156,7 @@ public class DualSoda : WeaponBase, IWeapon
         }
         else if (comboNum == 2)
         {
-            attackDamage = 8;
+            attackDamage = 6;
             rb.velocity = Vector3.zero;
             anim.SetTrigger("SwordAttack3");
             PlayerStatesManager.Instance.IsOperation = false;
