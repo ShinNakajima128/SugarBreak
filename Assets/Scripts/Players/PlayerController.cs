@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 /// <summary>
 /// プレイヤーのステータス
@@ -446,6 +447,10 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         actualPushPower = m_pushPower;
         m_isDodged = false;
-        PlayerStatesManager.Instance.IsOperation = true;
+
+        if (!GameManager.Instance.IsPlayingMovie)
+        {
+            PlayerStatesManager.Instance.IsOperation = true;
+        }
     }
 }
