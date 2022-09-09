@@ -257,7 +257,7 @@ MonoBehaviour:
   - SEName: "\u30AF\u30EA\u30A2\u30B8\u30F3\u30B0\u30EB"
     SEType: 38
     Clip: {fileID: 8300000, guid: 04d4209e0f606dd40bda2f7c3062aaba, type: 3}
-    Volume: 1
+    Volume: 0.6
   - SEName: "\u30AF\u30EA\u30FC\u30E0"
     SEType: 39
     Clip: {fileID: 8300000, guid: 7c8b778cbe7918445b536ba8ab07d066, type: 3}
@@ -265,6 +265,10 @@ MonoBehaviour:
   - SEName: "\u30C7\u30B3\u30EA\u30FC:\u30C0\u30E1\u30FC\u30B8"
     SEType: 19
     Clip: {fileID: 8300000, guid: d17fa322ac69e8f4d8d6be1c594f61bb, type: 3}
+    Volume: 1
+  - SEName: "\u30CE\u30FC\u30C0\u30E1\u30FC\u30B8"
+    SEType: 40
+    Clip: {fileID: 8300000, guid: 0f1752bf6d4b8ec4c84cc940ca9c7b63, type: 3}
     Volume: 1
   _voiceList:
   - VOICEName: "\u901A\u5E38\u653B\u6483"
