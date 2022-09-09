@@ -7990,7 +7990,7 @@ MonoBehaviour:
   m_walkSpeed: 1.5
   m_runSpeed: 7
   m_turnSpeed: 20
-  m_jumpPower: 7
+  m_jumpPower: 9
   m_waitTime: 1
   m_isGroundedLength: 0.8
   m_effectPos: {fileID: 8325217614253558321}
