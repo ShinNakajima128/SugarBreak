@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -133,12 +134,22 @@ public class MainWeapon : WeaponBase, IWeapon
     {
         if (m_attachObjectParent.parent != null)
         {
-            var go = m_attachObjectParent.GetChild(0);
-            Destroy(go.gameObject);
-            ItemGenerator.Instance.GenerateKonpeitou(m_currentSweetsKonpeitouNum, m_attachObjectParent.position);
-            m_mainWeaponState = MainWeaponState.None;
-            attackDamage = m_originAttackPower;
-            m_collider.size = m_originColliderSize;
+            try
+            {
+                var go = m_attachObjectParent.GetChild(0);
+                Destroy(go.gameObject);
+            }
+            catch(Exception e)
+            {
+                Debug.Log(e);
+            }
+            finally
+            {
+                ItemGenerator.Instance.GenerateKonpeitou(m_currentSweetsKonpeitouNum, m_attachObjectParent.position);
+                m_mainWeaponState = MainWeaponState.None;
+                attackDamage = m_originAttackPower;
+                m_collider.size = m_originColliderSize;
+            }
         }
         
         AudioManager.PlaySE(SEType.Weapon_Discard);
