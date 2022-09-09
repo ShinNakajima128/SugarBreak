@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BitterGolemData
   m_EditorClassIdentifier: 
   enemyName: "\u30D3\u30BF\u30FC\u30B4\u30FC\u30EC\u30E0"
-  maxHp: 50
+  maxHp: 80
   atk: 2
   konpeitou: 50
