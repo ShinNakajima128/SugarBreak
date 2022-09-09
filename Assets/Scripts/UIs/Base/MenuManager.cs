@@ -77,7 +77,7 @@ public class MenuManager : MonoBehaviour
 
     void Update()
     {
-        if (WhetherOpenMenu)    //メニューが開ける状態だったら
+        if (WhetherOpenMenu && !PlayerStatesManager.Instance.IsDying)    //メニューが開ける状態だったら
         {
             if (!Map.Instance.PauseFlag && !GameManager.Instance.IsPlayingMovie)    //マップを開いていなかったらメニューを開ける
             {
@@ -85,37 +85,22 @@ public class MenuManager : MonoBehaviour
                 {
                     if (state == MenuState.Close)   //メニューを開く
                     {
-                        AudioManager.PlaySE(SEType.UI_Select);
-                        m_rootMenuPanel.SetActive(true);
-                        m_hudPanel.SetActive(false);
-                        Cursor.visible = true;
-                        Cursor.lockState = CursorLockMode.None;
-                        Time.timeScale = 0f;
+                        OnMenu();
                         ActiveMenu(0);
-                        state = MenuState.Open;
-                        PlayerStatesManager.Instance.OffOperation();
-                        EventManager.OnEvent(Events.OffHUD);
-
-                        //MenuSelectButton();
-                        ButtonUIController.Instance.IsActived = true;
-                        ButtonUIController.Instance.OnCurrentPanelFirstButton(0);
                     }
                     else if (state != MenuState.Close)  //メニューを閉じる
                     {
                         //CloseMenu();
                     }
                 }
-                //else if (Input.GetButtonDown("Cancel"))
-                //{
-                //    if (m_confirmPanel.activeSelf)
-                //    {
-                //        ActiveMenu(0);
-                //    }
-                //    else if (m_rootMenuPanel.activeSelf)
-                //    {
-                //        CloseMenu();
-                //    }
-                //}
+                else if (Input.GetKeyDown(KeyCode.Joystick1Button8))
+                {
+                    if (state == MenuState.Close)   //チュートリアル画面を開く
+                    {
+                        OnMenu();
+                        ActiveMenu(4);
+                    }
+                }
             }          
         }
     }
@@ -149,6 +134,32 @@ public class MenuManager : MonoBehaviour
         if (index == 5)
         {
             m_confirmPanel.SetActive(true);
+            return;
+        }
+
+        if (index == 4)
+        {
+            switch (WeaponListControl.Instance.CurrentEquipWeapon)
+            {
+                case WeaponListTypes.Equip1:
+                    var currentEquip1 = WeaponListControl.Instance.CurrentWeapon1Data.WeaponType;
+                    TutorialController.Instance.OnPanel(currentEquip1);
+                    break;
+                case WeaponListTypes.Equip2:
+                    var currentEquip2 = WeaponListControl.Instance.CurrentWeapon2Data.WeaponType;
+                    TutorialController.Instance.OnPanel(currentEquip2);
+                    break;
+                case WeaponListTypes.Equip3:
+                    var currentEquip3 = WeaponListControl.Instance.CurrentWeapon3Data.WeaponType;
+                    TutorialController.Instance.OnPanel(currentEquip3);
+                    break;
+                case WeaponListTypes.MainWeapon:
+                    var mainWeapon = WeaponListControl.Instance.MainWeaponData.WeaponType;
+                    TutorialController.Instance.OnPanel(mainWeapon);
+                    break;
+                default:
+                    break;
+            }
             return;
         }
 
@@ -205,5 +216,27 @@ public class MenuManager : MonoBehaviour
     public void OffCursor()
     {
         MenuCursor.OffCursor();
+    }
+
+    void OnMenu()
+    {
+        AudioManager.PlaySE(SEType.UI_Select);
+        m_rootMenuPanel.SetActive(true);
+        m_hudPanel.SetActive(false);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        Time.timeScale = 0f;
+        ActiveMenu(0);
+        state = MenuState.Open;
+        PlayerStatesManager.Instance.OffOperation();
+        EventManager.OnEvent(Events.OffHUD);
+
+        ButtonUIController.Instance.IsActived = true;
+        ButtonUIController.Instance.OnCurrentPanelFirstButton(0);
+    }
+
+    void OnTutorialPanel()
+    {
+
     }
 }
