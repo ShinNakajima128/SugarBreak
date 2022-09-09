@@ -141,7 +141,7 @@ public class BossMotionTest : MonoBehaviour, IDamagable
                             var r = Random.Range(0, 2);
                             if (r == 0)
                             {
-                                StartCoroutine(ChangeState(BossState.Jump, 5.5f));
+                                StartCoroutine(ChangeState(BossState.Jump, 4f));
                             }
                             else
                             {
@@ -161,6 +161,8 @@ public class BossMotionTest : MonoBehaviour, IDamagable
                     StartCoroutine(ChangeState(BossState.Idle));
                     break;
                 case BossState.dead:
+                    break;
+                case BossState.Jump:
                     break;
             }
         }
@@ -192,7 +194,14 @@ public class BossMotionTest : MonoBehaviour, IDamagable
         //　攻撃する距離だったら攻撃
         if (Vector3.Distance(transform.position, m_ps.PlayerPosition) < m_distanceToPlayer && m_ps.IsFind)
         {
-            StartCoroutine(ChangeState(BossState.Attack, 3.4f));
+            if (!m_isAngryStated)
+            {
+                StartCoroutine(ChangeState(BossState.Attack, 3.4f));
+            }
+            else
+            {
+                StartCoroutine(ChangeState(BossState.Attack, 2.9f));
+            }
             Debug.Log("攻撃");
         }
     }
@@ -209,12 +218,16 @@ public class BossMotionTest : MonoBehaviour, IDamagable
     /// <param name="state"> 変更するステータス </param>
     IEnumerator ChangeState(BossState state, float waitTime = 0.02f)
     {
+        if (IsWaited && state != BossState.Angry)
+        {
+            yield break;
+        }
         //以前のステータスを保持
         var prev = m_states;
 
         m_states = state;
 
-        //Debug.Log($"{prev}から{state}へ遷移");
+        Debug.Log($"{prev}から{state}へ遷移");
 
         IsWaited = true;
 
@@ -270,10 +283,13 @@ public class BossMotionTest : MonoBehaviour, IDamagable
     public void Attack1()
     {
         EventManager.OnEvent(Events.CameraShake); //カメラを揺らす
+        
         if (!SkipMovieController.IsPlayed)
         {
             AudioManager.PlaySE(SEType.BetterGolem_Attack);
         }
+
+        Debug.Log(SkipMovieController.IsPlayed);
         
         if (m_attackEffectPos)
         {
@@ -319,9 +335,10 @@ public class BossMotionTest : MonoBehaviour, IDamagable
 
     public void Damage(int attackPower, Rigidbody hitRb = null, Vector3 blowUpDir = default, float blowUpPower = 1)
     {
-        //無敵所帯の時は処理を行わない
+        //無敵の時は処理を行わない
         if (m_isInvincibled)
         {
+            AudioManager.PlaySE(SEType.Invincible);
             return;
         }
 
@@ -364,7 +381,7 @@ public class BossMotionTest : MonoBehaviour, IDamagable
         m_isInvincibled = true;
         var power = m_hd.AttackDamage;
 
-        m_hd.AttackDamage = 4;
+        m_hd.AttackDamage = 3;
         Vector3 lookAtPos = new Vector3(m_ps.PlayerPosition.x, transform.position.y, m_ps.PlayerPosition.z);
         gameObject.transform.DOLookAt(lookAtPos, 0.5f);
         
@@ -376,7 +393,7 @@ public class BossMotionTest : MonoBehaviour, IDamagable
                                 Debug.Log("ボス着地");
                             });
 
-        yield return new WaitForSeconds(3.5f);
+        yield return new WaitForSeconds(3.4f);
 
         m_hd.AttackDamage = power;
         StartCoroutine(ChangeState(BossState.Idle));
@@ -407,12 +424,13 @@ public class BossMotionTest : MonoBehaviour, IDamagable
     }
     void DamageEffect()
     {
+        transform.DOShakePosition(0.5f, 0.15f, 40);
         Debug.Log("ダメージエフェクト");
-        var seq = DOTween.Sequence();
+        //var seq = DOTween.Sequence();
 
-        seq.Append(m_bossSkin.material.DOColor(Color.red, 0.15f))
-           .Append(m_bossSkin.material.DOColor(Color.white, 0.15f))
-           .SetLoops(3)
-           .Play();
+        //seq.Append(m_bossSkin.material.DOColor(Color.red, 0.15f))
+        //   .Append(m_bossSkin.material.DOColor(Color.white, 0.15f))
+        //   .SetLoops(3)
+        //   .Play();
     }
 }
