@@ -77,6 +77,11 @@ public class TitleMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerClic
 
     public ButtonType ButtonType => _buttonType;
     
+    void OnDisable()
+    {
+        StatusReset();
+    }
+
     void Start()
     {
         _originPos = transform.localPosition;
@@ -90,24 +95,23 @@ public class TitleMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerClic
 
     public void OnEnterAnim()
     {
-        transform.DOScale(_selectButtonScale, _animSpeed);
-        transform.DOLocalMove(_enteredPos, _animSpeed);
+        transform.DOScale(_selectButtonScale, _animSpeed).SetUpdate(true);
+        transform.DOLocalMove(_enteredPos, _animSpeed).SetUpdate(true);
         _buttonText.color = _enteredColor;
         _animImageObject.SetActive(true);
     }
 
     public void OnExitAnim()
     {
-        transform.DOScale(Vector3.one, _animSpeed);
-        transform.DOLocalMove(_originPos, _animSpeed);
+        transform.DOScale(Vector3.one, _animSpeed).SetUpdate(true);
+        transform.DOLocalMove(_originPos, _animSpeed).SetUpdate(true);
         _buttonText.color = _defaultColor;
         _animImageObject.SetActive(false);
-        AudioManager.PlaySE(SEType.UI_CursolMove);
     }
 
     public void StatusReset()
     {
-        transform.DOScale(Vector3.one, _animSpeed);
+        transform.DOScale(Vector3.one, _animSpeed).SetUpdate(true);
         transform.localPosition = _originPos;
         _buttonText.color = _defaultColor;
         _animImageObject.SetActive(false);

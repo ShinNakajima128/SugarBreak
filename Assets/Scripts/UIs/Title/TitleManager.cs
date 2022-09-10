@@ -29,10 +29,8 @@ public class TitleManager : MonoBehaviour
         Instance = this;
     }
 
-    IEnumerator Start()
+    void Start()
     {
-        AudioManager.PlayBGM(BGMType.Title);
-
         _titleMenuCtrl.OnMenuPanel(MenuType.Start);
 
         this.UpdateAsObservable()
@@ -49,12 +47,17 @@ public class TitleManager : MonoBehaviour
             .Where(_ => _titleMenuCtrl.CurrentMenuType == MenuType.MainMenu || _titleMenuCtrl.CurrentMenuType == MenuType.TGSMenu)
             .Subscribe(_ =>
             {
-                _titleMenuCtrl.OnMenuPanel(MenuType.Start);
-                AudioManager.PlaySE(SEType.UI_Cancel);
+                if (!LoadSceneManager.Instance.IsLoading)
+                {
+                    _titleMenuCtrl.OnMenuPanel(MenuType.Start);
+                    AudioManager.PlaySE(SEType.UI_Cancel);
+                }     
             });
-        SaveManager.Load();
-        yield return new WaitForSeconds(0.5f);
-        AudioManager.SetVolume(DataManager.Instance.GetOptionData.SoundOptionData);
+        SaveManager.Load(() => 
+        {
+            AudioManager.SetVolume(DataManager.Instance.GetOptionData.SoundOptionData);
+            AudioManager.PlayBGM(BGMType.Title);
+        });
     }
 
     #region button method

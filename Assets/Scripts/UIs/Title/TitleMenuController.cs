@@ -12,6 +12,8 @@ public class TitleMenuController : MonoBehaviour
 
     MenuType _currentMenuType;
 
+    bool _isLoading = false;
+
     public MenuType CurrentMenuType => _currentMenuType;
 
     /// <summary>
@@ -44,20 +46,32 @@ public class TitleMenuController : MonoBehaviour
         switch (t)
         {
             case ButtonType.NewGame:
-                LoadSceneManager.Instance.AnyLoadScene("Base");
-                AudioManager.PlaySE(SEType.UI_Load);
+                if (!_isLoading)
+                {
+                    LoadSceneManager.Instance.AnyLoadScene("Base");
+                    AudioManager.PlaySE(SEType.UI_Load);
+                }
+                _isLoading = true;
                 break;
             case ButtonType.Continue:
-                LoadSceneManager.Instance.AnyLoadScene("Base");
-                AudioManager.PlaySE(SEType.UI_Load);
+                if (!_isLoading)
+                {
+                    LoadSceneManager.Instance.AnyLoadScene("Base");
+                    AudioManager.PlaySE(SEType.UI_Load);
+                }
+                _isLoading = true;
                 break;
             case ButtonType.Crefit:
                 OnMenuPanel(MenuType.Crefit);
                 AudioManager.PlaySE(SEType.UI_ButtonSelect);
                 break;
             case ButtonType.Explore:
-                LoadSceneManager.Instance.AnyLoadScene("Base_TGS");
-                AudioManager.PlaySE(SEType.UI_Load);
+                if (!_isLoading)
+                {
+                    LoadSceneManager.Instance.AnyLoadScene("Base_TGS");
+                    AudioManager.PlaySE(SEType.UI_Load);
+                }
+                _isLoading = true;    
                 break;
             case ButtonType.BossBattle:
                 LoadSceneManager.Instance.AnyLoadScene("BossBattle");
