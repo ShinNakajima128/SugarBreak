@@ -151,7 +151,7 @@ public class MainWeapon : WeaponBase, IWeapon
                 m_collider.size = m_originColliderSize;
             }
         }
-        
+        VibrationController.OnVibration(Strength.Middle, 0.2f);
         AudioManager.PlaySE(SEType.Weapon_Discard);
         AudioManager.PlayVOICE(VOICEType.Attack_Strike);
         EffectManager.PlayEffect(EffectType.Slam, m_attachObjectParent.position);
