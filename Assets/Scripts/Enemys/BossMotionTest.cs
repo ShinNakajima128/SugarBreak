@@ -218,7 +218,7 @@ public class BossMotionTest : MonoBehaviour, IDamagable
     /// <param name="state"> 変更するステータス </param>
     IEnumerator ChangeState(BossState state, float waitTime = 0.02f)
     {
-        if (IsWaited && state != BossState.Angry)
+        if (IsWaited && state != BossState.Angry && state != BossState.dead)
         {
             yield break;
         }
@@ -393,7 +393,7 @@ public class BossMotionTest : MonoBehaviour, IDamagable
                                 Debug.Log("ボス着地");
                             });
 
-        yield return new WaitForSeconds(3.4f);
+        yield return new WaitForSeconds(3.8f);
 
         m_hd.AttackDamage = power;
         StartCoroutine(ChangeState(BossState.Idle));
