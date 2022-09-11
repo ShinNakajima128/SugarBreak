@@ -19,16 +19,19 @@ public class PreviewManager : MonoBehaviour
     void Start()
     {
         _player = GetComponent<VideoPlayer>();
+        _player.loopPointReached += FinishMovie;
         StartCoroutine(StartCount());
     }
     IEnumerator StartCount()
     {
+        yield return null;
+
         Debug.Log("カウント開始");
         float timer = 0;
 
         while (_waitTime >= timer)
         {
-            if (InputDecision())
+            if (IsControlerInput())
             {
                 Debug.Log("カウントリセット");
                 StartCoroutine(StartCount());
@@ -51,12 +54,26 @@ public class PreviewManager : MonoBehaviour
     }
     IEnumerator StopMovie()
     {
-        while (!InputDecision())
+        while (!IsControlerInput())
         {
             yield return null;
         }
-
-        LoadSceneManager.Instance.FadeIn(callback: () => 
+        FinishMovie();
+        //LoadSceneManager.Instance.FadeIn(callback: () => 
+        //{
+        //    LoadSceneManager.Instance.FadeOut();
+        //    AudioManager.PlayBGM(BGMType.Title);
+        //    _titleObject.SetActive(true);
+        //    _player.Stop();
+        //    _moviePanel.SetActive(false);
+        //    StartCoroutine(StartCount());
+        //});
+        Debug.Log("ムービーキャンセル");
+    }
+   
+    void FinishMovie(VideoPlayer vp = null)
+    {
+        LoadSceneManager.Instance.FadeIn(callback: () =>
         {
             LoadSceneManager.Instance.FadeOut();
             AudioManager.PlayBGM(BGMType.Title);
@@ -65,11 +82,27 @@ public class PreviewManager : MonoBehaviour
             _moviePanel.SetActive(false);
             StartCoroutine(StartCount());
         });
-        Debug.Log("ムービーキャンセル");
     }
-    bool InputDecision()
+    /// <summary>
+    /// キーボード＆コントローラーチェック
+    /// </summary>
+    /// <returns></returns>
+    private bool IsControlerInput()
     {
-        if (Input.anyKeyDown)
+        //ジョイスティック1のボタンをチェック
+        // ※KeyCode.Joystick1Button19まである
+        for (int i = 0; i < 19; i++)
+        {
+            KeyCode tKeyCode = KeyCode.Joystick1Button0 + i;
+            if (Input.GetKey(tKeyCode))
+            {
+                return true;
+            }
+        }
+
+        //ジョイスティック入力
+        if (Mathf.Abs(Input.GetAxis("UIHorizontal")) > Mathf.Epsilon ||
+            Mathf.Abs(Input.GetAxis("UIVertical")) > Mathf.Epsilon)
         {
             return true;
         }
