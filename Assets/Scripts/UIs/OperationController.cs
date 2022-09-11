@@ -40,6 +40,11 @@ public class OperationController : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.IsPlayingMovie)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.Joystick1Button0))
         {
             OnIconAnimation(IconType.A);
