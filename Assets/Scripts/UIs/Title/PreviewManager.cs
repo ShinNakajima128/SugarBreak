@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 
+/// <summary>
+/// タイトル画面でのプレビュー再生機能を管理するコンポーネント
+/// </summary>
 public class PreviewManager : MonoBehaviour
 {
+    [Tooltip("プレビュー再生までの時間")]
     [SerializeField]
     float _waitTime = 15f;
 
+    [Header("UI_Object")]
     [SerializeField]
     GameObject _titleObject = default;
 
@@ -22,6 +27,9 @@ public class PreviewManager : MonoBehaviour
         _player.loopPointReached += FinishMovie;
         StartCoroutine(StartCount());
     }
+    /// <summary>
+    /// プレビュー再生カウントダウン開始
+    /// </summary>
     IEnumerator StartCount()
     {
         yield return null;
@@ -52,6 +60,9 @@ public class PreviewManager : MonoBehaviour
             Debug.Log("ムービー再生");
         });
     }
+    /// <summary>
+    /// プレビューを停止
+    /// </summary>
     IEnumerator StopMovie()
     {
         while (!IsControlerInput())
@@ -59,18 +70,13 @@ public class PreviewManager : MonoBehaviour
             yield return null;
         }
         FinishMovie();
-        //LoadSceneManager.Instance.FadeIn(callback: () => 
-        //{
-        //    LoadSceneManager.Instance.FadeOut();
-        //    AudioManager.PlayBGM(BGMType.Title);
-        //    _titleObject.SetActive(true);
-        //    _player.Stop();
-        //    _moviePanel.SetActive(false);
-        //    StartCoroutine(StartCount());
-        //});
+
         Debug.Log("ムービーキャンセル");
     }
-   
+
+    /// <summary>
+    /// ムービー再生終了時のCallback
+    /// </summary>
     void FinishMovie(VideoPlayer vp = null)
     {
         LoadSceneManager.Instance.FadeIn(callback: () =>
