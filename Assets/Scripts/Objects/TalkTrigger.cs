@@ -24,7 +24,6 @@ public class TalkTrigger : MonoBehaviour
     [SerializeField]
     bool _chocoEgg = false;
 
-
     private void Awake()
     {
         if (m_flowchart == null)
@@ -74,6 +73,7 @@ public class TalkTrigger : MonoBehaviour
     public void ActiveCamera()
     {
         freeLook.Priority = 20;
+        HUDManager.Instance.OffHUD();
         GameManager.Instance.IsPlayingMovie = true;
     }
     /// <summary>
@@ -82,6 +82,7 @@ public class TalkTrigger : MonoBehaviour
     public void InactiveCamera()
     {
         freeLook.Priority = 9;
+        HUDManager.Instance.OnHUD();
         GameManager.Instance.IsPlayingMovie = false;
     }
 

@@ -15,15 +15,21 @@ public class HUDManager : MonoBehaviour
     [SerializeField]
     HUDViewType _currentViewType = HUDViewType.ON;
 
+    public static HUDManager Instance { get; private set; }
+
     enum HUDViewType
     {
         ON,
         OFF
     }
+    void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
         this.UpdateAsObservable()
-            .Where(_ => Input.GetKeyDown(KeyCode.Joystick1Button8))
+            .Where(_ => Input.GetKeyDown(KeyCode.Joystick1Button5))
             .Subscribe(_ => 
             {
                 switch (_currentViewType)
@@ -42,5 +48,18 @@ public class HUDManager : MonoBehaviour
                         break;
                 }
             });
+    }
+    public void OnHUD()
+    {
+        _hudPanel.SetActive(true);
+        _weaponIconPanel.SetActive(true);
+        _currentViewType = HUDViewType.ON;
+    }
+
+    public void OffHUD()
+    {
+        _hudPanel.SetActive(false);
+        _weaponIconPanel.SetActive(false);
+        _currentViewType = HUDViewType.OFF;
     }
 }
