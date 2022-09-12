@@ -94,8 +94,19 @@ public class TitleMenuController : MonoBehaviour
     /// <summary>
     /// 
     /// </summary>
-    public void OnMainMenuPanel()
+    public void OnMainMenuPanel(Action callback = null)
     {
+        StartCoroutine(WaitOneFrameOnMainPanel(callback));
+    }
+    public void ClickSE()
+    {
+        AudioManager.PlaySE(SEType.UI_ButtonSelect);
+    }
+    #endregion
+    IEnumerator WaitOneFrameOnMainPanel(Action callback = null)
+    {
+        yield return null;
+
         switch (TitleManager.Instance.TitleMode)
         {
             case TitleMode.Normal:
@@ -105,13 +116,9 @@ public class TitleMenuController : MonoBehaviour
                 OnMenuPanel(MenuType.TGSMenu);
                 break;
         }
+        callback?.Invoke();
         MenuCursor.OffCursor();
     }
-    public void ClickSE()
-    {
-        AudioManager.PlaySE(SEType.UI_ButtonSelect);
-    }
-    #endregion
 }
 
 [Serializable]
