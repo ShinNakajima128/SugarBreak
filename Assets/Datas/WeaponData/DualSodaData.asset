@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: DualSodaData
   m_EditorClassIdentifier: 
   m_weaponName: "\u30C7\u30E5\u30A2\u30EB\u30BD\u30FC\u30C0"
-  m_description: 
+  m_description: "\u5143\u3005\u306F1\u3064\u3060\u3063\u305F\u30A2\u30A4\u30B9\u3092\u4E8C\u3064\u306B\u5272\u3063\u3066\u53CC\u5263\u306B\u52A0\u5DE5\u3057\u305F\u6B66\u5668\u3002\u6700\u59273\u30B3\u30F3\u30DC\u306E\u9023\u7D9A\u653B\u6483\u3092\u7E70\u308A\u51FA\u3059\u3053\u3068\u304C\u3067\u304D\u308B\u3002\n\u6691\u3044\u65E5\u306F\u98DF\u3079\u3089\u308C\u3066\u68D2\u3060\u3051\u306A\u3063\u305F\u59FF\u304C\u30EC\u30FC\u30CA\u306E\u90E8\u5C4B\u3067\u898B\u3064\u304B\u308B\u3053\u3068\u3082\u2026\u3002"
   m_weaponType: 4
   m_isEquiped: 1
   m_isUnlocked: 1
-  m_isGetWeaponmaterial: 1
+  m_isGetWeaponmaterial: 0
   m_requireCreateKonpeitoNum: 70
   m_activeWeaponImage: {fileID: 21300000, guid: 33d434e33b55f5944acb335edd4769db,
     type: 3}
