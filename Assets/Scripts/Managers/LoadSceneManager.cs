@@ -41,6 +41,8 @@ public class LoadSceneManager : MonoBehaviour
     public Texture[] Masks { get => m_masks; }
 
     public GameObject LoadAnim { get => m_loadAnim; set => m_loadAnim = value; }
+    public bool IsLoading { get; private set; } = false;
+
     private void Awake()
     {
         Instance = this;
@@ -64,6 +66,8 @@ public class LoadSceneManager : MonoBehaviour
             fadeImage.UpdateMaskTexture(m_masks[2]);
         }
 
+        IsLoading = true;
+
         fade.FadeIn(m_fadeTime, () => 
         {
             callback?.Invoke();
@@ -84,6 +88,7 @@ public class LoadSceneManager : MonoBehaviour
         fade.FadeOut(m_fadeTime, () => 
         {
             callback?.Invoke();
+            IsLoading = false;
         });
     }
     /// <summary>
@@ -94,6 +99,7 @@ public class LoadSceneManager : MonoBehaviour
     {
         fadeImage.UpdateMaskTexture(m_masks[2]);
         m_filter.SetActive(true);
+        IsLoading = true;
         fade.FadeIn(m_fadeTime, () =>
         {
             StartCoroutine(Load(name, 2.0f));
@@ -130,6 +136,7 @@ public class LoadSceneManager : MonoBehaviour
         yield return new WaitForSeconds(loadTime);
 
         m_filter.SetActive(false);
+        IsLoading = false;
         SceneManager.LoadScene(name);
     }
     
