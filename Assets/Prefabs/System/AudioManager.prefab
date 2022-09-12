@@ -270,6 +270,10 @@ MonoBehaviour:
     SEType: 40
     Clip: {fileID: 8300000, guid: 0f1752bf6d4b8ec4c84cc940ca9c7b63, type: 3}
     Volume: 1
+  - SEName: "\u6575:\u30C0\u30A6\u30F3"
+    SEType: 41
+    Clip: {fileID: 8300000, guid: c73f085cb4934724b835bfc608c2d6c7, type: 3}
+    Volume: 0.7
   _voiceList:
   - VOICEName: "\u901A\u5E38\u653B\u6483"
     VOICEType: 0
