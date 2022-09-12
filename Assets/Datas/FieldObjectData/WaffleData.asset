@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: WaffleData
   m_EditorClassIdentifier: 
   m_sweetsSize: 3
-  m_attackPower: 6
+  m_attackPower: 4
   m_konpeitoNum: 6
   m_enduranceCount: 4
