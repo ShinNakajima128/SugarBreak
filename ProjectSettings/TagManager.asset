@@ -27,6 +27,7 @@ TagManager:
   - Target
   - BossUI
   - Stickable
+  - EffectManager
   layers:
   - Default
   - TransparentFX
@@ -46,7 +47,7 @@ TagManager:
   - UICharacter
   - Boss
   - Weapon
-  - 
+  - SearchArea
   - 
   - 
   - 
