@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 122069824635109145}
   - component: {fileID: 2565097191161365473}
+  - component: {fileID: 8350326505617228858}
   m_Layer: 0
   m_Name: signboard_Right
   m_TagString: Untagged
@@ -46,6 +47,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 7, z: 3}
   m_Center: {x: 0, y: 3.5, z: 0}
+--- !u!114 &8350326505617228858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791082635913536931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e1bf13353cad67438709cb19f44a5ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemboxData: {fileID: 11400000, guid: 643c9c3af6bd46e4a872c78c027bbfc3, type: 2}
+  m_vanishTime: 0.05
 --- !u!1 &6675014445210746491
 GameObject:
   m_ObjectHideFlags: 0

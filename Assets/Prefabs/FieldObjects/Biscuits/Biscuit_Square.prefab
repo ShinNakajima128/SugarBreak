@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8193736204743996368}
   - component: {fileID: 5051389786075102325}
   - component: {fileID: 7061313773131925695}
+  - component: {fileID: 7274252527799049036}
+  - component: {fileID: 7578376771206042882}
   m_Layer: 0
   m_Name: Biscuit_Square
   m_TagString: Untagged
@@ -79,3 +81,30 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &7274252527799049036
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8862572823314803050}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.9953313, y: 1.9847615, z: 0.14697887}
+  m_Center: {x: -0.000000059604645, y: 0.000000029802322, z: -0.036472686}
+--- !u!114 &7578376771206042882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8862572823314803050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e1bf13353cad67438709cb19f44a5ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemboxData: {fileID: 11400000, guid: 643c9c3af6bd46e4a872c78c027bbfc3, type: 2}
+  m_vanishTime: 2
