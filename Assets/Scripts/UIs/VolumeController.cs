@@ -58,6 +58,7 @@ public class VolumeController : MonoBehaviour
     public void ChangeBarType(int type)
     {
         _currentVolumeType = (VolumeBarTypes)type;
+        AudioManager.PlaySE(SEType.UI_CursolMove);
     }
 
     public void UpdateVolumeData()
@@ -104,7 +105,7 @@ public class VolumeController : MonoBehaviour
                 {
                     _bgmVolume = 1;
                 }
-                else if (_voiceVolume < 0)
+                else if (_bgmVolume < 0)
                 {
                     _bgmVolume = 0;
                 }
