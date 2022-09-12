@@ -20,6 +20,7 @@ public class HPObject : MonoBehaviour
             playerData.HP = playerData.MaxHp;
             hpGauge.SetHpGauge(playerData.HP);
             AudioManager.PlaySE(SEType.Player_Heal);
+            EffectManager.PlayEffect(EffectType.Heal, other.transform);
             Destroy(this.gameObject);
         }
     }
