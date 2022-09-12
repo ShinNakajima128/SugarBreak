@@ -268,6 +268,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
             else
             {
                 Instance.StartCoroutine(Instance.SwitchingBgm(bgm));
+                Debug.Log($"{bgm.BGMName}を再生");
             }
 
         }
@@ -292,7 +293,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
                 if (!s.isPlaying)
                 {
                     s.PlayOneShot(se.Clip, Instance._seVolume * Instance._masterVolume * se.Volume);
-                    Debug.Log($"{se.SEName}を再生");
+                    //Debug.Log($"{se.SEName}を再生");
                     return;
                 }
             }
@@ -318,7 +319,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
                 if (!s.isPlaying)
                 {
                     s.PlayOneShot(voice.Clip, Instance._voiceVolume * Instance._masterVolume * voice.Volume);
-                    Debug.Log($"{voice.VOICEName}を再生");
+                    //Debug.Log($"{voice.VOICEName}を再生");
                     return;
                 }
             }
@@ -431,7 +432,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
 
         while (_bgmSource.volume > 0)　//現在の音量を0にする
         {
-            _bgmSource.volume -= 0.01f * 0.5f;
+            _bgmSource.volume -= Time.deltaTime * 1.5f;
             yield return null;
         }
 
@@ -440,7 +441,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
 
         while (_bgmSource.volume < currentVol)　//音量を元に戻す
         {
-            _bgmSource.volume += 0.01f * 0.5f;
+            _bgmSource.volume += Time.deltaTime * 1.5f;
             yield return null;
         }
         _bgmSource.volume = currentVol;
