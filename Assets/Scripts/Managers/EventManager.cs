@@ -18,7 +18,10 @@ public enum Events
     RebindWeaponAnimation,
     OnHUD,
     OffHUD,
-    OnMap
+    OnMap,
+    ResetBossState,
+    OnSweetsOutline,
+    OffSweetsOutline
 }
 
 /// <summary>
