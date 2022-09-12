@@ -163,12 +163,18 @@ public class BaseUI : MonoBehaviour
     }
     public void TransitionSE()
     {
-        AudioManager.PlaySE(SEType.UI_Transition);
+        if (!LoadSceneManager.Instance.IsLoading)
+        {
+            AudioManager.PlaySE(SEType.UI_Transition);
+        }
     }
 
     public void LoadSE()
     {
-        AudioManager.PlaySE(SEType.UI_Load);
+        if (!LoadSceneManager.Instance.IsLoading)
+        {
+            AudioManager.PlaySE(SEType.UI_Load);
+        }
     }
     /// <summary>
     /// タイトルSceneに遷移する
@@ -176,7 +182,10 @@ public class BaseUI : MonoBehaviour
     /// <param name="sceneName"></param>
     public void LoadTitle(string sceneName)
     {
-        LoadSceneManager.Instance.AnyLoadScene(sceneName);
+        if (!LoadSceneManager.Instance.IsLoading)
+        {
+            LoadSceneManager.Instance.AnyLoadScene(sceneName);
+        }
     }
 
     /// <summary>
