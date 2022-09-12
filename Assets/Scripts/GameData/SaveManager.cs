@@ -22,7 +22,7 @@ public class SaveManager
 
     GameData Data = default;
 
-    async public static void Load()
+    async public static void Load(Action callback = null)
     {
         Instance.Data = LocalData.Load<GameData>(FILEPATH);
 
@@ -42,6 +42,8 @@ public class SaveManager
             Save(DataTypes.All);
             Debug.Log(JsonUtility.ToJson(Instance.Data.OptionData));
         }
+        await Instance.WaitProcess();
+        callback?.Invoke();
     }
 
     public static GameData GetData()
