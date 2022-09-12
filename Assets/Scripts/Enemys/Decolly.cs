@@ -196,6 +196,7 @@ public class Decolly : EnemyBase
     }
     void Dead()
     {
+        AudioManager.PlaySE(SEType.Enemy_Down);
         arrived = true;
         m_anim.SetBool("Dead", true);
         m_anim.Play("Die");
