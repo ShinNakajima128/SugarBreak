@@ -125,7 +125,9 @@ public enum SEType
     /// <summary> クリームに当たった時の音 </summary>
     Cream,
     /// <summary> 無敵中に攻撃が当たった時の音 </summary>
-    Invincible
+    Invincible,
+    /// <summary> 敵の体力が0になった時の音 </summary>
+    Enemy_Down
 }
 public enum VOICEType
 {

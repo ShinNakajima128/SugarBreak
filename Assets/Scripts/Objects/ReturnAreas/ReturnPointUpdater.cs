@@ -13,6 +13,7 @@ public class ReturnPointUpdater : MonoBehaviour
         {
             ReturnArea.Instance.ReturnPoint = transform.position;
             ReturnArea.Instance.ReturnRotation = transform.rotation;
+            Debug.Log("リスポーン地点更新");
         }
     }
 }

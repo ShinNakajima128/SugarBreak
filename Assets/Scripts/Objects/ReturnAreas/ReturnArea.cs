@@ -43,7 +43,7 @@ public class ReturnArea : MonoBehaviour
 
     public void ReturnComebackPoint()
     {
-        m_collider.enabled = false;
+        //m_collider.enabled = false;
         StartCoroutine(Return());
     }
     IEnumerator Return()
