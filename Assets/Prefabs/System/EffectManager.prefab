@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6563559973334027829}
   m_Layer: 0
   m_Name: EffectManager
-  m_TagString: Untagged
+  m_TagString: EffectManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66,3 +66,6 @@ MonoBehaviour:
   - EffectPrefab: {fileID: 3343523154514759114, guid: b4f540f837be95b4094ff919f51caa1c,
       type: 3}
     MaxCount: 10
+  - EffectPrefab: {fileID: 6311876192281501809, guid: 478637dd80c4e944eb4a05ea9f569002,
+      type: 3}
+    MaxCount: 3

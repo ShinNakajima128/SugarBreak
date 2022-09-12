@@ -133,7 +133,7 @@ MonoBehaviour:
   - SEName: "\u30D7\u30EC\u30A4\u30E4\u30FC:\u56DE\u5FA9"
     SEType: 8
     Clip: {fileID: 8300000, guid: 2597f2818e8fb1744867548c9c1f4c57, type: 3}
-    Volume: 1
+    Volume: 0.6
   - SEName: "\u30D7\u30EC\u30A4\u30E4\u30FC:\u91D1\u5E73\u7CD6\u7372\u5F97"
     SEType: 9
     Clip: {fileID: 8300000, guid: 85c9a28a3cc08af408a9438ed3e54c2e, type: 3}

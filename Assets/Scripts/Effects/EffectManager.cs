@@ -39,7 +39,11 @@ public enum EffectType
     /// <summary>
     /// 土埃
     /// </summary>
-    Mokumoku
+    Mokumoku,
+    /// <summary>
+    /// 回復
+    /// </summary>
+    Heal
 }
 
 public class EffectManager : SingletonMonoBehaviour<EffectManager>
@@ -91,6 +95,19 @@ public class EffectManager : SingletonMonoBehaviour<EffectManager>
                 continue;
             }
             effect.Play(pos);
+            return;
+        }
+    }
+
+    public static void PlayEffect(EffectType effectType, Transform parent)
+    {
+        foreach (var effect in Instance.m_effectDic[effectType])
+        {
+            if (effect.IsActive())
+            {
+                continue;
+            }
+            effect.Play(parent);
             return;
         }
     }

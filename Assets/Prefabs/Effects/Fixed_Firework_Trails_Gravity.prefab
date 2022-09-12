@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 114756874033953806}
   - component: {fileID: -9195825222784875239}
   - component: {fileID: 6524275011149089128}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Fixed_Firework_Trails_Gravity
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -4561,8 +4561,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3b5103a212c04843b56fbb2c836b759, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_data: {fileID: 0}
-  attackDamage: 10
+  m_data: {fileID: 11400000, guid: 78f7ba48bf2deca4c94f08a53400aa7f, type: 2}
+  attackDamage: 5
 --- !u!65 &6524275011149089128
 BoxCollider:
   m_ObjectHideFlags: 0
