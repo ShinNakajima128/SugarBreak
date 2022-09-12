@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class ExplosionController : WeaponBase
 {
-    int m_damage = 10;
+    int m_damage = 5;
 
     public int Damage
     {
