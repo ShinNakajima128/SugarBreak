@@ -28,7 +28,6 @@ public class HpGauge : MonoBehaviour
     void Start()
     {
         _originListPosition = _hpListTrans.position;
-        Debug.Log(_originListPosition);
     }
 
     /// <summary>

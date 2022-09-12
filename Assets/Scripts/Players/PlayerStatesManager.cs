@@ -15,6 +15,12 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     [SerializeField]
     float m_knockbackTime = 0.5f;
 
+    [SerializeField]
+    int m_healKonpeitouCount = 20;
+
+    [SerializeField]
+    GameObject _playerModel = default;
+
     /// <summary> 金平糖の所持数を表示するテキスト </summary>
     TextMeshProUGUI m_totalKonpeitouTmp = default;
 
@@ -29,13 +35,15 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
 
     int defaultHp = 8;
 
-    bool isDying = false;
+    bool m_isDying = false;
     bool m_debugMode = false;
+    bool m_invincible = false;
+    int m_getKonpeitouNum = 0;
     Vector2 m_originTmpPos;
 
     public static PlayerStatesManager Instance { get; private set; }
     public bool IsOperation { get; set; } = true;
-    public bool IsDying => isDying;
+    public bool IsDying => m_isDying;
     public Transform EffectTarget { get => transform; }
 
     void Awake()
@@ -78,25 +86,24 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
         if (Input.GetKeyDown(KeyCode.G))
         {
             Damage(1);
-            m_hpGauge.SetHpGauge(m_playerData.HP);
+            m_hpGauge.SetHpGauge(m_playerData.HP, true);
         }
     }
 
     public void Damage(int attackPower, Rigidbody hitRb = null, Vector3 blowUpDir = default, float blowUpPower = 1)
     {
-        if (isDying || PlayerController.Instance.IsDodged) return;
+        if (m_isDying || PlayerController.Instance.IsDodged || m_invincible) 
+        {
+            return;
+        }
 
         m_playerData.HP -= attackPower;
-        m_hpGauge.SetHpGauge(m_playerData.HP);
+        m_hpGauge.SetHpGauge(m_playerData.HP, true);
 
-        if (hitRb != null)
-        {
-            hitRb.AddForce(blowUpDir * -blowUpPower, ForceMode.Impulse);
-        }
 
         if (m_playerData.HP <= 0)
         {
-            isDying = true;
+            m_isDying = true;
             StartCoroutine(Dying());
 
             if (BossArea.isBattle) BossArea.isBattle = false;
@@ -116,11 +123,11 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     /// <param name="healValue"> 回復する値 </param>
     public void Heal(int healValue)
     {
-        if (isDying) return;
+        if (m_isDying) return;
 
         m_playerData.HP += healValue;
         m_hpGauge.SetHpGauge(m_playerData.HP);
-
+        EffectManager.PlayEffect(EffectType.Heal, _playerModel.transform);
         if (m_playerData.HP > m_playerData.MaxHp)
         {
             m_playerData.HP = m_playerData.MaxHp;
@@ -134,14 +141,21 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     {
         IsOperation = false;
         m_anim.SetFloat("Move", 0f);
-        m_rb.velocity = Vector3.zero;
-        //m_rb.constraints = RigidbodyConstraints.FreezeAll;
-        m_rb.Sleep();
-        //m_rb.isKinematic = true;
+        StartCoroutine(OnSleep());
         m_freeLook.m_XAxis.m_InputAxisName = "";
         m_freeLook.m_YAxis.m_InputAxisName = "";
     }
 
+    IEnumerator OnSleep()
+    {
+        while (!PlayerController.Instance.GetIsGrounded)
+        {
+            yield return null;
+        }
+        Debug.Log("着地");
+        m_rb.velocity = Vector3.zero;
+        m_rb.Sleep();
+    }
     /// <summary>
     /// 操作可能にする
     /// </summary>
@@ -161,16 +175,22 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     {
         IsOperation = false;
         m_anim.SetFloat("Move", 0f);
-        m_rb.velocity = Vector3.zero;
         m_anim.Play("Dying");
-        AudioManager.StopBGM();
-        AudioManager.PlayBGM(BGMType.Gameover, false);
-        AudioManager.PlayVOICE(VOICEType.Gameover);
-        yield return new WaitForSeconds(2.8f);
-
-        LoadSceneManager.Instance.FadeIn(LoadSceneManager.Instance.Masks[3]);　//フェード開始
         m_freeLook.m_XAxis.m_InputAxisName = "";
         m_freeLook.m_YAxis.m_InputAxisName = "";
+        //AudioManager.StopBGM();
+        AudioManager.PlayBGM(BGMType.Gameover, false);
+        AudioManager.PlayVOICE(VOICEType.Gameover);
+
+        yield return new WaitForSeconds(0.8f);
+
+        m_rb.velocity = Vector3.zero;
+        m_rb.useGravity = false;
+        
+        yield return new WaitForSeconds(2.0f);
+
+        LoadSceneManager.Instance.FadeIn(LoadSceneManager.Instance.Masks[3]);　//フェード開始
+        
 
         yield return new WaitForSeconds(1.0f);
 
@@ -183,7 +203,9 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
         m_freeLook.m_YAxis.m_InputAxisName = "Camera Y";
         m_playerData.HP = 8;                         //体力リセット
         m_hpGauge.SetHpGauge(m_playerData.HP);
-        isDying = false;
+        m_isDying = false;
+        m_rb.useGravity = true;
+        //m_rb.isKinematic = false;
     }
 
     /// <summary>
@@ -193,10 +215,15 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     IEnumerator Damage()
     {
         IsOperation = false;
+        m_invincible = true;
+
+        StartCoroutine(DamageEffect());
 
         yield return new WaitForSeconds(m_knockbackTime);
 
         IsOperation = true;
+        yield return new WaitForSeconds(1.0f);
+        m_invincible = false;
     }
 
     /// <summary>
@@ -204,6 +231,19 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
     /// </summary>
     void UpdateCount()
     {
+        m_getKonpeitouNum++;
+
+        if (m_getKonpeitouNum >= m_healKonpeitouCount)
+        {
+            if (m_playerData.HP < m_playerData.MaxHp)
+            {
+                Heal(1);
+                AudioManager.PlaySE(SEType.Player_Heal);
+            }
+            
+            m_getKonpeitouNum = 0;
+        }
+
         m_totalKonpeitouTmp.text = m_playerData.TotalKonpeitou.ToString();
         m_totalKonpeitouTmp.gameObject.transform.DOShakePosition(0.1f);
         m_totalKonpeitouTmp.gameObject.transform.DOScale(1.4f, 0.05f)
@@ -212,5 +252,18 @@ public class PlayerStatesManager : MonoBehaviour, IDamagable
                                                     m_totalKonpeitouTmp.gameObject.transform.DOScale(1.0f, 0.05f);
                                                     m_totalKonpeitouTmp.gameObject.transform.localPosition = m_originTmpPos;
                                                 });                         
+    }
+
+    IEnumerator DamageEffect()
+    {
+        var interval = new WaitForSeconds(0.1f);
+
+        for (int i = 0; i < 7; i++)
+        {
+            _playerModel.SetActive(!_playerModel.activeSelf);
+
+            yield return interval;
+        }
+        _playerModel.SetActive(true);
     }
 }
