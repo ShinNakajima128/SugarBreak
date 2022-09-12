@@ -37,9 +37,12 @@ public class TitleManager : MonoBehaviour
             .Where(_ => Input.anyKeyDown && _titleMenuCtrl.CurrentMenuType == MenuType.Start)
             .Subscribe(_ => 
             {
-                _titleMenuCtrl.OnMainMenuPanel();
-                ButtonUIController.Instance.OnCurrentPanelFirstButton(1);
-                AudioManager.PlaySE(SEType.UI_Select);
+                _titleMenuCtrl.OnMainMenuPanel(() => 
+                {
+                    ButtonUIController.Instance.OnCurrentPanelFirstButton(1);
+                    AudioManager.PlaySE(SEType.UI_Select);
+                    Debug.Log("メニューON");
+                });
             });
 
         this.UpdateAsObservable()
@@ -51,6 +54,7 @@ public class TitleManager : MonoBehaviour
                 {
                     _titleMenuCtrl.OnMenuPanel(MenuType.Start);
                     AudioManager.PlaySE(SEType.UI_Cancel);
+                    Debug.Log("メニューOFF");
                 }     
             });
         SaveManager.Load(() => 
@@ -61,6 +65,10 @@ public class TitleManager : MonoBehaviour
     }
 
     #region button method
+    public void OnSelectSE()
+    {
+        AudioManager.PlaySE(SEType.UI_CursolMove);
+    }
     /// <summary>
     /// ゲームを終了する
     /// </summary>

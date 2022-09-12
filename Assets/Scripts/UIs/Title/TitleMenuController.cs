@@ -90,7 +90,10 @@ public class TitleMenuController : MonoBehaviour
                 break;
         }
     }
-
+    public void OnMainMenuPanel()
+    {
+        StartCoroutine(WaitOneFrameOnMainPanel());
+    }
     /// <summary>
     /// 
     /// </summary>

@@ -82,7 +82,7 @@ public class TitleMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerClic
         StatusReset();
     }
 
-    void Start()
+    void Awake()
     {
         _originPos = transform.localPosition;
         _enteredPos = transform.localPosition + new Vector3(_selectAnimPosValue, 0, 0);
@@ -91,6 +91,11 @@ public class TitleMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerClic
 
         _menuButton = GetComponent<Button>();
         _menuButton.interactable = _intaractable;
+    }
+
+    void Start()
+    {
+        
     }
 
     public void OnEnterAnim()
