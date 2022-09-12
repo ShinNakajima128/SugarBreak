@@ -10,7 +10,7 @@ public enum MenuState
     Open,
     Item,
     Option,
-    Picturebook,
+    Operation,
     Exit
 }
 
@@ -85,7 +85,7 @@ public class MenuManager : MonoBehaviour
                 {
                     if (state == MenuState.Close)   //メニューを開く
                     {
-                        OnMenu();
+                        OnMenu(false);
                         ActiveMenu(0);
                     }
                     else if (state != MenuState.Close)  //メニューを閉じる
@@ -97,8 +97,25 @@ public class MenuManager : MonoBehaviour
                 {
                     if (state == MenuState.Close)   //チュートリアル画面を開く
                     {
-                        OnMenu();
+                        OnMenu(true);
                         ActiveMenu(4);
+                    }
+                    else if (state != MenuState.Close)
+                    {
+                        CloseMenu();
+                    }
+                }
+                else if (Input.GetKeyDown(KeyCode.Joystick1Button0) && state != MenuState.Close)
+                {
+                    if (state != MenuState.Open)
+                    {
+                        ActiveMenu(0);
+                        ButtonUIController.Instance.OnCurrentPanelFirstButton(0);
+                        MenuCursor.OffCursor();
+                    }
+                    else if (state == MenuState.Open)
+                    {
+                        CloseMenu();
                     }
                 }
             }          
@@ -160,6 +177,7 @@ public class MenuManager : MonoBehaviour
                 default:
                     break;
             }
+            state = MenuState.Operation;
             return;
         }
 
@@ -173,6 +191,8 @@ public class MenuManager : MonoBehaviour
             if (i == index)
             {
                 m_menuPanels[i].SetActive(true);
+                state = (MenuState)i + 1;
+                Debug.Log(state.ToString());
             }
             else
             {
@@ -218,13 +238,13 @@ public class MenuManager : MonoBehaviour
         MenuCursor.OffCursor();
     }
 
-    void OnMenu()
+    void OnMenu(bool isOnTutorial)
     {
-        AudioManager.PlaySE(SEType.UI_Select);
+        //AudioManager.PlaySE(SEType.UI_Select);
         m_rootMenuPanel.SetActive(true);
         m_hudPanel.SetActive(false);
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        //Cursor.visible = true;
+        //Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0f;
         ActiveMenu(0);
         state = MenuState.Open;
@@ -232,11 +252,10 @@ public class MenuManager : MonoBehaviour
         EventManager.OnEvent(Events.OffHUD);
 
         ButtonUIController.Instance.IsActived = true;
-        ButtonUIController.Instance.OnCurrentPanelFirstButton(0);
-    }
-
-    void OnTutorialPanel()
-    {
-
+        
+        if (!isOnTutorial)
+        {
+            ButtonUIController.Instance.OnCurrentPanelFirstButton(0);
+        }
     }
 }
