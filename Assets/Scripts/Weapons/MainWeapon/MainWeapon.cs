@@ -258,6 +258,7 @@ public class MainWeapon : WeaponBase, IWeapon
                             m_collider.size = fs.ColliderSize;
                             m_currentSweetsKonpeitouNum = fs.KonpeitouNum;
                             m_currentSweetsEnduranceCount = fs.EnduranceCount;
+                            fs.Outline.enabled = false;
                             Debug.Log($"{other.gameObject.name}の金平糖数：{m_currentSweetsKonpeitouNum}");
                             Debug.Log($"{other.gameObject.name}の耐久力：{m_currentSweetsEnduranceCount}");
                         }
